@@ -1,0 +1,58 @@
+.container {
+  width: 100%;
+}
+
+/* 顶部标签 */
+.labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #000;
+}
+
+/* 光谱条 */
+.bar {
+  display: flex;
+  height: 30px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.supportive {
+  background: linear-gradient(90deg, #4CAF50, #66BB6A);
+}
+
+.neutral {
+  background: linear-gradient(90deg, #9E9E9E, #BDBDBD);
+}
+
+.opposed {
+  background: linear-gradient(90deg, #F44336, #EF5350);
+}
+
+/* 底部百分比 */
+.percentages {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #000;
+}
+
+/* 当前立场标记 */
+.markers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #000;
+}
+
+.markerActive {
+  visibility: visible;
+}
+
+.markerHidden {
+  visibility: hidden;
+}

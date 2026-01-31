@@ -1,0 +1,63 @@
+.sidebar {
+  width: 275px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  font-size: 32px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.menu {
+  list-style: none;
+  margin-top: 8px;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.menuItem:hover {
+  background-color: var(--color-hover);
+}
+
+.icon {
+  font-size: 24px;
+  margin-right: 20px;
+}
+
+.label {
+  font-size: 20px;
+}
+
+.active .label {
+  font-weight: 700;
+}
+
+.postButton {
+  margin-top: 16px;
+  width: 90%;
+  padding: 16px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.postButton:hover {
+  background-color: #1a8cd8;
+}

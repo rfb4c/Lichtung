@@ -1,0 +1,49 @@
+/* CSS Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* CSS Variables - Twitter色板 */
+:root {
+  --color-primary: #1D9BF0;
+  --color-background: #FFFFFF;
+  --color-border: #EFF3F4;
+  --color-hover: #F7F9F9;
+  --color-text-primary: #0F1419;
+  --color-text-secondary: #536471;
+
+  /* 立场颜色 */
+  --color-supportive: #4CAF50;
+  --color-supportive-light: #66BB6A;
+  --color-neutral: #9E9E9E;
+  --color-neutral-light: #BDBDBD;
+  --color-opposed: #F44336;
+  --color-opposed-light: #EF5350;
+
+  /* 标签颜色 */
+  --tag-foreign-bg: #E8F5FE;
+  --tag-foreign-text: #1D9BF0;
+  --tag-domestic-bg: #FFF4E6;
+  --tag-domestic-text: #F57C00;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
