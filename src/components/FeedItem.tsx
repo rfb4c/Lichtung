@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import {
   Globe,
   Newspaper,
@@ -26,29 +26,49 @@ const stanceLabels: Record<Stance, string> = {
 };
 
 export default function FeedItem({ report, event }: FeedItemProps) {
-  const [showTooltip, setShowTooltip] = useState(false);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipMounted, setTooltipMounted] = useState(false);
   const showTimerRef = useRef<number | null>(null);
   const hideTimerRef = useRef<number | null>(null);
+  const unmountTimerRef = useRef<number | null>(null);
 
   const clearTimers = useCallback(() => {
     if (showTimerRef.current) clearTimeout(showTimerRef.current);
     if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    if (unmountTimerRef.current) clearTimeout(unmountTimerRef.current);
   }, []);
 
   useEffect(() => () => clearTimers(), [clearTimers]);
 
   const handleMouseEnter = useCallback(() => {
     clearTimers();
-    showTimerRef.current = window.setTimeout(() => setShowTooltip(true), 500);
+    showTimerRef.current = window.setTimeout(() => {
+      setTooltipMounted(true);
+      requestAnimationFrame(() => setTooltipVisible(true));
+    }, 500);
   }, [clearTimers]);
 
   const handleMouseLeave = useCallback(() => {
     clearTimers();
-    hideTimerRef.current = window.setTimeout(() => setShowTooltip(false), 300);
+    hideTimerRef.current = window.setTimeout(() => {
+      setTooltipVisible(false);
+      unmountTimerRef.current = window.setTimeout(() => setTooltipMounted(false), 300);
+    }, 100);
   }, [clearTimers]);
 
   const mediaName = report.source === '外媒' ? 'Global News' : '新闻媒体';
   const mediaHandle = report.source === '外媒' ? '@globalnews' : '@xinwenmeiti';
+
+  // 基于 report.id 生成稳定的伪随机数
+  const actionCounts = useMemo(() => {
+    const hash = report.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return {
+      comments: (hash * 13) % 100,
+      retweets: (hash * 7) % 50,
+      likes: (hash * 23) % 500,
+      views: ((hash * 17) % 100) / 10,
+    };
+  }, [report.id]);
 
   return (
     <article
@@ -101,27 +121,19 @@ export default function FeedItem({ report, event }: FeedItemProps) {
         <div className={styles.actions}>
           <button className={styles.actionButton}>
             <MessageCircle size={16} strokeWidth={1.75} />
-            <span className={styles.actionCount}>
-              {Math.floor(Math.random() * 100)}
-            </span>
+            <span className={styles.actionCount}>{actionCounts.comments}</span>
           </button>
           <button className={styles.actionButton}>
             <Repeat2 size={16} strokeWidth={1.75} />
-            <span className={styles.actionCount}>
-              {Math.floor(Math.random() * 50)}
-            </span>
+            <span className={styles.actionCount}>{actionCounts.retweets}</span>
           </button>
           <button className={styles.actionButton}>
             <Heart size={16} strokeWidth={1.75} />
-            <span className={styles.actionCount}>
-              {Math.floor(Math.random() * 500)}
-            </span>
+            <span className={styles.actionCount}>{actionCounts.likes}</span>
           </button>
           <button className={styles.actionButton}>
             <BarChart2 size={16} strokeWidth={1.75} />
-            <span className={styles.actionCount}>
-              {(Math.random() * 10).toFixed(1)}万
-            </span>
+            <span className={styles.actionCount}>{actionCounts.views.toFixed(1)}万</span>
           </button>
           <button className={styles.actionButton}>
             <Bookmark size={16} strokeWidth={1.75} />
@@ -132,9 +144,9 @@ export default function FeedItem({ report, event }: FeedItemProps) {
         </div>
       </div>
 
-      {event && showTooltip && (
+      {event && tooltipMounted && (
         <div
-          className={styles.tooltipWrapper}
+          className={`${styles.tooltipWrapper} ${tooltipVisible ? styles.tooltipVisible : styles.tooltipHidden}`}
           onMouseEnter={() => clearTimers()}
           onMouseLeave={handleMouseLeave}
         >
