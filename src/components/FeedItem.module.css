@@ -161,10 +161,22 @@
 
 .tooltipWrapper {
   position: absolute;
-  right: -300px;
+  right: -280px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1000;
+  width: 260px;
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.tooltipVisible {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.tooltipHidden {
+  opacity: 0;
+  transform: translateY(-50%) translateX(-8px);
 }
 
 @media (max-width: 1200px) {
@@ -174,5 +186,15 @@
     top: 100%;
     transform: none;
     margin-top: 8px;
+  }
+
+  .tooltipVisible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tooltipHidden {
+    opacity: 0;
+    transform: translateY(-8px);
   }
 }
