@@ -18,7 +18,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #e8e8e8;
+  background-color: #3c3c3c;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,6 +107,9 @@
 }
 
 .linkDomain {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   padding: 12px 12px 0;
   font-size: 13px;
   color: var(--color-text-secondary);

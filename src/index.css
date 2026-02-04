@@ -5,14 +5,15 @@
   padding: 0;
 }
 
-/* CSS Variables - Twitter色板 */
+/* CSS Variables - VS Code Dark Theme */
 :root {
   --color-primary: #1D9BF0;
-  --color-background: #FFFFFF;
-  --color-border: #EFF3F4;
-  --color-hover: #F7F9F9;
-  --color-text-primary: #0F1419;
-  --color-text-secondary: #536471;
+  --color-background: #1e1e1e;
+  --color-surface: #252526;
+  --color-border: #3c3c3c;
+  --color-hover: #2a2d2e;
+  --color-text-primary: #d4d4d4;
+  --color-text-secondary: #858585;
 
   /* 立场颜色 */
   --color-supportive: #4CAF50;
@@ -23,14 +24,14 @@
   --color-opposed-light: #EF5350;
 
   /* 标签颜色 */
-  --tag-foreign-bg: #E8F5FE;
-  --tag-foreign-text: #1D9BF0;
-  --tag-domestic-bg: #FFF4E6;
-  --tag-domestic-text: #F57C00;
+  --tag-foreign-bg: rgba(29, 155, 240, 0.15);
+  --tag-foreign-text: #4FC3F7;
+  --tag-domestic-bg: rgba(245, 124, 0, 0.15);
+  --tag-domestic-text: #FFB74D;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Noto Serif SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, serif;
   font-size: 15px;
   line-height: 1.5;
   color: var(--color-text-primary);

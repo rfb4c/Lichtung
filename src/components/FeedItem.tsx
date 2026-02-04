@@ -1,4 +1,15 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import {
+  Globe,
+  Newspaper,
+  Link,
+  MessageCircle,
+  Repeat2,
+  Heart,
+  BarChart2,
+  Bookmark,
+  Share,
+} from 'lucide-react';
 import { Report, Event, Stance } from '../types';
 import DistributionTooltip from './DistributionTooltip';
 import styles from './FeedItem.module.css';
@@ -12,11 +23,6 @@ const stanceLabels: Record<Stance, string> = {
   supportive: '支持',
   neutral: '中立',
   opposed: '反对',
-};
-
-const mediaAvatars: Record<string, string> = {
-  国内: '🇨🇳',
-  外媒: '🌐',
 };
 
 export default function FeedItem({ report, event }: FeedItemProps) {
@@ -51,7 +57,12 @@ export default function FeedItem({ report, event }: FeedItemProps) {
       onMouseLeave={handleMouseLeave}
     >
       <div className={styles.avatarColumn}>
-        <div className={styles.avatar}>{mediaAvatars[report.source]}</div>
+        <div className={styles.avatar}>
+          {report.source === '外媒'
+            ? <Globe size={20} strokeWidth={1.75} />
+            : <Newspaper size={20} strokeWidth={1.75} />
+          }
+        </div>
       </div>
 
       <div className={styles.contentColumn}>
@@ -80,7 +91,8 @@ export default function FeedItem({ report, event }: FeedItemProps) {
             />
           )}
           <div className={styles.linkDomain}>
-            🔗 {report.source === '外媒' ? 'news.com' : 'news.cn'}
+            <Link size={14} strokeWidth={1.75} />
+            <span>{report.source === '外媒' ? 'news.com' : 'news.cn'}</span>
           </div>
           <div className={styles.linkTitle}>{report.title}</div>
           <div className={styles.linkDescription}>{report.summary}</div>
@@ -88,34 +100,34 @@ export default function FeedItem({ report, event }: FeedItemProps) {
 
         <div className={styles.actions}>
           <button className={styles.actionButton}>
-            <span>💬</span>
+            <MessageCircle size={16} strokeWidth={1.75} />
             <span className={styles.actionCount}>
               {Math.floor(Math.random() * 100)}
             </span>
           </button>
           <button className={styles.actionButton}>
-            <span>🔁</span>
+            <Repeat2 size={16} strokeWidth={1.75} />
             <span className={styles.actionCount}>
               {Math.floor(Math.random() * 50)}
             </span>
           </button>
           <button className={styles.actionButton}>
-            <span>❤️</span>
+            <Heart size={16} strokeWidth={1.75} />
             <span className={styles.actionCount}>
               {Math.floor(Math.random() * 500)}
             </span>
           </button>
           <button className={styles.actionButton}>
-            <span>📊</span>
+            <BarChart2 size={16} strokeWidth={1.75} />
             <span className={styles.actionCount}>
               {(Math.random() * 10).toFixed(1)}万
             </span>
           </button>
           <button className={styles.actionButton}>
-            <span>🔖</span>
+            <Bookmark size={16} strokeWidth={1.75} />
           </button>
           <button className={styles.actionButton}>
-            <span>↗️</span>
+            <Share size={16} strokeWidth={1.75} />
           </button>
         </div>
       </div>
