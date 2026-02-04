@@ -98,6 +98,14 @@
   margin-bottom: 12px;
 }
 
+.linkImage {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid var(--color-border);
+}
+
 .linkDomain {
   padding: 12px 12px 0;
   font-size: 13px;
