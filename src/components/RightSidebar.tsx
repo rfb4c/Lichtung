@@ -1,3 +1,4 @@
+import { Search, BadgeCheck } from 'lucide-react';
 import styles from './RightSidebar.module.css';
 
 const trends = [
@@ -16,7 +17,9 @@ export default function RightSidebar() {
   return (
     <aside className={styles.rightSidebar}>
       <div className={styles.searchBox}>
-        <span className={styles.searchIcon}>🔍</span>
+        <span className={styles.searchIcon}>
+          <Search size={18} strokeWidth={1.75} />
+        </span>
         <input type="text" placeholder="搜索" className={styles.searchInput} />
       </div>
 
@@ -39,7 +42,10 @@ export default function RightSidebar() {
             <div className={styles.avatar}></div>
             <div className={styles.userInfo}>
               <div className={styles.userName}>
-                {user.name} {user.verified && '✓'}
+                {user.name}
+                {user.verified && (
+                  <BadgeCheck size={16} strokeWidth={2} style={{ marginLeft: 4, verticalAlign: 'text-bottom', color: 'var(--color-primary)' }} />
+                )}
               </div>
               <div className={styles.userHandle}>{user.handle}</div>
             </div>
