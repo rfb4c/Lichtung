@@ -71,6 +71,14 @@ export default function FeedItem({ report, event }: FeedItemProps) {
         </div>
 
         <div className={styles.linkCard}>
+          {report.imageUrl && (
+            <img
+              className={styles.linkImage}
+              src={report.imageUrl}
+              alt={report.title}
+              loading="lazy"
+            />
+          )}
           <div className={styles.linkDomain}>
             🔗 {report.source === '外媒' ? 'news.com' : 'news.cn'}
           </div>

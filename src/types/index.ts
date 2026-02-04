@@ -28,6 +28,7 @@ export interface Report {
   stance: Stance;      // 立场
   url?: string;        // 可选：原文链接
   publishedAt?: string; // 可选：发布时间
+  imageUrl?: string;   // 可选：报道配图
 }
 
 // 完整数据结构
