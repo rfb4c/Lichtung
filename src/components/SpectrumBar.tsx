@@ -6,51 +6,31 @@ interface SpectrumBarProps {
   currentStance: Stance;
 }
 
+const stanceLabels: Record<Stance, string> = {
+  supportive: '支持',
+  neutral: '中立',
+  opposed: '反对',
+};
+
 function SpectrumBar({ distribution, currentStance }: SpectrumBarProps) {
+  const segments: { key: Stance; value: number }[] = [
+    { key: 'supportive', value: distribution.supportive },
+    { key: 'neutral', value: distribution.neutral },
+    { key: 'opposed', value: distribution.opposed },
+  ];
+
   return (
-    <div className={styles.container}>
-      {/* 顶部标签 */}
-      <div className={styles.labels}>
-        <span>支持</span>
-        <span>中立</span>
-        <span>反对</span>
-      </div>
-
-      {/* 光谱条 */}
-      <div className={styles.bar}>
+    <div className={styles.bar}>
+      {segments.map(({ key, value }) => (
         <div
-          className={styles.supportive}
-          style={{ width: `${distribution.supportive}%` }}
-        />
-        <div
-          className={styles.neutral}
-          style={{ width: `${distribution.neutral}%` }}
-        />
-        <div
-          className={styles.opposed}
-          style={{ width: `${distribution.opposed}%` }}
-        />
-      </div>
-
-      {/* 底部百分比 */}
-      <div className={styles.percentages}>
-        <span>{distribution.supportive}%</span>
-        <span>{distribution.neutral}%</span>
-        <span>{distribution.opposed}%</span>
-      </div>
-
-      {/* 当前立场标记 */}
-      <div className={styles.markers}>
-        <span className={currentStance === 'supportive' ? styles.markerActive : styles.markerHidden}>
-          此报道
-        </span>
-        <span className={currentStance === 'neutral' ? styles.markerActive : styles.markerHidden}>
-          此报道
-        </span>
-        <span className={currentStance === 'opposed' ? styles.markerActive : styles.markerHidden}>
-          此报道
-        </span>
-      </div>
+          key={key}
+          className={`${styles.segment} ${styles[key]} ${currentStance === key ? styles.current : ''}`}
+          style={{ width: `${value}%` }}
+        >
+          <span className={styles.label}>{stanceLabels[key]}</span>
+          <span className={styles.percent}>{value}%</span>
+        </div>
+      ))}
     </div>
   );
 }
