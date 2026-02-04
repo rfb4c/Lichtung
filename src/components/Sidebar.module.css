@@ -9,9 +9,11 @@
 }
 
 .logo {
-  font-size: 32px;
+  font-size: 30px;
+  font-weight: 700;
   padding: 12px;
   cursor: pointer;
+  letter-spacing: 0.05em;
 }
 
 .menu {
@@ -33,7 +35,8 @@
 }
 
 .icon {
-  font-size: 24px;
+  display: flex;
+  align-items: center;
   margin-right: 20px;
 }
 
