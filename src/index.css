@@ -5,7 +5,7 @@
   padding: 0;
 }
 
-/* CSS Variables - VS Code Dark Theme */
+/* CSS Variables - Dark Theme (VS Code Dark) */
 :root {
   --color-primary: #1D9BF0;
   --color-background: #1e1e1e;
@@ -14,6 +14,7 @@
   --color-hover: #2a2d2e;
   --color-text-primary: #d4d4d4;
   --color-text-secondary: #858585;
+  --color-header-bg: rgba(30, 30, 30, 0.85);
 
   /* 立场颜色 */
   --color-supportive: #4CAF50;
@@ -28,6 +29,32 @@
   --tag-foreign-text: #4FC3F7;
   --tag-domestic-bg: rgba(245, 124, 0, 0.15);
   --tag-domestic-text: #FFB74D;
+}
+
+/* Light Theme (Solarized Light inspired, lighter) */
+[data-theme="light"] {
+  --color-primary: #1D9BF0;
+  --color-background: #e1dfd8;
+  --color-surface: #edeae3;
+  --color-border: #d0cec7;
+  --color-hover: #e9e7e0;
+  --color-text-primary: #394b59;
+  --color-text-secondary: #7c8a94;
+  --color-header-bg: rgba(237, 234, 227, 0.85);
+
+  /* 立场颜色 - 稍微调暗以适应浅色背景 */
+  --color-supportive: #2e7d32;
+  --color-supportive-light: #43a047;
+  --color-neutral: #757575;
+  --color-neutral-light: #9e9e9e;
+  --color-opposed: #c62828;
+  --color-opposed-light: #e53935;
+
+  /* 标签颜色 */
+  --tag-foreign-bg: rgba(29, 155, 240, 0.12);
+  --tag-foreign-text: #1565c0;
+  --tag-domestic-bg: rgba(245, 124, 0, 0.12);
+  --tag-domestic-text: #e65100;
 }
 
 body {
