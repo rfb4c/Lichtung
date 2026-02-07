@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   Home,
   Search,
@@ -8,6 +9,8 @@ import {
   Bookmark,
   User,
   MoreHorizontal,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import styles from './Sidebar.module.css';
@@ -31,6 +34,20 @@ const menuItems: MenuItem[] = [
 ];
 
 export default function Sidebar() {
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    const saved = localStorage.getItem('theme');
+    return (saved as 'dark' | 'light') || 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   return (
     <nav className={styles.sidebar}>
       <div className={styles.logo}>林间空地</div>
@@ -50,6 +67,11 @@ export default function Sidebar() {
       </ul>
 
       <button className={styles.postButton}>发帖</button>
+
+      <button className={styles.themeToggle} onClick={toggleTheme}>
+        {theme === 'dark' ? <Sun size={20} strokeWidth={1.75} /> : <Moon size={20} strokeWidth={1.75} />}
+        <span>{theme === 'dark' ? '浅色模式' : '深色模式'}</span>
+      </button>
     </nav>
   );
 }
