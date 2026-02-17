@@ -12,11 +12,14 @@ import {
 } from 'lucide-react';
 import { Report, Event, Stance } from '../types';
 import DistributionTooltip from './DistributionTooltip';
+import CommentSection from './CommentSection';
 import styles from './FeedItem.module.css';
 
 interface FeedItemProps {
   report: Report;
   event?: Event;
+  commentCount?: number;
+  onCommentCountChange?: (reportId: string, delta: number) => void;
 }
 
 const stanceLabels: Record<Stance, string> = {
@@ -25,9 +28,10 @@ const stanceLabels: Record<Stance, string> = {
   opposed: '反对',
 };
 
-export default function FeedItem({ report, event }: FeedItemProps) {
+export default function FeedItem({ report, event, commentCount, onCommentCountChange }: FeedItemProps) {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipMounted, setTooltipMounted] = useState(false);
+  const [commentsExpanded, setCommentsExpanded] = useState(false);
   const showTimerRef = useRef<number | null>(null);
   const hideTimerRef = useRef<number | null>(null);
   const unmountTimerRef = useRef<number | null>(null);
@@ -59,16 +63,25 @@ export default function FeedItem({ report, event }: FeedItemProps) {
   const mediaName = report.source === '外媒' ? 'Global News' : '新闻媒体';
   const mediaHandle = report.source === '外媒' ? '@globalnews' : '@xinwenmeiti';
 
-  // 基于 report.id 生成稳定的伪随机数
+  // 基于 report.id 生成稳定的伪随机数（fallback 模式用）
   const actionCounts = useMemo(() => {
     const hash = report.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
     return {
-      comments: (hash * 13) % 100,
+      comments: commentCount ?? (hash * 13) % 100,
       retweets: (hash * 7) % 50,
       likes: (hash * 23) % 500,
       views: ((hash * 17) % 100) / 10,
     };
-  }, [report.id]);
+  }, [report.id, commentCount]);
+
+  const handleToggleComments = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCommentsExpanded((prev) => !prev);
+  }, []);
+
+  const handleCommentCountChange = useCallback((reportId: string, delta: number) => {
+    onCommentCountChange?.(reportId, delta);
+  }, [onCommentCountChange]);
 
   return (
     <article
@@ -119,7 +132,10 @@ export default function FeedItem({ report, event }: FeedItemProps) {
         </div>
 
         <div className={styles.actions}>
-          <button className={styles.actionButton}>
+          <button
+            className={`${styles.actionButton} ${commentsExpanded ? styles.actionActive : ''}`}
+            onClick={handleToggleComments}
+          >
             <MessageCircle size={16} strokeWidth={1.75} />
             <span className={styles.actionCount}>{actionCounts.comments}</span>
           </button>
@@ -142,6 +158,13 @@ export default function FeedItem({ report, event }: FeedItemProps) {
             <Share size={16} strokeWidth={1.75} />
           </button>
         </div>
+
+        {commentsExpanded && (
+          <CommentSection
+            reportId={report.id}
+            onCommentCountChange={handleCommentCountChange}
+          />
+        )}
       </div>
 
       {event && tooltipMounted && (

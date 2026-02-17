@@ -36,3 +36,23 @@ export interface EventsData {
   events: Event[];
   reports: Report[];
 }
+
+// 用户资料（映射 profiles 表）
+export interface UserProfile {
+  id: string;
+  displayName: string;
+  avatarUrl?: string;
+  city?: string;          // Path C 身份字段
+  profession?: string;    // Path C 身份字段
+  interests: string[];    // Path C 身份标签
+}
+
+// 评论
+export interface Comment {
+  id: string;
+  reportId: string;
+  userId: string;
+  content: string;
+  createdAt: string;
+  profile?: UserProfile;
+}
