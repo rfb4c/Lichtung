@@ -155,6 +155,10 @@
   background-color: rgba(29, 155, 240, 0.1);
 }
 
+.actionActive {
+  color: var(--color-primary);
+}
+
 .actionCount {
   font-size: 13px;
 }
