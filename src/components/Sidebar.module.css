@@ -62,7 +62,7 @@
 }
 
 .postButton:hover {
-  background-color: #1a8cd8;
+  background-color: var(--color-primary-hover);
 }
 
 .themeToggle {
