@@ -5,9 +5,11 @@
   padding: 0;
 }
 
-/* CSS Variables - Dark Theme (VS Code Dark) */
+/* CSS Variables - Dark Theme */
 :root {
-  --color-primary: #1D9BF0;
+  --color-primary: #4A9D74;
+  --color-primary-hover: #3A8962;
+  --color-primary-subtle: rgba(74, 157, 116, 0.1);
   --color-background: #1e1e1e;
   --color-surface: #252526;
   --color-border: #3c3c3c;
@@ -25,15 +27,17 @@
   --color-opposed-light: #EF5350;
 
   /* 标签颜色 */
-  --tag-foreign-bg: rgba(29, 155, 240, 0.15);
-  --tag-foreign-text: #4FC3F7;
+  --tag-foreign-bg: rgba(74, 157, 116, 0.15);
+  --tag-foreign-text: #6ABF9E;
   --tag-domestic-bg: rgba(245, 124, 0, 0.15);
   --tag-domestic-text: #FFB74D;
 }
 
-/* Light Theme (Solarized Light inspired, lighter) */
+/* Light Theme */
 [data-theme="light"] {
-  --color-primary: #1D9BF0;
+  --color-primary: #2D6A4F;
+  --color-primary-hover: #1E5438;
+  --color-primary-subtle: rgba(45, 106, 79, 0.08);
   --color-background: #e1dfd8;
   --color-surface: #edeae3;
   --color-border: #d0cec7;
@@ -51,8 +55,8 @@
   --color-opposed-light: #e53935;
 
   /* 标签颜色 */
-  --tag-foreign-bg: rgba(29, 155, 240, 0.12);
-  --tag-foreign-text: #1565c0;
+  --tag-foreign-bg: rgba(45, 106, 79, 0.12);
+  --tag-foreign-text: #1B5E42;
   --tag-domestic-bg: rgba(245, 124, 0, 0.12);
   --tag-domestic-text: #e65100;
 }

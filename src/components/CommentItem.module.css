@@ -1,0 +1,63 @@
+.commentItem {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.commentItem:last-child {
+  border-bottom: none;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--color-text-secondary);
+  color: var(--color-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.displayName {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.identity {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.dot {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.time {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.text {
+  font-size: 15px;
+  line-height: 1.5;
+  word-break: break-word;
+}
