@@ -1,14 +1,38 @@
-import { useState, type FormEvent } from 'react';
-import { ArrowLeft, MapPin, Briefcase } from 'lucide-react';
+import { useState, useEffect, type FormEvent } from 'react';
+import { ArrowLeft, MapPin, Briefcase, MessageCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '../lib/supabase';
+import { isSupabaseConfigured } from '../lib/config';
 import styles from './ProfilePage.module.css';
 
 interface ProfilePageProps {
   onBack: () => void;
 }
 
+interface MyComment {
+  id: string;
+  content: string;
+  createdAt: string;
+  reportId: string;
+  reportTitle: string | null;
+}
+
+function formatTime(isoString: string): string {
+  const now = Date.now();
+  const then = new Date(isoString).getTime();
+  const diffMs = now - then;
+  const diffMin = Math.floor(diffMs / 60000);
+  if (diffMin < 1) return '刚刚';
+  if (diffMin < 60) return `${diffMin}分钟前`;
+  const diffHour = Math.floor(diffMin / 60);
+  if (diffHour < 24) return `${diffHour}小时前`;
+  const diffDay = Math.floor(diffHour / 24);
+  if (diffDay < 30) return `${diffDay}天前`;
+  return new Date(isoString).toLocaleDateString('zh-CN');
+}
+
 export default function ProfilePage({ onBack }: ProfilePageProps) {
-  const { user, isAuthenticated, showAuth, handleUpdateProfile } = useAuth();
+  const { user, isAuthenticated, session, showAuth, handleUpdateProfile } = useAuth();
   const [editing, setEditing] = useState(false);
   const [displayName, setDisplayName] = useState(user?.displayName || '');
   const [city, setCity] = useState(user?.city || '');
@@ -16,6 +40,33 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
   const [interestsText, setInterestsText] = useState((user?.interests || []).join(', '));
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  const [myComments, setMyComments] = useState<MyComment[]>([]);
+  const [commentsLoading, setCommentsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured || !session?.user) return;
+
+    setCommentsLoading(true);
+    supabase
+      .from('comments')
+      .select('id, content, created_at, report_id, reports(title)')
+      .eq('user_id', session.user.id)
+      .order('created_at', { ascending: false })
+      .then(({ data }) => {
+        if (data) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          setMyComments((data as any[]).map((row) => ({
+            id: row.id as string,
+            content: row.content as string,
+            createdAt: row.created_at as string,
+            reportId: row.report_id as string,
+            reportTitle: (row.reports?.title as string) ?? null,
+          })));
+        }
+        setCommentsLoading(false);
+      });
+  }, [session]);
 
   if (!isAuthenticated || !user) {
     return (
@@ -86,6 +137,9 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
         </button>
         <div className={styles.headerInfo}>
           <span className={styles.headerTitle}>{user.displayName}</span>
+          {myComments.length > 0 && (
+            <span className={styles.headerSub}>{myComments.length} 条评论</span>
+          )}
         </div>
       </header>
 
@@ -102,7 +156,7 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
         )}
       </div>
 
-      {/* Profile content */}
+      {/* Profile info / edit form */}
       <div className={styles.content}>
         {editing ? (
           <form className={styles.form} onSubmit={handleSubmit}>
@@ -190,6 +244,42 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
           </div>
         )}
       </div>
+
+      {/* Divider */}
+      {!editing && <div className={styles.divider} />}
+
+      {/* My comments */}
+      {!editing && (
+        <section className={styles.commentsSection}>
+          <div className={styles.commentsSectionHeader}>
+            <MessageCircle size={16} strokeWidth={1.75} />
+            <span>我的评论</span>
+          </div>
+
+          {commentsLoading ? (
+            <div className={styles.commentsLoading}>加载中...</div>
+          ) : myComments.length === 0 ? (
+            <div className={styles.commentsEmpty}>
+              <p>还没有发表过评论</p>
+              <p className={styles.commentsEmptyHint}>回到主页，在报道下方留下你的看法</p>
+            </div>
+          ) : (
+            <ul className={styles.commentsList}>
+              {myComments.map((c) => (
+                <li key={c.id} className={styles.commentRow}>
+                  {c.reportTitle && (
+                    <p className={styles.commentContext}>
+                      评论了《{c.reportTitle}》
+                    </p>
+                  )}
+                  <p className={styles.commentContent}>{c.content}</p>
+                  <span className={styles.commentTime}>{formatTime(c.createdAt)}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
     </>
   );
 }
