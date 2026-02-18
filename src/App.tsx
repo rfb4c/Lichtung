@@ -3,6 +3,7 @@ import styles from './App.module.css';
 import Sidebar from './components/Sidebar';
 import RightSidebar from './components/RightSidebar';
 import FeedItem from './components/FeedItem';
+import ProfilePage from './components/ProfilePage';
 import AuthModal from './components/AuthModal';
 import { supabase } from './lib/supabase';
 import { Report, Event, EventsData } from './types';
@@ -10,8 +11,11 @@ import { EventRow, ReportRow, mapEvent, mapReport } from './lib/mappers';
 import staticData from './data/events.json';
 import { isSupabaseConfigured } from './lib/config';
 
+export type PageView = 'feed' | 'profile';
+
 function App() {
   const fallback = staticData as EventsData;
+  const [currentPage, setCurrentPage] = useState<PageView>('feed');
   const [events, setEvents] = useState<Event[]>(isSupabaseConfigured ? [] : fallback.events);
   const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : (fallback.reports as Report[]));
   const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
@@ -72,11 +76,16 @@ function App() {
   const getEventById = (eventId: string): Event | undefined =>
     events.find((e) => e.id === eventId);
 
-  if (loading) {
-    return (
-      <div className={styles.app}>
-        <Sidebar />
-        <main className={styles.mainColumn}>
+  const handleNavigate = useCallback((page: PageView) => setCurrentPage(page), []);
+
+  const renderMainContent = () => {
+    if (currentPage === 'profile') {
+      return <ProfilePage onBack={() => setCurrentPage('feed')} />;
+    }
+
+    if (loading) {
+      return (
+        <>
           <header className={styles.feedHeader}>
             <div className={styles.tabActive}>为你推荐</div>
             <div className={styles.tab}>正在关注</div>
@@ -84,17 +93,13 @@ function App() {
           <div className={styles.feed}>
             <div className={styles.loading}>加载中...</div>
           </div>
-        </main>
-        <RightSidebar />
-      </div>
-    );
-  }
+        </>
+      );
+    }
 
-  if (error) {
-    return (
-      <div className={styles.app}>
-        <Sidebar />
-        <main className={styles.mainColumn}>
+    if (error) {
+      return (
+        <>
           <header className={styles.feedHeader}>
             <div className={styles.tabActive}>为你推荐</div>
             <div className={styles.tab}>正在关注</div>
@@ -102,22 +107,16 @@ function App() {
           <div className={styles.feed}>
             <div className={styles.error}>{error}</div>
           </div>
-        </main>
-        <RightSidebar />
-      </div>
-    );
-  }
+        </>
+      );
+    }
 
-  return (
-    <div className={styles.app}>
-      <Sidebar />
-
-      <main className={styles.mainColumn}>
+    return (
+      <>
         <header className={styles.feedHeader}>
           <div className={styles.tabActive}>为你推荐</div>
           <div className={styles.tab}>正在关注</div>
         </header>
-
         <div className={styles.feed}>
           {reports.map((report: Report) => (
             <FeedItem
@@ -129,6 +128,16 @@ function App() {
             />
           ))}
         </div>
+      </>
+    );
+  };
+
+  return (
+    <div className={styles.app}>
+      <Sidebar currentPage={currentPage} onNavigate={handleNavigate} />
+
+      <main className={styles.mainColumn}>
+        {renderMainContent()}
       </main>
 
       <RightSidebar />
