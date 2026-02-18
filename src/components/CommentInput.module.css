@@ -59,7 +59,7 @@
 }
 
 .sendButton:hover:not(:disabled) {
-  background-color: rgba(29, 155, 240, 0.1);
+  background-color: var(--color-primary-subtle);
 }
 
 .sendButton:disabled {
@@ -84,7 +84,13 @@
 }
 
 .loginPrompt:hover {
-  background-color: rgba(29, 155, 240, 0.05);
+  background-color: var(--color-primary-subtle);
+}
+
+.submitError {
+  font-size: 13px;
+  color: var(--color-opposed);
+  padding: 4px 44px;
 }
 
 .demoNotice {

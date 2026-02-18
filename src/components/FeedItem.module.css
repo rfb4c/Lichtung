@@ -60,7 +60,7 @@
 }
 
 .moreButton:hover {
-  background-color: rgba(29, 155, 240, 0.1);
+  background-color: var(--color-primary-subtle);
   color: var(--color-primary);
 }
 
@@ -152,7 +152,7 @@
 
 .actionButton:hover {
   color: var(--color-primary);
-  background-color: rgba(29, 155, 240, 0.1);
+  background-color: var(--color-primary-subtle);
 }
 
 .actionActive {

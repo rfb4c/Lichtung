@@ -14,7 +14,7 @@
 }
 
 .loginButton:hover {
-  background-color: rgba(29, 155, 240, 0.1);
+  background-color: var(--color-primary-subtle);
 }
 
 .userMenu {
