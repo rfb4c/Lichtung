@@ -15,6 +15,7 @@ export default function CommentInput({ reportId, onCommentAdded }: CommentInputP
   const { user, isAuthenticated, isConfigured, showAuth } = useAuth();
   const [content, setContent] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   if (!isConfigured) {
     return (
@@ -37,6 +38,7 @@ export default function CommentInput({ reportId, onCommentAdded }: CommentInputP
     const trimmed = content.trim();
     if (!trimmed || submitting || !user) return;
 
+    setSubmitError(null);
     setSubmitting(true);
     const { data, error } = await supabase
       .from('comments')
@@ -44,7 +46,14 @@ export default function CommentInput({ reportId, onCommentAdded }: CommentInputP
       .select('*, profiles(*)')
       .single();
 
-    if (!error && data) {
+    if (error) {
+      const isFkError = error.message.toLowerCase().includes('foreign key') ||
+        error.message.toLowerCase().includes('violates');
+      setSubmitError(isFkError
+        ? '发送失败：当前报道数据尚未同步到数据库，暂不支持评论'
+        : `发送失败：${error.message}`
+      );
+    } else if (data) {
       onCommentAdded(mapComment(data as CommentRow));
       setContent('');
     }
@@ -52,24 +61,27 @@ export default function CommentInput({ reportId, onCommentAdded }: CommentInputP
   };
 
   return (
-    <form className={styles.inputRow} onSubmit={handleSubmit}>
-      <div className={styles.avatar}>{initial}</div>
-      <input
-        className={styles.input}
-        type="text"
-        placeholder="发表评论..."
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        maxLength={500}
-        disabled={submitting}
-      />
-      <button
-        className={styles.sendButton}
-        type="submit"
-        disabled={!content.trim() || submitting}
-      >
-        <Send size={18} strokeWidth={1.75} />
-      </button>
-    </form>
+    <div>
+      <form className={styles.inputRow} onSubmit={handleSubmit}>
+        <div className={styles.avatar}>{initial}</div>
+        <input
+          className={styles.input}
+          type="text"
+          placeholder="发表评论..."
+          value={content}
+          onChange={(e) => { setContent(e.target.value); setSubmitError(null); }}
+          maxLength={500}
+          disabled={submitting}
+        />
+        <button
+          className={styles.sendButton}
+          type="submit"
+          disabled={!content.trim() || submitting}
+        >
+          <Send size={18} strokeWidth={1.75} />
+        </button>
+      </form>
+      {submitError && <p className={styles.submitError}>{submitError}</p>}
+    </div>
   );
 }
