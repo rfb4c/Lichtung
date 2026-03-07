@@ -6,17 +6,17 @@ import FeedItem from './components/FeedItem';
 import ProfilePage from './components/ProfilePage';
 import AuthModal from './components/AuthModal';
 import { supabase } from './lib/supabase';
-import { Report, Event, EventsData } from './types';
-import { EventRow, ReportRow, mapEvent, mapReport } from './lib/mappers';
-import staticData from './data/events.json';
+import { Report, Topic, AppData } from './types';
+import { TopicRow, ReportRow, mapTopic, mapReport } from './lib/mappers';
+import staticData from './data/app-data.json';
 import { isSupabaseConfigured } from './lib/config';
 
 export type PageView = 'feed' | 'profile';
 
 function App() {
-  const fallback = staticData as EventsData;
+  const fallback = staticData as AppData;
   const [currentPage, setCurrentPage] = useState<PageView>('feed');
-  const [events, setEvents] = useState<Event[]>(isSupabaseConfigured ? [] : fallback.events);
+  const [topics, setTopics] = useState<Topic[]>(isSupabaseConfigured ? [] : fallback.topics);
   const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : (fallback.reports as Report[]));
   const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(isSupabaseConfigured);
@@ -26,31 +26,31 @@ function App() {
     if (!isSupabaseConfigured) return;
 
     async function fetchData() {
-      const [eventsRes, reportsRes] = await Promise.all([
-        supabase.from('events').select('*'),
+      const [topicsRes, reportsRes] = await Promise.all([
+        supabase.from('topics').select('*'),
         supabase.from('reports').select('*'),
       ]);
 
-      if (eventsRes.error || reportsRes.error) {
-        setError(eventsRes.error?.message || reportsRes.error?.message || 'Failed to load data');
+      if (topicsRes.error || reportsRes.error) {
+        setError(topicsRes.error?.message || reportsRes.error?.message || 'Failed to load data');
         setLoading(false);
         return;
       }
 
-      const fetchedEvents = (eventsRes.data as EventRow[]).map(mapEvent);
+      const fetchedTopics = (topicsRes.data as TopicRow[]).map(mapTopic);
       const fetchedReports = (reportsRes.data as ReportRow[]).map(mapReport);
 
-      // Supabase 表为空时回退到静态 JSON / fallback to static JSON when tables are empty
-      if (fetchedEvents.length === 0 && fetchedReports.length === 0) {
-        setEvents(fallback.events);
+      // Fallback to static JSON when tables are empty
+      if (fetchedTopics.length === 0 && fetchedReports.length === 0) {
+        setTopics(fallback.topics);
         setReports(fallback.reports as Report[]);
       } else {
-        setEvents(fetchedEvents);
+        setTopics(fetchedTopics);
         setReports(fetchedReports);
       }
       setLoading(false);
 
-      // 批量获取评论计数
+      // Fetch comment counts
       const { data: countData } = await supabase
         .from('comments')
         .select('report_id');
@@ -73,8 +73,8 @@ function App() {
     }));
   }, []);
 
-  const getEventById = (eventId: string): Event | undefined =>
-    events.find((e) => e.id === eventId);
+  const getTopicById = (topicId: string): Topic | undefined =>
+    topics.find((t) => t.id === topicId);
 
   const handleNavigate = useCallback((page: PageView) => setCurrentPage(page), []);
 
@@ -122,7 +122,7 @@ function App() {
             <FeedItem
               key={report.id}
               report={report}
-              event={getEventById(report.eventId)}
+              topic={report.topicId ? getTopicById(report.topicId) : undefined}
               commentCount={commentCounts[report.id]}
               onCommentCountChange={handleCommentCountChange}
             />
