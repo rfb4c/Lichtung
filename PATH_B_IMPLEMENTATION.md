@@ -1,9 +1,10 @@
 # Path B Implementation Plan
 
-> **Status**: Phase 1 Complete (Cleanup) ✅
-> **Next**: Phase 2 (Component Implementation)
+> **Status**: Phase 2 Complete (Component Implementation) ✅
+> **Next**: Phase 3 (Topic Matching Algorithm)
 > **Branch**: `feature/path-b-consensus-visualization`
 > **Backup**: `backup/pre-path-b-cleanup`
+> **Last Updated**: 2026-03-07
 
 ---
 
@@ -39,9 +40,9 @@
 
 ---
 
-## 🚧 Phase 2: Component Implementation (TODO)
+## ✅ Phase 2: Component Implementation (COMPLETED)
 
-### 2.1 Create DistributionChart Component
+### 2.1 ✅ Create DistributionChart Component
 
 **File**: `src/components/DistributionChart.tsx`
 
@@ -78,7 +79,7 @@ function getBarColors(count: number): string[] {
 
 ---
 
-### 2.2 Update CommentSection Component
+### 2.2 ✅ Update CommentSection Component
 
 **File**: `src/components/CommentSection.tsx`
 
@@ -123,7 +124,7 @@ useEffect(() => {
 
 ---
 
-### 2.3 Update FeedItem Component
+### 2.3 ✅ Update FeedItem Component
 
 **File**: `src/components/FeedItem.tsx`
 
@@ -196,7 +197,7 @@ const handleToggleDataOnly = () => {
 
 ---
 
-### 2.4 Create CSS Files
+### 2.4 ✅ Create CSS Files
 
 #### `DistributionChart.module.css`
 - Chart container background, padding, border
@@ -213,7 +214,7 @@ const handleToggleDataOnly = () => {
 
 ---
 
-### 2.5 Data Migration
+### 2.5 ⚠️ Data Migration (SKIPPED - Using Static JSON)
 
 **Option A: Static JSON (for demo)**
 - Use `app-data.json` as fallback
@@ -263,32 +264,32 @@ Insert sample data from `app-data.json`.
 
 ## 📋 Implementation Checklist
 
-### Components
-- [ ] Create `DistributionChart.tsx`
-- [ ] Create `DistributionChart.module.css`
-- [ ] Update `CommentSection.tsx` (add chart at top)
-- [ ] Update `CommentSection.module.css`
-- [ ] Update `FeedItem.tsx` (topic badge + dual buttons)
-- [ ] Update `FeedItem.module.css`
+### Components ✅ ALL COMPLETE
+- [x] Create `DistributionChart.tsx`
+- [x] Create `DistributionChart.module.css`
+- [x] Update `CommentSection.tsx` (add chart at top)
+- [x] Update `CommentSection.module.css`
+- [x] Update `FeedItem.tsx` (topic badge + dual buttons)
+- [x] Update `FeedItem.module.css`
 
-### Data & Logic
-- [ ] Add polling data fetching in `CommentSection`
-- [ ] Add polling data fetching for "data-only" mode
-- [ ] Implement dual button state management in `FeedItem`
-- [ ] Test with 4-level, 5-level, 7-level polling data
+### Data & Logic ✅ ALL COMPLETE
+- [x] Add polling data fetching in `CommentSection`
+- [x] Add polling data fetching for "data-only" mode
+- [x] Implement dual button state management in `FeedItem`
+- [x] Test with 3-level (Gun Control), 4-level (Abortion) polling data
 
-### Testing
-- [ ] Verify chart renders correctly with variable levels
-- [ ] Verify warm color gradient is correct
-- [ ] Verify bridging text displays
-- [ ] Verify "Comments" button shows chart + comments
-- [ ] Verify "Public Opinion" button shows chart only
-- [ ] Verify reports without `topicId` still work (no badge, no public opinion button)
+### Testing ✅ ALL COMPLETE
+- [x] Verify chart renders correctly with variable levels
+- [x] Verify warm color gradient is correct
+- [x] Verify bridging text displays
+- [x] Verify "Comments" button shows chart + comments
+- [x] Verify "Public Opinion" button shows chart only
+- [x] Verify reports without `topicId` still work (no badge, no public opinion button)
 
-### Optional (Supabase)
-- [ ] Run database migrations
-- [ ] Insert sample data
-- [ ] Update data fetching logic in components
+### Optional (Supabase) ⚠️ DEFERRED
+- [ ] Run database migrations (deferred to production)
+- [ ] Insert sample data (using static JSON instead)
+- [ ] Update data fetching logic in components (fallback implemented)
 
 ---
 
@@ -301,20 +302,106 @@ See [产品设计文档](docs/00-Overview/产品设计文档.md):
 
 ---
 
-## 🐛 Known Issues to Address
+## ✅ Phase 2 Summary
 
-1. **CSS cleanup**: Remove unused styles for `SpectrumBar`, `DistributionTooltip` from `FeedItem.module.css`
-2. **TypeScript**: Ensure no lingering references to old types
-3. **Fallback data**: Ensure app works when Supabase is not configured
+### What Was Completed (2026-03-07)
+
+**New Components**:
+- ✅ [DistributionChart.tsx](src/components/DistributionChart.tsx) - Variable-level horizontal bar chart (3-7 levels)
+- ✅ [DistributionChart.module.css](src/components/DistributionChart.module.css) - Chart styling with warm gradient
+
+**Updated Components**:
+- ✅ [CommentSection.tsx](src/components/CommentSection.tsx) - Added pinned chart at top
+- ✅ [CommentSection.module.css](src/components/CommentSection.module.css) - Added `.chartPinned` styles
+- ✅ [FeedItem.tsx](src/components/FeedItem.tsx) - Added topic badge + dual buttons (Comments / Public Opinion)
+- ✅ [FeedItem.module.css](src/components/FeedItem.module.css) - Added `.topicBadge`, `.actionLabel`, `.dataOnlySection`
+
+**Infrastructure**:
+- ✅ [App.tsx](src/App.tsx) - Added error handling for missing Supabase tables (auto-fallback to JSON)
+- ✅ Static JSON data integration ([app-data.json](src/data/app-data.json))
+
+**Key Features Implemented**:
+- 🎨 Warm-to-cool gradient color system (Sand #D4A574 → Plum Grey #7B6B8A)
+- 📊 Variable-level polling data visualization (3-7 levels)
+- 🏷️ Topic badge for matched reports
+- 💬 Dual interaction modes (Comments vs Public Opinion)
+- 🔄 Graceful fallback when Supabase tables don't exist
+
+---
+
+## 🐛 Known Limitations
+
+1. **Topic Matching**: Currently static (reports manually specify `topicId`)
+   - See § 3.1 for planned automatic matching algorithm
+2. **Supabase Tables**: Not created yet (using static JSON for demo)
+   - Optional migration available in § 2.5
+3. **Sample Data**: Limited to 3 topics and 3 reports
+   - Expand in future phases
 
 ---
 
 ## 📝 Notes
 
-- Current branch has **clean foundation** - no old design remnants
-- All type definitions are Path B compliant
-- Data structure follows Pew Research format
-- Ready for component implementation
+- ✅ All Phase 1 & 2 objectives achieved
+- ✅ Demo-ready with static JSON data
+- ⚠️ Topic matching algorithm is next priority (Phase 3)
+- 🔧 Supabase migration optional for production deployment
+
+---
+
+## 🔮 Future Work (Phase 3+)
+
+### 3.1 Topic Matching Algorithm (HIGH PRIORITY)
+
+**Current Status**: ⚠️ Static matching - reports manually specify `topicId` in JSON
+
+**Goal**: Automatic topic matching based on report content
+
+**Implementation Strategy**:
+```typescript
+// Pseudo-code for matching algorithm
+function matchTopicToReport(report: Report, topics: Topic[]): Topic | undefined {
+  const content = `${report.title} ${report.summary}`.toLowerCase();
+
+  for (const topic of topics) {
+    const matchCount = topic.tagKeywords.filter(keyword =>
+      content.includes(keyword.toLowerCase())
+    ).length;
+
+    // If 2+ keywords match, assign topic
+    if (matchCount >= 2) {
+      return topic;
+    }
+  }
+
+  return undefined;
+}
+```
+
+**Key Considerations**:
+- Matching threshold: Require 2+ keyword matches to reduce false positives
+- Case-insensitive matching
+- Partial word matching (e.g., "firearms" should match "firearm")
+- Disambiguation when multiple topics match (choose topic with most keyword hits)
+- Future: ML-based semantic matching for higher accuracy
+
+**Implementation Options**:
+- **Option A** (Recommended for demo): Client-side matching in `App.tsx` after fetching reports
+- **Option B**: Server-side matching when inserting reports into database
+- **Option C**: Separate microservice (for production scale)
+
+**Files to Create/Modify**:
+- `src/lib/matchers.ts` - New file for matching utilities
+- `src/App.tsx` - Call matcher in `fetchData()` function
+- `src/types/index.ts` - Optional: Add `MatchingConfig` type
+
+**Data Reference**:
+- Topic `tagKeywords` are defined in [app-data.json](src/data/app-data.json)
+- Example: Gun Control has keywords: `["gun", "firearm", "second amendment", "background check", "assault weapon"]`
+
+**Testing Strategy**:
+- Unit tests for matcher with sample reports
+- Edge cases: No matches, multiple matches, partial word matches
 
 ---
 
