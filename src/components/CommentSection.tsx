@@ -46,9 +46,9 @@ export default function CommentSection({ reportId, onCommentCountChange }: Comme
   return (
     <div className={styles.commentSection}>
       {loading ? (
-        <div className={styles.loading}>加载评论中...</div>
+        <div className={styles.loading}>Loading comments...</div>
       ) : comments.length === 0 ? (
-        <div className={styles.empty}>暂无评论</div>
+        <div className={styles.empty}>No comments yet</div>
       ) : (
         <div className={styles.list}>
           {comments.map((c) => (

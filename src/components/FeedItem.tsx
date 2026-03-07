@@ -1,7 +1,5 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import {
-  Globe,
-  Newspaper,
   Link,
   MessageCircle,
   Repeat2,
@@ -14,6 +12,7 @@ import { Report, Event, Stance } from '../types';
 import DistributionTooltip from './DistributionTooltip';
 import CommentSection from './CommentSection';
 import styles from './FeedItem.module.css';
+import mediaSources from '../data/media-sources.json';
 
 interface FeedItemProps {
   report: Report;
@@ -23,9 +22,9 @@ interface FeedItemProps {
 }
 
 const stanceLabels: Record<Stance, string> = {
-  supportive: '支持',
-  neutral: '中立',
-  opposed: '反对',
+  supportive: 'Supportive',
+  neutral: 'Neutral',
+  opposed: 'Opposed',
 };
 
 export default function FeedItem({ report, event, commentCount, onCommentCountChange }: FeedItemProps) {
@@ -60,8 +59,16 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
     }, 100);
   }, [clearTimers]);
 
-  const mediaName = report.source === '外媒' ? 'Global News' : '新闻媒体';
-  const mediaHandle = report.source === '外媒' ? '@globalnews' : '@xinwenmeiti';
+  // Get media info from configuration file
+  const mediaInfo = mediaSources.mediaSources[report.source as keyof typeof mediaSources.mediaSources] || {
+    name: report.source,
+    handle: `@${report.source.toLowerCase().replace(/\s+/g, '')}`,
+    domain: 'news.com',
+    logoUrl: 'https://logo.clearbit.com/news.com'
+  };
+
+  const mediaName = mediaInfo.name;
+  const mediaHandle = mediaInfo.handle;
 
   // 基于 report.id 生成稳定的伪随机数（fallback 模式用）
   const actionCounts = useMemo(() => {
@@ -91,10 +98,20 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
     >
       <div className={styles.avatarColumn}>
         <div className={styles.avatar}>
-          {report.source === '外媒'
-            ? <Globe size={20} strokeWidth={1.75} />
-            : <Newspaper size={20} strokeWidth={1.75} />
-          }
+          <img
+            src={mediaInfo.logoUrl}
+            alt={mediaInfo.name}
+            className={styles.mediaLogo}
+            onError={(e) => {
+              // Fallback to first letter if logo fails to load
+              e.currentTarget.style.display = 'none';
+              const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+              if (fallback) fallback.style.display = 'flex';
+            }}
+          />
+          <div className={styles.mediaFallback} style={{ display: 'none' }}>
+            {mediaInfo.name.charAt(0)}
+          </div>
         </div>
       </div>
 
@@ -103,7 +120,7 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
           <span className={styles.displayName}>{mediaName}</span>
           <span className={styles.handle}>{mediaHandle}</span>
           <span className={styles.dot}>·</span>
-          <span className={styles.time}>{report.publishedAt || '1小时前'}</span>
+          <span className={styles.time}>{report.publishedAt || '1h'}</span>
           <button className={styles.moreButton}>···</button>
         </div>
 
@@ -125,7 +142,7 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
           )}
           <div className={styles.linkDomain}>
             <Link size={14} strokeWidth={1.75} />
-            <span>{report.source === '外媒' ? 'news.com' : 'news.cn'}</span>
+            <span>{mediaInfo.domain}</span>
           </div>
           <div className={styles.linkTitle}>{report.title}</div>
           <div className={styles.linkDescription}>{report.summary}</div>
@@ -149,7 +166,7 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
           </button>
           <button className={styles.actionButton}>
             <BarChart2 size={16} strokeWidth={1.75} />
-            <span className={styles.actionCount}>{actionCounts.views.toFixed(1)}万</span>
+            <span className={styles.actionCount}>{actionCounts.views.toFixed(1)}K</span>
           </button>
           <button className={styles.actionButton}>
             <Bookmark size={16} strokeWidth={1.75} />

@@ -24,14 +24,14 @@ export default function LoginForm({ onSwitchToRegister }: LoginFormProps) {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h2 className={styles.title}>登录林间空地</h2>
+      <h2 className={styles.title}>Log in to 林间空地</h2>
 
       {error && <div className={styles.error}>{error}</div>}
 
       <input
         className={styles.input}
         type="email"
-        placeholder="邮箱"
+        placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
@@ -40,7 +40,7 @@ export default function LoginForm({ onSwitchToRegister }: LoginFormProps) {
       <input
         className={styles.input}
         type="password"
-        placeholder="密码"
+        placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
@@ -48,13 +48,13 @@ export default function LoginForm({ onSwitchToRegister }: LoginFormProps) {
       />
 
       <button className={styles.submitButton} type="submit" disabled={submitting}>
-        {submitting ? '登录中...' : '登录'}
+        {submitting ? 'Logging in...' : 'Log in'}
       </button>
 
       <p className={styles.switchText}>
-        还没有账号？
+        Don't have an account?
         <button type="button" className={styles.switchLink} onClick={onSwitchToRegister}>
-          注册
+          Sign up
         </button>
       </p>
     </form>
