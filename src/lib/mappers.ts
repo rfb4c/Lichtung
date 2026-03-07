@@ -1,22 +1,31 @@
-import type { Event, Report, Stance, UserProfile, Comment } from '../types';
+import type { Topic, PollingData, Report, UserProfile, Comment } from '../types';
 
-// Supabase 行类型（snake_case）
+// Supabase row types (snake_case)
 
-export interface EventRow {
+export interface TopicRow {
   id: string;
-  title: string;
-  supportive: number;
-  neutral: number;
-  opposed: number;
+  name: string;
+  scope: string;
+  tag_keywords: string[];
+}
+
+export interface PollingDataRow {
+  id: string;
+  topic_id: string;
+  source: string;
+  survey_year: number;
+  geographic_scope: string;
+  scale_labels: string[];
+  distribution: number[];
+  bridging_text: string;
 }
 
 export interface ReportRow {
   id: string;
-  event_id: string;
+  topic_id: string | null;
   title: string;
   summary: string;
   source: string;
-  stance: string;
   image_url: string | null;
   published_at: string | null;
 }
@@ -39,28 +48,37 @@ export interface CommentRow {
   profiles?: ProfileRow;
 }
 
-// 映射函数
+// Mapper functions
 
-export function mapEvent(row: EventRow): Event {
+export function mapTopic(row: TopicRow): Topic {
   return {
     id: row.id,
-    title: row.title,
-    distribution: {
-      supportive: row.supportive,
-      neutral: row.neutral,
-      opposed: row.opposed,
-    },
+    name: row.name,
+    scope: row.scope as Topic['scope'],
+    tagKeywords: row.tag_keywords,
+  };
+}
+
+export function mapPollingData(row: PollingDataRow): PollingData {
+  return {
+    id: row.id,
+    topicId: row.topic_id,
+    source: row.source,
+    surveyYear: row.survey_year,
+    geographicScope: row.geographic_scope,
+    scaleLabels: row.scale_labels,
+    distribution: row.distribution,
+    bridgingText: row.bridging_text,
   };
 }
 
 export function mapReport(row: ReportRow): Report {
   return {
     id: row.id,
-    eventId: row.event_id,
+    topicId: row.topic_id ?? undefined,
     title: row.title,
     summary: row.summary,
-    source: row.source as Report['source'],
-    stance: row.stance as Stance,
+    source: row.source,
     imageUrl: row.image_url ?? undefined,
     publishedAt: row.published_at ?? undefined,
   };

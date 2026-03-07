@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import {
   Link,
   MessageCircle,
@@ -7,57 +7,47 @@ import {
   BarChart2,
   Bookmark,
   Share,
+  Eye,
 } from 'lucide-react';
-import { Report, Event, Stance } from '../types';
-import DistributionTooltip from './DistributionTooltip';
+import { Report, Topic, PollingData } from '../types';
 import CommentSection from './CommentSection';
+import DistributionChart from './DistributionChart';
 import styles from './FeedItem.module.css';
 import mediaSources from '../data/media-sources.json';
+import appData from '../data/app-data.json';
 
 interface FeedItemProps {
   report: Report;
-  event?: Event;
+  topic?: Topic;
   commentCount?: number;
   onCommentCountChange?: (reportId: string, delta: number) => void;
 }
 
-const stanceLabels: Record<Stance, string> = {
-  supportive: 'Supportive',
-  neutral: 'Neutral',
-  opposed: 'Opposed',
-};
+export default function FeedItem({ report, topic, commentCount, onCommentCountChange }: FeedItemProps) {
+  const [viewMode, setViewMode] = useState<'closed' | 'comments' | 'data-only'>('closed');
 
-export default function FeedItem({ report, event, commentCount, onCommentCountChange }: FeedItemProps) {
-  const [tooltipVisible, setTooltipVisible] = useState(false);
-  const [tooltipMounted, setTooltipMounted] = useState(false);
-  const [commentsExpanded, setCommentsExpanded] = useState(false);
-  const showTimerRef = useRef<number | null>(null);
-  const hideTimerRef = useRef<number | null>(null);
-  const unmountTimerRef = useRef<number | null>(null);
+  // Load polling data if topic exists
+  // Priority: report.subtopicId > report.topicId > topic.id
+  const pollingData = useMemo<PollingData | null>(() => {
+    // First, try to find polling data by subtopicId (most specific)
+    if (report.subtopicId) {
+      const data = appData.pollingData.find((p) => p.subtopicId === report.subtopicId);
+      if (data) return data;
+    }
 
-  const clearTimers = useCallback(() => {
-    if (showTimerRef.current) clearTimeout(showTimerRef.current);
-    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
-    if (unmountTimerRef.current) clearTimeout(unmountTimerRef.current);
-  }, []);
+    // Fallback: try to find by topicId
+    if (report.topicId) {
+      const data = appData.pollingData.find((p) => p.topicId === report.topicId && !p.subtopicId);
+      if (data) return data;
+    }
 
-  useEffect(() => () => clearTimers(), [clearTimers]);
+    // Last fallback: use topic.id (for backwards compatibility)
+    if (topic) {
+      return appData.pollingData.find((p) => p.topicId === topic.id) || null;
+    }
 
-  const handleMouseEnter = useCallback(() => {
-    clearTimers();
-    showTimerRef.current = window.setTimeout(() => {
-      setTooltipMounted(true);
-      requestAnimationFrame(() => setTooltipVisible(true));
-    }, 500);
-  }, [clearTimers]);
-
-  const handleMouseLeave = useCallback(() => {
-    clearTimers();
-    hideTimerRef.current = window.setTimeout(() => {
-      setTooltipVisible(false);
-      unmountTimerRef.current = window.setTimeout(() => setTooltipMounted(false), 300);
-    }, 100);
-  }, [clearTimers]);
+    return null;
+  }, [report.subtopicId, report.topicId, topic]);
 
   // Get media info from configuration file
   const mediaInfo = mediaSources.mediaSources[report.source as keyof typeof mediaSources.mediaSources] || {
@@ -83,7 +73,12 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
 
   const handleToggleComments = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
-    setCommentsExpanded((prev) => !prev);
+    setViewMode((prev) => prev === 'comments' ? 'closed' : 'comments');
+  }, []);
+
+  const handleToggleDataOnly = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    setViewMode((prev) => prev === 'data-only' ? 'closed' : 'data-only');
   }, []);
 
   const handleCommentCountChange = useCallback((reportId: string, delta: number) => {
@@ -91,11 +86,7 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
   }, [onCommentCountChange]);
 
   return (
-    <article
-      className={styles.feedItem}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <article className={styles.feedItem}>
       <div className={styles.avatarColumn}>
         <div className={styles.avatar}>
           <img
@@ -124,38 +115,74 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
           <button className={styles.moreButton}>···</button>
         </div>
 
-        <div className={styles.tweetText}>
-          <span className={`${styles.stanceTag} ${styles[report.stance]}`}>
-            [{stanceLabels[report.stance]}]
-          </span>{' '}
-          {report.summary.slice(0, 50)}...
-        </div>
+        {/* Topic badge */}
+        {topic && (
+          <span className={styles.topicBadge}>
+            {topic.name}
+          </span>
+        )}
 
-        <div className={styles.linkCard}>
-          {report.imageUrl && (
-            <img
-              className={styles.linkImage}
-              src={report.imageUrl}
-              alt={report.title}
-              loading="lazy"
-            />
-          )}
-          <div className={styles.linkDomain}>
-            <Link size={14} strokeWidth={1.75} />
-            <span>{mediaInfo.domain}</span>
+        {report.url ? (
+          <a
+            href={report.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.linkCard}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {report.imageUrl && (
+              <img
+                className={styles.linkImage}
+                src={report.imageUrl}
+                alt={report.title}
+                loading="lazy"
+              />
+            )}
+            <div className={styles.linkDomain}>
+              <Link size={14} strokeWidth={1.75} />
+              <span>{mediaInfo.domain}</span>
+            </div>
+            <div className={styles.linkTitle}>{report.title}</div>
+            <div className={styles.linkDescription}>{report.summary}</div>
+          </a>
+        ) : (
+          <div className={styles.linkCard}>
+            {report.imageUrl && (
+              <img
+                className={styles.linkImage}
+                src={report.imageUrl}
+                alt={report.title}
+                loading="lazy"
+              />
+            )}
+            <div className={styles.linkDomain}>
+              <Link size={14} strokeWidth={1.75} />
+              <span>{mediaInfo.domain}</span>
+            </div>
+            <div className={styles.linkTitle}>{report.title}</div>
+            <div className={styles.linkDescription}>{report.summary}</div>
           </div>
-          <div className={styles.linkTitle}>{report.title}</div>
-          <div className={styles.linkDescription}>{report.summary}</div>
-        </div>
+        )}
 
         <div className={styles.actions}>
           <button
-            className={`${styles.actionButton} ${commentsExpanded ? styles.actionActive : ''}`}
+            className={`${styles.actionButton} ${viewMode === 'comments' ? styles.actionActive : ''}`}
             onClick={handleToggleComments}
+            title="View comments"
           >
             <MessageCircle size={16} strokeWidth={1.75} />
             <span className={styles.actionCount}>{actionCounts.comments}</span>
           </button>
+          {topic && pollingData && (
+            <button
+              className={`${styles.actionButton} ${viewMode === 'data-only' ? styles.actionActive : ''}`}
+              onClick={handleToggleDataOnly}
+              title="View public opinion data"
+            >
+              <BarChart2 size={16} strokeWidth={1.75} />
+              <span className={styles.actionLabel}>Public Opinion</span>
+            </button>
+          )}
           <button className={styles.actionButton}>
             <Repeat2 size={16} strokeWidth={1.75} />
             <span className={styles.actionCount}>{actionCounts.retweets}</span>
@@ -165,7 +192,7 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
             <span className={styles.actionCount}>{actionCounts.likes}</span>
           </button>
           <button className={styles.actionButton}>
-            <BarChart2 size={16} strokeWidth={1.75} />
+            <Eye size={16} strokeWidth={1.75} />
             <span className={styles.actionCount}>{actionCounts.views.toFixed(1)}K</span>
           </button>
           <button className={styles.actionButton}>
@@ -176,27 +203,21 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
           </button>
         </div>
 
-        {commentsExpanded && (
+        {viewMode === 'comments' && (
           <CommentSection
             reportId={report.id}
+            topicId={report.topicId}
+            subtopicId={report.subtopicId}
             onCommentCountChange={handleCommentCountChange}
           />
         )}
-      </div>
 
-      {event && tooltipMounted && (
-        <div
-          className={`${styles.tooltipWrapper} ${tooltipVisible ? styles.tooltipVisible : styles.tooltipHidden}`}
-          onMouseEnter={() => clearTimers()}
-          onMouseLeave={handleMouseLeave}
-        >
-          <DistributionTooltip
-            event={event}
-            currentStance={report.stance}
-            visible={true}
-          />
-        </div>
-      )}
+        {viewMode === 'data-only' && pollingData && (
+          <div className={styles.dataOnlySection}>
+            <DistributionChart pollingData={pollingData} />
+          </div>
+        )}
+      </div>
     </article>
   );
 }
