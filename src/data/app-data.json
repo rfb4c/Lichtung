@@ -339,7 +339,7 @@
       "source": "Maryland Matters",
       "url": "https://marylandmatters.org/2026/01/21/appeals-court-upholds-most-of-maryland-ban-on-weapons-in-schools-parks-other-public-places/",
       "publishedAt": "4h",
-      "imageUrl": "https://marylandmatters.org/wp-content/uploads/2026/01/2417294-1536x1024.jpg",
+      "imageUrl": "https://marylandmatters.org/wp-content/uploads/2026/01/2417294-1536x1024.png",
       "topicId": "us-gun-control"
     },
     {
@@ -349,7 +349,7 @@
       "source": "CNN",
       "url": "https://www.cnn.com/2026/01/03/us/california-ban-openly-carrying-gun-unconstitutional-hnk",
       "publishedAt": "6h",
-      "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-560w,f_auto,q_auto:best/rockcms/2026-01/250102-open-carry-aa-640-182ab3.jpg",
+      "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-560w,f_auto,q_auto:best/rockcms/2026-01/250102-open-carry-aa-640-182ab3.png",
       "topicId": "us-gun-control"
     },
     {
@@ -389,7 +389,7 @@
       "source": "CNN",
       "url": "https://www.cnn.com/2026/02/01/us/gun-rights-politics-alex-pretti-killing-cec",
       "publishedAt": "1d",
-      "imageUrl": "https://static.independent.co.uk/2026/02/01/17/Immigration_Enforcement_Minnesota_07108.jpg",
+      "imageUrl": "https://static.independent.co.uk/2026/02/01/17/Immigration_Enforcement_Minnesota_07108.png",
       "topicId": "us-gun-control"
     },
     {
@@ -399,7 +399,7 @@
       "source": "CNN",
       "url": "https://www.cnn.com/2026/01/27/politics/gun-alex-pretti-ice-nra",
       "publishedAt": "1d",
-      "imageUrl": "https://krdo.b-cdn.net/2026/01/cnn-L19jb21wb25lbnRzL2ltYWdlL2luc3RhbmNlcy9jbWt1aW53cWgwMDAxM2I2cHRiZDdubmkz-L19jb21wb25lbnRzL2FydGljbGUvaW5zdGFuY2VzL2Nta3Vna3UyNDAwMHkyN3FvOTdlcTZuNGE.jpg",
+      "imageUrl": "https://krdo.b-cdn.net/2026/01/cnn-L19jb21wb25lbnRzL2ltYWdlL2luc3RhbmNlcy9jbWt1aW53cWgwMDAxM2I2cHRiZDdubmkz-L19jb21wb25lbnRzL2FydGljbGUvaW5zdGFuY2VzL2Nta3Vna3UyNDAwMHkyN3FvOTdlcTZuNGE.png",
       "topicId": "us-gun-control"
     },
     {
@@ -429,7 +429,7 @@
       "source": "CNN",
       "url": "https://www.cnn.com/2026/01/28/politics/abortion-ban-veterans-affairs-roe-wade",
       "publishedAt": "5h",
-      "imageUrl": "https://juliabrownley.house.gov/wp-content/uploads/2025/09/Copy-of-IMG_1720-1-scaled.jpg",
+      "imageUrl": "https://juliabrownley.house.gov/wp-content/uploads/2025/09/Copy-of-IMG_1720-1-scaled.png",
       "topicId": "us-abortion"
     },
     {
@@ -479,7 +479,7 @@
       "source": "Ballotpedia",
       "url": "https://ballotpedia.org/Missouri_Amendment_3,_Prohibit_Abortion_and_Gender_Transition_Procedures_for_Minors_Amendment_(2026)",
       "publishedAt": "15h",
-      "imageUrl": "https://static01.nyt.com/images/2024/11/05/multimedia/00NAT-MISSOURI-ABORTION-YES-hkjv/00NAT-MISSOURI-ABORTION-YES-hkjv-videoSixteenByNineJumbo1600.jpg",
+      "imageUrl": "https://static01.nyt.com/images/2024/11/05/multimedia/00NAT-MISSOURI-ABORTION-YES-hkjv/00NAT-MISSOURI-ABORTION-YES-hkjv-videoSixteenByNineJumbo1600.png",
       "topicId": "us-abortion"
     },
     {
@@ -595,7 +595,7 @@
           "emoji": "🎣"
         }
       ],
-      "avatarUrl": "/avatars/user-01.jpg"
+      "avatarUrl": "/avatars/user-01.png"
     },
     {
       "id": "user-02",
@@ -627,7 +627,7 @@
           "emoji": "🍳"
         }
       ],
-      "avatarUrl": "/avatars/user-02.jpg"
+      "avatarUrl": "/avatars/user-02.png"
     },
     {
       "id": "user-03",
@@ -659,7 +659,7 @@
           "emoji": "⛪"
         }
       ],
-      "avatarUrl": "/avatars/user-03.jpg"
+      "avatarUrl": "/avatars/user-03.png"
     },
     {
       "id": "user-04",
@@ -669,7 +669,8 @@
           "id": "single-parent",
           "layer": 1,
           "label": "Solo Parent",
-          "emoji": "💪"
+          "emoji": "💪",
+          "narrative": "Raising my daughter alone since she was three. It's exhausting, but watching her thrive makes every sacrifice worth it."
         },
         {
           "id": "working-class",
@@ -690,7 +691,7 @@
           "emoji": "🐕"
         }
       ],
-      "avatarUrl": "/avatars/user-04.jpg"
+      "avatarUrl": "/avatars/user-04.png"
     },
     {
       "id": "user-05",
@@ -706,7 +707,8 @@
           "id": "veteran",
           "layer": 2,
           "label": "Veteran",
-          "emoji": "🎖️"
+          "emoji": "🎖️",
+          "narrative": "Did two deployments in Iraq. The transition back to civilian life wasn't easy, but the fire department gave me purpose again."
         },
         {
           "id": "first-responder",
@@ -721,7 +723,7 @@
           "emoji": "⛰️"
         }
       ],
-      "avatarUrl": "/avatars/user-05.jpg"
+      "avatarUrl": "/avatars/user-05.png"
     },
     {
       "id": "user-06",
@@ -737,7 +739,8 @@
           "id": "first-gen-college",
           "layer": 2,
           "label": "First-Gen College",
-          "emoji": "🎓"
+          "emoji": "🎓",
+          "narrative": "First person in my family to go to college. My parents worked three jobs between them to help me through state school."
         },
         {
           "id": "educator",
@@ -752,7 +755,7 @@
           "emoji": "⛰️"
         }
       ],
-      "avatarUrl": "/avatars/user-06.jpg"
+      "avatarUrl": "/avatars/user-06.png"
     },
     {
       "id": "user-07",
@@ -768,7 +771,8 @@
           "id": "immigrant-child",
           "layer": 2,
           "label": "Immigrant Roots",
-          "emoji": "🌏"
+          "emoji": "🌏",
+          "narrative": "My parents crossed the border with nothing. I grew up translating at doctor's offices and parent-teacher conferences."
         },
         {
           "id": "volunteer",
@@ -789,7 +793,7 @@
           "emoji": "⛪"
         }
       ],
-      "avatarUrl": "/avatars/user-07.jpg"
+      "avatarUrl": "/avatars/user-07.png"
     },
     {
       "id": "user-08",
@@ -799,7 +803,8 @@
           "id": "grandparent",
           "layer": 1,
           "label": "Raising the Next Gen",
-          "emoji": "👵"
+          "emoji": "👵",
+          "narrative": "Watching my grandkids grow up reminds me how fast time goes. I try to pass down the values my parents taught me on the farm."
         },
         {
           "id": "small-town",
@@ -814,7 +819,7 @@
           "emoji": "🤝"
         }
       ],
-      "avatarUrl": "/avatars/user-08.jpg"
+      "avatarUrl": "/avatars/user-08.png"
     },
     {
       "id": "user-09",
@@ -824,7 +829,8 @@
           "id": "lost-loved-one",
           "layer": 1,
           "label": "Carrying a Loss",
-          "emoji": "🕊️"
+          "emoji": "🕊️",
+          "narrative": "Lost my wife to cancer two years ago. Some days are harder than others, but our dog keeps me grounded."
         },
         {
           "id": "chronic-illness",
@@ -845,7 +851,7 @@
           "emoji": "🐕"
         }
       ],
-      "avatarUrl": "/avatars/user-09.jpg"
+      "avatarUrl": "/avatars/user-09.png"
     },
     {
       "id": "user-10",
@@ -877,7 +883,7 @@
           "narrative": "My grandmother taught me to fish on Lake Superior. I take my kids there every summer."
         }
       ],
-      "avatarUrl": "/avatars/user-10.jpg"
+      "avatarUrl": "/avatars/user-10.png"
     },
     {
       "id": "user-11",
@@ -899,7 +905,8 @@
           "id": "farmer",
           "layer": 3,
           "label": "Land & Livestock",
-          "emoji": "🌾"
+          "emoji": "🌾",
+          "narrative": "Fourth-generation rancher. The land's been in my family since 1892. Some city folks don't get it, but this is who we are."
         },
         {
           "id": "hunting-fishing",
@@ -914,7 +921,7 @@
           "emoji": "⛪"
         }
       ],
-      "avatarUrl": "/avatars/user-11.jpg"
+      "avatarUrl": "/avatars/user-11.png"
     },
     {
       "id": "user-12",
@@ -946,7 +953,7 @@
           "emoji": "🍳"
         }
       ],
-      "avatarUrl": "/avatars/user-12.jpg"
+      "avatarUrl": "/avatars/user-12.png"
     }
   ],
   "mockComments": [

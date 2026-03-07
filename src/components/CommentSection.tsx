@@ -39,6 +39,7 @@ function buildMockComments(reportId: string): Comment[] {
           ? {
             id: user.id,
             displayName: user.displayName,
+            avatarUrl: user.avatarUrl,
             interests: [],
             identities: user.identities,
           }
