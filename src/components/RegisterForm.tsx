@@ -18,21 +18,21 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
     e.preventDefault();
     setError(null);
     setSubmitting(true);
-    const err = await handleRegister(email, password, displayName || '匿名用户');
+    const err = await handleRegister(email, password, displayName || 'Anonymous');
     if (err) setError(err);
     setSubmitting(false);
   };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h2 className={styles.title}>加入林间空地</h2>
+      <h2 className={styles.title}>Join 林间空地</h2>
 
       {error && <div className={styles.error}>{error}</div>}
 
       <input
         className={styles.input}
         type="text"
-        placeholder="昵称"
+        placeholder="Display name"
         value={displayName}
         onChange={(e) => setDisplayName(e.target.value)}
         autoComplete="name"
@@ -40,7 +40,7 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
       <input
         className={styles.input}
         type="email"
-        placeholder="邮箱"
+        placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
@@ -49,7 +49,7 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
       <input
         className={styles.input}
         type="password"
-        placeholder="密码（至少6位）"
+        placeholder="Password (at least 6 characters)"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
@@ -58,13 +58,13 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
       />
 
       <button className={styles.submitButton} type="submit" disabled={submitting}>
-        {submitting ? '注册中...' : '注册'}
+        {submitting ? 'Signing up...' : 'Sign up'}
       </button>
 
       <p className={styles.switchText}>
-        已有账号？
+        Already have an account?
         <button type="button" className={styles.switchLink} onClick={onSwitchToLogin}>
-          登录
+          Log in
         </button>
       </p>
     </form>

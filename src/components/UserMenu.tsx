@@ -12,7 +12,7 @@ export default function UserMenu() {
   if (!isAuthenticated) {
     return (
       <button className={styles.loginButton} onClick={() => showAuth('login')}>
-        登录
+        Log in
       </button>
     );
   }
@@ -42,7 +42,7 @@ export default function UserMenu() {
             }}
           >
             <LogOut size={18} strokeWidth={1.75} />
-            <span>退出登录</span>
+            <span>Log out</span>
           </button>
         </div>
       )}

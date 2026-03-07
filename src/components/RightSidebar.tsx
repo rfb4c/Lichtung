@@ -2,15 +2,15 @@ import { Search, BadgeCheck } from 'lucide-react';
 import styles from './RightSidebar.module.css';
 
 const trends = [
-  { category: '科技 · 趋势', title: '#AI监管新规', posts: '1.2万' },
-  { category: '政治 · 趋势', title: '禁燃油车', posts: '8,432' },
-  { category: '教育 · 趋势', title: '#双减政策', posts: '5,621' },
+  { category: 'Politics · Trending', title: '#GunControl', posts: '12.5K' },
+  { category: 'Politics · Trending', title: 'Abortion Rights', posts: '8,432' },
+  { category: 'Climate · Trending', title: '#ClimatePolicy', posts: '5,621' },
 ];
 
 const suggestions = [
-  { name: '求是', handle: '@qstheory', verified: true },
-  { name: '新华社', handle: '@xinhuashefabu1', verified: true },
-  { name: '人民日报', handle: '@PDChinese', verified: true },
+  { name: 'AP News', handle: '@AP', verified: true },
+  { name: 'BBC News', handle: '@BBCWorld', verified: true },
+  { name: 'CNN', handle: '@CNN', verified: true },
 ];
 
 export default function RightSidebar() {
@@ -20,23 +20,23 @@ export default function RightSidebar() {
         <span className={styles.searchIcon}>
           <Search size={18} strokeWidth={1.75} />
         </span>
-        <input type="text" placeholder="搜索" className={styles.searchInput} />
+        <input type="text" placeholder="Search" className={styles.searchInput} />
       </div>
 
       <div className={styles.card}>
-        <h2 className={styles.cardTitle}>有什么新鲜事</h2>
+        <h2 className={styles.cardTitle}>What's happening</h2>
         {trends.map((trend) => (
           <div key={trend.title} className={styles.trendItem}>
             <div className={styles.trendCategory}>{trend.category}</div>
             <div className={styles.trendTitle}>{trend.title}</div>
-            <div className={styles.trendPosts}>{trend.posts} 帖子</div>
+            <div className={styles.trendPosts}>{trend.posts} posts</div>
           </div>
         ))}
-        <div className={styles.showMore}>显示更多</div>
+        <div className={styles.showMore}>Show more</div>
       </div>
 
       <div className={styles.card}>
-        <h2 className={styles.cardTitle}>推荐关注</h2>
+        <h2 className={styles.cardTitle}>Who to follow</h2>
         {suggestions.map((user) => (
           <div key={user.handle} className={styles.userItem}>
             <div className={styles.avatar}></div>
@@ -49,10 +49,10 @@ export default function RightSidebar() {
               </div>
               <div className={styles.userHandle}>{user.handle}</div>
             </div>
-            <button className={styles.followButton}>关注</button>
+            <button className={styles.followButton}>Follow</button>
           </div>
         ))}
-        <div className={styles.showMore}>显示更多</div>
+        <div className={styles.showMore}>Show more</div>
       </div>
     </aside>
   );

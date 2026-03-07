@@ -22,13 +22,13 @@ function formatTime(isoString: string): string {
   const then = new Date(isoString).getTime();
   const diffMs = now - then;
   const diffMin = Math.floor(diffMs / 60000);
-  if (diffMin < 1) return '刚刚';
-  if (diffMin < 60) return `${diffMin}分钟前`;
+  if (diffMin < 1) return 'just now';
+  if (diffMin < 60) return `${diffMin}m`;
   const diffHour = Math.floor(diffMin / 60);
-  if (diffHour < 24) return `${diffHour}小时前`;
+  if (diffHour < 24) return `${diffHour}h`;
   const diffDay = Math.floor(diffHour / 24);
-  if (diffDay < 30) return `${diffDay}天前`;
-  return new Date(isoString).toLocaleDateString('zh-CN');
+  if (diffDay < 30) return `${diffDay}d`;
+  return new Date(isoString).toLocaleDateString('en-US');
 }
 
 export default function ProfilePage({ onBack }: ProfilePageProps) {
@@ -75,12 +75,12 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
           <button className={styles.backButton} onClick={onBack}>
             <ArrowLeft size={20} strokeWidth={1.75} />
           </button>
-          <span className={styles.headerTitle}>个人资料</span>
+          <span className={styles.headerTitle}>Profile</span>
         </header>
         <div className={styles.emptyState}>
-          <p className={styles.emptyText}>登录后查看个人资料</p>
+          <p className={styles.emptyText}>Log in to view your profile</p>
           <button className={styles.loginButton} onClick={() => showAuth('login')}>
-            登录
+            Log in
           </button>
         </div>
       </>
@@ -115,7 +115,7 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
       .filter(Boolean);
 
     const err = await handleUpdateProfile({
-      displayName: displayName || '匿名用户',
+      displayName: displayName || 'Anonymous',
       city: city || undefined,
       profession: profession || undefined,
       interests,
@@ -138,7 +138,7 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
         <div className={styles.headerInfo}>
           <span className={styles.headerTitle}>{user.displayName}</span>
           {myComments.length > 0 && (
-            <span className={styles.headerSub}>{myComments.length} 条评论</span>
+            <span className={styles.headerSub}>{myComments.length} comment{myComments.length > 1 ? 's' : ''}</span>
           )}
         </div>
       </header>
@@ -151,7 +151,7 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
         <div className={styles.avatarLarge}>{initial}</div>
         {!editing && (
           <button className={styles.editButton} onClick={handleStartEdit}>
-            编辑个人资料
+            Edit profile
           </button>
         )}
       </div>
@@ -163,7 +163,7 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
             {error && <div className={styles.error}>{error}</div>}
 
             <label className={styles.field}>
-              <span className={styles.fieldLabel}>昵称</span>
+              <span className={styles.fieldLabel}>Display name</span>
               <input
                 className={styles.input}
                 type="text"
@@ -173,33 +173,33 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
             </label>
 
             <label className={styles.field}>
-              <span className={styles.fieldLabel}>城市</span>
+              <span className={styles.fieldLabel}>City</span>
               <input
                 className={styles.input}
                 type="text"
-                placeholder="如：北京"
+                placeholder="e.g., New York"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
               />
             </label>
 
             <label className={styles.field}>
-              <span className={styles.fieldLabel}>职业</span>
+              <span className={styles.fieldLabel}>Profession</span>
               <input
                 className={styles.input}
                 type="text"
-                placeholder="如：工程师"
+                placeholder="e.g., Engineer"
                 value={profession}
                 onChange={(e) => setProfession(e.target.value)}
               />
             </label>
 
             <label className={styles.field}>
-              <span className={styles.fieldLabel}>兴趣标签</span>
+              <span className={styles.fieldLabel}>Interests</span>
               <input
                 className={styles.input}
                 type="text"
-                placeholder="用逗号分隔，如：科技, 教育, 环保"
+                placeholder="Comma-separated, e.g., Tech, Education, Climate"
                 value={interestsText}
                 onChange={(e) => setInterestsText(e.target.value)}
               />
@@ -207,10 +207,10 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
 
             <div className={styles.formActions}>
               <button type="button" className={styles.cancelButton} onClick={handleCancelEdit}>
-                取消
+                Cancel
               </button>
               <button className={styles.saveButton} type="submit" disabled={submitting}>
-                {submitting ? '保存中...' : '保存'}
+                {submitting ? 'Saving...' : 'Save'}
               </button>
             </div>
           </form>
@@ -253,15 +253,15 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
         <section className={styles.commentsSection}>
           <div className={styles.commentsSectionHeader}>
             <MessageCircle size={16} strokeWidth={1.75} />
-            <span>我的评论</span>
+            <span>My comments</span>
           </div>
 
           {commentsLoading ? (
-            <div className={styles.commentsLoading}>加载中...</div>
+            <div className={styles.commentsLoading}>Loading...</div>
           ) : myComments.length === 0 ? (
             <div className={styles.commentsEmpty}>
-              <p>还没有发表过评论</p>
-              <p className={styles.commentsEmptyHint}>回到主页，在报道下方留下你的看法</p>
+              <p>No comments yet</p>
+              <p className={styles.commentsEmptyHint}>Go back to the feed and share your thoughts on reports</p>
             </div>
           ) : (
             <ul className={styles.commentsList}>
@@ -269,7 +269,7 @@ export default function ProfilePage({ onBack }: ProfilePageProps) {
                 <li key={c.id} className={styles.commentRow}>
                   {c.reportTitle && (
                     <p className={styles.commentContext}>
-                      评论了《{c.reportTitle}》
+                      Commented on "{c.reportTitle}"
                     </p>
                   )}
                   <p className={styles.commentContent}>{c.content}</p>
