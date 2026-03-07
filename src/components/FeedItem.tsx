@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import {
   Link,
   MessageCircle,
@@ -8,56 +8,20 @@ import {
   Bookmark,
   Share,
 } from 'lucide-react';
-import { Report, Event, Stance } from '../types';
-import DistributionTooltip from './DistributionTooltip';
+import { Report, Topic } from '../types';
 import CommentSection from './CommentSection';
 import styles from './FeedItem.module.css';
 import mediaSources from '../data/media-sources.json';
 
 interface FeedItemProps {
   report: Report;
-  event?: Event;
+  topic?: Topic;
   commentCount?: number;
   onCommentCountChange?: (reportId: string, delta: number) => void;
 }
 
-const stanceLabels: Record<Stance, string> = {
-  supportive: 'Supportive',
-  neutral: 'Neutral',
-  opposed: 'Opposed',
-};
-
-export default function FeedItem({ report, event, commentCount, onCommentCountChange }: FeedItemProps) {
-  const [tooltipVisible, setTooltipVisible] = useState(false);
-  const [tooltipMounted, setTooltipMounted] = useState(false);
+export default function FeedItem({ report, topic, commentCount, onCommentCountChange }: FeedItemProps) {
   const [commentsExpanded, setCommentsExpanded] = useState(false);
-  const showTimerRef = useRef<number | null>(null);
-  const hideTimerRef = useRef<number | null>(null);
-  const unmountTimerRef = useRef<number | null>(null);
-
-  const clearTimers = useCallback(() => {
-    if (showTimerRef.current) clearTimeout(showTimerRef.current);
-    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
-    if (unmountTimerRef.current) clearTimeout(unmountTimerRef.current);
-  }, []);
-
-  useEffect(() => () => clearTimers(), [clearTimers]);
-
-  const handleMouseEnter = useCallback(() => {
-    clearTimers();
-    showTimerRef.current = window.setTimeout(() => {
-      setTooltipMounted(true);
-      requestAnimationFrame(() => setTooltipVisible(true));
-    }, 500);
-  }, [clearTimers]);
-
-  const handleMouseLeave = useCallback(() => {
-    clearTimers();
-    hideTimerRef.current = window.setTimeout(() => {
-      setTooltipVisible(false);
-      unmountTimerRef.current = window.setTimeout(() => setTooltipMounted(false), 300);
-    }, 100);
-  }, [clearTimers]);
 
   // Get media info from configuration file
   const mediaInfo = mediaSources.mediaSources[report.source as keyof typeof mediaSources.mediaSources] || {
@@ -91,11 +55,7 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
   }, [onCommentCountChange]);
 
   return (
-    <article
-      className={styles.feedItem}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <article className={styles.feedItem}>
       <div className={styles.avatarColumn}>
         <div className={styles.avatar}>
           <img
@@ -125,9 +85,6 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
         </div>
 
         <div className={styles.tweetText}>
-          <span className={`${styles.stanceTag} ${styles[report.stance]}`}>
-            [{stanceLabels[report.stance]}]
-          </span>{' '}
           {report.summary.slice(0, 50)}...
         </div>
 
@@ -183,20 +140,6 @@ export default function FeedItem({ report, event, commentCount, onCommentCountCh
           />
         )}
       </div>
-
-      {event && tooltipMounted && (
-        <div
-          className={`${styles.tooltipWrapper} ${tooltipVisible ? styles.tooltipVisible : styles.tooltipHidden}`}
-          onMouseEnter={() => clearTimers()}
-          onMouseLeave={handleMouseLeave}
-        >
-          <DistributionTooltip
-            event={event}
-            currentStance={report.stance}
-            visible={true}
-          />
-        </div>
-      )}
     </article>
   );
 }

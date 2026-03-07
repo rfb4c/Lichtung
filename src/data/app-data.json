@@ -1,0 +1,82 @@
+{
+  "topics": [
+    {
+      "id": "us-gun-control",
+      "name": "Gun Control",
+      "scope": "us_domestic",
+      "tagKeywords": ["gun", "firearm", "second amendment", "background check", "assault weapon"]
+    },
+    {
+      "id": "us-abortion",
+      "name": "Abortion Rights",
+      "scope": "us_domestic",
+      "tagKeywords": ["abortion", "roe", "reproductive", "pro-life", "pro-choice"]
+    },
+    {
+      "id": "us-climate",
+      "name": "Climate Policy",
+      "scope": "us_domestic",
+      "tagKeywords": ["climate", "carbon", "renewable", "emissions", "green energy"]
+    }
+  ],
+  "pollingData": [
+    {
+      "id": "poll_gun_control_001",
+      "topicId": "us-gun-control",
+      "source": "Pew Research Center",
+      "surveyYear": 2024,
+      "geographicScope": "US",
+      "scaleLabels": [
+        "More important to protect gun rights",
+        "Equally important",
+        "More important to control gun ownership"
+      ],
+      "distribution": [35, 23, 42],
+      "bridgingText": "According to Pew Research Center's 2024 survey, Americans' views on gun policy priorities are distributed as follows:"
+    },
+    {
+      "id": "poll_abortion_001",
+      "topicId": "us-abortion",
+      "source": "Pew Research Center",
+      "surveyYear": 2024,
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Illegal in all cases",
+        "Legal in few cases",
+        "Legal in most cases",
+        "Legal in all cases"
+      ],
+      "distribution": [8, 27, 36, 19],
+      "bridgingText": "According to Pew Research Center's 2024 survey, Americans' views on abortion legality are distributed as follows:"
+    }
+  ],
+  "reports": [
+    {
+      "id": "rp_gun_001",
+      "topicId": "us-gun-control",
+      "title": "Austin bar shooting kills 3, injures 14 - FBI investigating terrorism",
+      "summary": "A mass shooting outside Buford's Backyard Beer Garden in downtown Austin killed three people and injured 14 others on March 1, 2026. The FBI is investigating the attack as potential terrorism after the gunman was found wearing clothing with Islamic references.",
+      "source": "CBS Austin",
+      "publishedAt": "2h",
+      "imageUrl": "https://media.nbcdfw.com/2026/03/AP26060561690822.jpg?quality=85&strip=all"
+    },
+    {
+      "id": "rp_gun_002",
+      "topicId": "us-gun-control",
+      "title": "Federal appeals court upholds Maryland gun control restrictions",
+      "summary": "A federal appeals court upheld Maryland's law banning guns in sensitive public places including schools, hospitals, parks and government buildings. The Fourth Circuit ruling said states can restrict firearms without violating the Supreme Court's recent Second Amendment decisions.",
+      "source": "Maryland Matters",
+      "publishedAt": "4h",
+      "imageUrl": "https://marylandmatters.org/wp-content/uploads/2026/01/2417294-1536x1024.jpg"
+    },
+    {
+      "id": "rp_gun_003",
+      "topicId": "us-gun-control",
+      "title": "Federal court rules California's open carry ban unconstitutional",
+      "summary": "The 9th Circuit Court of Appeals struck down California's ban on openly carrying firearms in most counties, ruling 2-1 that it violates the Second Amendment. The decision affects 95% of California's population living in counties with over 200,000 residents.",
+      "source": "CNN",
+      "publishedAt": "6h",
+      "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-560w,f_auto,q_auto:best/rockcms/2026-01/250102-open-carry-aa-640-182ab3.jpg"
+    }
+  ]
+}
