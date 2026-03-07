@@ -32,7 +32,7 @@ function App() {
       ]);
 
       if (eventsRes.error || reportsRes.error) {
-        setError(eventsRes.error?.message || reportsRes.error?.message || '数据加载失败');
+        setError(eventsRes.error?.message || reportsRes.error?.message || 'Failed to load data');
         setLoading(false);
         return;
       }
@@ -87,11 +87,11 @@ function App() {
       return (
         <>
           <header className={styles.feedHeader}>
-            <div className={styles.tabActive}>为你推荐</div>
-            <div className={styles.tab}>正在关注</div>
+            <div className={styles.tabActive}>For You</div>
+            <div className={styles.tab}>Following</div>
           </header>
           <div className={styles.feed}>
-            <div className={styles.loading}>加载中...</div>
+            <div className={styles.loading}>Loading...</div>
           </div>
         </>
       );
@@ -101,8 +101,8 @@ function App() {
       return (
         <>
           <header className={styles.feedHeader}>
-            <div className={styles.tabActive}>为你推荐</div>
-            <div className={styles.tab}>正在关注</div>
+            <div className={styles.tabActive}>For You</div>
+            <div className={styles.tab}>Following</div>
           </header>
           <div className={styles.feed}>
             <div className={styles.error}>{error}</div>

@@ -19,14 +19,14 @@ export default function CommentInput({ reportId, onCommentAdded }: CommentInputP
 
   if (!isConfigured) {
     return (
-      <div className={styles.demoNotice}>演示模式，无法评论</div>
+      <div className={styles.demoNotice}>Demo mode - commenting disabled</div>
     );
   }
 
   if (!isAuthenticated) {
     return (
       <button className={styles.loginPrompt} onClick={() => showAuth('login')}>
-        登录后发表评论
+        Log in to comment
       </button>
     );
   }
@@ -50,8 +50,8 @@ export default function CommentInput({ reportId, onCommentAdded }: CommentInputP
       const isFkError = error.message.toLowerCase().includes('foreign key') ||
         error.message.toLowerCase().includes('violates');
       setSubmitError(isFkError
-        ? '发送失败：当前报道数据尚未同步到数据库，暂不支持评论'
-        : `发送失败：${error.message}`
+        ? 'Failed: Report data not synced to database yet'
+        : `Failed: ${error.message}`
       );
     } else if (data) {
       onCommentAdded(mapComment(data as CommentRow));
@@ -67,7 +67,7 @@ export default function CommentInput({ reportId, onCommentAdded }: CommentInputP
         <input
           className={styles.input}
           type="text"
-          placeholder="发表评论..."
+          placeholder="Post your comment..."
           value={content}
           onChange={(e) => { setContent(e.target.value); setSubmitError(null); }}
           maxLength={500}

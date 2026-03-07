@@ -1,0 +1,76 @@
+{
+  "mediaSources": {
+    "CNN": {
+      "name": "CNN",
+      "handle": "@CNN",
+      "domain": "cnn.com",
+      "logoUrl": "https://logos-api.apistemic.com/domain:cnn.com"
+    },
+    "Washington Post": {
+      "name": "The Washington Post",
+      "handle": "@washingtonpost",
+      "domain": "washingtonpost.com",
+      "logoUrl": "https://logos-api.apistemic.com/domain:washingtonpost.com"
+    },
+    "NPR": {
+      "name": "NPR",
+      "handle": "@NPR",
+      "domain": "npr.org",
+      "logoUrl": "https://logos-api.apistemic.com/domain:npr.org"
+    },
+    "Bloomberg": {
+      "name": "Bloomberg",
+      "handle": "@business",
+      "domain": "bloomberg.com",
+      "logoUrl": "https://logos-api.apistemic.com/domain:bloomberg.com"
+    },
+    "NBC News": {
+      "name": "NBC News",
+      "handle": "@NBCNews",
+      "domain": "nbcnews.com",
+      "logoUrl": "https://logos-api.apistemic.com/domain:nbcnews.com"
+    },
+    "PBS News": {
+      "name": "PBS News",
+      "handle": "@NewsHour",
+      "domain": "pbs.org",
+      "logoUrl": "https://logos-api.apistemic.com/domain:pbs.org"
+    },
+    "The Hill": {
+      "name": "The Hill",
+      "handle": "@thehill",
+      "domain": "thehill.com",
+      "logoUrl": "https://logos-api.apistemic.com/domain:thehill.com"
+    },
+    "Axios": {
+      "name": "Axios",
+      "handle": "@axios",
+      "domain": "axios.com",
+      "logoUrl": "https://logos-api.apistemic.com/domain:axios.com"
+    },
+    "CBS Austin": {
+      "name": "CBS Austin",
+      "handle": "@CBSAustin",
+      "domain": "cbsaustin.com",
+      "logoUrl": "https://logos-api.apistemic.com/domain:cbs.com"
+    },
+    "Maryland Matters": {
+      "name": "Maryland Matters",
+      "handle": "@MarylandMatters",
+      "domain": "marylandmatters.org",
+      "logoUrl": "https://logos-api.apistemic.com/domain:marylandmatters.org"
+    },
+    "EIA": {
+      "name": "U.S. EIA",
+      "handle": "@EIAgov",
+      "domain": "eia.gov",
+      "logoUrl": "https://logos-api.apistemic.com/domain:eia.gov"
+    },
+    "Ballotpedia": {
+      "name": "Ballotpedia",
+      "handle": "@Ballotpedia",
+      "domain": "ballotpedia.org",
+      "logoUrl": "https://logos-api.apistemic.com/domain:ballotpedia.org"
+    }
+  }
+}

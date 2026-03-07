@@ -5,7 +5,6 @@ import {
   Bell,
   Users,
   MessageCircle,
-  Sparkles,
   Bookmark,
   User,
   MoreHorizontal,
@@ -26,15 +25,14 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  { icon: Home, label: '主页', key: 'home', page: 'feed' },
-  { icon: Search, label: '探索', key: 'explore' },
-  { icon: Bell, label: '通知', key: 'notifications' },
-  { icon: Users, label: '关注', key: 'following' },
-  { icon: MessageCircle, label: '聊天', key: 'messages' },
-  { icon: Sparkles, label: 'Grok', key: 'grok' },
-  { icon: Bookmark, label: '书签', key: 'bookmarks' },
-  { icon: User, label: '个人资料', key: 'profile', page: 'profile' },
-  { icon: MoreHorizontal, label: '更多', key: 'more' },
+  { icon: Home, label: 'Home', key: 'home', page: 'feed' },
+  { icon: Search, label: 'Explore', key: 'explore' },
+  { icon: Bell, label: 'Notifications', key: 'notifications' },
+  { icon: Users, label: 'Following', key: 'following' },
+  { icon: MessageCircle, label: 'Messages', key: 'messages' },
+  { icon: Bookmark, label: 'Bookmarks', key: 'bookmarks' },
+  { icon: User, label: 'Profile', key: 'profile', page: 'profile' },
+  { icon: MoreHorizontal, label: 'More', key: 'more' },
 ];
 
 interface SidebarProps {
@@ -92,13 +90,13 @@ export default function Sidebar({ currentPage, onNavigate }: SidebarProps) {
         ))}
       </ul>
 
-      <button className={styles.postButton}>发帖</button>
+      <button className={styles.postButton}>Post</button>
 
       <UserMenu />
 
       <button className={styles.themeToggle} onClick={toggleTheme}>
         {theme === 'dark' ? <Sun size={20} strokeWidth={1.75} /> : <Moon size={20} strokeWidth={1.75} />}
-        <span>{theme === 'dark' ? '浅色模式' : '深色模式'}</span>
+        <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
       </button>
     </nav>
   );
