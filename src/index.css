@@ -1,5 +1,7 @@
 /* CSS Reset */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -31,6 +33,16 @@
   --tag-foreign-text: #6ABF9E;
   --tag-domestic-bg: rgba(245, 124, 0, 0.15);
   --tag-domestic-text: #FFB74D;
+
+  /* 身份标签 chip */
+  --chip-bg: #232628;
+  --chip-bg-hover: #2c2f33;
+  --chip-bg-active: #363a3e;
+  --chip-text: #9aa3ab;
+  --chip-dot: #4A9D74;
+  --narrative-bg: #1f2224;
+  --narrative-border: #363a3e;
+  --narrative-text: #8a939b;
 }
 
 /* Light Theme */
@@ -59,6 +71,16 @@
   --tag-foreign-text: #1B5E42;
   --tag-domestic-bg: rgba(245, 124, 0, 0.12);
   --tag-domestic-text: #e65100;
+
+  /* 身份标签 chip */
+  --chip-bg: #e5e3dc;
+  --chip-bg-hover: #dbd9d2;
+  --chip-bg-active: #d2d0c9;
+  --chip-text: #5a6a75;
+  --chip-dot: #2D6A4F;
+  --narrative-bg: #e5e3dc;
+  --narrative-border: #c5c3bc;
+  --narrative-text: #5a6a75;
 }
 
 body {

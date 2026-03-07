@@ -23,6 +23,13 @@
   flex-shrink: 0;
 }
 
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .content {
   flex: 1;
   min-width: 0;
@@ -41,11 +48,6 @@
   font-weight: 700;
 }
 
-.identity {
-  font-size: 13px;
-  color: var(--color-text-secondary);
-}
-
 .dot {
   color: var(--color-text-secondary);
   font-size: 13px;
@@ -60,4 +62,86 @@
   font-size: 15px;
   line-height: 1.5;
   word-break: break-word;
+}
+
+/* ── Path C: Identity Chips ── */
+
+.identitySection {
+  margin-bottom: 6px;
+}
+
+.chipRow {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 0;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE/Edge */
+}
+
+.chipRow::-webkit-scrollbar {
+  display: none;
+  /* Chrome/Safari */
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: none;
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+  cursor: default;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease;
+  font-family: inherit;
+}
+
+.chipClickable {
+  cursor: pointer;
+}
+
+.chipClickable:hover {
+  background: var(--chip-bg-hover);
+}
+
+.chipActive {
+  background: var(--chip-bg-active);
+}
+
+.chipEmoji {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.narrativeDot {
+  color: var(--chip-dot);
+  font-size: 14px;
+  font-weight: 700;
+  margin-left: 1px;
+}
+
+/* ── Narrative Expansion ── */
+
+.narrativePanel {
+  margin-top: 6px;
+  padding: 8px 12px;
+  background: var(--narrative-bg);
+  border-radius: 8px;
+  border-left: 3px solid var(--narrative-border);
+}
+
+.narrativeText {
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--narrative-text);
+  margin: 0;
 }

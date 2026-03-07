@@ -24,7 +24,7 @@ function App() {
   const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : matchedReports);
   const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(isSupabaseConfigured);
-  const [error, setError] = useState<string | null>(null);
+  const [error, _setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isSupabaseConfigured) return;

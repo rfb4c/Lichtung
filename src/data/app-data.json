@@ -562,5 +562,904 @@
       "imageUrl": "https://i.guim.co.uk/img/media/358ee9c0b3517f0b5f1a887c5291d0e896e08bea/0_77_1200_720/master/1200.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=6568abbaa0ee544c76a13e8096489b2e",
       "topicId": "us-climate"
     }
+  ],
+  "mockUsers": [
+    {
+      "id": "user-01",
+      "displayName": "Mike Thompson",
+      "identities": [
+        {
+          "id": "father",
+          "layer": 1,
+          "label": "Father",
+          "emoji": "👨‍👧‍👦",
+          "narrative": "Two kids, 8 and 12. Coaching their soccer team on weekends."
+        },
+        {
+          "id": "veteran",
+          "layer": 2,
+          "label": "Veteran",
+          "emoji": "🎖️",
+          "narrative": "Served two tours in Afghanistan. Still processing what I saw there."
+        },
+        {
+          "id": "small-business-owner",
+          "layer": 3,
+          "label": "Small Biz Owner",
+          "emoji": "🏪"
+        },
+        {
+          "id": "hunting-fishing",
+          "layer": 4,
+          "label": "Hunter & Angler",
+          "emoji": "🎣"
+        }
+      ],
+      "avatarUrl": "/avatars/user-01.jpg"
+    },
+    {
+      "id": "user-02",
+      "displayName": "Sarah Chen",
+      "identities": [
+        {
+          "id": "mother",
+          "layer": 1,
+          "label": "Mother",
+          "emoji": "👩‍👧"
+        },
+        {
+          "id": "immigrant-child",
+          "layer": 2,
+          "label": "Immigrant Roots",
+          "emoji": "🌏",
+          "narrative": "My parents came from Taiwan with $200 and two suitcases. I grew up translating for them at parent-teacher conferences."
+        },
+        {
+          "id": "educator",
+          "layer": 3,
+          "label": "Educator",
+          "emoji": "📚"
+        },
+        {
+          "id": "cooking",
+          "layer": 4,
+          "label": "Home Chef",
+          "emoji": "🍳"
+        }
+      ],
+      "avatarUrl": "/avatars/user-02.jpg"
+    },
+    {
+      "id": "user-03",
+      "displayName": "James Walker",
+      "identities": [
+        {
+          "id": "father",
+          "layer": 1,
+          "label": "Father",
+          "emoji": "👨‍👧‍👦"
+        },
+        {
+          "id": "small-town",
+          "layer": 2,
+          "label": "Country Raised",
+          "emoji": "🏡",
+          "narrative": "Population 2,000 in rural Montana. Everyone knew everyone."
+        },
+        {
+          "id": "farmer",
+          "layer": 3,
+          "label": "Land & Livestock",
+          "emoji": "🌾"
+        },
+        {
+          "id": "faith-community",
+          "layer": 4,
+          "label": "Person of Faith",
+          "emoji": "⛪"
+        }
+      ],
+      "avatarUrl": "/avatars/user-03.jpg"
+    },
+    {
+      "id": "user-04",
+      "displayName": "Diana Morales",
+      "identities": [
+        {
+          "id": "single-parent",
+          "layer": 1,
+          "label": "Solo Parent",
+          "emoji": "💪"
+        },
+        {
+          "id": "working-class",
+          "layer": 2,
+          "label": "Blue-Collar Raised",
+          "emoji": "🔧"
+        },
+        {
+          "id": "healthcare-worker",
+          "layer": 3,
+          "label": "In Healthcare",
+          "emoji": "🏥"
+        },
+        {
+          "id": "pet-owner",
+          "layer": 4,
+          "label": "Pet Parent",
+          "emoji": "🐕"
+        }
+      ],
+      "avatarUrl": "/avatars/user-04.jpg"
+    },
+    {
+      "id": "user-05",
+      "displayName": "Robert Hayes",
+      "identities": [
+        {
+          "id": "caregiver",
+          "layer": 1,
+          "label": "Family Caregiver",
+          "emoji": "🤲"
+        },
+        {
+          "id": "veteran",
+          "layer": 2,
+          "label": "Veteran",
+          "emoji": "🎖️"
+        },
+        {
+          "id": "first-responder",
+          "layer": 3,
+          "label": "First responder",
+          "emoji": "🚒"
+        },
+        {
+          "id": "outdoor-recreation",
+          "layer": 4,
+          "label": "Trail & Peaks",
+          "emoji": "⛰️"
+        }
+      ],
+      "avatarUrl": "/avatars/user-05.jpg"
+    },
+    {
+      "id": "user-06",
+      "displayName": "Emily Nguyen",
+      "identities": [
+        {
+          "id": "mother",
+          "layer": 1,
+          "label": "Mother",
+          "emoji": "👩‍👧"
+        },
+        {
+          "id": "first-gen-college",
+          "layer": 2,
+          "label": "First-Gen College",
+          "emoji": "🎓"
+        },
+        {
+          "id": "educator",
+          "layer": 3,
+          "label": "Educator",
+          "emoji": "📚"
+        },
+        {
+          "id": "outdoor-recreation",
+          "layer": 4,
+          "label": "Trail & Peaks",
+          "emoji": "⛰️"
+        }
+      ],
+      "avatarUrl": "/avatars/user-06.jpg"
+    },
+    {
+      "id": "user-07",
+      "displayName": "Carlos Ramirez",
+      "identities": [
+        {
+          "id": "father",
+          "layer": 1,
+          "label": "Father",
+          "emoji": "👨‍👧‍👦"
+        },
+        {
+          "id": "immigrant-child",
+          "layer": 2,
+          "label": "Immigrant Roots",
+          "emoji": "🌏"
+        },
+        {
+          "id": "volunteer",
+          "layer": 3,
+          "label": "Giving Back",
+          "emoji": "🤝"
+        },
+        {
+          "id": "cooking",
+          "layer": 4,
+          "label": "Home Chef",
+          "emoji": "🍳"
+        },
+        {
+          "id": "faith-community",
+          "layer": 4,
+          "label": "Person of Faith",
+          "emoji": "⛪"
+        }
+      ],
+      "avatarUrl": "/avatars/user-07.jpg"
+    },
+    {
+      "id": "user-08",
+      "displayName": "Karen Mitchell",
+      "identities": [
+        {
+          "id": "grandparent",
+          "layer": 1,
+          "label": "Raising the Next Gen",
+          "emoji": "👵"
+        },
+        {
+          "id": "small-town",
+          "layer": 2,
+          "label": "Country Raised",
+          "emoji": "🏡"
+        },
+        {
+          "id": "volunteer",
+          "layer": 3,
+          "label": "Giving Back",
+          "emoji": "🤝"
+        }
+      ],
+      "avatarUrl": "/avatars/user-08.jpg"
+    },
+    {
+      "id": "user-09",
+      "displayName": "David Park",
+      "identities": [
+        {
+          "id": "lost-loved-one",
+          "layer": 1,
+          "label": "Carrying a Loss",
+          "emoji": "🕊️"
+        },
+        {
+          "id": "chronic-illness",
+          "layer": 2,
+          "label": "Chronic Fighter",
+          "emoji": "💪"
+        },
+        {
+          "id": "healthcare-worker",
+          "layer": 3,
+          "label": "In Healthcare",
+          "emoji": "🏥"
+        },
+        {
+          "id": "pet-owner",
+          "layer": 4,
+          "label": "Pet Parent",
+          "emoji": "🐕"
+        }
+      ],
+      "avatarUrl": "/avatars/user-09.jpg"
+    },
+    {
+      "id": "user-10",
+      "displayName": "Lisa Johnson",
+      "identities": [
+        {
+          "id": "military-family",
+          "layer": 1,
+          "label": "Military Family",
+          "emoji": "🇺🇸"
+        },
+        {
+          "id": "experienced-poverty",
+          "layer": 2,
+          "label": "Self-Made",
+          "emoji": "💪"
+        },
+        {
+          "id": "small-business-owner",
+          "layer": 3,
+          "label": "Small Biz Owner",
+          "emoji": "🏪"
+        },
+        {
+          "id": "hunting-fishing",
+          "layer": 4,
+          "label": "Hunter & Angler",
+          "emoji": "🎣",
+          "narrative": "My grandmother taught me to fish on Lake Superior. I take my kids there every summer."
+        }
+      ],
+      "avatarUrl": "/avatars/user-10.jpg"
+    },
+    {
+      "id": "user-11",
+      "displayName": "Tom Bradley",
+      "identities": [
+        {
+          "id": "father",
+          "layer": 1,
+          "label": "Father",
+          "emoji": "👨‍👧‍👦"
+        },
+        {
+          "id": "small-town",
+          "layer": 2,
+          "label": "Country Raised",
+          "emoji": "🏡"
+        },
+        {
+          "id": "farmer",
+          "layer": 3,
+          "label": "Land & Livestock",
+          "emoji": "🌾"
+        },
+        {
+          "id": "hunting-fishing",
+          "layer": 4,
+          "label": "Hunter & Angler",
+          "emoji": "🎣"
+        },
+        {
+          "id": "faith-community",
+          "layer": 4,
+          "label": "Person of Faith",
+          "emoji": "⛪"
+        }
+      ],
+      "avatarUrl": "/avatars/user-11.jpg"
+    },
+    {
+      "id": "user-12",
+      "displayName": "Rachel Kim",
+      "identities": [
+        {
+          "id": "mother",
+          "layer": 1,
+          "label": "Mother",
+          "emoji": "👩‍👧"
+        },
+        {
+          "id": "first-gen-college",
+          "layer": 2,
+          "label": "First-Gen College",
+          "emoji": "🎓"
+        },
+        {
+          "id": "healthcare-worker",
+          "layer": 3,
+          "label": "In Healthcare",
+          "emoji": "🏥",
+          "narrative": "ER nurse for 11 years. I've held the hands of strangers on their worst days."
+        },
+        {
+          "id": "cooking",
+          "layer": 4,
+          "label": "Cooking",
+          "emoji": "🍳"
+        }
+      ],
+      "avatarUrl": "/avatars/user-12.jpg"
+    }
+  ],
+  "mockComments": [
+    {
+      "id": "mc-001",
+      "reportId": "rp_gun_001",
+      "userId": "user-01",
+      "content": "I've owned firearms my entire adult life and taught both my kids to handle them safely. The problem isn't responsible gun owners — it's that we keep having this same debate while ignoring the real gaps in mental health support and enforcement.",
+      "createdAt": "2026-03-07T08:15:00Z"
+    },
+    {
+      "id": "mc-002",
+      "reportId": "rp_gun_001",
+      "userId": "user-07",
+      "content": "I'm a father too, and last week I had to explain active shooter drills to my 7-year-old. No parent should have to rehearse what to do when someone starts shooting at school. At some point, 'thoughts and prayers' isn't enough — we need action.",
+      "createdAt": "2026-03-07T08:45:00Z"
+    },
+    {
+      "id": "mc-003",
+      "reportId": "rp_gun_001",
+      "userId": "user-05",
+      "content": "I've been on the other end of these calls. You never forget the sound, the chaos, the families arriving at the scene. I carried a rifle overseas for this country, and I still believe some weapons have no place on our streets.",
+      "createdAt": "2026-03-07T09:10:00Z"
+    },
+    {
+      "id": "mc-004",
+      "reportId": "rp_gun_001",
+      "userId": "user-12",
+      "content": "Three GSW patients came through my ER last month alone, and two of them were under 20. I don't have a political opinion on this anymore — I just have a body count that keeps going up.",
+      "createdAt": "2026-03-07T09:30:00Z"
+    },
+    {
+      "id": "mc-005",
+      "reportId": "rp_gun_002",
+      "userId": "user-03",
+      "content": "I live in rural Maryland. Out here, a firearm isn't a political statement — it's how I protect my livestock from coyotes. Blanket bans on carrying in 'public places' ignore that a county road isn't the same as a shopping mall.",
+      "createdAt": "2026-03-07T07:30:00Z"
+    },
+    {
+      "id": "mc-006",
+      "reportId": "rp_gun_002",
+      "userId": "user-06",
+      "content": "As a teacher, I think about school safety every single day. My students deserve to learn without fear. I'm glad courts are upholding protections for schools and hospitals — these should be spaces where everyone feels safe.",
+      "createdAt": "2026-03-07T08:00:00Z"
+    },
+    {
+      "id": "mc-007",
+      "reportId": "rp_gun_002",
+      "userId": "user-11",
+      "content": "My kids go to school in a small town. I hunt every season. And honestly? I'm fine with keeping guns out of schools and hospitals. That's not tyranny — that's common sense. We can protect both rights and our kids.",
+      "createdAt": "2026-03-07T08:20:00Z"
+    },
+    {
+      "id": "mc-008",
+      "reportId": "rp_gun_003",
+      "userId": "user-10",
+      "content": "About time. I'm a woman who carries, and I shouldn't need bureaucratic permission to protect myself. Growing up poor taught me nobody's coming to save you — you have to save yourself.",
+      "createdAt": "2026-03-07T06:20:00Z"
+    },
+    {
+      "id": "mc-009",
+      "reportId": "rp_gun_003",
+      "userId": "user-12",
+      "content": "I see gun violence patients in the ER every week. More guns in public spaces means more patients on my table — that's not an opinion, it's eleven years of data from my own shift logs.",
+      "createdAt": "2026-03-07T06:55:00Z"
+    },
+    {
+      "id": "mc-010",
+      "reportId": "rp_gun_003",
+      "userId": "user-09",
+      "content": "I lost my brother to a shooting five years ago. Every time a court makes it easier to carry, I relive that day. I know this is about rights. But rights didn't bring him back.",
+      "createdAt": "2026-03-07T07:10:00Z"
+    },
+    {
+      "id": "mc-011",
+      "reportId": "rp_gun_004",
+      "userId": "user-11",
+      "content": "I voted for him. I own guns. And I can't figure out what he actually believes about the Second Amendment. If even our own side can't get a straight answer, what are we even fighting for?",
+      "createdAt": "2026-03-07T05:30:00Z"
+    },
+    {
+      "id": "mc-012",
+      "reportId": "rp_gun_004",
+      "userId": "user-02",
+      "content": "The inconsistency is the point. This was never about principles for him — it's about whatever gets applause that day. Gun policy deserves serious, consistent leadership.",
+      "createdAt": "2026-03-07T06:00:00Z"
+    },
+    {
+      "id": "mc-013",
+      "reportId": "rp_gun_004",
+      "userId": "user-01",
+      "content": "I'm a veteran and a gun owner, and I'm tired of politicians using the Second Amendment as a campaign prop. Both sides do it. We need people who'll actually sit down and solve problems.",
+      "createdAt": "2026-03-07T06:30:00Z"
+    },
+    {
+      "id": "mc-014",
+      "reportId": "rp_gun_005",
+      "userId": "user-09",
+      "content": "I depend on medical marijuana for chronic pain. Forcing me to choose between pain management and self-defense is cruel. Constitutional rights shouldn't come with a prescription check.",
+      "createdAt": "2026-03-07T05:30:00Z"
+    },
+    {
+      "id": "mc-015",
+      "reportId": "rp_gun_005",
+      "userId": "user-07",
+      "content": "This case is more nuanced than people think. You can support responsible gun ownership AND medical freedom. Why are we forcing people to pick one right over another?",
+      "createdAt": "2026-03-07T06:00:00Z"
+    },
+    {
+      "id": "mc-016",
+      "reportId": "rp_gun_005",
+      "userId": "user-06",
+      "content": "As an educator, I teach my students that the Constitution is a living document. Cases like this show exactly why — 1968 lawmakers never imagined legal marijuana states.",
+      "createdAt": "2026-03-07T06:30:00Z"
+    },
+    {
+      "id": "mc-017",
+      "reportId": "rp_gun_006",
+      "userId": "user-03",
+      "content": "Ghost guns are a real issue, but the ATF has been overreaching for years. Rolling back blanket regulations and replacing them with targeted enforcement makes more sense for rural communities like mine.",
+      "createdAt": "2026-03-07T04:30:00Z"
+    },
+    {
+      "id": "mc-018",
+      "reportId": "rp_gun_006",
+      "userId": "user-04",
+      "content": "I'm a single mother in a city where gun violence is a daily reality. Untraceable ghost guns terrify me. My kid deserves to play outside without me wondering if today's the day.",
+      "createdAt": "2026-03-07T05:00:00Z"
+    },
+    {
+      "id": "mc-019",
+      "reportId": "rp_gun_006",
+      "userId": "user-05",
+      "content": "As a first responder, I've seen what ghost guns do to investigations. When we can't trace a weapon, cases go cold and families never get answers. Some regulations exist for good reason.",
+      "createdAt": "2026-03-07T05:30:00Z"
+    },
+    {
+      "id": "mc-020",
+      "reportId": "rp_gun_007",
+      "userId": "user-10",
+      "content": "Welcome to the club. Gun rights have never been partisan — they're human rights. Glad more people on the left are realizing that protecting yourself isn't a conservative value.",
+      "createdAt": "2026-03-07T03:30:00Z"
+    },
+    {
+      "id": "mc-021",
+      "reportId": "rp_gun_007",
+      "userId": "user-07",
+      "content": "Never thought I'd consider owning a gun. But when federal agents shoot unarmed protestors, what choice do we have? This isn't about politics anymore — it's about survival.",
+      "createdAt": "2026-03-07T04:00:00Z"
+    },
+    {
+      "id": "mc-022",
+      "reportId": "rp_gun_007",
+      "userId": "user-08",
+      "content": "I've lived long enough to see this cycle repeat. More fear, more guns, more violence, more fear. From either side, more guns isn't the answer. We need to break the cycle, not arm both sides of it.",
+      "createdAt": "2026-03-07T04:30:00Z"
+    },
+    {
+      "id": "mc-023",
+      "reportId": "rp_gun_008",
+      "userId": "user-11",
+      "content": "Second Amendment rights aren't negotiable — not for a Democrat, not for a Republican, not for anyone. If our own guy won't stand firm, we'll find someone who will.",
+      "createdAt": "2026-03-07T02:30:00Z"
+    },
+    {
+      "id": "mc-024",
+      "reportId": "rp_gun_008",
+      "userId": "user-02",
+      "content": "Maybe when even the NRA pushes back against a Republican president, it's time to admit this issue is more complicated than 'us vs. them.' We're all just parents trying to keep our kids safe.",
+      "createdAt": "2026-03-07T03:00:00Z"
+    },
+    {
+      "id": "mc-025",
+      "reportId": "rp_gun_008",
+      "userId": "user-01",
+      "content": "I'm a veteran, a father, and a gun owner who's increasingly frustrated with both sides treating this like a football game. Real people are dying while politicians score points.",
+      "createdAt": "2026-03-07T03:30:00Z"
+    },
+    {
+      "id": "mc-026",
+      "reportId": "rp_abortion_001",
+      "userId": "user-04",
+      "content": "As a healthcare worker, I've seen what happens when people can't access safe medical care. Back-alley alternatives don't stop abortions — they kill women. This ruling saves lives.",
+      "createdAt": "2026-03-07T09:00:00Z"
+    },
+    {
+      "id": "mc-027",
+      "reportId": "rp_abortion_001",
+      "userId": "user-03",
+      "content": "I believe life begins at conception. My faith tells me that, and so does my experience watching my own children grow. I respect the court's process, but I think they got this one wrong.",
+      "createdAt": "2026-03-07T09:30:00Z"
+    },
+    {
+      "id": "mc-028",
+      "reportId": "rp_abortion_001",
+      "userId": "user-08",
+      "content": "I raised my grandchildren because their mother couldn't care for them. These decisions are never simple. Compassion should come before politics — from any direction.",
+      "createdAt": "2026-03-07T10:00:00Z"
+    },
+    {
+      "id": "mc-029",
+      "reportId": "rp_abortion_002",
+      "userId": "user-12",
+      "content": "I'm a nurse, and I've watched patients drive four hours to reach our clinic because everything closer has shut down. Access isn't a political talking point — it's a healthcare emergency.",
+      "createdAt": "2026-03-07T08:30:00Z"
+    },
+    {
+      "id": "mc-030",
+      "reportId": "rp_abortion_002",
+      "userId": "user-11",
+      "content": "Fewer clinics means more women making desperate decisions. I'm pro-life, but I'm also a father. I'd want my daughter to have safe options if she ever faced that situation.",
+      "createdAt": "2026-03-07T09:00:00Z"
+    },
+    {
+      "id": "mc-031",
+      "reportId": "rp_abortion_002",
+      "userId": "user-06",
+      "content": "Whatever your stance, women deserve access to accurate information and safe medical care. Closing clinics doesn't change minds — it just removes options for the most vulnerable.",
+      "createdAt": "2026-03-07T09:30:00Z"
+    },
+    {
+      "id": "mc-032",
+      "reportId": "rp_abortion_003",
+      "userId": "user-05",
+      "content": "I served this country and nearly lost my life doing it. Veterans earned full healthcare access — that includes reproductive care. Politicians who never wore the uniform shouldn't be making these calls for us.",
+      "createdAt": "2026-03-07T05:00:00Z"
+    },
+    {
+      "id": "mc-033",
+      "reportId": "rp_abortion_003",
+      "userId": "user-01",
+      "content": "I'm a veteran too, and I believe in protecting life at every stage. The VA should reflect that. This isn't about taking away healthcare — it's about what kind of procedures taxpayers should fund.",
+      "createdAt": "2026-03-07T05:30:00Z"
+    },
+    {
+      "id": "mc-034",
+      "reportId": "rp_abortion_003",
+      "userId": "user-10",
+      "content": "As a military family, we've always had our healthcare decided by bureaucrats. This is just the latest example. We deserve better than being political footballs.",
+      "createdAt": "2026-03-07T06:00:00Z"
+    },
+    {
+      "id": "mc-035",
+      "reportId": "rp_abortion_004",
+      "userId": "user-02",
+      "content": "Ballot measures give voters a direct voice. My mother's generation fought for these rights. If we lose them because people stay home on election day, that's on all of us.",
+      "createdAt": "2026-03-07T04:30:00Z"
+    },
+    {
+      "id": "mc-036",
+      "reportId": "rp_abortion_004",
+      "userId": "user-03",
+      "content": "Voters in conservative states will show up to protect life — don't underestimate us. My community has deep convictions and we vote on them.",
+      "createdAt": "2026-03-07T05:00:00Z"
+    },
+    {
+      "id": "mc-037",
+      "reportId": "rp_abortion_004",
+      "userId": "user-07",
+      "content": "As a person of faith, I genuinely struggle with this issue. I believe in the sanctity of life AND in a woman's dignity. I wish our political system allowed for that kind of nuance.",
+      "createdAt": "2026-03-07T05:30:00Z"
+    },
+    {
+      "id": "mc-038",
+      "reportId": "rp_abortion_005",
+      "userId": "user-06",
+      "content": "This is exactly what I try to teach my students — look at the data, not just the loudest voices. When 63% of Americans want abortion legal in most cases, laws banning it completely don't represent the people.",
+      "createdAt": "2026-03-07T04:00:00Z"
+    },
+    {
+      "id": "mc-039",
+      "reportId": "rp_abortion_005",
+      "userId": "user-11",
+      "content": "In my small town, opinions on this are far more varied than outsiders assume. Not everyone at church agrees, and not everyone at the diner disagrees. Real life isn't cable news.",
+      "createdAt": "2026-03-07T04:30:00Z"
+    },
+    {
+      "id": "mc-040",
+      "reportId": "rp_abortion_005",
+      "userId": "user-09",
+      "content": "As a healthcare worker, I've learned that policy works best when it follows evidence, not emotion. This analysis shows we're doing neither.",
+      "createdAt": "2026-03-07T05:00:00Z"
+    },
+    {
+      "id": "mc-041",
+      "reportId": "rp_abortion_006",
+      "userId": "user-04",
+      "content": "Shield laws exist because patients were being criminalized for seeking legal care. As a healthcare worker, I've seen the fear in patients' eyes. These protections are literally saving lives.",
+      "createdAt": "2026-03-07T03:30:00Z"
+    },
+    {
+      "id": "mc-042",
+      "reportId": "rp_abortion_006",
+      "userId": "user-11",
+      "content": "I'm pro-life and I don't like these shield laws. But I also don't want the government tracking which state my daughter drives to for medical care. Privacy matters regardless of your politics.",
+      "createdAt": "2026-03-07T04:00:00Z"
+    },
+    {
+      "id": "mc-043",
+      "reportId": "rp_abortion_006",
+      "userId": "user-08",
+      "content": "I've seen families torn apart by both unwanted pregnancies and by abortions. There's pain on every side of this. I wish we could argue with more compassion.",
+      "createdAt": "2026-03-07T04:30:00Z"
+    },
+    {
+      "id": "mc-044",
+      "reportId": "rp_abortion_007",
+      "userId": "user-01",
+      "content": "I served overseas. I saw how American aid saves lives in places with nothing. Cutting healthcare funding to score political points back home is wrong, regardless of where you stand on abortion.",
+      "createdAt": "2026-03-07T03:00:00Z"
+    },
+    {
+      "id": "mc-045",
+      "reportId": "rp_abortion_007",
+      "userId": "user-02",
+      "content": "My parents came here with nothing and received help from aid organizations. Cutting $30 billion in aid doesn't just affect policy — it affects real mothers and children overseas who have no voice.",
+      "createdAt": "2026-03-07T03:30:00Z"
+    },
+    {
+      "id": "mc-046",
+      "reportId": "rp_abortion_007",
+      "userId": "user-07",
+      "content": "Foreign aid should support basic healthcare everywhere. Tying billions in humanitarian assistance to a single domestic political issue punishes the world's poorest people.",
+      "createdAt": "2026-03-07T04:00:00Z"
+    },
+    {
+      "id": "mc-047",
+      "reportId": "rp_abortion_008",
+      "userId": "user-12",
+      "content": "Missouri voters already chose reproductive freedom in 2024. Putting it back on the ballot a year later is an insult to democracy. The people spoke — listen.",
+      "createdAt": "2026-03-07T02:30:00Z"
+    },
+    {
+      "id": "mc-048",
+      "reportId": "rp_abortion_008",
+      "userId": "user-10",
+      "content": "The 2024 measure was confusingly worded. This new amendment is clearer about what's actually being decided. People deserve to vote on language they can understand.",
+      "createdAt": "2026-03-07T03:00:00Z"
+    },
+    {
+      "id": "mc-049",
+      "reportId": "rp_abortion_008",
+      "userId": "user-08",
+      "content": "I've raised children who weren't mine because life is complicated. I've also buried friends who died from unsafe procedures decades ago. Both things are true, and both deserve respect.",
+      "createdAt": "2026-03-07T03:30:00Z"
+    },
+    {
+      "id": "mc-050",
+      "reportId": "rp_climate_001",
+      "userId": "user-11",
+      "content": "I'm a farmer. I see the weather changing with my own eyes — drought, floods, heat waves. But repealing regulations without replacing them with anything isn't a climate policy. It's just politics.",
+      "createdAt": "2026-03-07T08:00:00Z"
+    },
+    {
+      "id": "mc-051",
+      "reportId": "rp_climate_001",
+      "userId": "user-09",
+      "content": "I have a respiratory condition. Air quality regulations aren't abstract policy for me — they're the difference between a good day and an ER visit. Repealing the endangerment finding puts lives like mine at risk.",
+      "createdAt": "2026-03-07T08:30:00Z"
+    },
+    {
+      "id": "mc-052",
+      "reportId": "rp_climate_001",
+      "userId": "user-02",
+      "content": "Repealing the scientific basis for regulation doesn't change the science. It just removes our ability to respond to it. My students will inherit these decisions.",
+      "createdAt": "2026-03-07T09:00:00Z"
+    },
+    {
+      "id": "mc-053",
+      "reportId": "rp_climate_002",
+      "userId": "user-03",
+      "content": "Regulations cost money, and those costs get passed straight to families like mine. I care about clean air, but I also need to feed my kids. Not everyone can afford to be an environmentalist.",
+      "createdAt": "2026-03-07T07:00:00Z"
+    },
+    {
+      "id": "mc-054",
+      "reportId": "rp_climate_002",
+      "userId": "user-04",
+      "content": "I treat children with asthma worsened by pollution in my ER every week. The health costs of pollution are real — I see them in tiny lungs struggling to breathe. Ignoring those costs doesn't make them disappear.",
+      "createdAt": "2026-03-07T07:30:00Z"
+    },
+    {
+      "id": "mc-055",
+      "reportId": "rp_climate_002",
+      "userId": "user-10",
+      "content": "I run a small business and I worry about regulation costs too. But I also grew up next to a factory that poisoned our water. There's got to be a middle ground between no rules and overreach.",
+      "createdAt": "2026-03-07T08:00:00Z"
+    },
+    {
+      "id": "mc-056",
+      "reportId": "rp_climate_003",
+      "userId": "user-01",
+      "content": "Courts shouldn't be making energy policy — that's Congress's job. I respect the legal precedent, but 19 years later we still don't have legislation. That's the real failure.",
+      "createdAt": "2026-03-07T06:00:00Z"
+    },
+    {
+      "id": "mc-057",
+      "reportId": "rp_climate_003",
+      "userId": "user-06",
+      "content": "The science was clear in 2007 and it's only gotten clearer since. At some point we have to stop debating whether the problem exists and start debating solutions.",
+      "createdAt": "2026-03-07T06:30:00Z"
+    },
+    {
+      "id": "mc-058",
+      "reportId": "rp_climate_003",
+      "userId": "user-05",
+      "content": "As a first responder, I've seen wildfire devastation that would've been unthinkable 20 years ago. I don't care who regulates it — courts, Congress, whoever — just do something before more communities burn.",
+      "createdAt": "2026-03-07T07:00:00Z"
+    },
+    {
+      "id": "mc-059",
+      "reportId": "rp_climate_004",
+      "userId": "user-03",
+      "content": "Clean energy makes practical sense for ranchers like me — lower costs, energy independence, less reliance on volatile markets. You don't need to believe in climate models to see the practical benefits.",
+      "createdAt": "2026-03-07T04:00:00Z"
+    },
+    {
+      "id": "mc-060",
+      "reportId": "rp_climate_004",
+      "userId": "user-06",
+      "content": "The shift from ideology to pragmatism is encouraging. Energy security benefits everyone regardless of political affiliation. Maybe this is where we finally find common ground.",
+      "createdAt": "2026-03-07T04:30:00Z"
+    },
+    {
+      "id": "mc-061",
+      "reportId": "rp_climate_004",
+      "userId": "user-11",
+      "content": "Net zero was always unrealistic for farming communities — you can't electrify a combine harvester in 2035. But solar on the barn? Wind turbines leasing my back forty? That's real money in my pocket.",
+      "createdAt": "2026-03-07T05:00:00Z"
+    },
+    {
+      "id": "mc-062",
+      "reportId": "rp_climate_005",
+      "userId": "user-01",
+      "content": "86 GW of new capacity is incredible. The market is speaking — renewables are just good business now. As a small business owner, I follow the money, and the money says clean energy wins.",
+      "createdAt": "2026-03-07T03:00:00Z"
+    },
+    {
+      "id": "mc-063",
+      "reportId": "rp_climate_005",
+      "userId": "user-10",
+      "content": "My small business switched to solar last year. Cut our energy costs by 40%. This isn't about being liberal or conservative — it's about the bottom line.",
+      "createdAt": "2026-03-07T03:30:00Z"
+    },
+    {
+      "id": "mc-064",
+      "reportId": "rp_climate_005",
+      "userId": "user-11",
+      "content": "Sounds great on paper, but rural areas need reliable baseload power. Solar doesn't work when it's January in Montana and the sun sets at 4 PM. We need all-of-the-above, not one-size-fits-all.",
+      "createdAt": "2026-03-07T04:00:00Z"
+    },
+    {
+      "id": "mc-065",
+      "reportId": "rp_climate_006",
+      "userId": "user-03",
+      "content": "The EPA has been overreaching for years, especially on small farmers. Streamlining regulations isn't anti-environment — it's pro–common sense. Let us farm without a federal permission slip.",
+      "createdAt": "2026-03-07T02:30:00Z"
+    },
+    {
+      "id": "mc-066",
+      "reportId": "rp_climate_006",
+      "userId": "user-07",
+      "content": "Clean air and clean water are moral issues, not political ones. As a person of faith, I believe we're stewards of this earth. Gutting protections isn't deregulation — it's abandonment.",
+      "createdAt": "2026-03-07T03:00:00Z"
+    },
+    {
+      "id": "mc-067",
+      "reportId": "rp_climate_006",
+      "userId": "user-08",
+      "content": "My grandkids need clean air. But my neighbors need their jobs at the plant. When I hear 'deregulation,' I think of both. I wish more politicians did too.",
+      "createdAt": "2026-03-07T03:30:00Z"
+    },
+    {
+      "id": "mc-068",
+      "reportId": "rp_climate_007",
+      "userId": "user-11",
+      "content": "Elected officials should make these decisions, not unelected bureaucrats. If people want climate policy, vote for it. That's how democracy works.",
+      "createdAt": "2026-03-07T02:00:00Z"
+    },
+    {
+      "id": "mc-069",
+      "reportId": "rp_climate_007",
+      "userId": "user-02",
+      "content": "Science isn't partisan. We don't vote on gravity and we shouldn't vote on whether CO2 traps heat. Evidence-based policy shouldn't depend on which party wins an election.",
+      "createdAt": "2026-03-07T02:30:00Z"
+    },
+    {
+      "id": "mc-070",
+      "reportId": "rp_climate_007",
+      "userId": "user-05",
+      "content": "I've seen both economic hardship in dying factory towns and environmental disaster in wildfire zones. The people arguing loudest on both sides have usually experienced neither.",
+      "createdAt": "2026-03-07T03:00:00Z"
+    },
+    {
+      "id": "mc-071",
+      "reportId": "rp_climate_008",
+      "userId": "user-04",
+      "content": "I treat heat exhaustion patients every summer, and the numbers are getting worse every year. This isn't a distant future problem — it's happening in my ER right now, and the patients are getting younger.",
+      "createdAt": "2026-03-07T02:00:00Z"
+    },
+    {
+      "id": "mc-072",
+      "reportId": "rp_climate_008",
+      "userId": "user-11",
+      "content": "We've lost crops to extreme heat three of the last five summers. I don't need a scientist to tell me something's changing — I can see it from my tractor. Whatever we call it, we need to adapt.",
+      "createdAt": "2026-03-07T02:30:00Z"
+    },
+    {
+      "id": "mc-073",
+      "reportId": "rp_climate_008",
+      "userId": "user-08",
+      "content": "My grandchildren can't play outside on the hottest summer days anymore. That wasn't the case when I was raising my own kids. Something has changed, and pretending otherwise won't protect them.",
+      "createdAt": "2026-03-07T03:00:00Z"
+    }
   ]
 }

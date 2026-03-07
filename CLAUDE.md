@@ -11,7 +11,7 @@
 **项目名称**: Lichtung (林间空地)
 **项目类型**: 博士申请研究项目 - 感知极化干预系统原型
 **技术栈**: React + TypeScript + Vite + Supabase
-**当前版本**: v0.2.1
+**当前版本**: v0.3.0 (Path C Phase 1 完成)
 **主分支**: `main` | 开发分支: `develop`
 
 ---

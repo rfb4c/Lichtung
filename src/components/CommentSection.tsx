@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { isSupabaseConfigured } from '../lib/config';
 import { mapComment, type CommentRow } from '../lib/mappers';
-import type { Comment, PollingData } from '../types';
+import type { Comment, PollingData, MockUser, MockComment } from '../types';
 import CommentItem from './CommentItem';
 import CommentInput from './CommentInput';
 import DistributionChart from './DistributionChart';
@@ -14,6 +14,37 @@ interface CommentSectionProps {
   topicId?: string;
   subtopicId?: string;
   onCommentCountChange: (reportId: string, delta: number) => void;
+}
+
+/**
+ * Build mock comments with embedded user profiles (including identity tags)
+ * for the static demo when Supabase is not configured.
+ */
+function buildMockComments(reportId: string): Comment[] {
+  const mockUsers = (appData.mockUsers ?? []) as MockUser[];
+  const mockComments = (appData.mockComments ?? []) as MockComment[];
+  const userMap = new Map(mockUsers.map((u) => [u.id, u]));
+
+  return mockComments
+    .filter((mc) => mc.reportId === reportId)
+    .map((mc) => {
+      const user = userMap.get(mc.userId);
+      return {
+        id: mc.id,
+        reportId: mc.reportId,
+        userId: mc.userId,
+        content: mc.content,
+        createdAt: mc.createdAt,
+        profile: user
+          ? {
+            id: user.id,
+            displayName: user.displayName,
+            interests: [],
+            identities: user.identities,
+          }
+          : undefined,
+      };
+    });
 }
 
 export default function CommentSection({ reportId, topicId, subtopicId, onCommentCountChange }: CommentSectionProps) {
@@ -37,6 +68,9 @@ export default function CommentSection({ reportId, topicId, subtopicId, onCommen
 
   useEffect(() => {
     if (!isSupabaseConfigured) {
+      // Load mock comments from static JSON for demo
+      const mockComments = buildMockComments(reportId);
+      setComments(mockComments);
       setLoading(false);
       return;
     }
@@ -48,8 +82,12 @@ export default function CommentSection({ reportId, topicId, subtopicId, onCommen
         .eq('report_id', reportId)
         .order('created_at', { ascending: true });
 
-      if (!error && data) {
+      if (!error && data && data.length > 0) {
         setComments((data as CommentRow[]).map(mapComment));
+      } else {
+        // Fallback to mock comments when Supabase has no data
+        const mockComments = buildMockComments(reportId);
+        setComments(mockComments);
       }
       setLoading(false);
     }
