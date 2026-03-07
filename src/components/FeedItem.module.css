@@ -83,38 +83,36 @@
   color: var(--color-primary);
 }
 
+.topicBadge {
+  display: inline-block;
+  background-color: #F3E8FD;
+  color: #7C3AED;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
 .tweetText {
   font-size: 15px;
   line-height: 1.5;
   margin-bottom: 12px;
 }
 
-.stanceTag {
-  font-size: 13px;
-  padding: 1px 6px;
-  border-radius: 4px;
-}
-
-.stanceTag.supportive {
-  background-color: rgba(76, 175, 80, 0.1);
-  color: var(--color-supportive);
-}
-
-.stanceTag.neutral {
-  background-color: rgba(158, 158, 158, 0.1);
-  color: var(--color-neutral);
-}
-
-.stanceTag.opposed {
-  background-color: rgba(244, 67, 54, 0.1);
-  color: var(--color-opposed);
-}
-
 .linkCard {
+  display: block;
   border: 1px solid var(--color-border);
   border-radius: 16px;
   overflow: hidden;
   margin-bottom: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s;
+}
+
+.linkCard:hover {
+  background-color: var(--color-hover);
 }
 
 .linkImage {
@@ -143,11 +141,8 @@
 .linkDescription {
   padding: 0 12px 12px;
   font-size: 15px;
+  line-height: 1.5;
   color: var(--color-text-secondary);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .actions {
@@ -178,8 +173,19 @@
   color: var(--color-primary);
 }
 
-.actionCount {
+.actionCount,
+.actionLabel {
   font-size: 13px;
+}
+
+.actionLabel {
+  font-weight: 500;
+}
+
+.dataOnlySection {
+  padding: 12px 0;
+  border-top: 1px solid var(--color-border);
+  margin-top: 8px;
 }
 
 .tooltipWrapper {

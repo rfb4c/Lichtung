@@ -4,79 +4,563 @@
       "id": "us-gun-control",
       "name": "Gun Control",
       "scope": "us_domestic",
-      "tagKeywords": ["gun", "firearm", "second amendment", "background check", "assault weapon"]
+      "tagKeywords": [
+        "gun",
+        "firearm",
+        "second amendment"
+      ],
+      "subtopics": [
+        {
+          "id": "us-gun-control-background-checks",
+          "name": "Background Checks",
+          "tagKeywords": [
+            "background check",
+            "universal background",
+            "gun purchase",
+            "loophole"
+          ]
+        },
+        {
+          "id": "us-gun-control-assault-weapons",
+          "name": "Assault Weapon Ban",
+          "tagKeywords": [
+            "assault weapon",
+            "AR-15",
+            "military-style rifle",
+            "ban"
+          ]
+        },
+        {
+          "id": "us-gun-control-concealed-carry",
+          "name": "Permitless Concealed Carry",
+          "tagKeywords": [
+            "concealed carry",
+            "permitless carry",
+            "open carry",
+            "self-defense"
+          ]
+        }
+      ]
     },
     {
       "id": "us-abortion",
       "name": "Abortion Rights",
       "scope": "us_domestic",
-      "tagKeywords": ["abortion", "roe", "reproductive", "pro-life", "pro-choice"]
+      "tagKeywords": [
+        "abortion",
+        "roe",
+        "reproductive",
+        "pro-choice",
+        "pro-life"
+      ],
+      "subtopics": [
+        {
+          "id": "us-abortion-legality",
+          "name": "General Legality of Abortion",
+          "tagKeywords": [
+            "legal abortion",
+            "ban",
+            "trimester",
+            "supreme court"
+          ]
+        },
+        {
+          "id": "us-abortion-medication",
+          "name": "Medication Abortion Access",
+          "tagKeywords": [
+            "mifepristone",
+            "abortion pill",
+            "fda",
+            "mail delivery"
+          ]
+        },
+        {
+          "id": "us-abortion-federal-ban",
+          "name": "Federal Abortion Bans",
+          "tagKeywords": [
+            "federal ban",
+            "15-week ban",
+            "16-week ban",
+            "national law"
+          ]
+        }
+      ]
     },
     {
       "id": "us-climate",
       "name": "Climate Policy",
       "scope": "us_domestic",
-      "tagKeywords": ["climate", "carbon", "renewable", "emissions", "green energy"]
+      "tagKeywords": [
+        "climate",
+        "carbon",
+        "renewable",
+        "environment"
+      ],
+      "subtopics": [
+        {
+          "id": "us-climate-carbon-emissions",
+          "name": "Power Plant Emission Limits",
+          "tagKeywords": [
+            "emissions",
+            "power plants",
+            "carbon dioxide",
+            "epa regulations"
+          ]
+        },
+        {
+          "id": "us-climate-ev-transition",
+          "name": "Electric Vehicle Transition",
+          "tagKeywords": [
+            "electric vehicles",
+            "gas-powered cars",
+            "ev mandate",
+            "phase out"
+          ]
+        },
+        {
+          "id": "us-climate-international-agreements",
+          "name": "International Climate Agreements",
+          "tagKeywords": [
+            "paris agreement",
+            "international treaty",
+            "global warming",
+            "cooperation"
+          ]
+        }
+      ]
     }
   ],
   "pollingData": [
     {
-      "id": "poll_gun_control_001",
+      "id": "poll_gun_control_background_checks_001",
       "topicId": "us-gun-control",
+      "subtopicId": "us-gun-control-background-checks",
       "source": "Pew Research Center",
-      "surveyYear": 2024,
+      "surveyYear": 2023,
       "geographicScope": "US",
       "scaleLabels": [
-        "More important to protect gun rights",
-        "Equally important",
-        "More important to control gun ownership"
+        "Strongly favor",
+        "Somewhat favor",
+        "Somewhat oppose",
+        "Strongly oppose"
       ],
-      "distribution": [35, 23, 42],
-      "bridgingText": "According to Pew Research Center's 2024 survey, Americans' views on gun policy priorities are distributed as follows:"
+      "distribution": [
+        61,
+        27,
+        7,
+        5
+      ],
+      "bridgingText": "According to Pew Research Center polling in 2023, the American public's sentiment regarding making private gun sales and sales at gun shows subject to background checks is distributed as follows:"
     },
     {
-      "id": "poll_abortion_001",
+      "id": "poll_gun_control_assault_weapons_001",
+      "topicId": "us-gun-control",
+      "subtopicId": "us-gun-control-assault-weapons",
+      "source": "Pew Research Center",
+      "surveyYear": 2023,
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Strongly favor",
+        "Somewhat favor",
+        "Somewhat oppose",
+        "Strongly oppose"
+      ],
+      "distribution": [
+        46,
+        18,
+        16,
+        20
+      ],
+      "bridgingText": "Pew Research Center's 2023 survey recorded the following national distribution regarding opinions on banning assault-style weapons:"
+    },
+    {
+      "id": "poll_gun_control_concealed_carry_001",
+      "topicId": "us-gun-control",
+      "subtopicId": "us-gun-control-concealed-carry",
+      "source": "Pew Research Center",
+      "surveyYear": 2023,
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Strongly favor",
+        "Somewhat favor",
+        "Somewhat oppose",
+        "Strongly oppose"
+      ],
+      "distribution": [
+        11,
+        16,
+        22,
+        51
+      ],
+      "bridgingText": "When asked about allowing people to carry concealed guns without a permit, a 2023 Pew Research Center poll showed these attitudes among US adults:"
+    },
+    {
+      "id": "poll_abortion_legality_001",
       "topicId": "us-abortion",
+      "subtopicId": "us-abortion-legality",
       "source": "Pew Research Center",
       "surveyYear": 2024,
       "geographicScope": "US",
       "scaleLabels": [
-        "Illegal in all cases",
-        "Legal in few cases",
+        "Legal in all cases",
         "Legal in most cases",
-        "Legal in all cases"
+        "Illegal in most cases",
+        "Illegal in all cases"
       ],
-      "distribution": [8, 27, 36, 19],
-      "bridgingText": "According to Pew Research Center's 2024 survey, Americans' views on abortion legality are distributed as follows:"
+      "distribution": [
+        25,
+        38,
+        25,
+        12
+      ],
+      "bridgingText": "According to an April 2024 Pew Research Center survey, the general public's stance on the legality of abortion across all circumstances is:"
+    },
+    {
+      "id": "poll_abortion_medication_001",
+      "topicId": "us-abortion",
+      "subtopicId": "us-abortion-medication",
+      "source": "Pew Research Center",
+      "surveyYear": 2024,
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Strongly favor availability",
+        "Somewhat favor availability",
+        "Somewhat oppose availability",
+        "Strongly oppose availability"
+      ],
+      "distribution": [
+        45,
+        18,
+        15,
+        22
+      ],
+      "bridgingText": "Regarding access to medication abortion like mifepristone, a 2024 Pew Research survey revealed the following breakdown of opinions:"
+    },
+    {
+      "id": "poll_abortion_federal_ban_001",
+      "topicId": "us-abortion",
+      "subtopicId": "us-abortion-federal-ban",
+      "source": "Kaiser Family Foundation",
+      "surveyYear": 2024,
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Strongly support",
+        "Somewhat support",
+        "Somewhat oppose",
+        "Strongly oppose"
+      ],
+      "distribution": [
+        25,
+        23,
+        16,
+        36
+      ],
+      "bridgingText": "A February 2024 KFF tracking poll measured American views on a proposed 16-week federal abortion ban with the following results:"
+    },
+    {
+      "id": "poll_climate_carbon_emissions_001",
+      "topicId": "us-climate",
+      "subtopicId": "us-climate-carbon-emissions",
+      "source": "Pew Research Center",
+      "surveyYear": 2023,
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Strongly favor",
+        "Somewhat favor",
+        "Somewhat oppose",
+        "Strongly oppose"
+      ],
+      "distribution": [
+        24,
+        30,
+        24,
+        22
+      ],
+      "bridgingText": "On the issue of requiring power plants to eliminate all carbon emissions by 2040, a 2023 Pew Research survey highlighted the following voter split:"
+    },
+    {
+      "id": "poll_climate_ev_transition_001",
+      "topicId": "us-climate",
+      "subtopicId": "us-climate-ev-transition",
+      "source": "Pew Research Center",
+      "surveyYear": 2023,
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Strongly favor",
+        "Somewhat favor",
+        "Somewhat oppose",
+        "Strongly oppose"
+      ],
+      "distribution": [
+        15,
+        25,
+        21,
+        39
+      ],
+      "bridgingText": "When considering a phase-out of the production of new gas-powered cars and trucks by 2035, Pew Research polling in 2023 captured these sentiments:"
+    },
+    {
+      "id": "poll_climate_international_agreements_001",
+      "topicId": "us-climate",
+      "subtopicId": "us-climate-international-agreements",
+      "source": "Yale Program on Climate Change Communication",
+      "surveyYear": 2023,
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Strongly support",
+        "Somewhat support",
+        "Somewhat oppose",
+        "Strongly oppose"
+      ],
+      "distribution": [
+        32,
+        36,
+        14,
+        18
+      ],
+      "bridgingText": "Data from a Fall 2023 Yale Program on Climate Change Communication survey detailing support for US participation in international climate agreements like the Paris Agreement:"
     }
   ],
   "reports": [
     {
       "id": "rp_gun_001",
-      "topicId": "us-gun-control",
       "title": "Austin bar shooting kills 3, injures 14 - FBI investigating terrorism",
       "summary": "A mass shooting outside Buford's Backyard Beer Garden in downtown Austin killed three people and injured 14 others on March 1, 2026. The FBI is investigating the attack as potential terrorism after the gunman was found wearing clothing with Islamic references.",
       "source": "CBS Austin",
+      "url": "https://cbsaustin.com/news/local/multiple-people-injured-in-mass-shooting-on-6th-st-austin-police-investigating",
       "publishedAt": "2h",
-      "imageUrl": "https://media.nbcdfw.com/2026/03/AP26060561690822.jpg?quality=85&strip=all"
+      "imageUrl": "https://media.nbcdfw.com/2026/03/AP26060561690822.jpg?quality=85&strip=all",
+      "topicId": "us-gun-control"
     },
     {
       "id": "rp_gun_002",
-      "topicId": "us-gun-control",
       "title": "Federal appeals court upholds Maryland gun control restrictions",
       "summary": "A federal appeals court upheld Maryland's law banning guns in sensitive public places including schools, hospitals, parks and government buildings. The Fourth Circuit ruling said states can restrict firearms without violating the Supreme Court's recent Second Amendment decisions.",
       "source": "Maryland Matters",
+      "url": "https://marylandmatters.org/2026/01/21/appeals-court-upholds-most-of-maryland-ban-on-weapons-in-schools-parks-other-public-places/",
       "publishedAt": "4h",
-      "imageUrl": "https://marylandmatters.org/wp-content/uploads/2026/01/2417294-1536x1024.jpg"
+      "imageUrl": "https://marylandmatters.org/wp-content/uploads/2026/01/2417294-1536x1024.jpg",
+      "topicId": "us-gun-control"
     },
     {
       "id": "rp_gun_003",
-      "topicId": "us-gun-control",
       "title": "Federal court rules California's open carry ban unconstitutional",
       "summary": "The 9th Circuit Court of Appeals struck down California's ban on openly carrying firearms in most counties, ruling 2-1 that it violates the Second Amendment. The decision affects 95% of California's population living in counties with over 200,000 residents.",
       "source": "CNN",
+      "url": "https://www.cnn.com/2026/01/03/us/california-ban-openly-carrying-gun-unconstitutional-hnk",
       "publishedAt": "6h",
-      "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-560w,f_auto,q_auto:best/rockcms/2026-01/250102-open-carry-aa-640-182ab3.jpg"
+      "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-560w,f_auto,q_auto:best/rockcms/2026-01/250102-open-carry-aa-640-182ab3.jpg",
+      "topicId": "us-gun-control"
+    },
+    {
+      "id": "rp_gun_004",
+      "title": "Trump's inconsistent stance scrambles America's gun debate",
+      "summary": "President Trump broke with pro-gun groups by suggesting federal agents were justified in the Minneapolis shooting, saying the protester 'shouldn't have had a gun.' After NRA backlash, the administration reversed course, leaving both sides confused about the White House's gun policy.",
+      "source": "CNN",
+      "url": "https://www.cnn.com/2026/02/01/politics/gun-politics-trump-second-amendment",
+      "publishedAt": "8h",
+      "imageUrl": "https://www.motherjones.com/wp-content/uploads/trump-rifle2000.jpg?w=990",
+      "topicId": "us-gun-control"
+    },
+    {
+      "id": "rp_gun_005",
+      "title": "Supreme Court weighs marijuana users' gun rights",
+      "summary": "The Supreme Court is hearing arguments on whether marijuana users can be prohibited from owning guns under federal law. The case tests whether the 1968 Gun Control Act's restrictions meet strict Second Amendment standards in light of recent pro-gun rulings.",
+      "source": "Washington Post",
+      "url": "https://www.washingtonpost.com/politics/2026/03/02/supreme-court-marijuana-gun-hemani/",
+      "publishedAt": "10h",
+      "imageUrl": "https://static.wixstatic.com/media/0eb7a4_62b29f11d642449099bb2659ac5774ca~mv2.png/v1/fill/w_1000,h_563,al_c,q_90,usm_0.66_1.00_0.01/0eb7a4_62b29f11d642449099bb2659ac5774ca~mv2.png",
+      "topicId": "us-gun-control"
+    },
+    {
+      "id": "rp_gun_006",
+      "title": "Justice Department weighs rollback of gun regulations",
+      "summary": "The Trump administration's Justice Department is considering rolling back ATF regulations on firearms, including rules on ghost guns and pistol braces. Gun rights advocates welcome the move while gun safety groups warn it will make weapons more accessible to dangerous individuals.",
+      "source": "Washington Post",
+      "url": "https://www.washingtonpost.com/national-security/2026/01/19/trump-justice-department-gun-regulations-atf/",
+      "publishedAt": "12h",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtAaHVJBeAZ-X9O7blOVBGiHlxvmlXpMpIrg&s",
+      "topicId": "us-gun-control"
+    },
+    {
+      "id": "rp_gun_007",
+      "title": "Liberal gun groups see membership surge after Minneapolis shooting",
+      "summary": "Left-leaning gun advocacy groups report overwhelming demand for firearms training following the fatal shooting of a protester by federal agents in Minneapolis. Groups like Socialist Rifle Association say membership inquiries have tripled as progressives reconsider gun ownership.",
+      "source": "CNN",
+      "url": "https://www.cnn.com/2026/02/01/us/gun-rights-politics-alex-pretti-killing-cec",
+      "publishedAt": "1d",
+      "imageUrl": "https://static.independent.co.uk/2026/02/01/17/Immigration_Enforcement_Minnesota_07108.jpg",
+      "topicId": "us-gun-control"
+    },
+    {
+      "id": "rp_gun_008",
+      "title": "Gun rights groups question Trump's Second Amendment stance",
+      "summary": "The NRA and other gun rights organizations are criticizing the Trump administration's claims that a Minneapolis protester had no right to possess a firearm. Legal experts and Second Amendment advocates say the administration's rhetoric contradicts established gun rights principles.",
+      "source": "CNN",
+      "url": "https://www.cnn.com/2026/01/27/politics/gun-alex-pretti-ice-nra",
+      "publishedAt": "1d",
+      "imageUrl": "https://krdo.b-cdn.net/2026/01/cnn-L19jb21wb25lbnRzL2ltYWdlL2luc3RhbmNlcy9jbWt1aW53cWgwMDAxM2I2cHRiZDdubmkz-L19jb21wb25lbnRzL2FydGljbGUvaW5zdGFuY2VzL2Nta3Vna3UyNDAwMHkyN3FvOTdlcTZuNGE.jpg",
+      "topicId": "us-gun-control"
+    },
+    {
+      "id": "rp_abortion_001",
+      "title": "Wyoming Supreme Court strikes down abortion pill ban",
+      "summary": "Wyoming's Supreme Court struck down the state's near-total abortion ban and first-in-nation prohibition on abortion pills, ruling they violate the state constitution's 2012 healthcare amendment. The 4-1 decision protects residents' right to make their own healthcare decisions.",
+      "source": "Washington Post",
+      "url": "https://www.washingtonpost.com/nation/2026/01/06/wyoming-court-abortion-pill-ban/",
+      "publishedAt": "1h",
+      "imageUrl": "https://i.guim.co.uk/img/media/3544713542f43a3803afa036936efc54785046dc/0_0_4749_3166/master/4749.jpg?width=465&dpr=1&s=none&crop=none",
+      "topicId": "us-abortion"
+    },
+    {
+      "id": "rp_abortion_002",
+      "title": "Abortion clinics closing even in states with access",
+      "summary": "According to the Guttmacher Institute, there were 753 abortion clinics in the US at the end of 2025, a net loss of 54 since 2020 and 12 since March 2024. Clinic closures are occurring even in states where abortion remains legal, straining access nationwide.",
+      "source": "CNN",
+      "url": "https://edition.cnn.com/2026/02/18/health/abortion-clinic-closures-guttmacher",
+      "publishedAt": "3h",
+      "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1237884449.jpg?c=original",
+      "topicId": "us-abortion"
+    },
+    {
+      "id": "rp_abortion_003",
+      "title": "Veterans Affairs imposes near-total abortion ban",
+      "summary": "The Trump administration's Department of Veterans Affairs quietly imposed a near-total abortion ban, eliminating abortion care even in cases of rape, incest, or to save the pregnant person's health. The policy affects over 2 million women veterans across the United States.",
+      "source": "CNN",
+      "url": "https://www.cnn.com/2026/01/28/politics/abortion-ban-veterans-affairs-roe-wade",
+      "publishedAt": "5h",
+      "imageUrl": "https://juliabrownley.house.gov/wp-content/uploads/2025/09/Copy-of-IMG_1720-1-scaled.jpg",
+      "topicId": "us-abortion"
+    },
+    {
+      "id": "rp_abortion_004",
+      "title": "Abortion rights poised to drive 2026 midterm turnout",
+      "summary": "Abortion-related ballot measures are heading to voters in Missouri, Idaho, Virginia, Oregon, Montana and Nebraska this November. Both abortion advocates and opponents say the 2026 midterm elections could significantly reshape the legal landscape for reproductive rights nationwide.",
+      "source": "Washington Post",
+      "url": "https://statecourtreport.org/our-work/analysis-opinion/2026-abortion-related-ballot-measures",
+      "publishedAt": "7h",
+      "imageUrl": "https://i.guim.co.uk/img/media/99c7607862dd92362e006ac75b19ac0119568e40/0_0_6000_4000/master/6000.jpg?width=465&dpr=1&s=none&crop=none",
+      "topicId": "us-abortion"
+    },
+    {
+      "id": "rp_abortion_005",
+      "title": "Abortion laws don't align with public opinion, analysis shows",
+      "summary": "A Washington Post analysis reveals stark disconnects between abortion laws and public sentiment in many states. While most Americans favor abortion access with some restrictions, state policies often reflect more extreme positions, either total bans or unrestricted access.",
+      "source": "Washington Post",
+      "url": "https://www.washingtonpost.com/ripple/2026/02/25/abortion-laws-show-that-public-policy-doesnt-always-line-up-with-public-opinion/",
+      "publishedAt": "9h",
+      "imageUrl": "https://images.theconversation.com/files/720012/original/file-20260223-57-yraywr.jpg?ixlib=rb-4.1.0&rect=0%2C1%2C7470%2C4980&q=50&auto=format&w=768&h=512&fit=crop&dpr=2",
+      "topicId": "us-abortion"
+    },
+    {
+      "id": "rp_abortion_006",
+      "title": "Anti-abortion movement escalates clashes over blue state 'shield' laws",
+      "summary": "The anti-abortion movement is testing new legal strategies to challenge 'shield laws' in Democratic-led states that protect abortion providers and patients. These confrontations could force a Supreme Court showdown over interstate abortion access and enforcement.",
+      "source": "CNN",
+      "url": "https://www.cnn.com/2026/01/17/politics/abortion-shield-laws-louisiana-california-texas",
+      "publishedAt": "11h",
+      "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/c-ap23103847076018.jpg?c=original&q=w_860,c_fill",
+      "topicId": "us-abortion"
+    },
+    {
+      "id": "rp_abortion_007",
+      "title": "Trump expands ban on aid to groups discussing abortion abroad",
+      "summary": "President Trump expanded the Mexico City Policy, cutting off upwards of $30 billion in non-military foreign assistance to organizations that discuss or provide abortion services. The policy now also targets groups that embrace diversity, equity and inclusion initiatives.",
+      "source": "NPR",
+      "url": "https://www.npr.org/2026/01/23/nx-s1-5683204/abortion-trump-mexico-city-policy",
+      "publishedAt": "13h",
+      "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/2572x1716+0+0/resize/1100/quality/50/format/png/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F5a%2F5e%2F77c5292f48f1bb7aca17bdd22469%2Fmexico-city-madagascar.png",
+      "topicId": "us-abortion"
+    },
+    {
+      "id": "rp_abortion_008",
+      "title": "Missouri voters to decide on abortion ban in November 2026",
+      "summary": "Missouri's Amendment 3 would overturn the 2024 voter-approved constitutional right to reproductive freedom and reinstate abortion restrictions. The measure allows abortion only for medical emergencies, fetal anomalies, or rape/incest before 12 weeks, while also prohibiting gender transition procedures for minors.",
+      "source": "Ballotpedia",
+      "url": "https://ballotpedia.org/Missouri_Amendment_3,_Prohibit_Abortion_and_Gender_Transition_Procedures_for_Minors_Amendment_(2026)",
+      "publishedAt": "15h",
+      "imageUrl": "https://static01.nyt.com/images/2024/11/05/multimedia/00NAT-MISSOURI-ABORTION-YES-hkjv/00NAT-MISSOURI-ABORTION-YES-hkjv-videoSixteenByNineJumbo1600.jpg",
+      "topicId": "us-abortion"
+    },
+    {
+      "id": "rp_climate_001",
+      "title": "Trump EPA repeals greenhouse gas endangerment finding",
+      "summary": "On February 12, 2026, the EPA finalized repeal of its 2009 'endangerment finding' that greenhouse gases endanger public health. This eliminates the legal foundation for federal climate regulations on power plants, vehicles, and the oil and gas industry, marking the largest deregulatory action in U.S. history.",
+      "source": "Washington Post",
+      "url": "https://www.washingtonpost.com/climate-environment/2026/02/12/endangerment-finding-repeal/",
+      "publishedAt": "2h",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBbcfynVnHVvTC7J9TAR6srHWIjrzP1bQbiQ&s",
+      "topicId": "us-climate"
+    },
+    {
+      "id": "rp_climate_002",
+      "title": "EPA will no longer consider health costs in pollution regulations",
+      "summary": "The Trump administration EPA announced it will no longer factor the economic costs of public health impacts when creating pollution regulations. Environmental groups warn this will lead to more toxic air and water pollution, while the administration says it removes regulatory burdens on industry.",
+      "source": "Washington Post",
+      "url": "https://www.washingtonpost.com/climate-environment/2026/01/12/epa-public-health-pollution-costs/",
+      "publishedAt": "4h",
+      "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/SXYZX7WFTOPBIZGAEYV44ETMTA_size-normalized.JPG&w=1800&h=1800",
+      "topicId": "us-climate"
+    },
+    {
+      "id": "rp_climate_003",
+      "title": "19 years ago, Supreme Court told EPA it could regulate climate pollution",
+      "summary": "In 2007's Massachusetts v. EPA, the Supreme Court ruled that greenhouse gases are air pollutants under the Clean Air Act and the EPA has authority to regulate them. Trump's 2026 repeal of the endangerment finding directly contradicts this landmark decision, setting up major legal battles.",
+      "source": "CNN",
+      "url": "https://supreme.justia.com/cases/federal/us/549/497/",
+      "publishedAt": "6h",
+      "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2261037765.jpg?c=16x9&q=w_800,c_fill",
+      "topicId": "us-climate"
+    },
+    {
+      "id": "rp_climate_004",
+      "title": "Climate policy shift: Net zero is dead, clean energy lives on",
+      "summary": "Bloomberg analysis finds that 'net zero' has effectively died as a diplomatic priority globally. Instead, countries are pivoting to industrial policy focused on energy security, resilience, and clean technology competitiveness, with less emphasis on emissions targets.",
+      "source": "Bloomberg",
+      "url": "https://www.bloomberg.com/opinion/articles/2026-02-25/climate-change-net-zero-is-dead-long-live-renewable-energy",
+      "publishedAt": "8h",
+      "imageUrl": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iMvcUDmdpH48/v0/-1x-1.webp",
+      "topicId": "us-climate"
+    },
+    {
+      "id": "rp_climate_005",
+      "title": "US set to add record 86 GW of renewable energy capacity in 2026",
+      "summary": "The U.S. Energy Information Administration reports developers plan to add 86 gigawatts of new utility-scale capacity in 2026, a record if realized. Solar will provide 51% of new capacity, batteries 28%, and wind 14%. Renewable energy will surpass natural gas capacity for the first time.",
+      "source": "EIA",
+      "url": "https://www.eia.gov/todayinenergy/detail.php?id=67205",
+      "publishedAt": "10h",
+      "imageUrl": "https://www.pv-magazine.com/wp-content/uploads/2026/02/Screenshot-2026-02-26-at-08.26.01-1200x646.png",
+      "topicId": "us-climate"
+    },
+    {
+      "id": "rp_climate_006",
+      "title": "EPA's shock and awe deregulatory strategy learns from past",
+      "summary": "The Washington Post reports the Trump EPA is using lessons from failed first-term rollbacks to craft legally defensible deregulation. The strategy includes repealing the endangerment finding, weakening power plant emissions standards, and reducing Clean Water Act protections.",
+      "source": "Washington Post",
+      "url": "https://www.washingtonpost.com/climate-environment/2026/01/05/epa-rollbacks-strategy-courts/",
+      "publishedAt": "12h",
+      "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/WVYSWUC5NJHYFHXT6YOIQSLFJI_size-normalized.jpg&w=1800&h=1800",
+      "topicId": "us-climate"
+    },
+    {
+      "id": "rp_climate_007",
+      "title": "Opinion: EPA emissions reversal is a responsible move",
+      "summary": "A Washington Post opinion piece argues the EPA's reversal on climate regulations restores proper constitutional order by returning policy decisions to elected officials rather than unelected bureaucrats. The author contends climate science uncertainties don't justify sweeping federal mandates.",
+      "source": "Washington Post",
+      "url": "https://www.washingtonpost.com/opinions/2026/02/18/epa-emissions-reversal-energy-steven-koonin/",
+      "publishedAt": "14h",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1wWT5eZ6I2KWbE9DkS2vnGuIFoog24pPrbw&s",
+      "topicId": "us-climate"
+    },
+    {
+      "id": "rp_climate_008",
+      "title": "Heat-related deaths climb 53% as climate change intensifies",
+      "summary": "Deaths associated with high temperatures in the United States climbed 53% between 2000-2009 and 2010-2020, rising from 2,670 to over 4,000 annually. A 2023 JAMA study recorded 2,325 heat-related deaths, the highest total since 1999, as extreme heat becomes the deadliest form of weather.",
+      "source": "NBC News",
+      "url": "https://www.nbcnews.com/weather/heat/deadliest-extreme-weather-event-not-think-rcna219702",
+      "publishedAt": "16h",
+      "imageUrl": "https://i.guim.co.uk/img/media/358ee9c0b3517f0b5f1a887c5291d0e896e08bea/0_77_1200_720/master/1200.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=6568abbaa0ee544c76a13e8096489b2e",
+      "topicId": "us-climate"
     }
   ]
 }

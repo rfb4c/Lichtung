@@ -8,6 +8,7 @@ import AuthModal from './components/AuthModal';
 import { supabase } from './lib/supabase';
 import { Report, Topic, AppData } from './types';
 import { TopicRow, ReportRow, mapTopic, mapReport } from './lib/mappers';
+import { matchAllReports } from './lib/matchers';
 import staticData from './data/app-data.json';
 import { isSupabaseConfigured } from './lib/config';
 
@@ -15,9 +16,12 @@ export type PageView = 'feed' | 'profile';
 
 function App() {
   const fallback = staticData as AppData;
+  // Apply topic matching to static reports on initial load
+  const matchedReports = matchAllReports(fallback.reports as Report[], fallback.topics);
+
   const [currentPage, setCurrentPage] = useState<PageView>('feed');
   const [topics, setTopics] = useState<Topic[]>(isSupabaseConfigured ? [] : fallback.topics);
-  const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : (fallback.reports as Report[]));
+  const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : matchedReports);
   const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(isSupabaseConfigured);
   const [error, setError] = useState<string | null>(null);
@@ -31,8 +35,15 @@ function App() {
         supabase.from('reports').select('*'),
       ]);
 
+      // If tables don't exist or error occurs, fallback to static JSON
       if (topicsRes.error || reportsRes.error) {
-        setError(topicsRes.error?.message || reportsRes.error?.message || 'Failed to load data');
+        console.warn('Supabase tables not found, using static JSON data:', {
+          topicsError: topicsRes.error?.message,
+          reportsError: reportsRes.error?.message
+        });
+        const matchedReports = matchAllReports(fallback.reports as Report[], fallback.topics);
+        setTopics(fallback.topics);
+        setReports(matchedReports);
         setLoading(false);
         return;
       }
@@ -40,13 +51,18 @@ function App() {
       const fetchedTopics = (topicsRes.data as TopicRow[]).map(mapTopic);
       const fetchedReports = (reportsRes.data as ReportRow[]).map(mapReport);
 
+      // Apply automatic topic matching algorithm
+      // Match reports to topics/subtopics based on keyword matching
+      const matchedReports = matchAllReports(fetchedReports, fetchedTopics);
+
       // Fallback to static JSON when tables are empty
       if (fetchedTopics.length === 0 && fetchedReports.length === 0) {
+        const staticMatched = matchAllReports(fallback.reports as Report[], fallback.topics);
         setTopics(fallback.topics);
-        setReports(fallback.reports as Report[]);
+        setReports(staticMatched);
       } else {
         setTopics(fetchedTopics);
-        setReports(fetchedReports);
+        setReports(matchedReports);
       }
       setLoading(false);
 

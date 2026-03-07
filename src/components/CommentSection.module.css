@@ -4,6 +4,11 @@
   margin-top: 8px;
 }
 
+.chartPinned {
+  padding: 12px 16px 0;
+  margin-bottom: 12px;
+}
+
 .loading,
 .empty {
   padding: 16px 0;
