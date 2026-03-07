@@ -42,11 +42,43 @@ export interface Report {
   imageUrl?: string;
 }
 
+// ========== Path C: Cross-cutting Identity Types ==========
+
+// 身份标签
+export interface IdentityTag {
+  id: string;              // e.g., "father"
+  layer: 1 | 2 | 3 | 4;   // 四层分类: 1-家庭处境, 2-人生经历, 3-社会角色, 4-生活方式
+  label: string;           // 展示文本, e.g., "Father"
+  emoji?: string;          // 可选 emoji
+  narrative?: string;      // 个人叙事（可为空）
+}
+
+// ========== Data Structures ==========
+
 // Data structure
 export interface AppData {
   topics: Topic[];
   pollingData: PollingData[];
   reports: Report[];
+  mockUsers?: MockUser[];     // Path C: mock users with identity tags
+  mockComments?: MockComment[]; // Path C: mock comments for demo
+}
+
+// Mock user for static demo (Path C)
+export interface MockUser {
+  id: string;
+  displayName: string;
+  avatarUrl?: string;
+  identities: IdentityTag[];
+}
+
+// Mock comment for static demo
+export interface MockComment {
+  id: string;
+  reportId: string;
+  userId: string;          // Links to MockUser.id
+  content: string;
+  createdAt: string;
 }
 
 // 用户资料（映射 profiles 表）
@@ -54,9 +86,10 @@ export interface UserProfile {
   id: string;
   displayName: string;
   avatarUrl?: string;
-  city?: string;          // Path C 身份字段
-  profession?: string;    // Path C 身份字段
-  interests: string[];    // Path C 身份标签
+  city?: string;
+  profession?: string;
+  interests: string[];
+  identities?: IdentityTag[];  // Path C: 交叉身份标签
 }
 
 // 评论
