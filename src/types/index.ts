@@ -1,39 +1,51 @@
-// 事件（一个热点话题）
-export interface Event {
+// ========== Path B: Consensus Visualization Types ==========
+
+// Subtopic (子议题) - granular topics under a main Topic
+export interface Subtopic {
+  id: string;              // e.g., "us-gun-control-background-checks"
+  name: string;            // e.g., "Background Checks"
+  tagKeywords: string[];   // Keywords for matching reports to this subtopic
+}
+
+// Topic (议题) - replaces Event
+export interface Topic {
+  id: string;              // e.g., "us-gun-control"
+  name: string;            // e.g., "Gun Control"
+  scope: 'us_domestic' | 'cross_national';
+  tagKeywords: string[];   // Keywords for matching reports to this topic
+  subtopics?: Subtopic[];  // Optional: granular subtopics
+}
+
+// Polling Data (民调数据) - replaces Distribution
+export interface PollingData {
   id: string;
-  title: string;  // 如 "禁燃油车政策"
-  distribution: Distribution;
+  topicId: string;         // Links to Topic.id or Subtopic.id
+  subtopicId?: string;     // Optional: if this polling data is for a specific subtopic
+  source: string;          // e.g., "Pew Research Center"
+  surveyYear: number;      // e.g., 2024
+  geographicScope: string; // e.g., "US"
+  scaleLabels: string[];   // 4-7 levels, e.g., ["Illegal in all cases", "Legal in most cases", ...]
+  distribution: number[];  // Percentages, same length as scaleLabels
+  bridgingText: string;    // Intro text for the chart
 }
 
-// 立场分布（百分比）
-export interface Distribution {
-  supportive: number;  // 支持，如 25 表示 25%
-  neutral: number;     // 中立
-  opposed: number;     // 反对
-}
-
-// 立场类型
-export type Stance = 'supportive' | 'neutral' | 'opposed';
-
-// 来源类型
-export type Source = '国内' | '外媒';
-
-// 报道（一篇新闻）
+// Report (报道) - updated for Path B
 export interface Report {
   id: string;
-  eventId: string;     // 关联 Event.id
-  title: string;       // 报道标题
-  summary: string;     // 摘要（100-200字）
-  source: Source;      // 来源
-  stance: Stance;      // 立场
-  url?: string;        // 可选：原文链接
-  publishedAt?: string; // 可选：发布时间
-  imageUrl?: string;   // 可选：报道配图
+  topicId?: string;        // Optional: links to Topic.id (fallback if no subtopic match)
+  subtopicId?: string;     // Optional: links to Subtopic.id (preferred, more granular)
+  title: string;
+  summary: string;
+  source: string;          // Media source name (e.g., "CNN", "NPR")
+  url?: string;
+  publishedAt?: string;
+  imageUrl?: string;
 }
 
-// 完整数据结构
-export interface EventsData {
-  events: Event[];
+// Data structure
+export interface AppData {
+  topics: Topic[];
+  pollingData: PollingData[];
   reports: Report[];
 }
 
