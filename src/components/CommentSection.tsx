@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { isSupabaseConfigured } from '../lib/config';
 import { mapComment, type CommentRow } from '../lib/mappers';
+import { useAuth } from '../contexts/AuthContext';
+import { useToast } from '../contexts/ToastContext';
 import type { Comment, PollingData, MockUser, MockComment } from '../types';
 import CommentItem from './CommentItem';
 import CommentInput from './CommentInput';
@@ -14,6 +16,7 @@ interface CommentSectionProps {
   topicId?: string;
   subtopicId?: string;
   onCommentCountChange: (reportId: string, delta: number) => void;
+  onUserClick?: (userId: string) => void;
 }
 
 /**
@@ -48,7 +51,9 @@ function buildMockComments(reportId: string): Comment[] {
     });
 }
 
-export default function CommentSection({ reportId, topicId, subtopicId, onCommentCountChange }: CommentSectionProps) {
+export default function CommentSection({ reportId, topicId, subtopicId, onCommentCountChange, onUserClick }: CommentSectionProps) {
+  const { user } = useAuth();
+  const { showToast } = useToast();
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [pollingData, setPollingData] = useState<PollingData | null>(null);
@@ -101,6 +106,28 @@ export default function CommentSection({ reportId, topicId, subtopicId, onCommen
     onCommentCountChange(reportId, 1);
   };
 
+  const handleCommentDeleted = async (commentId: string) => {
+    if (!isSupabaseConfigured) {
+      showToast('Comment deletion is only available when logged in', 'warning');
+      return;
+    }
+
+    const { error } = await supabase
+      .from('comments')
+      .delete()
+      .eq('id', commentId);
+
+    if (error) {
+      showToast(`Failed to delete comment: ${error.message}`, 'error');
+      return;
+    }
+
+    // Update local state
+    setComments((prev) => prev.filter((c) => c.id !== commentId));
+    onCommentCountChange(reportId, -1);
+    showToast('Comment deleted successfully', 'success', 2000);
+  };
+
   return (
     <div className={styles.commentSection}>
       {/* Pinned chart at top */}
@@ -118,7 +145,13 @@ export default function CommentSection({ reportId, topicId, subtopicId, onCommen
       ) : (
         <div className={styles.list}>
           {comments.map((c) => (
-            <CommentItem key={c.id} comment={c} />
+            <CommentItem
+              key={c.id}
+              comment={c}
+              onAvatarClick={onUserClick}
+              currentUserId={user?.id}
+              onDelete={handleCommentDeleted}
+            />
           ))}
         </div>
       )}

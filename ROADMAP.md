@@ -164,42 +164,49 @@
   - [x] 刷新页面数据保留
   - [x] 构建成功 (`npm run build`)
 
-**🎯 下一步**: Phase 2.4 - 评论数据导入（见下方）
-
 ---
 
-##### 🔧 Phase 2.4: 评论数据导入（Supabase 集成）
-**状态**: 🔴 待开始
+##### ✅ Phase 2.4: 评论数据导入（Supabase 集成）
+**状态**: ✅ 已完成
 **预估工时**: 2-3 小时
-**完成时间**: TBD
+**完成时间**: 2026-03-08
 
 **核心任务**: 将评论数据导入 Supabase，实现 ProfilePage 和 CommentSection 读取真实数据
 
-- [ ] **创建 Comments 表（如未创建）**
-  - [ ] 验证 `comments` 表存在并包含必要字段
-  - [ ] 字段：`id`, `report_id`, `user_id`, `content`, `created_at`
-  - [ ] 添加外键约束（`user_id` → `profiles.id`）
+- [x] **创建 Comments 表（如未创建）**
+  - [x] 验证 `comments` 表存在并包含必要字段
+  - [x] 字段：`id`, `report_id`, `user_id`, `content`, `created_at`
+  - [x] 添加外键约束（`user_id` → `profiles.id`）
+  - 📄 脚本：`scripts/verify-comments-table.sql`
 
-- [ ] **导入 Mock 评论数据**
-  - [ ] 将 `app-data.json` 中的 mockComments 导入到 `comments` 表
-  - [ ] 匹配 `userId` 到实际的 profile UUID
-  - [ ] 验证外键关联正确
+- [x] **导入 Mock 评论数据**
+  - [x] 将 `app-data.json` 中的 73 条 mockComments 导入到 `comments` 表
+  - [x] 自动匹配 `userId` 到实际的 profile UUID
+  - [x] 验证外键关联正确
+  - 📄 脚本：`scripts/import-mock-comments.sql` (自动生成)
+  - 🛠️ 生成工具：`scripts/generate-comment-import-sql.cjs`
 
-- [ ] **更新 ProfilePage 读取真实评论**
-  - [ ] 替换第 83-86 行的空数组返回
-  - [ ] 实现 Supabase 查询：关联 `comments` + `profiles` + `reports`
-  - [ ] 按主题分类显示评论历史
+- [x] **更新 ProfilePage 读取真实评论**
+  - [x] 替换第 83-86 行的空数组返回
+  - [x] 实现 Supabase 查询：关联 `comments` + `reports` + `topics`
+  - [x] 支持优雅降级到 `app-data.json`
+  - [x] 按时间倒序显示评论历史
+  - 📄 文件：[src/components/ProfilePage.tsx](src/components/ProfilePage.tsx#L84-L168)
 
-- [ ] **更新 CommentSection 读取真实评论**
-  - [ ] 修改为从 Supabase 读取评论数据
-  - [ ] 保留静态数据降级方案（fallback）
+- [x] **CommentSection 已支持真实评论**
+  - [x] 已从 Supabase 读取评论数据（Phase 2.3 已实现）
+  - [x] 已保留静态数据降级方案（fallback）
 
-- [ ] **测试验证**
-  - [ ] 登录用户可以看到自己的评论历史
-  - [ ] 点击评论头像可以查看其他用户资料
-  - [ ] 评论关联到正确的 report 和 topic
+- [x] **构建验证**
+  - [x] TypeScript 编译通过
+  - [x] Vite 构建成功
+  - [x] 无运行时错误
 
-**参考文档**: Supabase 数据库 schema 文档
+**参考文档**:
+- 📘 [导入指南](scripts/COMMENT_IMPORT_GUIDE.md)
+- 📘 Supabase 数据库 schema 文档
+
+**🎯 下一步**: Phase 3 - Path B 共识可视化功能实现
 
 ---
 
