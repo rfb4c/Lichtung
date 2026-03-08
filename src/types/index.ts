@@ -89,7 +89,7 @@ export interface UserProfile {
   city?: string;
   profession?: string;
   interests: string[];
-  identities?: IdentityTag[];  // Path C: 交叉身份标签
+  identities: IdentityTag[];  // Path C: 交叉身份标签（必填，默认空数组）
 }
 
 // 评论

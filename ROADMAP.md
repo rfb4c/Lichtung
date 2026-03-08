@@ -123,11 +123,91 @@
 - [ ] Narrative 展开动画优化
 - [ ] 页面过渡动画
 
-**Phase 3: 数据库实装**（效果满意后执行，v0.4.0 或更晚）
-- [ ] 创建 `user_identities` 表
-- [ ] 在 ProfilePage 添加身份标签编辑器
-- [ ] 实现 CRUD 操作
-- [ ] 用户可自定义选择标签
+**Phase 2.3: Supabase 集成**（🚧 当前优先）
+**状态**: 🟡 规划中
+**预估工时**: 4-6 小时
+**优先级**: ⭐⭐⭐ 最高
+
+**核心任务**: 将 ProfilePage 与 Supabase 认证系统集成，支持登录用户存储身份标签
+
+- [x] **修改 Supabase Schema** ✅ 完成于 2026-03-08
+  - [x] 在 `profiles` 表添加 `identities` 列（JSONB 类型）
+  - [x] 创建索引优化查询性能
+  - 📄 脚本: `scripts/supabase-add-identities.sql`
+
+- [x] **更新类型定义** ✅ 完成于 2026-03-08
+  - [x] `UserProfile.identities` 改为必填（非可选）
+  - [x] `ProfileRow.identities` 更新为 `IdentityTag[]`
+  - [x] `mapProfile` 默认值改为 `[]`
+
+- [x] **更新 AuthContext** ✅ 完成于 2026-03-08
+  - [x] 修改 `handleUpdateProfile` 支持 `identities` 字段
+  - [x] 添加类型定义：`identities: IdentityTag[]`
+
+- [x] **改造 ProfilePage** ✅ 完成于 2026-03-08
+  - [x] 集成 `useAuth()` hook 检查登录状态
+  - [x] 已登录：从 Supabase 读取/保存 identities
+  - [x] 未登录：继续使用 localStorage Guest 模式
+  - [x] 添加登录状态提示 UI (guestNotice 样式)
+
+- [x] **导入 Mock 用户数据** ✅ 完成于 2026-03-08
+  - [x] 将 `app-data.json` 中的 12 个 mockUsers 导入到 `profiles` 表
+  - [x] 创建测试账号（12 个用户，密码: pass1234）
+  - [x] 验证数据完整性（identities, avatarUrl, display_name）
+  - 📄 脚本: `scripts/import-mock-users-simple.sql`
+  - 📘 指南: `scripts/MOCK_USERS_IMPORT_GUIDE.md`
+
+- [x] **测试完整流程** ✅ 完成于 2026-03-08
+  - [x] 未登录状态：Guest User + localStorage
+  - [x] 登录后：Supabase 用户 + 数据库持久化
+  - [x] 编辑并保存身份标签
+  - [x] 刷新页面数据保留
+  - [x] 构建成功 (`npm run build`)
+
+**🎯 下一步**: Phase 2.4 - 评论数据导入（见下方）
+
+---
+
+##### 🔧 Phase 2.4: 评论数据导入（Supabase 集成）
+**状态**: 🔴 待开始
+**预估工时**: 2-3 小时
+**完成时间**: TBD
+
+**核心任务**: 将评论数据导入 Supabase，实现 ProfilePage 和 CommentSection 读取真实数据
+
+- [ ] **创建 Comments 表（如未创建）**
+  - [ ] 验证 `comments` 表存在并包含必要字段
+  - [ ] 字段：`id`, `report_id`, `user_id`, `content`, `created_at`
+  - [ ] 添加外键约束（`user_id` → `profiles.id`）
+
+- [ ] **导入 Mock 评论数据**
+  - [ ] 将 `app-data.json` 中的 mockComments 导入到 `comments` 表
+  - [ ] 匹配 `userId` 到实际的 profile UUID
+  - [ ] 验证外键关联正确
+
+- [ ] **更新 ProfilePage 读取真实评论**
+  - [ ] 替换第 83-86 行的空数组返回
+  - [ ] 实现 Supabase 查询：关联 `comments` + `profiles` + `reports`
+  - [ ] 按主题分类显示评论历史
+
+- [ ] **更新 CommentSection 读取真实评论**
+  - [ ] 修改为从 Supabase 读取评论数据
+  - [ ] 保留静态数据降级方案（fallback）
+
+- [ ] **测试验证**
+  - [ ] 登录用户可以看到自己的评论历史
+  - [ ] 点击评论头像可以查看其他用户资料
+  - [ ] 评论关联到正确的 report 和 topic
+
+**参考文档**: Supabase 数据库 schema 文档
+
+---
+
+**Phase 3: 完全迁移到 Supabase**（v0.4.0 或更晚）
+- [ ] 移除 localStorage 降级方案
+- [ ] 删除 `profiles` 表的 `city`, `profession`, `interests` 旧字段
+- [ ] 用户可自主注册并编辑身份标签
+- [ ] 实现完整的 CRUD 操作
 
 **参考文档**: `docs/02-Path-C-交叉身份/设计规范.md`
 
