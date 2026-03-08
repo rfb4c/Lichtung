@@ -409,6 +409,108 @@
   margin: 0;
 }
 
+/* ========== Avatar Upload ========== */
+
+.avatarUpload {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.avatarPreviewContainer {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-border);
+  margin: 0 auto;
+}
+
+.avatarPreviewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+}
+
+.avatarInitialLarge {
+  font-size: 48px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+}
+
+.avatarActions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.fileInput {
+  display: none;
+}
+
+.uploadButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--color-primary);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.uploadButton:hover {
+  background: var(--color-primary-hover);
+}
+
+.uploadButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.removeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.removeButton:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgb(239, 68, 68);
+  color: rgb(239, 68, 68);
+}
+
+.helperText {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin: 0;
+}
+
 /* ========== Responsive Design ========== */
 
 @media (max-width: 640px) {
@@ -465,5 +567,24 @@
   .cancelButton,
   .saveButton {
     width: 100%;
+  }
+
+  .avatarPreviewContainer {
+    width: 96px;
+    height: 96px;
+  }
+
+  .avatarInitialLarge {
+    font-size: 40px;
+  }
+
+  .avatarActions {
+    flex-direction: column;
+  }
+
+  .uploadButton,
+  .removeButton {
+    width: 100%;
+    justify-content: center;
   }
 }

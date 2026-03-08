@@ -22,7 +22,13 @@ export default function UserMenu() {
   return (
     <div className={styles.userMenu}>
       <button className={styles.userButton} onClick={() => setMenuOpen(!menuOpen)}>
-        <div className={styles.avatar}>{initial}</div>
+        <div className={styles.avatar}>
+          {user?.avatarUrl ? (
+            <img src={user.avatarUrl} alt={user.displayName} className={styles.avatarImage} />
+          ) : (
+            initial
+          )}
+        </div>
         <div className={styles.userInfo}>
           <span className={styles.displayName}>{user?.displayName}</span>
           <span className={styles.handle}>

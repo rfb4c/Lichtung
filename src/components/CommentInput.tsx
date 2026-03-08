@@ -63,7 +63,13 @@ export default function CommentInput({ reportId, onCommentAdded }: CommentInputP
   return (
     <div>
       <form className={styles.inputRow} onSubmit={handleSubmit}>
-        <div className={styles.avatar}>{initial}</div>
+        <div className={styles.avatar}>
+          {user?.avatarUrl ? (
+            <img src={user.avatarUrl} alt={user.displayName} className={styles.avatarImage} />
+          ) : (
+            initial
+          )}
+        </div>
         <input
           className={styles.input}
           type="text"

@@ -21,10 +21,12 @@ interface FeedItemProps {
   topic?: Topic;
   commentCount?: number;
   onCommentCountChange?: (reportId: string, delta: number) => void;
+  onUserClick?: (userId: string) => void;
+  initialViewMode?: 'closed' | 'comments' | 'data-only';
 }
 
-export default function FeedItem({ report, topic, commentCount, onCommentCountChange }: FeedItemProps) {
-  const [viewMode, setViewMode] = useState<'closed' | 'comments' | 'data-only'>('closed');
+export default function FeedItem({ report, topic, commentCount, onCommentCountChange, onUserClick, initialViewMode = 'closed' }: FeedItemProps) {
+  const [viewMode, setViewMode] = useState<'closed' | 'comments' | 'data-only'>(initialViewMode);
 
   // Load polling data if topic exists
   // Priority: report.subtopicId > report.topicId > topic.id
@@ -209,6 +211,7 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
             topicId={report.topicId}
             subtopicId={report.subtopicId}
             onCommentCountChange={handleCommentCountChange}
+            onUserClick={onUserClick}
           />
         )}
 

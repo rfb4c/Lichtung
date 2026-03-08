@@ -1,31 +1,77 @@
 import { useState } from 'react';
+import { Trash2 } from 'lucide-react';
 import type { Comment, IdentityTag } from '../types';
 import styles from './CommentItem.module.css';
 
 interface CommentItemProps {
   comment: Comment;
+  onAvatarClick?: (userId: string) => void;
+  currentUserId?: string;
+  onDelete?: (commentId: string) => void;
 }
 
-export default function CommentItem({ comment }: CommentItemProps) {
+export default function CommentItem({ comment, onAvatarClick, currentUserId, onDelete }: CommentItemProps) {
   const profile = comment.profile;
   const initial = profile?.displayName?.charAt(0) || '?';
   const identities = profile?.identities;
   const timeLabel = formatTime(comment.createdAt);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const isOwnComment = currentUserId && comment.userId === currentUserId;
+
+  const handleAvatarClick = () => {
+    if (onAvatarClick && comment.userId) {
+      onAvatarClick(comment.userId);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!onDelete) return;
+
+    const confirmed = window.confirm('Are you sure you want to delete this comment?');
+    if (!confirmed) return;
+
+    setIsDeleting(true);
+    try {
+      await onDelete(comment.id);
+    } catch (error) {
+      console.error('Failed to delete comment:', error);
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <div className={styles.commentItem}>
-      <div className={styles.avatar}>
-        {profile?.avatarUrl ? (
-          <img src={profile.avatarUrl} alt={profile.displayName} className={styles.avatarImage} />
-        ) : (
-          initial
-        )}
-      </div>
+      <button
+        className={styles.avatarButton}
+        onClick={handleAvatarClick}
+        aria-label={`View ${profile?.displayName || 'user'}'s profile`}
+        type="button"
+      >
+        <div className={styles.avatar}>
+          {profile?.avatarUrl ? (
+            <img src={profile.avatarUrl} alt={profile.displayName} className={styles.avatarImage} />
+          ) : (
+            initial
+          )}
+        </div>
+      </button>
       <div className={styles.content}>
         <div className={styles.header}>
           <span className={styles.displayName}>{profile?.displayName || 'Anonymous'}</span>
           <span className={styles.dot}>·</span>
           <span className={styles.time}>{timeLabel}</span>
+          {isOwnComment && onDelete && (
+            <button
+              className={styles.deleteButton}
+              onClick={handleDelete}
+              disabled={isDeleting}
+              title="Delete comment"
+              aria-label="Delete comment"
+            >
+              <Trash2 size={14} strokeWidth={1.75} />
+            </button>
+          )}
         </div>
 
         {/* Path C: Identity tag chips */}
