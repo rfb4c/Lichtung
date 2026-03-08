@@ -1,285 +1,352 @@
-import { useState, useEffect, type FormEvent } from 'react';
-import { ArrowLeft, MapPin, Briefcase, MessageCircle } from 'lucide-react';
+import { useState, useEffect, useMemo, type FormEvent } from 'react';
+import type { IdentityTag, MockComment, Report, Topic } from '../types';
 import { useAuth } from '../contexts/AuthContext';
-import { supabase } from '../lib/supabase';
-import { isSupabaseConfigured } from '../lib/config';
-import styles from './ProfilePage.module.css';
+import IdentityTagEditor from './IdentityTagEditor';
+import styles from './UserProfilePage.module.css';
 
 interface ProfilePageProps {
   onBack: () => void;
+  onNavigateToReport?: (reportId: string) => void;
 }
 
-interface MyComment {
-  id: string;
-  content: string;
-  createdAt: string;
-  reportId: string;
-  reportTitle: string | null;
+interface GuestProfile {
+  displayName: string;
+  avatarUrl?: string;
+  identities: IdentityTag[];
 }
+
+interface CommentWithReport extends MockComment {
+  report?: Report;
+  topic?: Topic;
+}
+
+const STORAGE_KEY = 'lichtung_guest_profile';
+
+// Load guest profile from localStorage
+function loadGuestProfile(): GuestProfile {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      return JSON.parse(stored);
+    }
+  } catch (e) {
+    console.error('Failed to load guest profile:', e);
+  }
+
+  return {
+    displayName: 'Guest User',
+    identities: [],
+  };
+}
+
+// Save guest profile to localStorage
+function saveGuestProfile(profile: GuestProfile): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
+  } catch (e) {
+    console.error('Failed to save guest profile:', e);
+  }
+}
+
+export default function ProfilePage({ onBack, onNavigateToReport }: ProfilePageProps) {
+  const { isAuthenticated, user, handleUpdateProfile } = useAuth();
+
+  // Initialize profile based on auth state
+  const [profile, setProfile] = useState<GuestProfile>(() => {
+    if (isAuthenticated && user) {
+      return {
+        displayName: user.displayName,
+        avatarUrl: user.avatarUrl,
+        identities: user.identities,
+      };
+    }
+    return loadGuestProfile();
+  });
+
+  const [editing, setEditing] = useState(false);
+  const [editedDisplayName, setEditedDisplayName] = useState(profile.displayName);
+  const [editedIdentities, setEditedIdentities] = useState<IdentityTag[]>(profile.identities);
+  const [expandedTagId, setExpandedTagId] = useState<string | null>(null);
+
+  // Sync profile with user when auth state changes
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      setProfile({
+        displayName: user.displayName,
+        avatarUrl: user.avatarUrl,
+        identities: user.identities,
+      });
+    }
+  }, [isAuthenticated, user]);
+
+  // Get user's comments (for now, return empty since we're a guest)
+  // In Phase 3, this would fetch from Supabase based on user ID
+  const userComments = useMemo((): CommentWithReport[] => {
+    // TODO: In Phase 3, fetch real comments from Supabase
+    return [];
+  }, []);
+
+  // Save to localStorage whenever profile changes
+  useEffect(() => {
+    saveGuestProfile(profile);
+  }, [profile]);
+
+  const handleStartEdit = () => {
+    setEditedDisplayName(profile.displayName);
+    setEditedIdentities([...profile.identities]);
+    setEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    setEditing(false);
+  };
+
+  const handleSaveEdit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const updated: GuestProfile = {
+      displayName: editedDisplayName.trim() || 'Guest User',
+      avatarUrl: profile.avatarUrl,
+      identities: editedIdentities,
+    };
+
+    if (isAuthenticated) {
+      // Save to Supabase for authenticated users
+      const error = await handleUpdateProfile({
+        displayName: updated.displayName,
+        identities: updated.identities,
+      });
+
+      if (error) {
+        alert(`Failed to save: ${error}`);
+        return;
+      }
+    } else {
+      // Save to localStorage for guest users
+      saveGuestProfile(updated);
+    }
+
+    setProfile(updated);
+    setEditing(false);
+  };
+
+  const handleTagClick = (tag: IdentityTag) => {
+    if (!tag.narrative) return;
+    setExpandedTagId((prev) => (prev === tag.id ? null : tag.id));
+  };
+
+  const initial = profile.displayName.charAt(0) || 'G';
+
+  return (
+    <div className={styles.container}>
+      {/* Header with back button */}
+      <header className={styles.header}>
+        <button
+          className={styles.backButton}
+          onClick={onBack}
+          aria-label="Go back"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          <span>Back</span>
+        </button>
+      </header>
+
+      {editing ? (
+        /* ========== Edit Mode ========== */
+        <div className={styles.editMode}>
+          <form onSubmit={handleSaveEdit} className={styles.editForm}>
+            <h2 className={styles.editTitle}>Edit Your Profile</h2>
+
+            {!isAuthenticated && (
+              <div className={styles.guestNotice}>
+                You're in guest mode. Changes are saved locally. <a href="#" onClick={(e) => { e.preventDefault(); /* TODO: trigger auth modal */ }}>Sign in</a> to save permanently.
+              </div>
+            )}
+
+            <label className={styles.field}>
+              <span className={styles.fieldLabel}>Display Name</span>
+              <input
+                className={styles.input}
+                type="text"
+                value={editedDisplayName}
+                onChange={(e) => setEditedDisplayName(e.target.value)}
+                placeholder="Your name"
+                required
+              />
+            </label>
+
+            <div className={styles.divider} />
+
+            <IdentityTagEditor
+              selectedTags={editedIdentities}
+              onChange={setEditedIdentities}
+              maxTags={5}
+            />
+
+            <div className={styles.formActions}>
+              <button
+                type="button"
+                className={styles.cancelButton}
+                onClick={handleCancelEdit}
+              >
+                Cancel
+              </button>
+              <button type="submit" className={styles.saveButton}>
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      ) : (
+        /* ========== View Mode ========== */
+        <>
+          {/* User Profile Section */}
+          <section className={styles.profileSection}>
+            <div className={styles.avatarLarge}>
+              {profile.avatarUrl ? (
+                <img src={profile.avatarUrl} alt={profile.displayName} className={styles.avatarImage} />
+              ) : (
+                <span className={styles.avatarInitial}>{initial}</span>
+              )}
+            </div>
+
+            <h1 className={styles.displayName}>{profile.displayName}</h1>
+
+            <button className={styles.editProfileButton} onClick={handleStartEdit}>
+              Edit Profile
+            </button>
+
+            {/* Identity Tags */}
+            {profile.identities && profile.identities.length > 0 && (
+              <div className={styles.identitySection}>
+                <div className={styles.chipGrid}>
+                  {profile.identities.map((tag) => {
+                    const hasNarrative = !!tag.narrative;
+                    const isExpanded = expandedTagId === tag.id;
+                    return (
+                      <div key={tag.id}>
+                        <button
+                          className={`${styles.chip} ${hasNarrative ? styles.chipClickable : ''} ${isExpanded ? styles.chipActive : ''}`}
+                          onClick={() => handleTagClick(tag)}
+                          type="button"
+                          aria-expanded={hasNarrative ? isExpanded : undefined}
+                        >
+                          {tag.emoji && <span className={styles.chipEmoji}>{tag.emoji}</span>}
+                          <span className={styles.chipLabel}>{tag.label}</span>
+                          {hasNarrative && <span className={styles.narrativeDot}>•</span>}
+                        </button>
+
+                        {/* Expanded narrative */}
+                        {isExpanded && tag.narrative && (
+                          <div className={styles.narrativePanel}>
+                            <p className={styles.narrativeText}>"{tag.narrative}"</p>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {profile.identities.length === 0 && (
+              <p className={styles.emptyHint}>
+                Add identity tags to help others understand your perspective
+              </p>
+            )}
+          </section>
+
+          {/* Comments History */}
+          <section className={styles.commentsSection}>
+            <h2 className={styles.sectionTitle}>
+              Comments ({userComments.length})
+            </h2>
+
+            {userComments.length === 0 ? (
+              <div className={styles.emptyState}>
+                No comments yet. Share your thoughts on reports in the feed!
+              </div>
+            ) : (
+              <div className={styles.commentsList}>
+                {userComments.map((comment) => (
+                  <CommentHistoryItem
+                    key={comment.id}
+                    comment={comment}
+                    onNavigateToReport={onNavigateToReport}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+        </>
+      )}
+    </div>
+  );
+}
+
+/* ── Comment History Item ── */
+
+interface CommentHistoryItemProps {
+  comment: CommentWithReport;
+  onNavigateToReport?: (reportId: string) => void;
+}
+
+function CommentHistoryItem({ comment, onNavigateToReport }: CommentHistoryItemProps) {
+  const timeLabel = formatTime(comment.createdAt);
+
+  return (
+    <article className={styles.commentItem}>
+      <p className={styles.commentContent}>{comment.content}</p>
+
+      <div className={styles.commentMeta}>
+        <span className={styles.commentTime}>{timeLabel}</span>
+
+        {comment.report && onNavigateToReport && (
+          <>
+            <span className={styles.metaDivider}>·</span>
+            <span className={styles.commentContext}>on</span>
+            <button
+              className={styles.reportLink}
+              onClick={() => onNavigateToReport(comment.reportId)}
+              type="button"
+            >
+              {comment.report.title}
+            </button>
+
+            {comment.topic && (
+              <span className={styles.topicTag}>
+                {comment.topic.name}
+              </span>
+            )}
+          </>
+        )}
+      </div>
+    </article>
+  );
+}
+
+/* ── Time formatting ── */
 
 function formatTime(isoString: string): string {
   const now = Date.now();
   const then = new Date(isoString).getTime();
   const diffMs = now - then;
   const diffMin = Math.floor(diffMs / 60000);
+
   if (diffMin < 1) return 'just now';
-  if (diffMin < 60) return `${diffMin}m`;
+  if (diffMin < 60) return `${diffMin}m ago`;
+
   const diffHour = Math.floor(diffMin / 60);
-  if (diffHour < 24) return `${diffHour}h`;
+  if (diffHour < 24) return `${diffHour}h ago`;
+
   const diffDay = Math.floor(diffHour / 24);
-  if (diffDay < 30) return `${diffDay}d`;
-  return new Date(isoString).toLocaleDateString('en-US');
-}
+  if (diffDay < 30) return `${diffDay}d ago`;
 
-export default function ProfilePage({ onBack }: ProfilePageProps) {
-  const { user, isAuthenticated, session, showAuth, handleUpdateProfile } = useAuth();
-  const [editing, setEditing] = useState(false);
-  const [displayName, setDisplayName] = useState(user?.displayName || '');
-  const [city, setCity] = useState(user?.city || '');
-  const [profession, setProfession] = useState(user?.profession || '');
-  const [interestsText, setInterestsText] = useState((user?.interests || []).join(', '));
-  const [error, setError] = useState<string | null>(null);
-  const [submitting, setSubmitting] = useState(false);
-
-  const [myComments, setMyComments] = useState<MyComment[]>([]);
-  const [commentsLoading, setCommentsLoading] = useState(false);
-
-  useEffect(() => {
-    if (!isSupabaseConfigured || !session?.user) return;
-
-    setCommentsLoading(true);
-    supabase
-      .from('comments')
-      .select('id, content, created_at, report_id, reports(title)')
-      .eq('user_id', session.user.id)
-      .order('created_at', { ascending: false })
-      .then(({ data }) => {
-        if (data) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          setMyComments((data as any[]).map((row) => ({
-            id: row.id as string,
-            content: row.content as string,
-            createdAt: row.created_at as string,
-            reportId: row.report_id as string,
-            reportTitle: (row.reports?.title as string) ?? null,
-          })));
-        }
-        setCommentsLoading(false);
-      });
-  }, [session]);
-
-  if (!isAuthenticated || !user) {
-    return (
-      <>
-        <header className={styles.header}>
-          <button className={styles.backButton} onClick={onBack}>
-            <ArrowLeft size={20} strokeWidth={1.75} />
-          </button>
-          <span className={styles.headerTitle}>Profile</span>
-        </header>
-        <div className={styles.emptyState}>
-          <p className={styles.emptyText}>Log in to view your profile</p>
-          <button className={styles.loginButton} onClick={() => showAuth('login')}>
-            Log in
-          </button>
-        </div>
-      </>
-    );
-  }
-
-  const initial = user.displayName?.charAt(0) || '?';
-  const handle = `@${user.displayName?.toLowerCase().replace(/\s+/g, '') || 'user'}`;
-
-  const handleStartEdit = () => {
-    setDisplayName(user.displayName || '');
-    setCity(user.city || '');
-    setProfession(user.profession || '');
-    setInterestsText((user.interests || []).join(', '));
-    setError(null);
-    setEditing(true);
-  };
-
-  const handleCancelEdit = () => {
-    setEditing(false);
-    setError(null);
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setSubmitting(true);
-
-    const interests = interestsText
-      .split(/[,，]/)
-      .map((s) => s.trim())
-      .filter(Boolean);
-
-    const err = await handleUpdateProfile({
-      displayName: displayName || 'Anonymous',
-      city: city || undefined,
-      profession: profession || undefined,
-      interests,
-    });
-
-    if (err) {
-      setError(err);
-    } else {
-      setEditing(false);
-    }
-    setSubmitting(false);
-  };
-
-  return (
-    <>
-      <header className={styles.header}>
-        <button className={styles.backButton} onClick={onBack}>
-          <ArrowLeft size={20} strokeWidth={1.75} />
-        </button>
-        <div className={styles.headerInfo}>
-          <span className={styles.headerTitle}>{user.displayName}</span>
-          {myComments.length > 0 && (
-            <span className={styles.headerSub}>{myComments.length} comment{myComments.length > 1 ? 's' : ''}</span>
-          )}
-        </div>
-      </header>
-
-      {/* Banner */}
-      <div className={styles.banner} />
-
-      {/* Avatar + Edit button row */}
-      <div className={styles.avatarRow}>
-        <div className={styles.avatarLarge}>{initial}</div>
-        {!editing && (
-          <button className={styles.editButton} onClick={handleStartEdit}>
-            Edit profile
-          </button>
-        )}
-      </div>
-
-      {/* Profile info / edit form */}
-      <div className={styles.content}>
-        {editing ? (
-          <form className={styles.form} onSubmit={handleSubmit}>
-            {error && <div className={styles.error}>{error}</div>}
-
-            <label className={styles.field}>
-              <span className={styles.fieldLabel}>Display name</span>
-              <input
-                className={styles.input}
-                type="text"
-                value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
-              />
-            </label>
-
-            <label className={styles.field}>
-              <span className={styles.fieldLabel}>City</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="e.g., New York"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
-            </label>
-
-            <label className={styles.field}>
-              <span className={styles.fieldLabel}>Profession</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="e.g., Engineer"
-                value={profession}
-                onChange={(e) => setProfession(e.target.value)}
-              />
-            </label>
-
-            <label className={styles.field}>
-              <span className={styles.fieldLabel}>Interests</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Comma-separated, e.g., Tech, Education, Climate"
-                value={interestsText}
-                onChange={(e) => setInterestsText(e.target.value)}
-              />
-            </label>
-
-            <div className={styles.formActions}>
-              <button type="button" className={styles.cancelButton} onClick={handleCancelEdit}>
-                Cancel
-              </button>
-              <button className={styles.saveButton} type="submit" disabled={submitting}>
-                {submitting ? 'Saving...' : 'Save'}
-              </button>
-            </div>
-          </form>
-        ) : (
-          <div className={styles.info}>
-            <h2 className={styles.displayName}>{user.displayName}</h2>
-            <span className={styles.handle}>{handle}</span>
-
-            <div className={styles.meta}>
-              {user.city && (
-                <span className={styles.metaItem}>
-                  <MapPin size={16} strokeWidth={1.75} />
-                  {user.city}
-                </span>
-              )}
-              {user.profession && (
-                <span className={styles.metaItem}>
-                  <Briefcase size={16} strokeWidth={1.75} />
-                  {user.profession}
-                </span>
-              )}
-            </div>
-
-            {user.interests.length > 0 && (
-              <div className={styles.interests}>
-                {user.interests.map((tag) => (
-                  <span key={tag} className={styles.interestTag}>{tag}</span>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Divider */}
-      {!editing && <div className={styles.divider} />}
-
-      {/* My comments */}
-      {!editing && (
-        <section className={styles.commentsSection}>
-          <div className={styles.commentsSectionHeader}>
-            <MessageCircle size={16} strokeWidth={1.75} />
-            <span>My comments</span>
-          </div>
-
-          {commentsLoading ? (
-            <div className={styles.commentsLoading}>Loading...</div>
-          ) : myComments.length === 0 ? (
-            <div className={styles.commentsEmpty}>
-              <p>No comments yet</p>
-              <p className={styles.commentsEmptyHint}>Go back to the feed and share your thoughts on reports</p>
-            </div>
-          ) : (
-            <ul className={styles.commentsList}>
-              {myComments.map((c) => (
-                <li key={c.id} className={styles.commentRow}>
-                  {c.reportTitle && (
-                    <p className={styles.commentContext}>
-                      Commented on "{c.reportTitle}"
-                    </p>
-                  )}
-                  <p className={styles.commentContent}>{c.content}</p>
-                  <span className={styles.commentTime}>{formatTime(c.createdAt)}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
-      )}
-    </>
-  );
+  return new Date(isoString).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
 }

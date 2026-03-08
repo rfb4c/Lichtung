@@ -37,7 +37,7 @@ export interface ProfileRow {
   city: string | null;
   profession: string | null;
   interests: string[];
-  identities?: IdentityTag[];  // Path C: cross-cutting identity tags
+  identities: IdentityTag[];  // Path C: cross-cutting identity tags (default: [])
 }
 
 export interface CommentRow {
@@ -93,7 +93,7 @@ export function mapProfile(row: ProfileRow): UserProfile {
     city: row.city ?? undefined,
     profession: row.profession ?? undefined,
     interests: row.interests ?? [],
-    identities: row.identities ?? undefined,
+    identities: row.identities ?? [],
   };
 }
 
