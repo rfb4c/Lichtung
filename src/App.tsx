@@ -4,7 +4,9 @@ import Sidebar from './components/Sidebar';
 import RightSidebar from './components/RightSidebar';
 import FeedItem from './components/FeedItem';
 import ProfilePage from './components/ProfilePage';
+import UserProfilePage from './components/UserProfilePage';
 import AuthModal from './components/AuthModal';
+import ToastContainer from './components/ToastContainer';
 import { supabase } from './lib/supabase';
 import { Report, Topic, AppData } from './types';
 import { TopicRow, ReportRow, mapTopic, mapReport } from './lib/mappers';
@@ -12,7 +14,7 @@ import { matchAllReports } from './lib/matchers';
 import staticData from './data/app-data.json';
 import { isSupabaseConfigured } from './lib/config';
 
-export type PageView = 'feed' | 'profile';
+export type PageView = 'feed' | 'profile' | 'user-profile';
 
 function App() {
   const fallback = staticData as AppData;
@@ -20,11 +22,13 @@ function App() {
   const matchedReports = matchAllReports(fallback.reports as Report[], fallback.topics);
 
   const [currentPage, setCurrentPage] = useState<PageView>('feed');
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [focusedReportId, setFocusedReportId] = useState<string | null>(null);
   const [topics, setTopics] = useState<Topic[]>(isSupabaseConfigured ? [] : fallback.topics);
   const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : matchedReports);
   const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(isSupabaseConfigured);
-  const [error, setError] = useState<string | null>(null);
+  const [error, _setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isSupabaseConfigured) return;
@@ -92,11 +96,46 @@ function App() {
   const getTopicById = (topicId: string): Topic | undefined =>
     topics.find((t) => t.id === topicId);
 
-  const handleNavigate = useCallback((page: PageView) => setCurrentPage(page), []);
+  const handleNavigate = useCallback((page: PageView) => {
+    setCurrentPage(page);
+    // Clear focused report when navigating to feed normally
+    if (page === 'feed') {
+      setFocusedReportId(null);
+    }
+  }, []);
+
+  const handleUserClick = useCallback((userId: string) => {
+    setCurrentUserId(userId);
+    setCurrentPage('user-profile');
+  }, []);
+
+  const handleNavigateToReport = useCallback((reportId: string) => {
+    setFocusedReportId(reportId);
+    setCurrentPage('feed');
+  }, []);
+
+  const handleBackToAllReports = useCallback(() => {
+    setFocusedReportId(null);
+  }, []);
 
   const renderMainContent = () => {
     if (currentPage === 'profile') {
-      return <ProfilePage onBack={() => setCurrentPage('feed')} />;
+      return (
+        <ProfilePage
+          onBack={() => setCurrentPage('feed')}
+          onNavigateToReport={handleNavigateToReport}
+        />
+      );
+    }
+
+    if (currentPage === 'user-profile' && currentUserId) {
+      return (
+        <UserProfilePage
+          userId={currentUserId}
+          onNavigateBack={() => setCurrentPage('feed')}
+          onNavigateToReport={handleNavigateToReport}
+        />
+      );
     }
 
     if (loading) {
@@ -127,21 +166,43 @@ function App() {
       );
     }
 
+    // Filter reports if focusing on one
+    const displayReports = focusedReportId
+      ? reports.filter((r) => r.id === focusedReportId)
+      : reports;
+
     return (
       <>
         <header className={styles.feedHeader}>
-          <div className={styles.tabActive}>为你推荐</div>
-          <div className={styles.tab}>正在关注</div>
+          {focusedReportId ? (
+            <button
+              className={styles.backToFeed}
+              onClick={handleBackToAllReports}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+              <span>Back to all reports</span>
+            </button>
+          ) : (
+            <>
+              <div className={styles.tabActive}>为你推荐</div>
+              <div className={styles.tab}>正在关注</div>
+            </>
+          )}
         </header>
         <div className={styles.feed}>
-          {reports.map((report: Report) => (
-            <FeedItem
-              key={report.id}
-              report={report}
-              topic={report.topicId ? getTopicById(report.topicId) : undefined}
-              commentCount={commentCounts[report.id]}
-              onCommentCountChange={handleCommentCountChange}
-            />
+          {displayReports.map((report: Report) => (
+            <div key={report.id} id={`report-${report.id}`}>
+              <FeedItem
+                report={report}
+                topic={report.topicId ? getTopicById(report.topicId) : undefined}
+                commentCount={commentCounts[report.id]}
+                onCommentCountChange={handleCommentCountChange}
+                onUserClick={handleUserClick}
+                initialViewMode={focusedReportId === report.id ? 'comments' : 'closed'}
+              />
+            </div>
           ))}
         </div>
       </>
@@ -158,6 +219,7 @@ function App() {
 
       <RightSidebar />
       <AuthModal />
+      <ToastContainer />
     </div>
   );
 }

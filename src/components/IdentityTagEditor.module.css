@@ -1,0 +1,219 @@
+/* ========== Editor Container ========== */
+
+.editor {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.counter {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* ========== Layer Sections ========== */
+
+.layers {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.layerSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.layerTitle {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.layerName {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.layerDesc {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+
+/* ========== Tag Grid ========== */
+
+.tagGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.tagOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.tagOption:hover {
+  background: var(--color-hover);
+  border-color: var(--color-primary);
+}
+
+.tagSelected {
+  background: var(--color-primary-subtle);
+  border-color: var(--color-primary);
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+.tagLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  flex: 1;
+}
+
+.tagEmoji {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* ========== Narrative Section ========== */
+
+.narrativeSection {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--color-border);
+}
+
+.narrativeTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 8px 0;
+}
+
+.optional {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+
+.narrativeHint {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.narrativeList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.narrativeItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.narrativeLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.narrativeInput {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 60px;
+  transition: border-color 0.2s;
+}
+
+.narrativeInput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.narrativeInput::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.charCount {
+  align-self: flex-end;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+/* ========== Responsive Design ========== */
+
+@media (max-width: 640px) {
+  .tagGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .layerTitle {
+    font-size: 14px;
+  }
+
+  .tagOption {
+    padding: 8px 12px;
+  }
+
+  .tagLabel {
+    font-size: 13px;
+  }
+}

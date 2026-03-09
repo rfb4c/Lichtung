@@ -1,5 +1,7 @@
 /* CSS Reset */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -31,20 +33,30 @@
   --tag-foreign-text: #6ABF9E;
   --tag-domestic-bg: rgba(245, 124, 0, 0.15);
   --tag-domestic-text: #FFB74D;
+
+  /* 身份标签 chip */
+  --chip-bg: #232628;
+  --chip-bg-hover: #2c2f33;
+  --chip-bg-active: #363a3e;
+  --chip-text: #9aa3ab;
+  --chip-dot: #4A9D74;
+  --narrative-bg: #1f2224;
+  --narrative-border: #363a3e;
+  --narrative-text: #8a939b;
 }
 
-/* Light Theme */
+/* Light Theme - Cool Neutral Palette */
 [data-theme="light"] {
   --color-primary: #2D6A4F;
   --color-primary-hover: #1E5438;
   --color-primary-subtle: rgba(45, 106, 79, 0.08);
-  --color-background: #e1dfd8;
-  --color-surface: #edeae3;
-  --color-border: #d0cec7;
-  --color-hover: #e9e7e0;
-  --color-text-primary: #394b59;
-  --color-text-secondary: #7c8a94;
-  --color-header-bg: rgba(237, 234, 227, 0.85);
+  --color-background: #f5f6f7;    /* 从暖米色 → 冷中性灰 */
+  --color-surface: #ffffff;       /* 从暖白 → 纯白 */
+  --color-border: #dfe1e5;        /* 从暖灰 → 冷灰 */
+  --color-hover: #f0f2f5;         /* 从暖灰 → 冷浅灰 */
+  --color-text-primary: #2c3e50;  /* 更深的深蓝灰 */
+  --color-text-secondary: #6c7a89;/* 冷调灰蓝 */
+  --color-header-bg: rgba(255, 255, 255, 0.85);
 
   /* 立场颜色 - 稍微调暗以适应浅色背景 */
   --color-supportive: #2e7d32;
@@ -59,6 +71,16 @@
   --tag-foreign-text: #1B5E42;
   --tag-domestic-bg: rgba(245, 124, 0, 0.12);
   --tag-domestic-text: #e65100;
+
+  /* 身份标签 chip - 更明显的灰蓝色 */
+  --chip-bg: #dfe3e8;             /* 从米色 → 中性灰蓝 */
+  --chip-bg-hover: #d0d5db;       /* 更深的 hover */
+  --chip-bg-active: #c4cbd4;      /* 更深的 active */
+  --chip-text: #4a5568;           /* 更深的文字，提高对比度 */
+  --chip-dot: #2D6A4F;
+  --narrative-bg: #f0f4f8;        /* 叙事背景：浅蓝灰 */
+  --narrative-border: #d0d5db;
+  --narrative-text: #4a5568;
 }
 
 body {
