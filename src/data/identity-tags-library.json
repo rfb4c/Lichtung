@@ -1,0 +1,246 @@
+{
+  "layer1": {
+    "name": "Family & Life Situation",
+    "description": "家庭角色与生活处境",
+    "tags": [
+      {
+        "id": "father",
+        "label": "Father",
+        "emoji": "👨‍👧‍👦"
+      },
+      {
+        "id": "mother",
+        "label": "Mother",
+        "emoji": "👩‍👧"
+      },
+      {
+        "id": "grandparent",
+        "label": "Raising the Next Gen",
+        "emoji": "👵"
+      },
+      {
+        "id": "caregiver",
+        "label": "Family Caregiver",
+        "emoji": "❤️"
+      },
+      {
+        "id": "lost-loved-one",
+        "label": "Carrying a Loss",
+        "emoji": "🕊️"
+      },
+      {
+        "id": "military-family",
+        "label": "Military Family",
+        "emoji": "🇺🇸"
+      },
+      {
+        "id": "multicultural-household",
+        "label": "Multicultural Home",
+        "emoji": "🌍"
+      },
+      {
+        "id": "solo-parent",
+        "label": "Solo Raising Kids",
+        "emoji": "💪"
+      }
+    ]
+  },
+  "layer2": {
+    "name": "Life Experiences",
+    "description": "人生经历与背景",
+    "tags": [
+      {
+        "id": "veteran",
+        "label": "Served My Country",
+        "emoji": "🎖️"
+      },
+      {
+        "id": "first-gen-college",
+        "label": "First-Gen College",
+        "emoji": "🎓"
+      },
+      {
+        "id": "immigrant-experience",
+        "label": "Bridge Builder",
+        "emoji": "🌉"
+      },
+      {
+        "id": "experienced-poverty",
+        "label": "Self-Made",
+        "emoji": "💪"
+      },
+      {
+        "id": "chronic-illness",
+        "label": "Chronic Fighter",
+        "emoji": "💪"
+      },
+      {
+        "id": "small-town",
+        "label": "Country Raised",
+        "emoji": "🏡"
+      },
+      {
+        "id": "urban-roots",
+        "label": "City Born",
+        "emoji": "🌆"
+      },
+      {
+        "id": "moved-often",
+        "label": "Many Homes",
+        "emoji": "🗺️"
+      },
+      {
+        "id": "lifelong-learner",
+        "label": "Always Learning",
+        "emoji": "📖"
+      },
+      {
+        "id": "career-changer",
+        "label": "Second Act",
+        "emoji": "🔄"
+      }
+    ]
+  },
+  "layer3": {
+    "name": "Social Roles",
+    "description": "社会角色与贡献",
+    "tags": [
+      {
+        "id": "teacher",
+        "label": "Educator",
+        "emoji": "📚"
+      },
+      {
+        "id": "healthcare-worker",
+        "label": "In Healthcare",
+        "emoji": "🏥"
+      },
+      {
+        "id": "small-business-owner",
+        "label": "Small Biz Owner",
+        "emoji": "🏪"
+      },
+      {
+        "id": "farmer",
+        "label": "Land & Livestock",
+        "emoji": "🌾"
+      },
+      {
+        "id": "first-responder",
+        "label": "First Responder",
+        "emoji": "🚒"
+      },
+      {
+        "id": "volunteer",
+        "label": "Giving Back",
+        "emoji": "🤝"
+      },
+      {
+        "id": "trades",
+        "label": "Working with Hands",
+        "emoji": "🔧"
+      },
+      {
+        "id": "creative-work",
+        "label": "Creative Spirit",
+        "emoji": "🎨"
+      },
+      {
+        "id": "tech-field",
+        "label": "In Tech",
+        "emoji": "💻"
+      },
+      {
+        "id": "student",
+        "label": "Still Learning",
+        "emoji": "🎓"
+      },
+      {
+        "id": "nonprofit-worker",
+        "label": "Mission-Driven",
+        "emoji": "🌱"
+      },
+      {
+        "id": "service-industry",
+        "label": "People Server",
+        "emoji": "☕"
+      }
+    ]
+  },
+  "layer4": {
+    "name": "Lifestyle & Interests",
+    "description": "生活方式与爱好",
+    "tags": [
+      {
+        "id": "faith-community",
+        "label": "Person of Faith",
+        "emoji": "⛪"
+      },
+      {
+        "id": "pet-owner",
+        "label": "Pet Parent",
+        "emoji": "🐕"
+      },
+      {
+        "id": "outdoor-enthusiast",
+        "label": "Outdoor Lover",
+        "emoji": "🏔️"
+      },
+      {
+        "id": "hunting-fishing",
+        "label": "Hunter & Angler",
+        "emoji": "🎣"
+      },
+      {
+        "id": "sports-fan",
+        "label": "Sports Enthusiast",
+        "emoji": "🏀"
+      },
+      {
+        "id": "arts-culture",
+        "label": "Arts & Culture",
+        "emoji": "🎭"
+      },
+      {
+        "id": "cooking",
+        "label": "Home Chef",
+        "emoji": "🍳"
+      },
+      {
+        "id": "gardening",
+        "label": "Grower",
+        "emoji": "🌿"
+      },
+      {
+        "id": "music-lover",
+        "label": "Music Moves Me",
+        "emoji": "🎵"
+      },
+      {
+        "id": "reader",
+        "label": "Book Lover",
+        "emoji": "📚"
+      },
+      {
+        "id": "gamer",
+        "label": "Gamer",
+        "emoji": "🎮"
+      },
+      {
+        "id": "traveler",
+        "label": "Explorer",
+        "emoji": "✈️"
+      },
+      {
+        "id": "community-builder",
+        "label": "Neighbor",
+        "emoji": "🏘️"
+      },
+      {
+        "id": "environmentalist",
+        "label": "Earth Keeper",
+        "emoji": "🌍"
+      }
+    ]
+  }
+}
