@@ -17,7 +17,7 @@ interface AuthContextValue {
   handleLogin: (email: string, password: string) => Promise<string | null>;
   handleRegister: (email: string, password: string, displayName: string) => Promise<string | null>;
   handleLogout: () => Promise<void>;
-  handleUpdateProfile: (updates: Partial<Pick<UserProfile, 'displayName' | 'avatarUrl' | 'city' | 'profession' | 'interests'>>) => Promise<string | null>;
+  handleUpdateProfile: (updates: Partial<Pick<UserProfile, 'displayName' | 'avatarUrl' | 'city' | 'profession' | 'interests' | 'identities'>>) => Promise<string | null>;
   showAuth: (mode: AuthMode) => void;
   hideAuth: () => void;
 }
@@ -98,7 +98,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const handleUpdateProfile = useCallback(async (
-    updates: Partial<Pick<UserProfile, 'displayName' | 'avatarUrl' | 'city' | 'profession' | 'interests'>>
+    updates: Partial<Pick<UserProfile, 'displayName' | 'avatarUrl' | 'city' | 'profession' | 'interests' | 'identities'>>
   ): Promise<string | null> => {
     if (!session?.user) return '未登录';
     const row: Record<string, unknown> = {};
@@ -107,6 +107,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (updates.city !== undefined) row.city = updates.city;
     if (updates.profession !== undefined) row.profession = updates.profession;
     if (updates.interests !== undefined) row.interests = updates.interests;
+    if (updates.identities !== undefined) row.identities = updates.identities;
     row.updated_at = new Date().toISOString();
 
     const { error } = await supabase
