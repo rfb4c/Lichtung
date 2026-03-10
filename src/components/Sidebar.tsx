@@ -71,33 +71,59 @@ export default function Sidebar({ currentPage, onNavigate }: SidebarProps) {
     return false;
   };
 
+  const bottomNavItems = menuItems.filter((item) =>
+    ['home', 'explore', 'notifications', 'profile'].includes(item.key)
+  );
+
   return (
-    <nav className={styles.sidebar}>
-      <div className={styles.logo}>林间空地</div>
+    <>
+      <nav className={styles.sidebar}>
+        <div className={styles.logo}>林间空地</div>
 
-      <ul className={styles.menu}>
-        {menuItems.map((item) => (
-          <li
+        <ul className={styles.menu}>
+          {menuItems.map((item) => (
+            <li
+              key={item.key}
+              className={`${styles.menuItem} ${isActive(item) ? styles.active : ''}`}
+              onClick={() => handleMenuClick(item)}
+            >
+              <span className={styles.icon}>
+                <item.icon size={24} strokeWidth={isActive(item) ? 2.5 : 1.75} />
+              </span>
+              <span className={styles.label}>{item.label}</span>
+            </li>
+          ))}
+        </ul>
+
+        <button className={styles.postButton}>Post</button>
+
+        <UserMenu />
+
+        <button className={styles.themeToggle} onClick={toggleTheme}>
+          {theme === 'dark' ? <Sun size={20} strokeWidth={1.75} /> : <Moon size={20} strokeWidth={1.75} />}
+          <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+        </button>
+      </nav>
+
+      <nav className={styles.bottomNav}>
+        {bottomNavItems.map((item) => (
+          <button
             key={item.key}
-            className={`${styles.menuItem} ${isActive(item) ? styles.active : ''}`}
+            className={`${styles.bottomNavItem} ${isActive(item) ? styles.bottomNavActive : ''}`}
             onClick={() => handleMenuClick(item)}
+            aria-label={item.label}
           >
-            <span className={styles.icon}>
-              <item.icon size={24} strokeWidth={isActive(item) ? 2.5 : 1.75} />
-            </span>
-            <span className={styles.label}>{item.label}</span>
-          </li>
+            <item.icon size={24} strokeWidth={isActive(item) ? 2.5 : 1.75} />
+          </button>
         ))}
-      </ul>
-
-      <button className={styles.postButton}>Post</button>
-
-      <UserMenu />
-
-      <button className={styles.themeToggle} onClick={toggleTheme}>
-        {theme === 'dark' ? <Sun size={20} strokeWidth={1.75} /> : <Moon size={20} strokeWidth={1.75} />}
-        <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
-      </button>
-    </nav>
+        <button
+          className={styles.bottomNavItem}
+          onClick={toggleTheme}
+          aria-label="Toggle theme"
+        >
+          {theme === 'dark' ? <Sun size={22} strokeWidth={1.75} /> : <Moon size={22} strokeWidth={1.75} />}
+        </button>
+      </nav>
+    </>
   );
 }
