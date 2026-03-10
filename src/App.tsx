@@ -28,7 +28,6 @@ function App() {
   const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : matchedReports);
   const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(isSupabaseConfigured);
-  const [error, _setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isSupabaseConfigured) return;
@@ -147,20 +146,6 @@ function App() {
           </header>
           <div className={styles.feed}>
             <div className={styles.loading}>Loading...</div>
-          </div>
-        </>
-      );
-    }
-
-    if (error) {
-      return (
-        <>
-          <header className={styles.feedHeader}>
-            <div className={styles.tabActive}>For You</div>
-            <div className={styles.tab}>Following</div>
-          </header>
-          <div className={styles.feed}>
-            <div className={styles.error}>{error}</div>
           </div>
         </>
       );
