@@ -2,13 +2,11 @@ import { useState, useCallback, useMemo } from 'react';
 import {
   Link,
   MessageCircle,
-  Repeat2,
-  Heart,
   BarChart2,
   Bookmark,
   Share,
-  Eye,
 } from 'lucide-react';
+import { useToast } from '../contexts/ToastContext';
 import { Report, Topic, PollingData } from '../types';
 import CommentSection from './CommentSection';
 import DistributionChart from './DistributionChart';
@@ -27,6 +25,7 @@ interface FeedItemProps {
 
 export default function FeedItem({ report, topic, commentCount, onCommentCountChange, onUserClick, initialViewMode = 'closed' }: FeedItemProps) {
   const [viewMode, setViewMode] = useState<'closed' | 'comments' | 'data-only'>(initialViewMode);
+  const { showToast } = useToast();
 
   // Load polling data if topic exists
   // Priority: report.subtopicId > report.topicId > topic.id
@@ -63,14 +62,9 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
   const mediaHandle = mediaInfo.handle;
 
   // 基于 report.id 生成稳定的伪随机数（fallback 模式用）
-  const actionCounts = useMemo(() => {
+  const commentDisplayCount = useMemo(() => {
     const hash = report.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    return {
-      comments: commentCount ?? (hash * 13) % 100,
-      retweets: (hash * 7) % 50,
-      likes: (hash * 23) % 500,
-      views: ((hash * 17) % 100) / 10,
-    };
+    return commentCount ?? (hash * 13) % 100;
   }, [report.id, commentCount]);
 
   const handleToggleComments = useCallback((e: React.MouseEvent) => {
@@ -86,6 +80,22 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
   const handleCommentCountChange = useCallback((reportId: string, delta: number) => {
     onCommentCountChange?.(reportId, delta);
   }, [onCommentCountChange]);
+
+  const handleShare = useCallback(async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const url = report.url;
+    if (!url) return;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: report.title, url });
+      } catch {
+        // user cancelled or error — do nothing
+      }
+    } else {
+      await navigator.clipboard.writeText(url);
+      showToast('链接已复制', 'info');
+    }
+  }, [report.url, report.title, showToast]);
 
   return (
     <article className={styles.feedItem}>
@@ -114,7 +124,6 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
           <span className={styles.handle}>{mediaHandle}</span>
           <span className={styles.dot}>·</span>
           <span className={styles.time}>{report.publishedAt || '1h'}</span>
-          <button className={styles.moreButton}>···</button>
         </div>
 
         {/* Topic badge */}
@@ -173,7 +182,7 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
             title="View comments"
           >
             <MessageCircle size={16} strokeWidth={1.75} />
-            <span className={styles.actionCount}>{actionCounts.comments}</span>
+            <span className={styles.actionCount}>{commentDisplayCount}</span>
           </button>
           {topic && pollingData && (
             <button
@@ -185,22 +194,10 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
               <span className={styles.actionLabel}>Public Opinion</span>
             </button>
           )}
-          <button className={styles.actionButton}>
-            <Repeat2 size={16} strokeWidth={1.75} />
-            <span className={styles.actionCount}>{actionCounts.retweets}</span>
-          </button>
-          <button className={styles.actionButton}>
-            <Heart size={16} strokeWidth={1.75} />
-            <span className={styles.actionCount}>{actionCounts.likes}</span>
-          </button>
-          <button className={styles.actionButton}>
-            <Eye size={16} strokeWidth={1.75} />
-            <span className={styles.actionCount}>{actionCounts.views.toFixed(1)}K</span>
-          </button>
-          <button className={styles.actionButton}>
+          <button className={styles.actionButton} title="Bookmark (coming soon)">
             <Bookmark size={16} strokeWidth={1.75} />
           </button>
-          <button className={styles.actionButton}>
+          <button className={styles.actionButton} onClick={handleShare} title="Share">
             <Share size={16} strokeWidth={1.75} />
           </button>
         </div>

@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import {
   Home,
-  Search,
   Bell,
   Users,
-  MessageCircle,
   Bookmark,
   User,
-  MoreHorizontal,
   Sun,
   Moon,
 } from 'lucide-react';
@@ -26,13 +23,10 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   { icon: Home, label: 'Home', key: 'home', page: 'feed' },
-  { icon: Search, label: 'Explore', key: 'explore' },
   { icon: Bell, label: 'Notifications', key: 'notifications' },
-  { icon: Users, label: 'Following', key: 'following' },
-  { icon: MessageCircle, label: 'Messages', key: 'messages' },
   { icon: Bookmark, label: 'Bookmarks', key: 'bookmarks' },
+  { icon: Users, label: 'Following', key: 'following' },
   { icon: User, label: 'Profile', key: 'profile', page: 'profile' },
-  { icon: MoreHorizontal, label: 'More', key: 'more' },
 ];
 
 interface SidebarProps {
@@ -89,8 +83,6 @@ export default function Sidebar({ currentPage, onNavigate }: SidebarProps) {
           </li>
         ))}
       </ul>
-
-      <button className={styles.postButton}>Post</button>
 
       <UserMenu />
 

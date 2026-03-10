@@ -68,20 +68,6 @@
   font-size: 15px;
 }
 
-.moreButton {
-  margin-left: auto;
-  background: none;
-  border: none;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 9999px;
-}
-
-.moreButton:hover {
-  background-color: var(--color-primary-subtle);
-  color: var(--color-primary);
-}
 
 .topicBadge {
   display: inline-block;
