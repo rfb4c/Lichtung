@@ -194,6 +194,28 @@
   transform: translateY(-50%) translateX(-8px);
 }
 
+@media (max-width: 767px) {
+  .feedItem {
+    padding: 10px 12px;
+  }
+
+  .tweetText {
+    font-size: 14px;
+  }
+
+  .actions {
+    max-width: 100%;
+  }
+
+  .linkTitle {
+    font-size: 14px;
+  }
+
+  .linkDescription {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 1200px) {
   .tooltipWrapper {
     position: absolute;

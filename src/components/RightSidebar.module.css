@@ -6,6 +6,12 @@
   padding: 12px 24px;
 }
 
+@media (max-width: 1023px) {
+  .rightSidebar {
+    display: none;
+  }
+}
+
 .searchBox {
   display: flex;
   align-items: center;
