@@ -8,6 +8,53 @@
   flex-direction: column;
 }
 
+@media (max-width: 1023px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+/* ── Bottom Navigation Bar (mobile only) ── */
+.bottomNav {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .bottomNav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background-color: var(--color-background);
+    border-top: 1px solid var(--color-border);
+    z-index: 100;
+    align-items: stretch;
+  }
+}
+
+.bottomNavItem {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  padding: 0;
+}
+
+.bottomNavItem:hover {
+  background-color: var(--color-hover);
+}
+
+.bottomNavActive {
+  color: var(--color-text-primary);
+}
+
 .logo {
   font-size: 30px;
   font-weight: 700;
@@ -48,22 +95,6 @@
   font-weight: 700;
 }
 
-.postButton {
-  margin-top: 16px;
-  width: 90%;
-  padding: 16px;
-  background-color: var(--color-primary);
-  color: white;
-  border: none;
-  border-radius: 9999px;
-  font-size: 17px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.postButton:hover {
-  background-color: var(--color-primary-hover);
-}
 
 .themeToggle {
   margin-top: auto;
