@@ -71,3 +71,21 @@
   margin: 0;
   font-style: italic;
 }
+
+@media (max-width: 767px) {
+  .chartContainer {
+    padding: 12px;
+  }
+
+  .labelSection {
+    flex: 0 0 38%;
+  }
+
+  .label {
+    font-size: 12px;
+  }
+
+  .bridgingText {
+    font-size: 13px;
+  }
+}
