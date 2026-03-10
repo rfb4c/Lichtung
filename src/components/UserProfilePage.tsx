@@ -215,7 +215,7 @@ export default function UserProfilePage({ userId, onNavigateBack, onNavigateToRe
           {user.avatarUrl ? (
             <img src={user.avatarUrl} alt={user.displayName} className={styles.avatarImage} />
           ) : (
-            <span className={styles.avatarInitial}>{user.displayName.charAt(0)}</span>
+            <span className={styles.avatarInitial}>{user.displayName?.charAt(0) || '?'}</span>
           )}
         </div>
 

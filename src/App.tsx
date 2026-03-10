@@ -28,7 +28,6 @@ function App() {
   const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : matchedReports);
   const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(isSupabaseConfigured);
-  const [error, _setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isSupabaseConfigured) return;
@@ -152,20 +151,6 @@ function App() {
       );
     }
 
-    if (error) {
-      return (
-        <>
-          <header className={styles.feedHeader}>
-            <div className={styles.tabActive}>For You</div>
-            <div className={styles.tab}>Following</div>
-          </header>
-          <div className={styles.feed}>
-            <div className={styles.error}>{error}</div>
-          </div>
-        </>
-      );
-    }
-
     // Filter reports if focusing on one
     const displayReports = focusedReportId
       ? reports.filter((r) => r.id === focusedReportId)
@@ -186,8 +171,8 @@ function App() {
             </button>
           ) : (
             <>
-              <div className={styles.tabActive}>为你推荐</div>
-              <div className={styles.tab}>正在关注</div>
+              <div className={styles.tabActive}>For You</div>
+              <div className={styles.tab}>Following</div>
             </>
           )}
         </header>
