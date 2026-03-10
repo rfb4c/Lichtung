@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Trash2 } from 'lucide-react';
 import type { Comment, IdentityTag } from '../types';
+import { useToast } from '../contexts/ToastContext';
 import styles from './CommentItem.module.css';
 
 interface CommentItemProps {
@@ -11,6 +12,7 @@ interface CommentItemProps {
 }
 
 export default function CommentItem({ comment, onAvatarClick, currentUserId, onDelete }: CommentItemProps) {
+  const { showToast } = useToast();
   const profile = comment.profile;
   const initial = profile?.displayName?.charAt(0) || '?';
   const identities = profile?.identities;
@@ -36,6 +38,7 @@ export default function CommentItem({ comment, onAvatarClick, currentUserId, onD
       await onDelete(comment.id);
     } catch (error) {
       console.error('Failed to delete comment:', error);
+      showToast('Failed to delete comment. Please try again.', 'error');
       setIsDeleting(false);
     }
   };
@@ -118,11 +121,10 @@ function IdentityChips({ identities }: { identities: IdentityTag[] }) {
       </div>
 
       {/* Narrative expansion */}
-      {expandedId && (
-        <NarrativePanel
-          tag={identities.find((t) => t.id === expandedId)!}
-        />
-      )}
+      {expandedId && (() => {
+        const tag = identities.find((t) => t.id === expandedId);
+        return tag ? <NarrativePanel tag={tag} /> : null;
+      })()}
     </div>
   );
 }

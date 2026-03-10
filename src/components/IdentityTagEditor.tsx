@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { IdentityTag } from '../types';
+import { useToast } from '../contexts/ToastContext';
 import styles from './IdentityTagEditor.module.css';
 import tagsLibrary from '../data/identity-tags-library.json';
 
@@ -22,6 +23,7 @@ interface LayerData {
 }
 
 export default function IdentityTagEditor({ selectedTags, onChange, maxTags = 5 }: IdentityTagEditorProps) {
+  const { showToast } = useToast();
   const [narratives, setNarratives] = useState<Record<string, string>>(() => {
     const initial: Record<string, string> = {};
     selectedTags.forEach((tag) => {
@@ -53,7 +55,7 @@ export default function IdentityTagEditor({ selectedTags, onChange, maxTags = 5 
     } else {
       // Add tag (if not at max)
       if (selectedTags.length >= maxTags) {
-        alert(`You can select up to ${maxTags} identity tags`);
+        showToast(`You can select up to ${maxTags} identity tags`, 'info');
         return;
       }
 
