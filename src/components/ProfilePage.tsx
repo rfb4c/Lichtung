@@ -54,7 +54,7 @@ function saveGuestProfile(profile: GuestProfile): void {
 }
 
 export default function ProfilePage({ onBack, onNavigateToReport }: ProfilePageProps) {
-  const { isAuthenticated, user, handleUpdateProfile } = useAuth();
+  const { isAuthenticated, user, handleUpdateProfile, showAuth } = useAuth();
   const { showToast } = useToast();
 
   // Initialize profile based on auth state
@@ -389,7 +389,7 @@ export default function ProfilePage({ onBack, onNavigateToReport }: ProfilePageP
 
             {!isAuthenticated && (
               <div className={styles.guestNotice}>
-                You're in guest mode. Changes are saved locally. <a href="#" onClick={(e) => { e.preventDefault(); /* TODO: trigger auth modal */ }}>Sign in</a> to save permanently.
+                You're in guest mode. Changes are saved locally. <a href="#" onClick={(e) => { e.preventDefault(); showAuth('login'); }}>Sign in</a> to save permanently.
               </div>
             )}
 
