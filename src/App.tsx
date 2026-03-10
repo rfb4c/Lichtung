@@ -24,6 +24,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState<PageView>('feed');
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [focusedReportId, setFocusedReportId] = useState<string | null>(null);
+  const [topicFilter, setTopicFilter] = useState<string>('');
   const [topics, setTopics] = useState<Topic[]>(isSupabaseConfigured ? [] : fallback.topics);
   const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : matchedReports);
   const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
@@ -97,10 +98,15 @@ function App() {
 
   const handleNavigate = useCallback((page: PageView) => {
     setCurrentPage(page);
-    // Clear focused report when navigating to feed normally
+    // Clear focused report and topic filter when navigating to feed (Home)
     if (page === 'feed') {
       setFocusedReportId(null);
+      setTopicFilter('');
     }
+  }, []);
+
+  const handleTopicFilter = useCallback((query: string) => {
+    setTopicFilter(query);
   }, []);
 
   const handleUserClick = useCallback((userId: string) => {
@@ -151,10 +157,20 @@ function App() {
       );
     }
 
-    // Filter reports if focusing on one
-    const displayReports = focusedReportId
+    // Filter reports: focused report > topic filter > all
+    let displayReports = focusedReportId
       ? reports.filter((r) => r.id === focusedReportId)
       : reports;
+
+    if (!focusedReportId && topicFilter) {
+      const lowerQuery = topicFilter.toLowerCase();
+      const matchedTopicIds = topics
+        .filter((t) => t.name.toLowerCase().includes(lowerQuery))
+        .map((t) => t.id);
+      displayReports = displayReports.filter(
+        (r) => r.topicId && matchedTopicIds.includes(r.topicId)
+      );
+    }
 
     return (
       <>
@@ -202,7 +218,7 @@ function App() {
         {renderMainContent()}
       </main>
 
-      <RightSidebar />
+      <RightSidebar onTopicFilter={handleTopicFilter} />
       <AuthModal />
       <ToastContainer />
     </div>
