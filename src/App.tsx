@@ -171,8 +171,8 @@ function App() {
             </button>
           ) : (
             <>
-              <div className={styles.tabActive}>为你推荐</div>
-              <div className={styles.tab}>正在关注</div>
+              <div className={styles.tabActive}>For You</div>
+              <div className={styles.tab}>Following</div>
             </>
           )}
         </header>
