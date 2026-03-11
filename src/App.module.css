@@ -13,6 +13,26 @@
   min-height: 100vh;
 }
 
+/* 平板端：flex: 1 占据侧边栏外的剩余空间 */
+@media (max-width: 1023px) {
+  .mainColumn {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    border-right: none;
+  }
+}
+
+/* 手机端：全宽，为底部导航留出空间 */
+@media (max-width: 767px) {
+  .mainColumn {
+    width: 100%;
+    border-left: none;
+    border-right: none;
+    padding-bottom: 56px;
+  }
+}
+
 .feedHeader {
   display: flex;
   position: sticky;
