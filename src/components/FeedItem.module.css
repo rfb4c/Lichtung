@@ -133,7 +133,8 @@
 
 .actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 4px;
   max-width: 425px;
 }
 
@@ -201,10 +202,6 @@
 
   .tweetText {
     font-size: 14px;
-  }
-
-  .actions {
-    max-width: 100%;
   }
 
   .linkTitle {
