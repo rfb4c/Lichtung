@@ -185,3 +185,17 @@
   color: var(--narrative-text);
   margin: 0;
 }
+
+@media (max-width: 767px) {
+  .text {
+    font-size: 14px;
+  }
+
+  .displayName {
+    font-size: 13px;
+  }
+
+  .header {
+    gap: 2px;
+  }
+}
