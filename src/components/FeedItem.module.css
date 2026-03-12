@@ -213,7 +213,7 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1023px) {
   .tooltipWrapper {
     position: absolute;
     right: 16px;

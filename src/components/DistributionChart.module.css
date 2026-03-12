@@ -71,3 +71,32 @@
   margin: 0;
   font-style: italic;
 }
+
+@media (max-width: 767px) {
+  .chartContainer {
+    padding: 12px;
+  }
+
+  .labelSection {
+    flex: 0 0 35%;
+    padding-right: 8px;
+  }
+
+  .label {
+    font-size: 12px;
+  }
+
+  .bar {
+    height: 20px;
+    min-width: 28px;
+    padding-right: 6px;
+  }
+
+  .percentage {
+    font-size: 11px;
+  }
+
+  .bridgingText {
+    font-size: 13px;
+  }
+}
