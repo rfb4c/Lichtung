@@ -136,6 +136,7 @@
   justify-content: flex-start;
   gap: 4px;
   max-width: 425px;
+  flex-wrap: wrap;
 }
 
 .actionButton {
