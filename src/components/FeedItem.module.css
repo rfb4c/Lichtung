@@ -68,20 +68,6 @@
   font-size: 15px;
 }
 
-.moreButton {
-  margin-left: auto;
-  background: none;
-  border: none;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 9999px;
-}
-
-.moreButton:hover {
-  background-color: var(--color-primary-subtle);
-  color: var(--color-primary);
-}
 
 .topicBadge {
   display: inline-block;
@@ -147,8 +133,10 @@
 
 .actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 4px;
   max-width: 425px;
+  flex-wrap: wrap;
 }
 
 .actionButton {
@@ -208,7 +196,25 @@
   transform: translateY(-50%) translateX(-8px);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 767px) {
+  .feedItem {
+    padding: 10px 12px;
+  }
+
+  .tweetText {
+    font-size: 14px;
+  }
+
+  .linkTitle {
+    font-size: 14px;
+  }
+
+  .linkDescription {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1023px) {
   .tooltipWrapper {
     position: absolute;
     right: 16px;
