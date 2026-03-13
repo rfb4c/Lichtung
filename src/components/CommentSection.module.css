@@ -21,3 +21,13 @@
   max-height: 400px;
   overflow-y: auto;
 }
+
+@media (max-width: 767px) {
+  .commentSection {
+    margin-left: -24px;
+  }
+
+  .chartPinned {
+    padding: 12px 0 0;
+  }
+}
