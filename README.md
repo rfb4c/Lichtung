@@ -2,7 +2,7 @@
 
 > 感知极化校准研究 Demo - 通过共识可视化和交叉身份标签，修正用户对公众态度的感知偏差
 
-[![Version](https://img.shields.io/badge/version-0.2.1-green.svg)](https://github.com/rfb4c/Lichtung)
+[![Version](https://img.shields.io/badge/version-0.3.2-green.svg)](https://github.com/rfb4c/Lichtung)
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue.svg)](https://www.typescriptlang.org/)
 
@@ -100,21 +100,24 @@ npm run build
 
 ## 🎨 核心功能
 
-### ✅ 已实现 (v0.2.1)
+### ✅ 已实现 (v0.3.2)
 - 新闻报道流（FeedItem）
 - 用户认证与个人资料
-- 评论系统
+- 评论系统与报道链接跳转
+- 移动端/平板端响应式适配
 - **Path B Phase 1 & 2**:
   - 分布图表组件 (DistributionChart)
   - 评论区集成图表
-  - 双按钮交互（单看数据 / 单看分析）
+  - 双按钮交互（单看数据 / 单看评论）
   - 主题标签显示
   - 基础主题匹配算法
+- **Path C Phase 1**:
+  - 交叉身份标签系统基础实现
 
-### 🚧 开发中 (v0.3.0)
+### 🚧 开发中 (v0.4.0)
+- Path C 完整功能实现
 - 主题匹配算法优化
-- 扩充主题与民调数据
-- UI/UX 增强
+- UI/UX 持续增强
 
 ### 🔮 计划中
 - **v0.4.0**: Path C 交叉身份标签系统
@@ -166,4 +169,4 @@ npm run build
 
 ---
 
-**当前版本**: v0.2.1 | **最后更新**: 2026-03-07
+**当前版本**: v0.3.2 | **最后更新**: 2026-03-14
