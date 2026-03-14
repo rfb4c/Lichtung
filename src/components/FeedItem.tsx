@@ -139,7 +139,6 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
             target="_blank"
             rel="noopener noreferrer"
             className={styles.linkCard}
-            onClick={(e) => e.stopPropagation()}
           >
             {report.imageUrl && (
               <img
