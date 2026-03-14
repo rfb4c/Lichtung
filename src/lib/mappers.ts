@@ -26,6 +26,7 @@ export interface ReportRow {
   title: string;
   summary: string;
   source: string;
+  url: string | null;
   image_url: string | null;
   published_at: string | null;
 }
@@ -80,6 +81,7 @@ export function mapReport(row: ReportRow): Report {
     title: row.title,
     summary: row.summary,
     source: row.source,
+    url: row.url ?? undefined,
     imageUrl: row.image_url ?? undefined,
     publishedAt: row.published_at ?? undefined,
   };
