@@ -23,6 +23,7 @@ export interface PollingDataRow {
 export interface ReportRow {
   id: string;
   topic_id: string | null;
+  polling_data_id?: string | null;
   title: string;
   summary: string;
   source: string;
@@ -78,6 +79,7 @@ export function mapReport(row: ReportRow): Report {
   return {
     id: row.id,
     topicId: row.topic_id ?? undefined,
+    pollingDataId: row.polling_data_id !== undefined ? row.polling_data_id : undefined,
     title: row.title,
     summary: row.summary,
     source: row.source,

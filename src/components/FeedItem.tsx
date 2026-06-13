@@ -27,28 +27,29 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
   const [viewMode, setViewMode] = useState<'closed' | 'comments' | 'data-only'>(initialViewMode);
   const { showToast } = useToast();
 
-  // Load polling data if topic exists
-  // Priority: report.subtopicId > report.topicId > topic.id
+  // Load polling data for Path B chart
+  // Priority: report.pollingDataId (explicit) > report.subtopicId > topic fallback
   const pollingData = useMemo<PollingData | null>(() => {
-    // First, try to find polling data by subtopicId (most specific)
+    // Explicit assignment takes priority; null means intentionally no chart
+    if (report.pollingDataId !== undefined) {
+      if (report.pollingDataId === null) return null;
+      return appData.pollingData.find((p) => p.id === report.pollingDataId) || null;
+    }
+
+    // Legacy fallback for reports without explicit pollingDataId (e.g. Supabase-only)
+    if (report.topicId === 'us-gun-control') return null;
+
     if (report.subtopicId) {
       const data = appData.pollingData.find((p) => p.subtopicId === report.subtopicId);
       if (data) return data;
     }
 
-    // Fallback: try to find by topicId
-    if (report.topicId) {
-      const data = appData.pollingData.find((p) => p.topicId === report.topicId && !p.subtopicId);
-      if (data) return data;
-    }
-
-    // Last fallback: use topic.id (for backwards compatibility)
     if (topic) {
       return appData.pollingData.find((p) => p.topicId === topic.id) || null;
     }
 
     return null;
-  }, [report.subtopicId, report.topicId, topic]);
+  }, [report.pollingDataId, report.subtopicId, report.topicId, topic]);
 
   // Get media info from configuration file
   const mediaInfo = mediaSources.mediaSources[report.source as keyof typeof mediaSources.mediaSources] || {

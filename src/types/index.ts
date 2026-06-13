@@ -34,6 +34,7 @@ export interface Report {
   id: string;
   topicId?: string;        // Optional: links to Topic.id (fallback if no subtopic match)
   subtopicId?: string;     // Optional: links to Subtopic.id (preferred, more granular)
+  pollingDataId?: string | null; // Explicit polling data assignment; null = no chart
   title: string;
   summary: string;
   source: string;          // Media source name (e.g., "CNN", "NPR")
