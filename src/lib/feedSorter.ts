@@ -34,18 +34,17 @@ export function sortCalibrated(reports: Report[]): Report[] {
   // Step 3: sort by adjusted position ascending (lower = earlier in feed)
   withPositions.sort((a, b) => a.adjustedPosition - b.adjustedPosition);
 
-  // Step 4: guarantee at least 1 counter-stereotypical per 4-report window
+  // Step 4: guarantee at least 1 counter-stereotypical per 4-report window.
+  // Only pull CS items from AFTER the current window to avoid disrupting
+  // windows that already have CS coverage.
   const result = withPositions.map(x => x.report);
-  const csReports = result.filter(r => r.counterStereotypical);
-  let inserted = 0;
   for (let i = 3; i < result.length; i += 4) {
     const window = result.slice(i - 3, i + 1);
-    const hasCS = window.some(r => r.counterStereotypical);
-    if (!hasCS && csReports[inserted]) {
-      const csIndex = result.indexOf(csReports[inserted]);
-      if (csIndex !== -1) {
-        result.splice(i, 0, result.splice(csIndex, 1)[0]);
-        inserted++;
+    if (!window.some(r => r.counterStereotypical)) {
+      const csIdx = result.findIndex((r, idx) => idx > i && r.counterStereotypical);
+      if (csIdx !== -1) {
+        const [cs] = result.splice(csIdx, 1);
+        result.splice(i, 0, cs);
       }
     }
   }
