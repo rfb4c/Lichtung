@@ -331,7 +331,11 @@
       "publishedAt": "2h",
       "imageUrl": "https://media.nbcdfw.com/2026/03/AP26060561690822.jpg?quality=85&strip=all",
       "topicId": "us-gun-control",
-      "pollingDataId": null
+      "pollingDataId": null,
+      "hostilityScore": 0.85,
+      "counterStereotypical": false,
+      "contentType": "hostile",
+      "engagementScore": 0.9
     },
     {
       "id": "rp_gun_002",
@@ -342,7 +346,11 @@
       "publishedAt": "4h",
       "imageUrl": "https://marylandmatters.org/wp-content/uploads/2026/01/2417294-1536x1024.png",
       "topicId": "us-gun-control",
-      "pollingDataId": null
+      "pollingDataId": null,
+      "hostilityScore": 0.25,
+      "counterStereotypical": false,
+      "contentType": "neutral",
+      "engagementScore": 0.55
     },
     {
       "id": "rp_gun_003",
@@ -353,7 +361,11 @@
       "publishedAt": "6h",
       "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-560w,f_auto,q_auto:best/rockcms/2026-01/250102-open-carry-aa-640-182ab3.png",
       "topicId": "us-gun-control",
-      "pollingDataId": null
+      "pollingDataId": null,
+      "hostilityScore": 0.45,
+      "counterStereotypical": false,
+      "contentType": "neutral",
+      "engagementScore": 0.65
     },
     {
       "id": "rp_gun_004",
@@ -364,7 +376,11 @@
       "publishedAt": "8h",
       "imageUrl": "https://www.motherjones.com/wp-content/uploads/trump-rifle2000.jpg?w=990",
       "topicId": "us-gun-control",
-      "pollingDataId": null
+      "pollingDataId": null,
+      "hostilityScore": 0.2,
+      "counterStereotypical": true,
+      "contentType": "counter-stereotypical",
+      "engagementScore": 0.7
     },
     {
       "id": "rp_gun_005",
@@ -375,7 +391,11 @@
       "publishedAt": "10h",
       "imageUrl": "https://static.wixstatic.com/media/0eb7a4_62b29f11d642449099bb2659ac5774ca~mv2.png/v1/fill/w_1000,h_563,al_c,q_90,usm_0.66_1.00_0.01/0eb7a4_62b29f11d642449099bb2659ac5774ca~mv2.png",
       "topicId": "us-gun-control",
-      "pollingDataId": null
+      "pollingDataId": null,
+      "hostilityScore": 0.2,
+      "counterStereotypical": false,
+      "contentType": "neutral",
+      "engagementScore": 0.5
     },
     {
       "id": "rp_gun_006",
@@ -386,7 +406,11 @@
       "publishedAt": "12h",
       "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtAaHVJBeAZ-X9O7blOVBGiHlxvmlXpMpIrg&s",
       "topicId": "us-gun-control",
-      "pollingDataId": null
+      "pollingDataId": null,
+      "hostilityScore": 0.75,
+      "counterStereotypical": false,
+      "contentType": "hostile",
+      "engagementScore": 0.8
     },
     {
       "id": "rp_gun_007",
@@ -397,7 +421,11 @@
       "publishedAt": "1d",
       "imageUrl": "https://static.independent.co.uk/2026/02/01/17/Immigration_Enforcement_Minnesota_07108.png",
       "topicId": "us-gun-control",
-      "pollingDataId": null
+      "pollingDataId": null,
+      "hostilityScore": 0.1,
+      "counterStereotypical": true,
+      "contentType": "counter-stereotypical",
+      "engagementScore": 0.65
     },
     {
       "id": "rp_gun_008",
@@ -408,7 +436,11 @@
       "publishedAt": "1d",
       "imageUrl": "https://krdo.b-cdn.net/2026/01/cnn-L19jb21wb25lbnRzL2ltYWdlL2luc3RhbmNlcy9jbWt1aW53cWgwMDAxM2I2cHRiZDdubmkz-L19jb21wb25lbnRzL2FydGljbGUvaW5zdGFuY2VzL2Nta3Vna3UyNDAwMHkyN3FvOTdlcTZuNGE.png",
       "topicId": "us-gun-control",
-      "pollingDataId": null
+      "pollingDataId": null,
+      "hostilityScore": 0.3,
+      "counterStereotypical": false,
+      "contentType": "neutral",
+      "engagementScore": 0.6
     },
     {
       "id": "rp_abortion_001",
@@ -419,7 +451,11 @@
       "publishedAt": "1h",
       "imageUrl": "https://i.guim.co.uk/img/media/3544713542f43a3803afa036936efc54785046dc/0_0_4749_3166/master/4749.jpg?width=465&dpr=1&s=none&crop=none",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001"
+      "pollingDataId": "poll_abortion_legality_001",
+      "hostilityScore": 0.3,
+      "counterStereotypical": false,
+      "contentType": "neutral",
+      "engagementScore": 0.6
     },
     {
       "id": "rp_abortion_002",
@@ -430,7 +466,11 @@
       "publishedAt": "3h",
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1237884449.jpg?c=original",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001"
+      "pollingDataId": "poll_abortion_legality_001",
+      "hostilityScore": 0.3,
+      "counterStereotypical": true,
+      "contentType": "counter-stereotypical",
+      "engagementScore": 0.55
     },
     {
       "id": "rp_abortion_003",
@@ -441,7 +481,11 @@
       "publishedAt": "5h",
       "imageUrl": "https://juliabrownley.house.gov/wp-content/uploads/2025/09/Copy-of-IMG_1720-1-scaled.png",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001"
+      "pollingDataId": "poll_abortion_legality_001",
+      "hostilityScore": 0.8,
+      "counterStereotypical": false,
+      "contentType": "hostile",
+      "engagementScore": 0.85
     },
     {
       "id": "rp_abortion_004",
@@ -452,7 +496,11 @@
       "publishedAt": "7h",
       "imageUrl": "https://i.guim.co.uk/img/media/99c7607862dd92362e006ac75b19ac0119568e40/0_0_6000_4000/master/6000.jpg?width=465&dpr=1&s=none&crop=none",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001"
+      "pollingDataId": "poll_abortion_legality_001",
+      "hostilityScore": 0.35,
+      "counterStereotypical": false,
+      "contentType": "neutral",
+      "engagementScore": 0.7
     },
     {
       "id": "rp_abortion_005",
@@ -463,7 +511,11 @@
       "publishedAt": "9h",
       "imageUrl": "https://images.theconversation.com/files/720012/original/file-20260223-57-yraywr.jpg?ixlib=rb-4.1.0&rect=0%2C1%2C7470%2C4980&q=50&auto=format&w=768&h=512&fit=crop&dpr=2",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001"
+      "pollingDataId": "poll_abortion_legality_001",
+      "hostilityScore": 0.1,
+      "counterStereotypical": true,
+      "contentType": "counter-stereotypical",
+      "engagementScore": 0.5
     },
     {
       "id": "rp_abortion_006",
@@ -474,7 +526,11 @@
       "publishedAt": "11h",
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/c-ap23103847076018.jpg?c=original&q=w_860,c_fill",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001"
+      "pollingDataId": "poll_abortion_legality_001",
+      "hostilityScore": 0.7,
+      "counterStereotypical": false,
+      "contentType": "hostile",
+      "engagementScore": 0.75
     },
     {
       "id": "rp_abortion_007",
@@ -485,7 +541,11 @@
       "publishedAt": "13h",
       "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/2572x1716+0+0/resize/1100/quality/50/format/png/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F5a%2F5e%2F77c5292f48f1bb7aca17bdd22469%2Fmexico-city-madagascar.png",
       "topicId": "us-abortion",
-      "pollingDataId": null
+      "pollingDataId": null,
+      "hostilityScore": 0.6,
+      "counterStereotypical": false,
+      "contentType": "neutral",
+      "engagementScore": 0.65
     },
     {
       "id": "rp_abortion_008",
@@ -496,7 +556,11 @@
       "publishedAt": "15h",
       "imageUrl": "https://static01.nyt.com/images/2024/11/05/multimedia/00NAT-MISSOURI-ABORTION-YES-hkjv/00NAT-MISSOURI-ABORTION-YES-hkjv-videoSixteenByNineJumbo1600.png",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001"
+      "pollingDataId": "poll_abortion_legality_001",
+      "hostilityScore": 0.35,
+      "counterStereotypical": false,
+      "contentType": "neutral",
+      "engagementScore": 0.55
     },
     {
       "id": "rp_climate_001",
@@ -507,7 +571,11 @@
       "publishedAt": "2h",
       "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBbcfynVnHVvTC7J9TAR6srHWIjrzP1bQbiQ&s",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_carbon_emissions_001"
+      "pollingDataId": "poll_climate_carbon_emissions_001",
+      "hostilityScore": 0.8,
+      "counterStereotypical": false,
+      "contentType": "hostile",
+      "engagementScore": 0.85
     },
     {
       "id": "rp_climate_002",
@@ -518,7 +586,11 @@
       "publishedAt": "4h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/SXYZX7WFTOPBIZGAEYV44ETMTA_size-normalized.JPG&w=1800&h=1800",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_carbon_emissions_001"
+      "pollingDataId": "poll_climate_carbon_emissions_001",
+      "hostilityScore": 0.75,
+      "counterStereotypical": false,
+      "contentType": "hostile",
+      "engagementScore": 0.8
     },
     {
       "id": "rp_climate_003",
@@ -529,7 +601,11 @@
       "publishedAt": "6h",
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2261037765.jpg?c=16x9&q=w_800,c_fill",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_carbon_emissions_001"
+      "pollingDataId": "poll_climate_carbon_emissions_001",
+      "hostilityScore": 0.3,
+      "counterStereotypical": false,
+      "contentType": "neutral",
+      "engagementScore": 0.5
     },
     {
       "id": "rp_climate_004",
@@ -540,7 +616,11 @@
       "publishedAt": "8h",
       "imageUrl": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iMvcUDmdpH48/v0/-1x-1.webp",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_carbon_emissions_001"
+      "pollingDataId": "poll_climate_carbon_emissions_001",
+      "hostilityScore": 0.1,
+      "counterStereotypical": true,
+      "contentType": "counter-stereotypical",
+      "engagementScore": 0.65
     },
     {
       "id": "rp_climate_005",
@@ -551,7 +631,11 @@
       "publishedAt": "10h",
       "imageUrl": "https://www.pv-magazine.com/wp-content/uploads/2026/02/Screenshot-2026-02-26-at-08.26.01-1200x646.png",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_carbon_emissions_001"
+      "pollingDataId": "poll_climate_carbon_emissions_001",
+      "hostilityScore": 0.05,
+      "counterStereotypical": true,
+      "contentType": "counter-stereotypical",
+      "engagementScore": 0.6
     },
     {
       "id": "rp_climate_006",
@@ -562,7 +646,11 @@
       "publishedAt": "12h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/WVYSWUC5NJHYFHXT6YOIQSLFJI_size-normalized.jpg&w=1800&h=1800",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_carbon_emissions_001"
+      "pollingDataId": "poll_climate_carbon_emissions_001",
+      "hostilityScore": 0.7,
+      "counterStereotypical": false,
+      "contentType": "hostile",
+      "engagementScore": 0.75
     },
     {
       "id": "rp_climate_007",
@@ -573,7 +661,11 @@
       "publishedAt": "14h",
       "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1wWT5eZ6I2KWbE9DkS2vnGuIFoog24pPrbw&s",
       "topicId": "us-climate",
-      "pollingDataId": null
+      "pollingDataId": null,
+      "hostilityScore": 0.55,
+      "counterStereotypical": false,
+      "contentType": "neutral",
+      "engagementScore": 0.6
     },
     {
       "id": "rp_climate_008",
@@ -584,7 +676,11 @@
       "publishedAt": "16h",
       "imageUrl": "https://i.guim.co.uk/img/media/358ee9c0b3517f0b5f1a887c5291d0e896e08bea/0_77_1200_720/master/1200.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=6568abbaa0ee544c76a13e8096489b2e",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_carbon_emissions_001"
+      "pollingDataId": "poll_climate_carbon_emissions_001",
+      "hostilityScore": 0.35,
+      "counterStereotypical": false,
+      "contentType": "neutral",
+      "engagementScore": 0.65
     }
   ],
   "mockUsers": [
