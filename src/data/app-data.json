@@ -132,69 +132,6 @@
   ],
   "pollingData": [
     {
-      "id": "poll_gun_control_background_checks_001",
-      "topicId": "us-gun-control",
-      "subtopicId": "us-gun-control-background-checks",
-      "source": "Pew Research Center",
-      "surveyYear": 2023,
-      "geographicScope": "US",
-      "scaleLabels": [
-        "Strongly favor",
-        "Somewhat favor",
-        "Somewhat oppose",
-        "Strongly oppose"
-      ],
-      "distribution": [
-        61,
-        27,
-        7,
-        5
-      ],
-      "bridgingText": "According to Pew Research Center polling in 2023, the American public's sentiment regarding making private gun sales and sales at gun shows subject to background checks is distributed as follows:"
-    },
-    {
-      "id": "poll_gun_control_assault_weapons_001",
-      "topicId": "us-gun-control",
-      "subtopicId": "us-gun-control-assault-weapons",
-      "source": "Pew Research Center",
-      "surveyYear": 2023,
-      "geographicScope": "US",
-      "scaleLabels": [
-        "Strongly favor",
-        "Somewhat favor",
-        "Somewhat oppose",
-        "Strongly oppose"
-      ],
-      "distribution": [
-        46,
-        18,
-        16,
-        20
-      ],
-      "bridgingText": "Pew Research Center's 2023 survey recorded the following national distribution regarding opinions on banning assault-style weapons:"
-    },
-    {
-      "id": "poll_gun_control_concealed_carry_001",
-      "topicId": "us-gun-control",
-      "subtopicId": "us-gun-control-concealed-carry",
-      "source": "Pew Research Center",
-      "surveyYear": 2023,
-      "geographicScope": "US",
-      "scaleLabels": [
-        "Strongly favor",
-        "Somewhat favor",
-        "Somewhat oppose",
-        "Strongly oppose"
-      ],
-      "distribution": [
-        11,
-        16,
-        22,
-        51
-      ],
-      "bridgingText": "When asked about allowing people to carry concealed guns without a permit, a 2023 Pew Research Center poll showed these attitudes among US adults:"
-    },
-    {
       "id": "poll_abortion_legality_001",
       "topicId": "us-abortion",
       "subtopicId": "us-abortion-legality",
