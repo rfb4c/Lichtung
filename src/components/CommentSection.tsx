@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { isSupabaseConfigured } from '../lib/config';
-import { mapComment, type CommentRow } from '../lib/mappers';
+import { mapComment, mapPollingData, type CommentRow, type PollingDataRow } from '../lib/mappers';
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 import type { Comment, PollingData, MockUser, MockComment } from '../types';
@@ -58,18 +58,32 @@ export default function CommentSection({ reportId, topicId, subtopicId, onCommen
   const [loading, setLoading] = useState(true);
   const [pollingData, setPollingData] = useState<PollingData | null>(null);
 
-  // Load polling data from static JSON
-  // Priority: subtopicId > topicId
+  // Load polling data: Supabase when configured, else static JSON fallback
   useEffect(() => {
-    if (subtopicId) {
-      // Prefer subtopic polling data (most specific)
-      const data = appData.pollingData.find((p) => p.subtopicId === subtopicId);
-      setPollingData(data || null);
-    } else if (topicId) {
-      // Fallback: find any polling data for this topic
-      const data = appData.pollingData.find((p) => p.topicId === topicId);
-      setPollingData(data || null);
+    if (!topicId) return;
+
+    if (!isSupabaseConfigured) {
+      const poll = subtopicId
+        ? (appData.pollingData as PollingData[]).find((p) => p.subtopicId === subtopicId)
+        : (appData.pollingData as PollingData[]).find((p) => p.topicId === topicId);
+      setPollingData(poll ?? null);
+      return;
     }
+
+    async function fetchPollingData() {
+      const { data, error } = await supabase
+        .from('polling_data')
+        .select('*')
+        .eq('topic_id', topicId)
+        .limit(1);
+      if (!error && data && data.length > 0) {
+        setPollingData(mapPollingData(data[0] as PollingDataRow));
+      } else {
+        setPollingData(null);
+      }
+    }
+
+    fetchPollingData();
   }, [topicId, subtopicId]);
 
   useEffect(() => {
