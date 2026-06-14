@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import styles from './App.module.css';
 import Sidebar from './components/Sidebar';
 import RightSidebar from './components/RightSidebar';
@@ -11,6 +11,7 @@ import { supabase } from './lib/supabase';
 import { Report, Topic, AppData } from './types';
 import { TopicRow, ReportRow, mapTopic, mapReport } from './lib/mappers';
 import { matchAllReports } from './lib/matchers';
+import { sortAlgorithm, sortCalibrated, type FeedMode } from './lib/feedSorter';
 import staticData from './data/app-data.json';
 import { isSupabaseConfigured } from './lib/config';
 
@@ -27,6 +28,7 @@ function App() {
   const [topicFilter, setTopicFilter] = useState<string>('');
   const [topics, setTopics] = useState<Topic[]>(isSupabaseConfigured ? [] : fallback.topics);
   const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : matchedReports);
+  const [feedMode, setFeedMode] = useState<FeedMode>('algorithm');
   const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(isSupabaseConfigured);
 
@@ -93,6 +95,11 @@ function App() {
     }));
   }, []);
 
+  const sortedReports = useMemo(
+    () => feedMode === 'algorithm' ? sortAlgorithm(reports) : sortCalibrated(reports),
+    [reports, feedMode]
+  );
+
   const getTopicById = (topicId: string): Topic | undefined =>
     topics.find((t) => t.id === topicId);
 
@@ -157,10 +164,10 @@ function App() {
       );
     }
 
-    // Filter reports: focused report > topic filter > all
+    // Filter reports: focused report > topic filter > all (applied to sorted list)
     let displayReports = focusedReportId
-      ? reports.filter((r) => r.id === focusedReportId)
-      : reports;
+      ? sortedReports.filter((r) => r.id === focusedReportId)
+      : sortedReports;
 
     if (!focusedReportId && topicFilter) {
       const lowerQuery = topicFilter.toLowerCase();
@@ -192,6 +199,19 @@ function App() {
             </>
           )}
         </header>
+        {!focusedReportId && (
+          <div className={styles.feedModeBar}>
+            <span className={styles.feedModeLabel}>
+              Feed: {feedMode === 'algorithm' ? 'Algorithm' : 'Calibrated'}
+            </span>
+            <button
+              className={styles.feedModeButton}
+              onClick={() => setFeedMode(m => m === 'algorithm' ? 'calibrated' : 'algorithm')}
+            >
+              ↔ {feedMode === 'algorithm' ? 'Calibrated Feed' : 'Algorithm Feed'}
+            </button>
+          </div>
+        )}
         <div className={styles.feed}>
           {displayReports.map((report: Report) => (
             <div key={report.id} id={`report-${report.id}`}>

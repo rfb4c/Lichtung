@@ -29,7 +29,7 @@ export interface PollingData {
   bridgingText: string;    // Intro text for the chart
 }
 
-// Report (报道) - updated for Path B
+// Report (报道) - updated for Path B + Path A
 export interface Report {
   id: string;
   topicId?: string;        // Optional: links to Topic.id (fallback if no subtopic match)
@@ -41,6 +41,11 @@ export interface Report {
   url?: string;
   publishedAt?: string;
   imageUrl?: string;
+  // Path A: Feed sorting fields (all optional, backward-compatible)
+  hostilityScore?:       number;   // 0–1, hostile content score; default 0.3
+  counterStereotypical?: boolean;  // counter-stereotypical content flag; default false
+  contentType?:          'hostile' | 'neutral' | 'counter-stereotypical';
+  engagementScore?:      number;   // simulated engagement for Algorithm feed; default 0.5
 }
 
 // ========== Path C: Cross-cutting Identity Types ==========
