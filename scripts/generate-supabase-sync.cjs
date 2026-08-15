@@ -9,12 +9,13 @@
  * Usage: node scripts/generate-supabase-sync.cjs
  *
  * Writes two files:
- *   sync-demo-data.sql            topics + polling data + reports. No prerequisites.
- *   sync-demo-users-comments.sql  profiles + comments. Optional — needs auth accounts,
- *                                 because profiles.id and comments.user_id are FKs into
- *                                 auth.users. Skipping it costs nothing: with an empty
- *                                 comments table the app falls back to the mock comments
- *                                 in app-data.json, identity chips included.
+ *   sync-demo-data.sql            topics + polling data + reports.
+ *   sync-demo-users-comments.sql  profiles + comments.
+ *
+ * Both run without prerequisites. Verified against the live schema on 2026-08-15:
+ * `profiles` carries no foreign key at all, and `comments.user_id` points at
+ * `profiles.id` rather than `auth.users` — so demo profiles do not need auth
+ * accounts behind them.
  */
 
 const fs = require('fs');
@@ -25,12 +26,11 @@ const appData = JSON.parse(
 );
 
 /**
- * mock user id -> Supabase auth account email.
+ * mock user id -> the Supabase auth account whose uuid the profile row uses.
+ * Confirmed present in the live project on 2026-08-15.
  *
  * app-data.json carries its own `email` field, but that one is the JSON-mode demo
- * login (see AuthContext) and is not the address the auth accounts were created
- * with. Edit the right-hand side to match your Dashboard; the generated script
- * aborts before writing anything if an account is missing.
+ * login (see AuthContext) and is unrelated to these addresses.
  */
 const AUTH_EMAIL = {
   'user-01': 'mike.thompson@example.com',
@@ -45,7 +45,21 @@ const AUTH_EMAIL = {
   'user-10': 'lisa.johnson@example.com',
   'user-11': 'tom.bradley@example.com',
   'user-12': 'rachel.kim@example.com',
-  'user-13': 'jake.miller@example.com',
+};
+
+/**
+ * mock user id -> fixed profile uuid, for demo users with no auth account.
+ *
+ * Jake Miller is the viewer identity in the Path C reversal and was added after
+ * the original 12 accounts were created. `profiles` has no FK to `auth.users`,
+ * so his profile just takes a fixed synthetic uuid — stable across re-runs, and
+ * obviously not a real account at a glance.
+ *
+ * Only consequence: he cannot *log in* in Supabase mode. Create an auth account
+ * and move him into AUTH_EMAIL if that is ever needed.
+ */
+const STANDALONE_PROFILE_ID = {
+  'user-13': '00000000-0000-4000-8000-000000000013',
 };
 
 // Dollar-quoting: the content is full of apostrophes, em-dashes and emoji, and ''
@@ -162,6 +176,13 @@ write('sync-demo-data.sql', content);
 const people = [];
 const p = (s = '') => people.push(s);
 
+const mappedByEmail = mockUsers.filter((u) => AUTH_EMAIL[u.id]);
+const mappedStandalone = mockUsers.filter((u) => STANDALONE_PROFILE_ID[u.id]);
+const unmapped = mockUsers.filter((u) => !AUTH_EMAIL[u.id] && !STANDALONE_PROFILE_ID[u.id]);
+if (unmapped.length) {
+  throw new Error(`No profile mapping for: ${unmapped.map((u) => u.id).join(', ')}`);
+}
+
 p(`-- ========================================
 -- Sync mock profiles and comments to src/data/app-data.json
 --
@@ -170,54 +191,59 @@ p(`-- ========================================
 --
 -- ${mockUsers.length} profiles · ${mockComments.length} comments
 --
--- OPTIONAL. Run sync-demo-data.sql first (comments reference reports).
+-- Run sync-demo-data.sql first: comments reference reports.
 --
--- Prerequisite: the ${mockUsers.length} auth accounts listed below must exist
--- (Dashboard -> Authentication -> Users), because profiles.id and
--- comments.user_id are foreign keys into auth.users. If you skip this script,
--- the app falls back to the mock comments in app-data.json — identity chips and
--- all — so the demo still shows everything.
+-- No prerequisites otherwise. ${mappedByEmail.length} profiles reuse the uuid of an
+-- existing auth account; ${mappedStandalone.length} (${mappedStandalone.map((u) => u.displayName).join(', ')}) has no account and takes a
+-- fixed synthetic uuid, which the profiles table allows: it carries no foreign key.
+--
+-- Runs in one transaction and is safe to re-run: every mock comment is deleted
+-- and re-inserted, profiles are overwritten in place.
 -- ========================================
 
 BEGIN;
 
-CREATE TEMP TABLE mock_user_map (mock_id text PRIMARY KEY, auth_email text NOT NULL) ON COMMIT DROP;
-INSERT INTO mock_user_map (mock_id, auth_email) VALUES`);
+CREATE TEMP TABLE mock_user_map (mock_id text PRIMARY KEY, profile_id uuid NOT NULL) ON COMMIT DROP;
+
+-- Profiles that ride on an existing auth account
+INSERT INTO mock_user_map (mock_id, profile_id)
+SELECT v.mock_id, u.id
+FROM (VALUES`);
 
 p(
-  mockUsers
-    .map((u) => `  (${q(u.id)}, ${q(AUTH_EMAIL[u.id] ?? `MISSING-MAPPING-${u.id}`)})`)
-    .join(',\n') + ';'
+  mappedByEmail.map((u) => `  (${q(u.id)}, ${q(AUTH_EMAIL[u.id])})`).join(',\n') +
+    `\n) AS v(mock_id, email)\nJOIN auth.users u ON u.email = v.email;`
 );
 
 p(`
--- Stop before touching anything if an account is missing
-DO $$
-DECLARE missing text;
-BEGIN
-  SELECT string_agg(m.auth_email, ', ' ORDER BY m.mock_id) INTO missing
-  FROM mock_user_map m
-  LEFT JOIN auth.users u ON u.email = m.auth_email
-  WHERE u.id IS NULL;
+-- Profiles with no auth account behind them`);
+p(
+  `INSERT INTO mock_user_map (mock_id, profile_id) VALUES\n` +
+    mappedStandalone
+      .map((u) => `  (${q(u.id)}, ${q(STANDALONE_PROFILE_ID[u.id])}::uuid)`)
+      .join(',\n') +
+    ';'
+);
 
-  IF missing IS NOT NULL THEN
-    RAISE EXCEPTION 'No auth account for: %. Create them in Dashboard -> Authentication -> Users, or fix AUTH_EMAIL in scripts/generate-supabase-sync.cjs and regenerate.', missing;
+p(`
+-- Stop before touching anything if an expected auth account has gone missing
+DO $$
+DECLARE mapped int;
+BEGIN
+  SELECT COUNT(*) INTO mapped FROM mock_user_map;
+  IF mapped <> ${mockUsers.length} THEN
+    RAISE EXCEPTION 'Mapped % of ${mockUsers.length} demo users — an auth account listed in this script no longer exists. Check AUTH_EMAIL in scripts/generate-supabase-sync.cjs.', mapped;
   END IF;
 END $$;
 
-DELETE FROM public.comments
-WHERE user_id IN (SELECT u.id FROM auth.users u JOIN mock_user_map m ON m.auth_email = u.email);
+DELETE FROM public.comments WHERE user_id IN (SELECT profile_id FROM mock_user_map);
 
 -- ---------- Profiles (${mockUsers.length}) ----------`);
 
 for (const u of mockUsers) {
-  p(`UPDATE auth.users SET raw_user_meta_data = COALESCE(raw_user_meta_data, '{}'::jsonb) || ${q(JSON.stringify({ display_name: u.displayName }))}::jsonb
-WHERE email = (SELECT auth_email FROM mock_user_map WHERE mock_id = ${q(u.id)});
-
-INSERT INTO public.profiles (id, display_name, avatar_url, interests, identities)
-SELECT u.id, ${q(u.displayName)}, ${q(u.avatarUrl ?? null)}, '{}', ${jsonb(u.identities)}
-FROM auth.users u JOIN mock_user_map m ON m.auth_email = u.email
-WHERE m.mock_id = ${q(u.id)}
+  p(`INSERT INTO public.profiles (id, display_name, avatar_url, interests, identities)
+SELECT m.profile_id, ${q(u.displayName)}, ${q(u.avatarUrl ?? null)}, '{}', ${jsonb(u.identities)}
+FROM mock_user_map m WHERE m.mock_id = ${q(u.id)}
 ON CONFLICT (id) DO UPDATE SET
   display_name = EXCLUDED.display_name, avatar_url = EXCLUDED.avatar_url, identities = EXCLUDED.identities;
 `);
@@ -227,9 +253,8 @@ p(`-- ---------- Comments (${mockComments.length}) ----------`);
 
 for (const cm of mockComments) {
   p(`INSERT INTO public.comments (report_id, user_id, content, created_at)
-SELECT ${q(cm.reportId)}, u.id, ${q(cm.content)}, ${q(cm.createdAt)}::timestamptz
-FROM auth.users u JOIN mock_user_map m ON m.auth_email = u.email
-WHERE m.mock_id = ${q(cm.userId)};`);
+SELECT ${q(cm.reportId)}, m.profile_id, ${q(cm.content)}, ${q(cm.createdAt)}::timestamptz
+FROM mock_user_map m WHERE m.mock_id = ${q(cm.userId)};`);
 }
 
 p(`
@@ -237,7 +262,8 @@ COMMIT;
 
 -- ---------- Verify: expect ${mockUsers.length} / ${mockComments.length} ----------
 SELECT 'profiles (with identities)' AS table, COUNT(*) AS rows
-  FROM public.profiles WHERE jsonb_array_length(identities) > 0
+  FROM public.profiles
+  WHERE jsonb_typeof(identities) = 'array' AND jsonb_array_length(identities) > 0
 UNION ALL SELECT 'comments', COUNT(*) FROM public.comments;`);
 
 write('sync-demo-users-comments.sql', people);
