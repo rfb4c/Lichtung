@@ -8,9 +8,9 @@
 --
 -- Run sync-demo-data.sql first: comments reference reports.
 --
--- No prerequisites otherwise. 12 profiles reuse the uuid of an
--- existing auth account; 1 (Jake Miller) has no account and takes a
--- fixed synthetic uuid, which the profiles table allows: it carries no foreign key.
+-- Prerequisite: the 13 auth accounts listed below must exist, because
+-- profiles.id is a foreign key into auth.users. The script aborts before
+-- writing anything if one is missing.
 --
 -- Runs in one transaction and is safe to re-run: every mock comment is deleted
 -- and re-inserted, profiles are overwritten in place.
@@ -20,7 +20,6 @@ BEGIN;
 
 CREATE TEMP TABLE mock_user_map (mock_id text PRIMARY KEY, profile_id uuid NOT NULL) ON COMMIT DROP;
 
--- Profiles that ride on an existing auth account
 INSERT INTO mock_user_map (mock_id, profile_id)
 SELECT v.mock_id, u.id
 FROM (VALUES
@@ -35,21 +34,36 @@ FROM (VALUES
   ($lch$user-09$lch$, $lch$david.park@example.com$lch$),
   ($lch$user-10$lch$, $lch$lisa.johnson@example.com$lch$),
   ($lch$user-11$lch$, $lch$tom.bradley@example.com$lch$),
-  ($lch$user-12$lch$, $lch$rachel.kim@example.com$lch$)
+  ($lch$user-12$lch$, $lch$rachel.kim@example.com$lch$),
+  ($lch$user-13$lch$, $lch$jake.miller@example.com$lch$)
 ) AS v(mock_id, email)
 JOIN auth.users u ON u.email = v.email;
 
--- Profiles with no auth account behind them
-INSERT INTO mock_user_map (mock_id, profile_id) VALUES
-  ($lch$user-13$lch$, $lch$00000000-0000-4000-8000-000000000013$lch$::uuid);
-
--- Stop before touching anything if an expected auth account has gone missing
+-- Stop before touching anything if an expected auth account is missing
 DO $$
-DECLARE mapped int;
+DECLARE missing text;
 BEGIN
-  SELECT COUNT(*) INTO mapped FROM mock_user_map;
-  IF mapped <> 13 THEN
-    RAISE EXCEPTION 'Mapped % of 13 demo users — an auth account listed in this script no longer exists. Check AUTH_EMAIL in scripts/generate-supabase-sync.cjs.', mapped;
+  SELECT string_agg(v.email, ', ') INTO missing
+  FROM (VALUES
+    ($lch$mike.thompson@example.com$lch$),
+    ($lch$sarah.chen@example.com$lch$),
+    ($lch$james.walker@example.com$lch$),
+    ($lch$diana.morales@example.com$lch$),
+    ($lch$robert.hayes@example.com$lch$),
+    ($lch$emily.nguyen@example.com$lch$),
+    ($lch$carlos.ramirez@example.com$lch$),
+    ($lch$karen.mitchell@example.com$lch$),
+    ($lch$david.park@example.com$lch$),
+    ($lch$lisa.johnson@example.com$lch$),
+    ($lch$tom.bradley@example.com$lch$),
+    ($lch$rachel.kim@example.com$lch$),
+    ($lch$jake.miller@example.com$lch$)
+  ) AS v(email)
+  LEFT JOIN auth.users u ON u.email = v.email
+  WHERE u.id IS NULL;
+
+  IF missing IS NOT NULL THEN
+    RAISE EXCEPTION 'No auth account for: %. Create it in Dashboard -> Authentication -> Users, then re-run.', missing;
   END IF;
 END $$;
 
