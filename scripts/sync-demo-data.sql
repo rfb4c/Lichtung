@@ -20,6 +20,10 @@ ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS counter_stereotypical b
 ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS engagement_score numeric DEFAULT 0.5;
 ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS url text;
 
+-- Path A dropped hostility scoring; these columns are no longer in app-data.json
+ALTER TABLE public.reports      DROP COLUMN IF EXISTS hostility_score;
+ALTER TABLE public.reports      DROP COLUMN IF EXISTS content_type;
+
 -- Clear in FK order: comments -> reports -> polling_data.
 -- Only comments left orphaned by the report deletion below are removed.
 DELETE FROM public.comments     WHERE report_id NOT IN ($lch$rp_gun_001$lch$, $lch$rp_gun_002$lch$, $lch$rp_gun_003$lch$, $lch$rp_gun_004$lch$, $lch$rp_gun_005$lch$, $lch$rp_gun_006$lch$, $lch$rp_gun_007$lch$, $lch$rp_gun_008$lch$, $lch$rp_abortion_001$lch$, $lch$rp_abortion_002$lch$, $lch$rp_abortion_003$lch$, $lch$rp_abortion_004$lch$, $lch$rp_abortion_005$lch$, $lch$rp_abortion_006$lch$, $lch$rp_abortion_007$lch$, $lch$rp_abortion_008$lch$, $lch$rp_climate_001$lch$, $lch$rp_climate_002$lch$, $lch$rp_climate_003$lch$, $lch$rp_climate_004$lch$, $lch$rp_climate_005$lch$, $lch$rp_climate_006$lch$, $lch$rp_climate_007$lch$, $lch$rp_climate_008$lch$, $lch$rp_gun_010$lch$, $lch$rp_abortion_010$lch$, $lch$rp_climate_010$lch$, $lch$rp_immigration_001$lch$);
@@ -355,7 +359,3 @@ COMMIT;
 SELECT 'topics' AS table, COUNT(*) AS rows FROM public.topics
 UNION ALL SELECT 'polling_data', COUNT(*) FROM public.polling_data
 UNION ALL SELECT 'reports', COUNT(*) FROM public.reports;
-
--- Path A no longer uses hostility scoring. Drop the dead columns if you want:
--- ALTER TABLE public.reports DROP COLUMN IF EXISTS hostility_score;
--- ALTER TABLE public.reports DROP COLUMN IF EXISTS content_type;

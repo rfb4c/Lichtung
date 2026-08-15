@@ -7,12 +7,19 @@ import {
   Share,
 } from 'lucide-react';
 import { useToast } from '../contexts/ToastContext';
-import { Report, Topic, PollingData } from '../types';
+import { Report, Topic } from '../types';
+import { resolvePollingData } from '../lib/pollingResolver';
 import CommentSection from './CommentSection';
 import DistributionChart from './DistributionChart';
 import styles from './FeedItem.module.css';
 import mediaSources from '../data/media-sources.json';
 import appData from '../data/app-data.json';
+
+// 静态数据模式下的真实评论数（Supabase 模式由 App 传入 commentCount 覆盖）
+const staticCommentCounts: Record<string, number> = {};
+for (const c of appData.mockComments ?? []) {
+  staticCommentCounts[c.reportId] = (staticCommentCounts[c.reportId] ?? 0) + 1;
+}
 
 interface FeedItemProps {
   report: Report;
@@ -27,29 +34,8 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
   const [viewMode, setViewMode] = useState<'closed' | 'comments' | 'data-only'>(initialViewMode);
   const { showToast } = useToast();
 
-  // Load polling data for Path B chart
-  // Priority: report.pollingDataId (explicit) > report.subtopicId > topic fallback
-  const pollingData = useMemo<PollingData | null>(() => {
-    // Explicit assignment takes priority; null means intentionally no chart
-    if (report.pollingDataId !== undefined) {
-      if (report.pollingDataId === null) return null;
-      return appData.pollingData.find((p) => p.id === report.pollingDataId) || null;
-    }
-
-    // Legacy fallback for reports without explicit pollingDataId (e.g. Supabase-only)
-    if (report.topicId === 'us-gun-control') return null;
-
-    if (report.subtopicId) {
-      const data = appData.pollingData.find((p) => p.subtopicId === report.subtopicId);
-      if (data) return data;
-    }
-
-    if (topic) {
-      return appData.pollingData.find((p) => p.topicId === topic.id) || null;
-    }
-
-    return null;
-  }, [report.pollingDataId, report.subtopicId, report.topicId, topic]);
+  // Path B: 图表挂载与否只看 report.pollingDataId，见 pollingResolver
+  const pollingData = useMemo(() => resolvePollingData(report), [report]);
 
   // Get media info from configuration file
   const mediaInfo = mediaSources.mediaSources[report.source as keyof typeof mediaSources.mediaSources] || {
@@ -62,11 +48,7 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
   const mediaName = mediaInfo.name;
   const mediaHandle = mediaInfo.handle;
 
-  // 基于 report.id 生成稳定的伪随机数（fallback 模式用）
-  const commentDisplayCount = useMemo(() => {
-    const hash = report.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    return commentCount ?? (hash * 13) % 100;
-  }, [report.id, commentCount]);
+  const commentDisplayCount = commentCount ?? staticCommentCounts[report.id] ?? 0;
 
   const handleToggleComments = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -205,8 +187,7 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
         {viewMode === 'comments' && (
           <CommentSection
             reportId={report.id}
-            topicId={report.topicId}
-            subtopicId={report.subtopicId}
+            pollingData={pollingData}
             onCommentCountChange={handleCommentCountChange}
             onUserClick={onUserClick}
           />

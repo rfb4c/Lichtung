@@ -94,6 +94,10 @@ ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS counter_stereotypical b
 ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS engagement_score numeric DEFAULT 0.5;
 ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS url text;
 
+-- Path A dropped hostility scoring; these columns are no longer in app-data.json
+ALTER TABLE public.reports      DROP COLUMN IF EXISTS hostility_score;
+ALTER TABLE public.reports      DROP COLUMN IF EXISTS content_type;
+
 -- Clear in FK order: comments -> reports -> polling_data.
 -- Only comments left orphaned by the report deletion below are removed.
 DELETE FROM public.comments     WHERE report_id NOT IN (${idList(reportIds)});
@@ -150,11 +154,7 @@ c(`COMMIT;
 -- ---------- Verify: expect ${topics.length} / ${pollingData.length} / ${reports.length} ----------
 SELECT 'topics' AS table, COUNT(*) AS rows FROM public.topics
 UNION ALL SELECT 'polling_data', COUNT(*) FROM public.polling_data
-UNION ALL SELECT 'reports', COUNT(*) FROM public.reports;
-
--- Path A no longer uses hostility scoring. Drop the dead columns if you want:
--- ALTER TABLE public.reports DROP COLUMN IF EXISTS hostility_score;
--- ALTER TABLE public.reports DROP COLUMN IF EXISTS content_type;`);
+UNION ALL SELECT 'reports', COUNT(*) FROM public.reports;`);
 
 write('sync-demo-data.sql', content);
 

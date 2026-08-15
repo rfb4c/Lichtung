@@ -285,6 +285,8 @@ export default function ProfilePage({ onBack, onNavigateToReport }: ProfilePageP
   };
 
   const uploadAvatarToSupabase = async (file: File, userId: string): Promise<string | null> => {
+    if (!isSupabaseConfigured) return null;
+
     const fileExt = file.name.split('.').pop();
     const fileName = `${userId}/${Date.now()}.${fileExt}`;
 
