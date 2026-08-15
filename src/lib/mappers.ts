@@ -31,9 +31,7 @@ export interface ReportRow {
   image_url: string | null;
   published_at: string | null;
   // Path A fields
-  hostility_score?:       number | null;
   counter_stereotypical?: boolean | null;
-  content_type?:          string | null;
   engagement_score?:      number | null;
 }
 
@@ -91,9 +89,7 @@ export function mapReport(row: ReportRow): Report {
     url: row.url ?? undefined,
     imageUrl: row.image_url ?? undefined,
     publishedAt: row.published_at ?? undefined,
-    hostilityScore:       row.hostility_score       ?? 0.3,
     counterStereotypical: row.counter_stereotypical ?? false,
-    contentType:          (row.content_type as Report['contentType']) ?? 'neutral',
     engagementScore:      row.engagement_score      ?? 0.5,
   };
 }
