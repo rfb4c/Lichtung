@@ -3,9 +3,23 @@ import type { Session } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
 import { isSupabaseConfigured } from '../lib/config';
 import { mapProfile, type ProfileRow } from '../lib/mappers';
-import type { UserProfile } from '../types';
+import type { UserProfile, MockUser } from '../types';
+import staticData from '../data/app-data.json';
 
 type AuthMode = 'login' | 'register';
+
+// JSON-mode (no Supabase) mock login: persist which mock user is "logged in".
+const MOCK_USER_KEY = 'lichtung.mockUserId';
+
+function mockUserToProfile(u: MockUser): UserProfile {
+  return {
+    id: u.id,
+    displayName: u.displayName,
+    avatarUrl: u.avatarUrl,
+    interests: [],
+    identities: u.identities ?? [],
+  };
+}
 
 interface AuthContextValue {
   user: UserProfile | null;
@@ -49,6 +63,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(mapProfile(data as ProfileRow));
   }, []);
 
+  // JSON mode: restore mock login from localStorage on mount.
+  useEffect(() => {
+    if (isSupabaseConfigured) return;
+    const savedId = localStorage.getItem(MOCK_USER_KEY);
+    if (savedId) {
+      const mockUsers = (staticData.mockUsers ?? []) as MockUser[];
+      const found = mockUsers.find((u) => u.id === savedId);
+      if (found) setUser(mockUserToProfile(found));
+    }
+  }, []);
+
   useEffect(() => {
     if (!isSupabaseConfigured) return;
 
@@ -74,6 +99,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [fetchProfile]);
 
   const handleLogin = useCallback(async (email: string, password: string): Promise<string | null> => {
+    // JSON mode: match email → mock user (password ignored in demo).
+    if (!isSupabaseConfigured) {
+      const mockUsers = (staticData.mockUsers ?? []) as MockUser[];
+      const normalized = email.trim().toLowerCase();
+      const found = mockUsers.find((u) => u.email?.toLowerCase() === normalized);
+      if (!found) return 'No matching demo account for this email';
+      setUser(mockUserToProfile(found));
+      localStorage.setItem(MOCK_USER_KEY, found.id);
+      setAuthModalMode(null);
+      return null;
+    }
+
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) return error.message;
     setAuthModalMode(null);
@@ -81,6 +118,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const handleRegister = useCallback(async (email: string, password: string, displayName: string): Promise<string | null> => {
+    if (!isSupabaseConfigured) {
+      return 'Registration is unavailable in demo mode — log in with a demo email instead';
+    }
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -92,6 +133,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const handleLogout = useCallback(async () => {
+    if (!isSupabaseConfigured) {
+      localStorage.removeItem(MOCK_USER_KEY);
+      setUser(null);
+      return;
+    }
     await supabase.auth.signOut();
     setUser(null);
     setSession(null);
@@ -100,6 +146,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const handleUpdateProfile = useCallback(async (
     updates: Partial<Pick<UserProfile, 'displayName' | 'avatarUrl' | 'city' | 'profession' | 'interests' | 'identities'>>
   ): Promise<string | null> => {
+    if (!isSupabaseConfigured) {
+      return 'Profile editing is unavailable in demo mode';
+    }
     if (!session?.user) return '未登录';
     const row: Record<string, unknown> = {};
     if (updates.displayName !== undefined) row.display_name = updates.displayName;

@@ -30,3 +30,7 @@ dist-ssr
 
 # Claude Code
 .claude/
+
+# Private planning notes — kept in the working tree, never committed
+docs/IUI*
+docs/old/
