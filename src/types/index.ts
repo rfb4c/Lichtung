@@ -42,9 +42,7 @@ export interface Report {
   publishedAt?: string;
   imageUrl?: string;
   // Path A: Feed sorting fields (all optional, backward-compatible)
-  hostilityScore?:       number;   // 0–1, hostile content score; default 0.3
-  counterStereotypical?: boolean;  // counter-stereotypical content flag; default false
-  contentType?:          'hostile' | 'neutral' | 'counter-stereotypical';
+  counterStereotypical?: boolean;  // counter-stereotypical exemplar flag; default false
   engagementScore?:      number;   // simulated engagement for Algorithm feed; default 0.5
 }
 
@@ -74,6 +72,7 @@ export interface AppData {
 export interface MockUser {
   id: string;
   displayName: string;
+  email?: string;          // JSON-mode mock login: email → this user
   avatarUrl?: string;
   identities: IdentityTag[];
 }

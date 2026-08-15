@@ -23,9 +23,6 @@ export default function DistributionChart({ pollingData }: DistributionChartProp
   const { scaleLabels, distribution, bridgingText, source, surveyYear, geographicScope } = pollingData;
   const colors = getBarColors(scaleLabels.length);
 
-  // Find max value for scaling bars (guard against division by zero)
-  const maxValue = Math.max(...distribution) || 1;
-
   return (
     <div className={styles.chartContainer}>
       {/* Bridging text */}
@@ -35,7 +32,7 @@ export default function DistributionChart({ pollingData }: DistributionChartProp
       <div className={styles.barsWrapper}>
         {scaleLabels.map((label, index) => {
           const percentage = distribution[index];
-          const widthPercent = (percentage / maxValue) * 100;
+          const widthPercent = percentage;
 
           return (
             <div key={index} className={styles.barRow}>

@@ -9,7 +9,9 @@
 
 html,
 body {
-  overflow-x: hidden;
+  /* clip (not hidden): avoids establishing a scroll container that would
+     break position:sticky on descendants (e.g. the sidebar) */
+  overflow-x: clip;
 }
 
 /* CSS Variables - Dark Theme */
