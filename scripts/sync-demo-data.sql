@@ -20,9 +20,11 @@ ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS counter_stereotypical b
 ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS engagement_score numeric DEFAULT 0.5;
 ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS url text;
 
--- Path A dropped hostility scoring; these columns are no longer in app-data.json
-ALTER TABLE public.reports      DROP COLUMN IF EXISTS hostility_score;
-ALTER TABLE public.reports      DROP COLUMN IF EXISTS content_type;
+-- Path A dropped hostility scoring; hostility_score / content_type are no longer
+-- in app-data.json and no longer read by the app. Dropping them is irreversible,
+-- so it is left as a deliberate manual step rather than part of the sync:
+--   ALTER TABLE public.reports DROP COLUMN IF EXISTS hostility_score;
+--   ALTER TABLE public.reports DROP COLUMN IF EXISTS content_type;
 
 -- Clear in FK order: comments -> reports -> polling_data.
 -- Only comments left orphaned by the report deletion below are removed.

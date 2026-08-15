@@ -13,13 +13,6 @@ import CommentSection from './CommentSection';
 import DistributionChart from './DistributionChart';
 import styles from './FeedItem.module.css';
 import mediaSources from '../data/media-sources.json';
-import appData from '../data/app-data.json';
-
-// 静态数据模式下的真实评论数（Supabase 模式由 App 传入 commentCount 覆盖）
-const staticCommentCounts: Record<string, number> = {};
-for (const c of appData.mockComments ?? []) {
-  staticCommentCounts[c.reportId] = (staticCommentCounts[c.reportId] ?? 0) + 1;
-}
 
 interface FeedItemProps {
   report: Report;
@@ -48,7 +41,8 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
   const mediaName = mediaInfo.name;
   const mediaHandle = mediaInfo.handle;
 
-  const commentDisplayCount = commentCount ?? staticCommentCounts[report.id] ?? 0;
+  // App 的 commentCounts 已以静态计数为基线，这里不再另设回落
+  const commentDisplayCount = commentCount ?? 0;
 
   const handleToggleComments = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -166,7 +160,7 @@ export default function FeedItem({ report, topic, commentCount, onCommentCountCh
             <MessageCircle size={16} strokeWidth={1.75} />
             <span className={styles.actionCount}>{commentDisplayCount}</span>
           </button>
-          {topic && pollingData && (
+          {pollingData && (
             <button
               className={`${styles.actionButton} ${viewMode === 'data-only' ? styles.actionActive : ''}`}
               onClick={handleToggleDataOnly}

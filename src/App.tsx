@@ -12,6 +12,7 @@ import { Report, Topic, AppData } from './types';
 import { TopicRow, ReportRow, mapTopic, mapReport } from './lib/mappers';
 import { matchAllReports } from './lib/matchers';
 import { sortAlgorithm, sortCalibrated, type FeedMode } from './lib/feedSorter';
+import { staticCommentCounts } from './lib/commentCounts';
 import staticData from './data/app-data.json';
 import { isSupabaseConfigured } from './lib/config';
 
@@ -29,7 +30,9 @@ function App() {
   const [topics, setTopics] = useState<Topic[]>(isSupabaseConfigured ? [] : fallback.topics);
   const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : matchedReports);
   const [feedMode, setFeedMode] = useState<FeedMode>('algorithm');
-  const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
+  // 以静态计数为基线：数据库里没有评论的报道，评论区会回落到 mockComments，
+  // 计数必须跟着回落，否则用户发一条评论后徽标会从 3 掉到 1。
+  const [commentCounts, setCommentCounts] = useState<Record<string, number>>(staticCommentCounts);
   const [loading, setLoading] = useState(isSupabaseConfigured);
 
   useEffect(() => {
@@ -81,7 +84,7 @@ function App() {
         for (const row of countData) {
           counts[row.report_id] = (counts[row.report_id] || 0) + 1;
         }
-        setCommentCounts(counts);
+        setCommentCounts({ ...staticCommentCounts, ...counts });
       }
     }
 
