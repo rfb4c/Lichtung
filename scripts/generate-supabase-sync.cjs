@@ -1,12 +1,20 @@
 #!/usr/bin/env node
 
 /**
- * Generate an idempotent SQL script that makes Supabase match src/data/app-data.json.
+ * Generate the SQL that makes Supabase serve exactly the demo's static data.
  *
- * The static JSON is the source of truth for the demo; this script exists so the
- * Supabase-backed mode serves exactly the same content.
+ * src/data/app-data.json is the source of truth; these scripts are how the
+ * Supabase-backed mode catches up to it.
  *
- * Usage: node scripts/generate-supabase-sync.cjs > scripts/sync-demo-data.sql
+ * Usage: node scripts/generate-supabase-sync.cjs
+ *
+ * Writes two files:
+ *   sync-demo-data.sql            topics + polling data + reports. No prerequisites.
+ *   sync-demo-users-comments.sql  profiles + comments. Optional — needs auth accounts,
+ *                                 because profiles.id and comments.user_id are FKs into
+ *                                 auth.users. Skipping it costs nothing: with an empty
+ *                                 comments table the app falls back to the mock comments
+ *                                 in app-data.json, identity chips included.
  */
 
 const fs = require('fs');
@@ -19,10 +27,10 @@ const appData = JSON.parse(
 /**
  * mock user id -> Supabase auth account email.
  *
- * app-data.json carries its own `email` field, but that one is the JSON-mode
- * demo login (see AuthContext) and is NOT the address the auth accounts were
- * created with. Edit the right-hand side if your Dashboard accounts differ;
- * the generated script aborts before writing anything if one is missing.
+ * app-data.json carries its own `email` field, but that one is the JSON-mode demo
+ * login (see AuthContext) and is not the address the auth accounts were created
+ * with. Edit the right-hand side to match your Dashboard; the generated script
+ * aborts before writing anything if an account is missing.
  */
 const AUTH_EMAIL = {
   'user-01': 'mike.thompson@example.com',
@@ -40,67 +48,150 @@ const AUTH_EMAIL = {
   'user-13': 'jake.miller@example.com',
 };
 
-// Dollar-quoting: content holds apostrophes, em-dashes and emoji, and '' escaping
-// across ~100 strings is exactly where a generator like this usually breaks.
+// Dollar-quoting: the content is full of apostrophes, em-dashes and emoji, and ''
+// escaping across ~100 strings is exactly where a generator like this breaks.
 const q = (v) => (v === null || v === undefined ? 'NULL' : `$lch$${v}$lch$`);
 const num = (v) => (v === null || v === undefined ? 'NULL' : String(v));
 const bool = (v) => (v ? 'true' : 'false');
 const arr = (xs) => `ARRAY[${xs.map(q).join(', ')}]::text[]`;
 const intArr = (xs) => `ARRAY[${xs.map(num).join(', ')}]::integer[]`;
 const jsonb = (v) => `${q(JSON.stringify(v ?? []))}::jsonb`;
+const idList = (xs) => xs.map(q).join(', ');
 
 const { topics, pollingData, reports, mockUsers, mockComments } = appData;
-const pollIds = new Set(pollingData.map((p) => p.id));
+const pollIds = pollingData.map((p) => p.id);
+const reportIds = reports.map((r) => r.id);
+const pollIdSet = new Set(pollIds);
 
-// Reports still carry pollingDataId values pointing at polls that were removed
-// from the demo set. They are inert in JSON mode (lookup goes through topicId),
-// but they would violate the FK on insert, so they are nulled here.
-const dangling = reports.filter((r) => r.pollingDataId && !pollIds.has(r.pollingDataId));
+const write = (file, lines) =>
+  fs.writeFileSync(path.join(__dirname, file), lines.join('\n') + '\n', 'utf-8');
 
-const out = [];
-const w = (s = '') => out.push(s);
+// ── 1. Content: topics, polling data, reports ────────────────────────────────
 
-w(`-- ========================================
--- Sync Supabase to src/data/app-data.json
+const content = [];
+const c = (s = '') => content.push(s);
+
+c(`-- ========================================
+-- Sync Supabase content to src/data/app-data.json
 --
 -- GENERATED FILE — do not hand-edit.
--- Regenerate: node scripts/generate-supabase-sync.cjs > scripts/sync-demo-data.sql
+-- Regenerate: node scripts/generate-supabase-sync.cjs
 --
--- Source data: ${topics.length} topics · ${pollingData.length} polls · ${reports.length} reports
---              ${mockUsers.length} mock users · ${mockComments.length} comments
+-- ${topics.length} topics · ${pollingData.length} polls · ${reports.length} reports
 --
--- Idempotent: safe to re-run. Runs in one transaction — either the whole sync
--- lands or nothing does.
---
--- Prerequisite: the ${mockUsers.length} auth accounts below must already exist
--- (Dashboard -> Authentication -> Users). The script aborts with the missing
--- addresses listed if any is absent.
+-- No prerequisites. Paste into Dashboard -> SQL Editor and run.
+-- Runs in one transaction and is safe to re-run: anything not in the demo data
+-- is deleted, everything in it is inserted or overwritten.
 -- ========================================
 
 BEGIN;
 
--- ----------------------------------------
--- 0. Schema guards
--- ----------------------------------------
+-- Columns the demo needs, added only if the table lacks them
 ALTER TABLE public.polling_data ADD COLUMN IF NOT EXISTS subtopic_id text;
 ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS polling_data_id text;
 ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS counter_stereotypical boolean DEFAULT false;
 ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS engagement_score numeric DEFAULT 0.5;
 ALTER TABLE public.reports      ADD COLUMN IF NOT EXISTS url text;
 
--- ----------------------------------------
--- 1. mock user id -> auth account
--- ----------------------------------------
+-- Clear in FK order: comments -> reports -> polling_data.
+-- Only comments left orphaned by the report deletion below are removed.
+DELETE FROM public.comments     WHERE report_id NOT IN (${idList(reportIds)});
+DELETE FROM public.reports      WHERE id        NOT IN (${idList(reportIds)});
+DELETE FROM public.polling_data WHERE id        NOT IN (${idList(pollIds)});
+
+-- Legacy NOT NULL column on reports, kept satisfied with one dummy row
+INSERT INTO public.events (id, title, supportive, neutral, opposed)
+VALUES ('ev_default', 'Default Event', 33, 34, 33)
+ON CONFLICT (id) DO NOTHING;
+
+-- ---------- Topics (${topics.length}) ----------`);
+
+for (const t of topics) {
+  c(`INSERT INTO public.topics (id, name, scope, tag_keywords) VALUES
+  (${q(t.id)}, ${q(t.name)}, ${q(t.scope)}, ${arr(t.tagKeywords)})
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name, scope = EXCLUDED.scope, tag_keywords = EXCLUDED.tag_keywords;`);
+}
+
+c(`
+-- ---------- Polling data (${pollingData.length}) ----------`);
+
+for (const p of pollingData) {
+  c(`INSERT INTO public.polling_data (id, topic_id, subtopic_id, source, survey_year, geographic_scope, scale_labels, distribution, bridging_text) VALUES
+  (${q(p.id)}, ${q(p.topicId)}, ${q(p.subtopicId ?? null)}, ${q(p.source)}, ${num(p.surveyYear)}, ${q(p.geographicScope)},
+   ${arr(p.scaleLabels)}, ${intArr(p.distribution)}, ${q(p.bridgingText)})
+ON CONFLICT (id) DO UPDATE SET
+  topic_id = EXCLUDED.topic_id, subtopic_id = EXCLUDED.subtopic_id, source = EXCLUDED.source,
+  survey_year = EXCLUDED.survey_year, geographic_scope = EXCLUDED.geographic_scope,
+  scale_labels = EXCLUDED.scale_labels, distribution = EXCLUDED.distribution,
+  bridging_text = EXCLUDED.bridging_text;
+`);
+}
+
+c(`-- ---------- Reports (${reports.length}) ----------`);
+
+for (const r of reports) {
+  const pollRef = r.pollingDataId && pollIdSet.has(r.pollingDataId) ? q(r.pollingDataId) : 'NULL';
+  c(`INSERT INTO public.reports (id, event_id, title, summary, source, stance, url, image_url, published_at, topic_id, polling_data_id, counter_stereotypical, engagement_score) VALUES
+  (${q(r.id)}, 'ev_default', ${q(r.title)}, ${q(r.summary)}, ${q(r.source)}, 'neutral',
+   ${q(r.url ?? null)}, ${q(r.imageUrl ?? null)}, ${q(r.publishedAt ?? null)}, ${q(r.topicId ?? null)},
+   ${pollRef}, ${bool(r.counterStereotypical)}, ${num(r.engagementScore ?? 0.5)})
+ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title, summary = EXCLUDED.summary, source = EXCLUDED.source,
+  url = EXCLUDED.url, image_url = EXCLUDED.image_url, published_at = EXCLUDED.published_at,
+  topic_id = EXCLUDED.topic_id, polling_data_id = EXCLUDED.polling_data_id,
+  counter_stereotypical = EXCLUDED.counter_stereotypical, engagement_score = EXCLUDED.engagement_score;
+`);
+}
+
+c(`COMMIT;
+
+-- ---------- Verify: expect ${topics.length} / ${pollingData.length} / ${reports.length} ----------
+SELECT 'topics' AS table, COUNT(*) AS rows FROM public.topics
+UNION ALL SELECT 'polling_data', COUNT(*) FROM public.polling_data
+UNION ALL SELECT 'reports', COUNT(*) FROM public.reports;
+
+-- Path A no longer uses hostility scoring. Drop the dead columns if you want:
+-- ALTER TABLE public.reports DROP COLUMN IF EXISTS hostility_score;
+-- ALTER TABLE public.reports DROP COLUMN IF EXISTS content_type;`);
+
+write('sync-demo-data.sql', content);
+
+// ── 2. Optional: profiles + comments (needs auth accounts) ───────────────────
+
+const people = [];
+const p = (s = '') => people.push(s);
+
+p(`-- ========================================
+-- Sync mock profiles and comments to src/data/app-data.json
+--
+-- GENERATED FILE — do not hand-edit.
+-- Regenerate: node scripts/generate-supabase-sync.cjs
+--
+-- ${mockUsers.length} profiles · ${mockComments.length} comments
+--
+-- OPTIONAL. Run sync-demo-data.sql first (comments reference reports).
+--
+-- Prerequisite: the ${mockUsers.length} auth accounts listed below must exist
+-- (Dashboard -> Authentication -> Users), because profiles.id and
+-- comments.user_id are foreign keys into auth.users. If you skip this script,
+-- the app falls back to the mock comments in app-data.json — identity chips and
+-- all — so the demo still shows everything.
+-- ========================================
+
+BEGIN;
+
 CREATE TEMP TABLE mock_user_map (mock_id text PRIMARY KEY, auth_email text NOT NULL) ON COMMIT DROP;
 INSERT INTO mock_user_map (mock_id, auth_email) VALUES`);
 
-w(
+p(
   mockUsers
     .map((u) => `  (${q(u.id)}, ${q(AUTH_EMAIL[u.id] ?? `MISSING-MAPPING-${u.id}`)})`)
     .join(',\n') + ';'
 );
 
-w(`
+p(`
+-- Stop before touching anything if an account is missing
 DO $$
 DECLARE missing text;
 BEGIN
@@ -114,75 +205,13 @@ BEGIN
   END IF;
 END $$;
 
--- ----------------------------------------
--- 2. Comments cleared first (FK: comments -> reports)
--- ----------------------------------------
 DELETE FROM public.comments
 WHERE user_id IN (SELECT u.id FROM auth.users u JOIN mock_user_map m ON m.auth_email = u.email);
 
--- ----------------------------------------
--- 3. Topics
--- ----------------------------------------`);
-
-for (const t of topics) {
-  w(`INSERT INTO public.topics (id, name, scope, tag_keywords) VALUES
-  (${q(t.id)}, ${q(t.name)}, ${q(t.scope)}, ${arr(t.tagKeywords)})
-ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, scope = EXCLUDED.scope, tag_keywords = EXCLUDED.tag_keywords;`);
-}
-
-w(`
--- ----------------------------------------
--- 4. Polling data (${pollingData.length} kept; anything else removed)
--- ----------------------------------------
-DELETE FROM public.polling_data WHERE id NOT IN (${[...pollIds].map(q).join(', ')});`);
-
-for (const p of pollingData) {
-  w(`
-INSERT INTO public.polling_data (id, topic_id, subtopic_id, source, survey_year, geographic_scope, scale_labels, distribution, bridging_text) VALUES
-  (${q(p.id)}, ${q(p.topicId)}, ${q(p.subtopicId ?? null)}, ${q(p.source)}, ${num(p.surveyYear)}, ${q(p.geographicScope)},
-   ${arr(p.scaleLabels)}, ${intArr(p.distribution)}, ${q(p.bridgingText)})
-ON CONFLICT (id) DO UPDATE SET
-  topic_id = EXCLUDED.topic_id, subtopic_id = EXCLUDED.subtopic_id, source = EXCLUDED.source,
-  survey_year = EXCLUDED.survey_year, geographic_scope = EXCLUDED.geographic_scope,
-  scale_labels = EXCLUDED.scale_labels, distribution = EXCLUDED.distribution,
-  bridging_text = EXCLUDED.bridging_text;`);
-}
-
-w(`
--- ----------------------------------------
--- 5. Reports (${reports.length})
---    event_id is a legacy NOT NULL column from the v0.1.0 schema.
---    ${dangling.length} report(s) referenced a poll that is no longer in the demo
---    set; polling_data_id is written as NULL for those.
--- ----------------------------------------
-INSERT INTO public.events (id, title, supportive, neutral, opposed)
-VALUES ('ev_default', 'Default Event', 33, 34, 33)
-ON CONFLICT (id) DO NOTHING;
-
-DELETE FROM public.reports WHERE id NOT IN (${reports.map((r) => q(r.id)).join(', ')});`);
-
-for (const r of reports) {
-  const pollRef = r.pollingDataId && pollIds.has(r.pollingDataId) ? q(r.pollingDataId) : 'NULL';
-  w(`
-INSERT INTO public.reports (id, event_id, title, summary, source, stance, url, image_url, published_at, topic_id, polling_data_id, counter_stereotypical, engagement_score) VALUES
-  (${q(r.id)}, 'ev_default', ${q(r.title)}, ${q(r.summary)}, ${q(r.source)}, 'neutral',
-   ${q(r.url ?? null)}, ${q(r.imageUrl ?? null)}, ${q(r.publishedAt ?? null)}, ${q(r.topicId ?? null)},
-   ${pollRef}, ${bool(r.counterStereotypical)}, ${num(r.engagementScore ?? 0.5)})
-ON CONFLICT (id) DO UPDATE SET
-  title = EXCLUDED.title, summary = EXCLUDED.summary, source = EXCLUDED.source,
-  url = EXCLUDED.url, image_url = EXCLUDED.image_url, published_at = EXCLUDED.published_at,
-  topic_id = EXCLUDED.topic_id, polling_data_id = EXCLUDED.polling_data_id,
-  counter_stereotypical = EXCLUDED.counter_stereotypical, engagement_score = EXCLUDED.engagement_score;`);
-}
-
-w(`
--- ----------------------------------------
--- 6. Profiles (${mockUsers.length}) — display name, avatar, Path C identities
--- ----------------------------------------`);
+-- ---------- Profiles (${mockUsers.length}) ----------`);
 
 for (const u of mockUsers) {
-  w(`
-UPDATE auth.users SET raw_user_meta_data = COALESCE(raw_user_meta_data, '{}'::jsonb) || ${q(JSON.stringify({ display_name: u.displayName }))}::jsonb
+  p(`UPDATE auth.users SET raw_user_meta_data = COALESCE(raw_user_meta_data, '{}'::jsonb) || ${q(JSON.stringify({ display_name: u.displayName }))}::jsonb
 WHERE email = (SELECT auth_email FROM mock_user_map WHERE mock_id = ${q(u.id)});
 
 INSERT INTO public.profiles (id, display_name, avatar_url, interests, identities)
@@ -190,37 +219,28 @@ SELECT u.id, ${q(u.displayName)}, ${q(u.avatarUrl ?? null)}, '{}', ${jsonb(u.ide
 FROM auth.users u JOIN mock_user_map m ON m.auth_email = u.email
 WHERE m.mock_id = ${q(u.id)}
 ON CONFLICT (id) DO UPDATE SET
-  display_name = EXCLUDED.display_name, avatar_url = EXCLUDED.avatar_url, identities = EXCLUDED.identities;`);
+  display_name = EXCLUDED.display_name, avatar_url = EXCLUDED.avatar_url, identities = EXCLUDED.identities;
+`);
 }
 
-w(`
--- ----------------------------------------
--- 7. Comments (${mockComments.length})
--- ----------------------------------------`);
+p(`-- ---------- Comments (${mockComments.length}) ----------`);
 
-for (const c of mockComments) {
-  w(`INSERT INTO public.comments (report_id, user_id, content, created_at)
-SELECT ${q(c.reportId)}, u.id, ${q(c.content)}, ${q(c.createdAt)}::timestamptz
+for (const cm of mockComments) {
+  p(`INSERT INTO public.comments (report_id, user_id, content, created_at)
+SELECT ${q(cm.reportId)}, u.id, ${q(cm.content)}, ${q(cm.createdAt)}::timestamptz
 FROM auth.users u JOIN mock_user_map m ON m.auth_email = u.email
-WHERE m.mock_id = ${q(c.userId)};`);
+WHERE m.mock_id = ${q(cm.userId)};`);
 }
 
-w(`
+p(`
 COMMIT;
 
--- ----------------------------------------
--- 8. Verify (expected: topics=${topics.length}, polls=${pollingData.length}, reports=${reports.length}, profiles=${mockUsers.length}, comments=${mockComments.length})
--- ----------------------------------------
-SELECT 'topics' AS table, COUNT(*) AS rows FROM public.topics
-UNION ALL SELECT 'polling_data', COUNT(*) FROM public.polling_data
-UNION ALL SELECT 'reports', COUNT(*) FROM public.reports
-UNION ALL SELECT 'reports (counter-stereotypical)', COUNT(*) FROM public.reports WHERE counter_stereotypical
-UNION ALL SELECT 'profiles (with identities)', COUNT(*) FROM public.profiles WHERE jsonb_array_length(identities) > 0
-UNION ALL SELECT 'comments', COUNT(*) FROM public.comments;
+-- ---------- Verify: expect ${mockUsers.length} / ${mockComments.length} ----------
+SELECT 'profiles (with identities)' AS table, COUNT(*) AS rows
+  FROM public.profiles WHERE jsonb_array_length(identities) > 0
+UNION ALL SELECT 'comments', COUNT(*) FROM public.comments;`);
 
--- Optional cleanup, run only when you are sure nothing else reads these:
--- Path A no longer uses hostility scoring, so the columns are dead weight.
--- ALTER TABLE public.reports DROP COLUMN IF EXISTS hostility_score;
--- ALTER TABLE public.reports DROP COLUMN IF EXISTS content_type;`);
+write('sync-demo-users-comments.sql', people);
 
-process.stdout.write(out.join('\n') + '\n');
+console.log(`sync-demo-data.sql            ${topics.length} topics, ${pollingData.length} polls, ${reports.length} reports`);
+console.log(`sync-demo-users-comments.sql  ${mockUsers.length} profiles, ${mockComments.length} comments`);
