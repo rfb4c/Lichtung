@@ -12,10 +12,9 @@
  *   sync-demo-data.sql            topics + polling data + reports.
  *   sync-demo-users-comments.sql  profiles + comments.
  *
- * Both run without prerequisites. Verified against the live schema on 2026-08-15:
- * `profiles` carries no foreign key at all, and `comments.user_id` points at
- * `profiles.id` rather than `auth.users` — so demo profiles do not need auth
- * accounts behind them.
+ * Live schema, as of 2026-08-15: `profiles.id` is a FK into `auth.users`, and
+ * `comments.user_id` is a FK into `profiles.id`. So every demo user needs an
+ * auth account behind it — see AUTH_EMAIL below.
  */
 
 const fs = require('fs');
@@ -45,21 +44,9 @@ const AUTH_EMAIL = {
   'user-10': 'lisa.johnson@example.com',
   'user-11': 'tom.bradley@example.com',
   'user-12': 'rachel.kim@example.com',
-};
-
-/**
- * mock user id -> fixed profile uuid, for demo users with no auth account.
- *
- * Jake Miller is the viewer identity in the Path C reversal and was added after
- * the original 12 accounts were created. `profiles` has no FK to `auth.users`,
- * so his profile just takes a fixed synthetic uuid — stable across re-runs, and
- * obviously not a real account at a glance.
- *
- * Only consequence: he cannot *log in* in Supabase mode. Create an auth account
- * and move him into AUTH_EMAIL if that is ever needed.
- */
-const STANDALONE_PROFILE_ID = {
-  'user-13': '00000000-0000-4000-8000-000000000013',
+  // Added 2026-08-15 for the Path C reversal viewer identity, after the
+  // original 12 accounts already existed.
+  'user-13': 'jake.miller@example.com',
 };
 
 // Dollar-quoting: the content is full of apostrophes, em-dashes and emoji, and ''
@@ -176,11 +163,9 @@ write('sync-demo-data.sql', content);
 const people = [];
 const p = (s = '') => people.push(s);
 
-const mappedByEmail = mockUsers.filter((u) => AUTH_EMAIL[u.id]);
-const mappedStandalone = mockUsers.filter((u) => STANDALONE_PROFILE_ID[u.id]);
-const unmapped = mockUsers.filter((u) => !AUTH_EMAIL[u.id] && !STANDALONE_PROFILE_ID[u.id]);
+const unmapped = mockUsers.filter((u) => !AUTH_EMAIL[u.id]);
 if (unmapped.length) {
-  throw new Error(`No profile mapping for: ${unmapped.map((u) => u.id).join(', ')}`);
+  throw new Error(`No auth email mapped for: ${unmapped.map((u) => u.id).join(', ')}`);
 }
 
 p(`-- ========================================
@@ -193,9 +178,9 @@ p(`-- ========================================
 --
 -- Run sync-demo-data.sql first: comments reference reports.
 --
--- No prerequisites otherwise. ${mappedByEmail.length} profiles reuse the uuid of an
--- existing auth account; ${mappedStandalone.length} (${mappedStandalone.map((u) => u.displayName).join(', ')}) has no account and takes a
--- fixed synthetic uuid, which the profiles table allows: it carries no foreign key.
+-- Prerequisite: the ${mockUsers.length} auth accounts listed below must exist, because
+-- profiles.id is a foreign key into auth.users. The script aborts before
+-- writing anything if one is missing.
 --
 -- Runs in one transaction and is safe to re-run: every mock comment is deleted
 -- and re-inserted, profiles are overwritten in place.
@@ -205,40 +190,38 @@ BEGIN;
 
 CREATE TEMP TABLE mock_user_map (mock_id text PRIMARY KEY, profile_id uuid NOT NULL) ON COMMIT DROP;
 
--- Profiles that ride on an existing auth account
 INSERT INTO mock_user_map (mock_id, profile_id)
 SELECT v.mock_id, u.id
 FROM (VALUES`);
 
 p(
-  mappedByEmail.map((u) => `  (${q(u.id)}, ${q(AUTH_EMAIL[u.id])})`).join(',\n') +
+  mockUsers.map((u) => `  (${q(u.id)}, ${q(AUTH_EMAIL[u.id])})`).join(',\n') +
     `\n) AS v(mock_id, email)\nJOIN auth.users u ON u.email = v.email;`
 );
 
 p(`
--- Profiles with no auth account behind them`);
-p(
-  `INSERT INTO mock_user_map (mock_id, profile_id) VALUES\n` +
-    mappedStandalone
-      .map((u) => `  (${q(u.id)}, ${q(STANDALONE_PROFILE_ID[u.id])}::uuid)`)
-      .join(',\n') +
-    ';'
-);
-
-p(`
--- Stop before touching anything if an expected auth account has gone missing
+-- Stop before touching anything if an expected auth account is missing
 DO $$
-DECLARE mapped int;
+DECLARE missing text;
 BEGIN
-  SELECT COUNT(*) INTO mapped FROM mock_user_map;
-  IF mapped <> ${mockUsers.length} THEN
-    RAISE EXCEPTION 'Mapped % of ${mockUsers.length} demo users — an auth account listed in this script no longer exists. Check AUTH_EMAIL in scripts/generate-supabase-sync.cjs.', mapped;
+  SELECT string_agg(v.email, ', ') INTO missing
+  FROM (VALUES`);
+
+p(
+  mockUsers.map((u) => `    (${q(AUTH_EMAIL[u.id])})`).join(',\n') +
+    `\n  ) AS v(email)
+  LEFT JOIN auth.users u ON u.email = v.email
+  WHERE u.id IS NULL;
+
+  IF missing IS NOT NULL THEN
+    RAISE EXCEPTION 'No auth account for: %. Create it in Dashboard -> Authentication -> Users, then re-run.', missing;
   END IF;
 END $$;
 
 DELETE FROM public.comments WHERE user_id IN (SELECT profile_id FROM mock_user_map);
 
--- ---------- Profiles (${mockUsers.length}) ----------`);
+-- ---------- Profiles (${mockUsers.length}) ----------`
+);
 
 for (const u of mockUsers) {
   p(`INSERT INTO public.profiles (id, display_name, avatar_url, interests, identities)
