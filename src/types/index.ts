@@ -4,7 +4,7 @@
 export interface Subtopic {
   id: string;              // e.g., "us-gun-control-background-checks"
   name: string;            // e.g., "Background Checks"
-  tagKeywords: string[];   // Keywords for matching reports to this subtopic
+  tagKeywords: string[];   // Descriptors of what this subtopic covers; fed to the retrieval pipeline
 }
 
 // Topic (议题) - replaces Event
@@ -12,7 +12,7 @@ export interface Topic {
   id: string;              // e.g., "us-gun-control"
   name: string;            // e.g., "Gun Control"
   scope: 'us_domestic' | 'cross_national';
-  tagKeywords: string[];   // Keywords for matching reports to this topic
+  tagKeywords: string[];   // Descriptors of what this topic covers; fed to the retrieval pipeline
   subtopics?: Subtopic[];  // Optional: granular subtopics
 }
 
