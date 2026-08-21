@@ -32,5 +32,5 @@ dist-ssr
 .claude/
 
 # Private planning notes — kept in the working tree, never committed
-docs/IUI*
+docs/private/
 docs/old/
