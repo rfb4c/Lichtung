@@ -19,6 +19,7 @@
 import { pathToFileURL } from 'node:url';
 
 import { CS_WEIGHTS, computeCsScore, type CsAttribute } from '../../src/lib/csScore';
+import { BOOST_FACTOR } from '../../src/lib/feedSorter';
 import { readAnnotations, writeAnnotations, writeCsScores } from './lib/io';
 import type {
   Agreement,
@@ -115,10 +116,11 @@ function summarize(merged: Record<string, MergedAnnotation>): string {
       `中位 ${scores[Math.floor(total / 2)].toFixed(3)}`,
   );
 
-  // 位移档位：新键 = 位置 − round(总数 × 0.3 × csScore)，与 feedSorter 一致
+  // 位移档位：新键 = 位置 − round(总数 × BOOST_FACTOR × csScore)。
+  // 系数从 feedSorter 取，不在这里重写一个字面量。
   const buckets = new Map<number, number>();
   for (const score of scores) {
-    const shift = Math.round(total * 0.3 * score);
+    const shift = Math.round(total * BOOST_FACTOR * score);
     buckets.set(shift, (buckets.get(shift) ?? 0) + 1);
   }
   const spread = [...buckets.entries()].sort((x, y) => y[0] - x[0]);
@@ -149,5 +151,11 @@ function main(): void {
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
-  main();
+  // readAnnotations 在文件缺失时抛的是一句可读的提示，别让它变成堆栈转储
+  try {
+    main();
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : error);
+    process.exit(1);
+  }
 }

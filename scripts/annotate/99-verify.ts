@@ -78,12 +78,22 @@ async function main(): Promise<void> {
   const providers = new Set(baseline.meta.runs.map((r) => r.provider));
   const isMock = providers.size === 1 && providers.has('mock');
 
-  // rubric 变了而结果没重跑，是最容易在论文里说错话的情形——先拦下来
-  if (baseline.meta.promptSha256 !== sha256(readPrompt())) {
-    console.warn('⚠ rubric 已修改，但 annotations.json 是旧 rubric 跑出来的。');
-  }
-  if (baseline.meta.schemaSha256 !== sha256(JSON.stringify(readSchema()))) {
-    console.warn('⚠ schema 已修改，但 annotations.json 是旧 schema 跑出来的。');
+  // 判据变了还去做「复现校验」，量到的是配置差异不是采样波动，
+  // 而报出来的数字长得一模一样。在花钱之前先拦住。
+  const drifted = [
+    baseline.meta.promptSha256 !== sha256(readPrompt()) ? '判据 prompts/path-a-cs.md' : null,
+    baseline.meta.schemaSha256 !== sha256(JSON.stringify(readSchema()))
+      ? 'schemas/cs-attributes.json'
+      : null,
+  ].filter(Boolean);
+
+  if (drifted.length > 0) {
+    console.error(
+      `${drifted.join(' 与 ')} 已改动，但 annotations.json 是改动前跑出来的。\n` +
+        '此时重跑量到的是「换了判据」，不是采样波动——报出来的却是同一个「一致率」数字。\n' +
+        '要么恢复判据，要么先整体重跑 npm run annotate 再来校验。',
+    );
+    process.exit(1);
   }
 
   if (!isMock && !process.argv.includes('--confirm-spend')) {
@@ -97,12 +107,40 @@ async function main(): Promise<void> {
   const outPath = join(tmpdir(), `lichtung-annotations-rerun-${Date.now()}.json`);
   console.log(`重跑一遍（${isMock ? 'mock' : '实跑'}），结果写到临时文件：\n  ${outPath}\n`);
 
-  const rerun = await runAnnotation({
+  const { file: rerun, failures } = await runAnnotation({
     judges: isMock ? 'mock' : 'real',
     outPath,
     resume: false,
     quiet: true,
   });
+
+  if (failures > 0) {
+    console.error(
+      `\n重跑有 ${failures} 次调用失败，比对的样本会少掉这些条目，` +
+        '算出来的一致率不能代表整批。先修好再来。',
+    );
+    process.exit(1);
+  }
+
+  // 同理：换了 judge 型号再来「复现校验」，量到的是两个模型的分歧
+  const modelDrift = baseline.meta.runs.flatMap((before) => {
+    const after = rerun.meta.runs.find((r) => r.slot === before.slot);
+    if (!after || (after.provider === before.provider && after.model === before.model)) {
+      return [];
+    }
+    return [
+      `Judge ${before.slot}：${before.provider}/${before.model} → ${after.provider}/${after.model}`,
+    ];
+  });
+
+  if (modelDrift.length > 0) {
+    console.error(
+      `重跑用的模型与基线不同，这个 diff 量的是模型差异不是采样波动：\n` +
+        modelDrift.map((d) => `  ・${d}`).join('\n') +
+        '\n把 .env 的 OPENAI_JUDGE_MODEL 恢复成基线用的型号再来。',
+    );
+    process.exit(1);
+  }
 
   const { compared, divergences } = diffRuns(baseline, rerun);
   const stable = compared - divergences.length;

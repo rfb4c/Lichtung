@@ -66,12 +66,54 @@ async function createJudges(mode: 'real' | 'mock'): Promise<Judge[]> {
 }
 
 /** 读回已有结果用于 --resume；文件不存在就从空开始。 */
-function loadExisting(resume: boolean, path: string): AnnotationFile['verdicts'] {
-  if (!resume) return {};
+function loadExisting(resume: boolean, path: string): AnnotationFile | null {
+  if (!resume) return null;
   try {
-    return readAnnotations(path).verdicts;
+    return readAnnotations(path);
   } catch {
-    return {};
+    return null;
+  }
+}
+
+/**
+ * --resume 的完整性守卫。
+ *
+ * 断点续跑最容易出的事故是把两份不同来源的判定混进同一个文件：改了判据再续跑、
+ * 换了 OPENAI_JUDGE_MODEL 再续跑——产出的 annotations.json 一半来自配置 X、
+ * 一半来自配置 Y，而 meta 只记得住后一个。作为审计层这就废了，且从文件本身看不出来，
+ * 等到照着 meta 写进论文才是真的错。所以宁可拒绝续跑。
+ */
+function assertResumable(
+  previous: AnnotationFile,
+  next: AnnotationFile['meta'],
+  path: string,
+): void {
+  const problems: string[] = [];
+
+  if (previous.meta.promptSha256 !== next.promptSha256) {
+    problems.push('判据 prompts/path-a-cs.md 已改动');
+  }
+  if (previous.meta.schemaSha256 !== next.schemaSha256) {
+    problems.push('schemas/cs-attributes.json 已改动');
+  }
+  for (const run of next.runs) {
+    const before = previous.meta.runs.find((r) => r.slot === run.slot);
+    if (!before) continue;
+    if (before.provider !== run.provider || before.model !== run.model) {
+      problems.push(
+        `Judge ${run.slot} 的模型变了：` +
+          `${before.provider}/${before.model} → ${run.provider}/${run.model}`,
+      );
+    }
+  }
+
+  if (problems.length > 0) {
+    throw new Error(
+      '不能续跑，已有判定与当前配置不一致：\n' +
+        problems.map((p) => `  ・${p}`).join('\n') +
+        '\n续跑会把两份不同来源的判定混进同一个文件，而 meta 只记得住后一个。' +
+        `\n要么恢复原配置，要么删掉 ${path} 整体重跑。`,
+    );
   }
 }
 
@@ -100,7 +142,13 @@ async function runPool(
   await Promise.all(workers);
 }
 
-export async function runAnnotation(options: AnnotateOptions): Promise<AnnotationFile> {
+export interface AnnotateResult {
+  file: AnnotationFile;
+  /** 失败的调用次数。>0 时 CLI 退出码为 1，避免用半份数据接着跑 merge */
+  failures: number;
+}
+
+export async function runAnnotation(options: AnnotateOptions): Promise<AnnotateResult> {
   loadEnv();
 
   const prompt = readPrompt();
@@ -109,20 +157,22 @@ export async function runAnnotation(options: AnnotateOptions): Promise<Annotatio
   const inputs = toJudgeInputs(appData).slice(0, options.limit ?? undefined);
   const judges = await createJudges(options.judges);
 
-  const file: AnnotationFile = {
-    meta: {
-      promptSha256: sha256(prompt),
-      schemaSha256: sha256(JSON.stringify(schema)),
-      runs: judges.map((j) => ({
-        slot: j.slot,
-        provider: j.provider,
-        model: j.model,
-        ranAt: new Date().toISOString(),
-      })),
-    },
-    verdicts: loadExisting(options.resume, options.outPath),
-    merged: {},
+  const meta: AnnotationFile['meta'] = {
+    promptSha256: sha256(prompt),
+    schemaSha256: sha256(JSON.stringify(schema)),
+    runs: judges.map((j) => ({
+      slot: j.slot,
+      provider: j.provider,
+      model: j.model,
+      ranAt: new Date().toISOString(),
+    })),
   };
+
+  const previous = loadExisting(options.resume, options.outPath);
+  if (previous) assertResumable(previous, meta, options.outPath);
+
+  // merged 一律清空：新判定进来，旧裁决就是过期的，必须重跑 03-merge
+  const file: AnnotationFile = { meta, verdicts: previous?.verdicts ?? {}, merged: {} };
 
   const pending: Task[] = [];
   for (const input of inputs) {
@@ -152,36 +202,73 @@ export async function runAnnotation(options: AnnotateOptions): Promise<Annotatio
     log(options, `  [${completed}/${pending.length}] ✓ ${task.input.id} (Judge ${task.judge.slot})`);
   };
 
-  // 第一次调用单独跑：rubric 作为稳定前缀写进 prompt 缓存后，
-  // 后面并发的调用才读得到缓存。并发首发会各自付一次全价写入。
-  if (pending.length > 0) {
-    const [first, ...rest] = pending;
-    await runPool([first], 1, record);
-    await runPool(rest, CONCURRENCY, record);
+  const reportFailures = (): void => {
+    console.error(`\n${failures.length} 次调用失败：`);
+    for (const f of failures) {
+      console.error(`  ${f.id} / Judge ${f.slot}: ${(f.error as Error)?.message ?? f.error}`);
+    }
+  };
+
+  // 每个 judge 的第一次调用先单独跑，两家并行——一举两得：
+  //   ・缓存：rubric 作为稳定前缀先写进各自的 prompt 缓存，后面并发的调用才读得到。
+  //     并发首发会各自付一次全价写入，读不到彼此正在写的缓存
+  //   ・冒烟：密钥错、模型 ID 错、schema 被某一家拒绝——这类问题必然在第一次调用就暴露。
+  //     不先探一下就放并发，等来的是 56 条一模一样的报错
+  const probes = judges
+    .map((judge) => pending.find((t) => t.judge.slot === judge.slot))
+    .filter((task): task is Task => task !== undefined);
+  const rest = pending.filter((task) => !probes.includes(task));
+
+  await runPool(probes, probes.length, record);
+
+  if (failures.length > 0) {
+    // 首发就失败，几乎必然是配置问题。已成功的那一侧照样落盘，--resume 不会白跑
+    writeAnnotations(file, options.outPath);
+    reportFailures();
+    console.error(
+      '\n首次调用即失败，判断为配置问题，已中止——不继续把剩余调用打出去。\n' +
+        '修好后用 --resume 继续，已成功的条目不会重跑。',
+    );
+    return { file, failures: failures.length };
   }
+
+  await runPool(rest, CONCURRENCY, record);
 
   writeAnnotations(file, options.outPath);
   log(options, `\n已写入 ${options.outPath}`);
 
   if (failures.length > 0) {
-    console.error(`\n${failures.length} 次调用失败：`);
-    for (const f of failures) {
-      console.error(`  ${f.id} / Judge ${f.slot}: ${(f.error as Error)?.message ?? f.error}`);
-    }
+    reportFailures();
     console.error('用 --resume 重跑，只会补这些条目。');
   }
 
-  return file;
+  return { file, failures: failures.length };
+}
+
+/**
+ * --judges 拼错时**不能**默默回落到实跑：那会直接开始花钱。
+ * 这个标志是「花钱 / 不花钱」的开关，必须精确匹配。
+ */
+function parseJudges(argv: string[]): 'real' | 'mock' {
+  const index = argv.indexOf('--judges');
+  if (index === -1) return 'real';
+
+  const value = argv[index + 1];
+  if (value === 'mock' || value === 'real') return value;
+
+  throw new Error(
+    `--judges 只接受 mock 或 real，收到「${value ?? '(空)'}」。\n` +
+      '不默认回落到 real——拼错一个字母就开始花钱，这个代价不该由拼写承担。',
+  );
 }
 
 function parseArgs(argv: string[]): AnnotateOptions {
-  const judgesFlag = argv[argv.indexOf('--judges') + 1];
   const limitFlag = argv.includes('--limit')
     ? Number(argv[argv.indexOf('--limit') + 1])
     : undefined;
 
   return {
-    judges: argv.includes('--judges') && judgesFlag === 'mock' ? 'mock' : 'real',
+    judges: parseJudges(argv),
     outPath: PATHS.annotations,
     limit: Number.isFinite(limitFlag) ? limitFlag : undefined,
     resume: argv.includes('--resume'),
@@ -190,9 +277,21 @@ function parseArgs(argv: string[]): AnnotateOptions {
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
-  const options = parseArgs(process.argv.slice(2));
-  runAnnotation(options).catch((error: unknown) => {
+  // parseArgs 会因为参数拼错而抛，所以它也要在 try 里——否则用户看到的是
+  // 一屏堆栈，而不是我们精心写的那句「拼错一个字母就开始花钱」。
+  const fail = (error: unknown): never => {
     console.error(error instanceof Error ? error.message : error);
     process.exit(1);
-  });
+  };
+  try {
+    runAnnotation(parseArgs(process.argv.slice(2)))
+      // 有失败就以非零退出：链式跑 `annotate && merge` 时，
+      // 不能让半份判定悄悄流进裁决
+      .then(({ failures }) => {
+        if (failures > 0) process.exitCode = 1;
+      })
+      .catch(fail);
+  } catch (error) {
+    fail(error);
+  }
 }

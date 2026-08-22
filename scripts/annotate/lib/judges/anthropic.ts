@@ -14,12 +14,16 @@
  *   ・**rubric 走 system 段并打 prompt 缓存**。rubric 是稳定前缀、报道是易变后缀，
  *     28 次调用共用同一份前缀。01 会先单独跑第一条把缓存写进去再放并发——
  *     并发首发会各自付一次全价写入，读不到彼此正在写的缓存。
+ *     ⚠️ 可缓存前缀有最小长度（本代约 1024 token），rubric 目前约 1200–1400 token，
+ *     余量不大。若把判据大幅精简到这条线以下，缓存会**静默失效**——不报错，
+ *     只是每次都按全价算。改动 rubric 后留意 usage 里的 cache_read_input_tokens。
  */
 
 import Anthropic from '@anthropic-ai/sdk';
 
 import { readPrompt, readSchema, requireKey } from '../io';
 import type { Judge, JudgeInput, JudgeVerdict } from '../types';
+import { renderReport } from './render';
 
 /**
  * 固定模型 ID，不加日期后缀。这个字符串会原样写进 annotations.json 的 meta，
@@ -33,18 +37,11 @@ const MODEL = 'claude-sonnet-5';
  */
 const EFFORT = 'high';
 
-/** 给足思考余量。自适应思考与回答共用 max_tokens，压太紧会在思考中途截断。 */
-const MAX_TOKENS = 8000;
-
-export function renderReport(input: JudgeInput): string {
-  return [
-    `Outlet: ${input.source}`,
-    `Headline: ${input.title}`,
-    '',
-    'Summary:',
-    input.summary,
-  ].join('\n');
-}
+/**
+ * 自适应思考与回答**共用** max_tokens。判定本身的 JSON 只有几百 token，余量全给思考；
+ * 压太紧会在思考中途截断，那次调用的钱就白花了。16000 也仍在非流式请求的安全区内。
+ */
+const MAX_TOKENS = 16000;
 
 export function createAnthropicJudge(): Judge {
   const client = new Anthropic({ apiKey: requireKey('ANTHROPIC_API_KEY') });

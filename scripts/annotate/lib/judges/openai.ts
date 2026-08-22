@@ -18,7 +18,7 @@ import OpenAI from 'openai';
 
 import { readPrompt, readSchema, requireKey } from '../io';
 import type { Judge, JudgeInput, JudgeVerdict } from '../types';
-import { renderReport } from './anthropic';
+import { renderReport } from './render';
 
 /** 结构化输出里给 schema 的名字，OpenAI 侧必填。 */
 const SCHEMA_NAME = 'counter_stereotypical_attributes';
