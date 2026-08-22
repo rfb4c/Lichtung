@@ -11,7 +11,7 @@
 **项目名称**: Lichtung (林间空地)
 **项目类型**: 研究原型 - 感知极化干预系统
 **技术栈**: React + TypeScript + Vite + Supabase
-**当前版本**: v0.4.4 (三条路径均已实装；已完成死字段与数据流整顿，仓库零配置可运行)
+**当前版本**: v0.4.5 (三条路径均已实装；Path A 双评审标注管线代码完成待实跑；民调溯源字段与校验就绪)
 **主分支**: `main` | 开发分支: `develop`
 
 ---
@@ -54,13 +54,21 @@
 │   │   ├── mappers.ts              # 数据映射
 │   ├── types/               # TypeScript 类型定义
 │   │   └── index.ts                # 核心类型
+│   ├── lib/
+│   │   ├── csScore.ts              # Path A 三属性加权公式的唯一实现
+│   │   └── feedSorter.ts           # Path A 连续位移 + 间隔调整
 │   └── data/                # 静态数据
-│       └── app-data.json           # 主题、民调、报道数据
+│       ├── app-data.json           # 人工事实源：主题、民调、报道、用户、评论
+│       └── annotations.json        # 管线产出的可审计层（实跑后才存在）
+├── scripts/
+│   ├── annotate/            # Path A 双评审标注管线（见该目录 README）
+│   └── check-polling-consensus.mjs # 民调入库判据与溯源字段校验
 ├── docs/                    # 完整文档库
 │   ├── 00-Overview/                # 产品、技术设计
 │   ├── 01-Path-B-共识可视化/        # Path B 设计规范
 │   ├── 02-Path-C-交叉身份/          # Path C 设计规范
-│   └── 03-News-Agent/              # 新闻采集 Agent
+│   ├── 03-News-Agent/              # 新闻采集 Agent
+│   └── 04-Path-A-反刻板印象/        # Path A 设计规范（§ 3.5 是三属性判据正本）
 ├── ROADMAP.md               # 开发路线图（人类可读）
 ├── CLAUDE.md                # 本文件（AI 可读）
 └── README.md                # 项目介绍
@@ -70,6 +78,9 @@
 
 ## 🔑 核心类型定义
 
+> **唯一权威是 [`src/types/index.ts`](src/types/index.ts)。** 下面是节选提要，
+> 与代码冲突时以代码为准。
+
 ```typescript
 // 主题（议题）
 interface Topic {
@@ -77,33 +88,47 @@ interface Topic {
   name: string;          // 如 "Gun Control"
   description: string;
   tagKeywords: string[]; // 议题覆盖范围的描述词，供检索管线使用
+  subtopics?: Subtopic[];
 }
 
-// 民调数据（4-7 档可变）
+// 民调数据（4-7 档可变；溯源字段目前可选，新增条目必须带齐）
 interface PollingData {
   id: string;
   topicId: string;
-  question: string;
-  source: string;        // 如 "Pew Research Center"
-  sourceUrl: string;
-  date: string;
-  levels: Array<{        // 4-7 个等级
-    label: string;       // 如 "Strongly Support"
-    percentage: number;  // 如 28
-  }>;
-  bridgingText: string;  // 桥接文本
+  subtopicId?: string;
+  questionWording?: string; // 逐字照抄的英文原题，也是报道→民调检索的匹配对象
+  source: string;           // 如 "Pew Research Center"
+  sourceUrl?: string;       // 指向能看到这组数字的具体页面
+  surveyYear: number;
+  fieldDates?: string;      // 调查执行期，比 surveyYear 精确
+  sampleSize?: number;
+  population?: string;
+  geographicScope: string;
+  level?: 'topic' | 'subtopic';  // 决定参与哪一级检索
+  scaleLabels: string[];    // 按方向有序（一极 → 另一极）
+  distribution: number[];   // 与 scaleLabels 等长，合计 100
+  dontKnowPct?: number;     // DK 档已从分布剔除并重新归一，原始比例记这里
+  bridgingText: string;
+  verifiedBy?: 'human';
+  verifiedAt?: string;
 }
 
 // 新闻报道
 interface Report {
-  id: number;
+  id: string;
+  topicId?: string;
+  subtopicId?: string;
+  pollingDataId?: string | null; // 显式挂载；null = 不显示图表
   title: string;
   summary: string;
-  url: string;
-  imageUrl: string;
   source: string;
-  publishedAt: string;
-  topicId?: string;      // 可选：关联的主题
+  url?: string;
+  publishedAt?: string;
+  imageUrl?: string;
+  // Path A 排序字段
+  csScore?: number;              // 0–1，标注管线产出；排序的实际依据
+  counterStereotypical?: boolean;// 旧的二值标注，csScore 缺失时的回退来源
+  engagementScore?: number;      // 人工填写的模拟参数，不对应真实互动数据
 }
 ```
 
@@ -212,6 +237,8 @@ interface Report {
 
 ---
 
-**最后同步**: 2026-08-15
-**当前任务**: `feature/prototype-hardening` — 整顿已完成，Path B 民调库扩展待定案
-**下一步候选**: 民调补 sourceUrl 与原始题干（题干是报道级挂载的判定依据）；定下"数据是否呈共识"的入库判据并对被排除的民调留档；抽 4–5 篇报道试跑全流程量命中率
+**最后同步**: 2026-08-22
+**当前任务**: `feature/annotation-pipeline` — 双评审标注管线代码完成，只差两把密钥实跑
+**下一步候选**: 实跑管线让 `csScore` 落地（`scripts/annotate/README.md`）；民调库扩展——
+字段、图表、入库判据校验（`scripts/check-polling-consensus.mjs`）均已就绪，等人工核实的数据；
+配图剩余 6 条
