@@ -2,7 +2,7 @@
 
 > 感知极化校准研究 Demo - 通过共识可视化和交叉身份标签，修正用户对公众态度的感知偏差
 
-[![Version](https://img.shields.io/badge/version-0.3.2-green.svg)](https://github.com/rfb4c/Lichtung)
+[![Version](https://img.shields.io/badge/version-0.4.4-green.svg)](https://github.com/rfb4c/Lichtung)
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue.svg)](https://www.typescriptlang.org/)
 
@@ -30,7 +30,10 @@
 
 ### 当前阶段
 
-- ✅ **三条干预路径均已实装**，可在界面上直接对比"有干预 / 无干预"
+- ✅ **三条干预路径均已实装**，但呈现方式各不相同：
+  - **Path A** 提供 Algorithm / Calibrated 两种排序模式，可在界面上直接切换对比
+  - **Path B** 的民调分布图表按需展开（报道卡片上的 "Public Opinion" 按钮）
+  - **Path C** 的身份标签常驻显示在评论下方，没有独立开关
 - 📄 **数据**：静态 JSON 为事实源（`src/data/app-data.json`），Supabase 为可选后端，二者内容一致
 - 🔮 **未来计划**: 扩展为自动新闻采集系统（News Agent）；把原型扩展为可做随机对照实验的平台
 
