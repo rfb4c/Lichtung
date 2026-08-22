@@ -60,6 +60,14 @@ function consensusProfile(distribution) {
   };
 }
 
+/**
+ * 结构与字段类型。
+ *
+ * 类型检查看着琐碎，但民调是**人工逐条录入**的：`"58"` 写成字符串、
+ * `sampleSize` 打成 `"5,140"`、`sourceUrl` 少了协议头——这些 TypeScript 都拦不住
+ * （JSON 导入处是 `as PollingData[]` 断言），只会在页面上渲染成一串怪东西。
+ * 录入当下发现，比截图时发现便宜得多。
+ */
 function checkStructure(poll) {
   const problems = [];
   const { scaleLabels = [], distribution = [] } = poll;
@@ -72,10 +80,37 @@ function checkStructure(poll) {
   if (scaleLabels.length < 4 || scaleLabels.length > 7) {
     problems.push(`档位数 ${scaleLabels.length}，超出 4–7 的设计范围`);
   }
+  if (scaleLabels.some((label) => typeof label !== 'string' || label.trim() === '')) {
+    problems.push('scaleLabels 含空值或非字符串');
+  }
 
-  const sum = distribution.reduce((a, b) => a + b, 0);
-  if (Math.abs(sum - 100) > 1) {
-    problems.push(`distribution 合计 ${sum}%，超出 100±1 的四舍五入容差`);
+  const badNumbers = distribution.filter((v) => typeof v !== 'number' || !Number.isFinite(v));
+  if (badNumbers.length > 0) {
+    problems.push(`distribution 含非数值：${JSON.stringify(badNumbers)}（百分比不要加引号）`);
+  } else {
+    const sum = distribution.reduce((a, b) => a + b, 0);
+    if (Math.abs(sum - 100) > 1) {
+      problems.push(`distribution 合计 ${sum}%，超出 100±1 的四舍五入容差`);
+    }
+  }
+
+  for (const field of ['sampleSize', 'dontKnowPct']) {
+    if (poll[field] !== undefined && typeof poll[field] !== 'number') {
+      problems.push(`${field} 应为数值，实为 ${JSON.stringify(poll[field])}`);
+    }
+  }
+
+  if (poll.sourceUrl !== undefined && !/^https?:\/\/.+/.test(poll.sourceUrl)) {
+    problems.push(`sourceUrl 不是可用链接：${JSON.stringify(poll.sourceUrl)}`);
+  }
+  if (poll.verifiedAt !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(poll.verifiedAt)) {
+    problems.push(`verifiedAt 应为 YYYY-MM-DD，实为 ${JSON.stringify(poll.verifiedAt)}`);
+  }
+  if (poll.level !== undefined && !['topic', 'subtopic'].includes(poll.level)) {
+    problems.push(`level 只能是 topic 或 subtopic，实为 ${JSON.stringify(poll.level)}`);
+  }
+  if (poll.questionWording !== undefined && poll.questionWording.trim() === '') {
+    problems.push('questionWording 为空——它是检索的核心匹配对象，不能留空占位');
   }
 
   return problems;
@@ -83,22 +118,35 @@ function checkStructure(poll) {
 
 function report(poll, { requireConsensus }) {
   const problems = checkStructure(poll);
-  const { dominantShare, extremeMin, neutral } = consensusProfile(poll.distribution ?? []);
-  const admissible = dominantShare >= MIN_DOMINANT_SHARE && extremeMin < MAX_EXTREME_MIN;
+  const distribution = poll.distribution ?? [];
 
-  if (requireConsensus && !admissible) {
-    problems.push(
-      `不满足入库判据：dominantShare ${dominantShare}%（需 ≥${MIN_DOMINANT_SHARE}）、` +
-        `extremeMin ${extremeMin}%（需 <${MAX_EXTREME_MIN}）`,
-    );
-  }
-  if (!requireConsensus && admissible && !poll.exclusionReason) {
-    problems.push('满足入库判据却被排除，且没写 exclusionReason');
+  // 分布本身不合法时，判据算出来的是垃圾（`"58" + 30` 会得到 5830）。
+  // 结构问题已经报了，不要再叠一层看不懂的数字。
+  const usable =
+    distribution.length > 0 &&
+    distribution.every((v) => typeof v === 'number' && Number.isFinite(v));
+  const profile = usable ? consensusProfile(distribution) : null;
+
+  const admissible =
+    profile !== null &&
+    profile.dominantShare >= MIN_DOMINANT_SHARE &&
+    profile.extremeMin < MAX_EXTREME_MIN;
+
+  if (profile !== null) {
+    if (requireConsensus && !admissible) {
+      problems.push(
+        `不满足入库判据：dominantShare ${profile.dominantShare}%（需 ≥${MIN_DOMINANT_SHARE}）、` +
+          `extremeMin ${profile.extremeMin}%（需 <${MAX_EXTREME_MIN}）`,
+      );
+    }
+    if (!requireConsensus && admissible && !poll.exclusionReason) {
+      problems.push('满足入库判据却被排除，且没写 exclusionReason');
+    }
   }
 
   const missing = PROVENANCE_FIELDS.filter((f) => poll[f] === undefined);
 
-  return { problems, missing, dominantShare, extremeMin, neutral, admissible };
+  return { problems, missing, profile, admissible };
 }
 
 function printSection(title, polls, options) {
@@ -111,13 +159,17 @@ function printSection(title, polls, options) {
   for (const poll of polls) {
     const r = report(poll, options);
     const mark = r.problems.length === 0 ? '✓' : '✗';
-    const neutral = r.neutral === null ? '' : `  中立档 ${r.neutral}%`;
 
-    console.log(
-      `  ${mark} ${poll.id}\n` +
-        `      dominantShare ${String(r.dominantShare).padStart(3)}%   ` +
-        `extremeMin ${String(r.extremeMin).padStart(3)}%${neutral}`,
-    );
+    console.log(`  ${mark} ${poll.id}`);
+    if (r.profile === null) {
+      console.log('      分布不合法，判据无法计算');
+    } else {
+      const neutral = r.profile.neutral === null ? '' : `  中立档 ${r.profile.neutral}%`;
+      console.log(
+        `      dominantShare ${String(r.profile.dominantShare).padStart(3)}%   ` +
+          `extremeMin ${String(r.profile.extremeMin).padStart(3)}%${neutral}`,
+      );
+    }
 
     for (const problem of r.problems) console.log(`      ✗ ${problem}`);
     if (r.problems.length > 0) failed += 1;
