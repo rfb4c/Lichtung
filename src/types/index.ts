@@ -42,7 +42,8 @@ export interface Report {
   publishedAt?: string;
   imageUrl?: string;
   // Path A: Feed sorting fields (all optional, backward-compatible)
-  counterStereotypical?: boolean;  // counter-stereotypical exemplar flag; default false
+  csScore?:              number;   // 反刻板范例得分 0–1，由标注管线产出；缺失时回退到 counterStereotypical
+  counterStereotypical?: boolean;  // 旧的二值标注；csScore 落地前的回退来源
   engagementScore?:      number;   // simulated engagement for Algorithm feed; default 0.5
 }
 
