@@ -68,7 +68,7 @@ function consensusProfile(distribution) {
  * （JSON 导入处是 `as PollingData[]` 断言），只会在页面上渲染成一串怪东西。
  * 录入当下发现，比截图时发现便宜得多。
  */
-function checkStructure(poll) {
+function checkStructure(poll, requiresBridging) {
   const problems = [];
   const { scaleLabels = [], distribution = [] } = poll;
 
@@ -113,11 +113,20 @@ function checkStructure(poll) {
     problems.push('questionWording 为空——它是检索的核心匹配对象，不能留空占位');
   }
 
+  // bridgingText 在类型里是必填，但 JSON 导入处是 `as PollingData[]` 断言，
+  // tsc 漏得掉。它直接渲染在图表上方，缺了会留一段空白。
+  if (requiresBridging && (typeof poll.bridgingText !== 'string' || poll.bridgingText.trim() === '')) {
+    problems.push('缺 bridgingText——它渲染在图表上方，是必填');
+  }
+  if (poll.subtopicId === '') {
+    problems.push('subtopicId 是空字符串；议题级条目应直接省略该字段');
+  }
+
   return problems;
 }
 
 function report(poll, { requireConsensus }) {
-  const problems = checkStructure(poll);
+  const problems = checkStructure(poll, requireConsensus);
   const distribution = poll.distribution ?? [];
 
   // 分布本身不合法时，判据算出来的是垃圾（`"58" + 30` 会得到 5830）。
@@ -186,9 +195,10 @@ function printSection(title, polls, options) {
 function main() {
   const appData = JSON.parse(readFileSync(APP_DATA, 'utf8'));
   const admitted = appData.pollingData ?? [];
-  const excluded = existsSync(EXCLUDED)
-    ? (JSON.parse(readFileSync(EXCLUDED, 'utf8')).excluded ?? [])
-    : [];
+  const quarantine = existsSync(EXCLUDED) ? JSON.parse(readFileSync(EXCLUDED, 'utf8')) : {};
+  const excluded = quarantine.excluded ?? [];
+  // 检索过但确实没有可用数据的子议题。不参与判据校验，但要计入「共考察」的口径
+  const notFound = quarantine.notFound ?? [];
 
   console.log(
     `入库判据：dominantShare ≥ ${MIN_DOMINANT_SHARE}%  且  extremeMin < ${MAX_EXTREME_MIN}%`,
@@ -199,8 +209,16 @@ function main() {
 
   const considered = admitted.length + excluded.length;
   console.log(
-    `\n共考察 ${considered} 条：入库 ${admitted.length} 条，排除 ${excluded.length} 条。`,
+    `\n共考察 ${considered} 条：入库 ${admitted.length} 条，排除 ${excluded.length} 条` +
+      (notFound.length > 0 ? `；另有 ${notFound.length} 个子议题检索后无可用数据。` : '。'),
   );
+
+  if (notFound.length > 0) {
+    console.log('\n无可用数据的子议题（检索已留档，是「系统地找过」的证据）：');
+    for (const entry of notFound) {
+      console.log(`  ・${entry.subtopicId}　查过：${(entry.searched ?? []).join('、')}`);
+    }
+  }
 
   if (!existsSync(EXCLUDED)) {
     console.log(

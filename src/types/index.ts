@@ -70,6 +70,15 @@ export interface PollingData {
   /** 数据完整性红线的落实证据：数字只能来自人工核实 */
   verifiedBy?: 'human';
   verifiedAt?: string;     // ISO date, e.g., "2026-08-23"
+
+  /**
+   * 录入时的存疑与判断留痕：中立档怎么算的、DK 有没有重新归一、
+   * 数字取自 toplines 的哪一页、样本口径与其他条目有何不同。
+   *
+   * **不渲染到界面**，只供审计与写论文时回查。存在的理由是：录入者遇到模糊之处时
+   * 需要一个「说不确定」的合法出口，否则模糊会被悄悄抹平成一个看起来确定的数字。
+   */
+  uncertainty?: string;
 }
 
 // Report (报道) - updated for Path B + Path A

@@ -198,14 +198,125 @@
         28,
         8
       ],
-      "bridgingText": "According to an April 2024 Pew Research Center survey, the general public's stance on the legality of abortion across all circumstances is:"
+      "bridgingText": "According to an April 2024 Pew Research Center survey, the general public's stance on the legality of abortion across all circumstances is:",
+      "questionWording": "Do you think abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
+      "sourceUrl": "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/03/PP_3.12.2026_abortion_topline.pdf",
+      "fieldDates": "2024-04-08 – 2024-04-14",
+      "sampleSize": 8709,
+      "population": "U.S. adults",
+      "level": "subtopic",
+      "verifiedBy": "human",
+      "verifiedAt": "2026-08-22",
+      "uncertainty": "sourceUrl 指向 Pew 2026-03 堕胎 topline —— 该 PDF 的趋势表逐行列出「Apr 8-14, 2024: 25 / 38 / 28 / 11 / 2」，是能看到这组数字的页面。原始报告为 2024-05-13 Pew 发布。分布未重新归一化，No answer 未计入 dontKnowPct（原表未单列）。"
     },
     {
-      "id": "poll_climate_international_agreements_001",
-      "topicId": "us-climate",
-      "subtopicId": "us-climate-international-agreements",
-      "source": "Yale Program on Climate Change Communication",
+      "id": "poll_gun_background_checks_001",
+      "topicId": "us-gun-control",
+      "subtopicId": "us-gun-control-background-checks",
+      "level": "subtopic",
+      "questionWording": "Do you favor, oppose, or neither favor nor oppose each of the following policies? A federal law requiring background checks on all potential gun buyers, including private sales and gun shows",
+      "source": "AP-NORC Center for Public Affairs Research",
+      "sourceUrl": "https://apnorc.org/wp-content/uploads/2023/08/August-2023-Topline_AGE.pdf",
+      "fieldDates": "2023-08-10 – 2023-08-14",
       "surveyYear": 2023,
+      "sampleSize": 1165,
+      "population": "U.S. adults",
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Strongly favor",
+        "Somewhat favor",
+        "Neither favor nor oppose",
+        "Somewhat oppose",
+        "Strongly oppose"
+      ],
+      "distribution": [
+        64,
+        15,
+        11,
+        3,
+        6
+      ],
+      "dontKnowPct": 1,
+      "verifiedBy": "human",
+      "verifiedAt": "2026-08-22",
+      "uncertainty": "5 档，含中立档『Neither favor nor oppose』(11)，按判据为奇数档中立单列不计入任何一侧。dominantShare=favor 合计 79%，extremeMin=min(64,6)=6。DK(*)与SKP/REF(1)合计约1%记入dontKnowPct，未重新归一化（分布合计99，在±1容差内）。原文NET『Strongly/Somewhat favor NET 79』逐字见topline。",
+      "bridgingText": "In an August 2023 AP-NORC survey, U.S. adults were asked about a federal law requiring background checks on all potential gun buyers, including private sales and gun shows. Their responses:"
+    },
+    {
+      "id": "poll_gun_general_strictness_001",
+      "topicId": "us-gun-control",
+      "level": "topic",
+      "questionWording": "Should gun laws in the United States be made more strict, left as they are, or made less strict?",
+      "source": "AP-NORC Center for Public Affairs Research",
+      "sourceUrl": "https://apnorc.org/wp-content/uploads/2023/08/August-2023-Topline_AGE.pdf",
+      "fieldDates": "2023-08-10 – 2023-08-14",
+      "surveyYear": 2023,
+      "sampleSize": 1165,
+      "population": "U.S. adults",
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Much more strict",
+        "Somewhat more strict",
+        "Left as they are",
+        "Somewhat less strict",
+        "Much less strict"
+      ],
+      "distribution": [
+        41,
+        23,
+        23,
+        6,
+        6
+      ],
+      "dontKnowPct": 1,
+      "verifiedBy": "human",
+      "verifiedAt": "2026-08-22",
+      "uncertainty": "议题级广义题。中间档『Left as they are』(23) 是维持现状的实质立场，判据把它当作奇数档的中立档单列。方向合并后：更严格(41+23)=64 vs 更宽松(6+6)=12，dominantShare=64，extremeMin=min(41,6)=6，入库。注意：此结果与任务预设（广义枪支题通常55/45被排除）不同，原因是本题提供了『维持现状』中间档，见 Recommendations 第3点讨论。",
+      "bridgingText": "An August 2023 AP-NORC survey asked U.S. adults whether gun laws in the United States should be made more strict, left as they are, or made less strict:"
+    },
+    {
+      "id": "poll_abortion_legality_002",
+      "topicId": "us-abortion",
+      "subtopicId": "us-abortion-legality",
+      "level": "subtopic",
+      "questionWording": "Do you think abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
+      "source": "Pew Research Center",
+      "sourceUrl": "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/03/PP_3.12.2026_abortion_topline.pdf",
+      "fieldDates": "2026-01-20 – 2026-01-26",
+      "surveyYear": 2026,
+      "sampleSize": 8512,
+      "population": "U.S. adults",
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Legal in all cases",
+        "Legal in most cases",
+        "Illegal in most cases",
+        "Illegal in all cases"
+      ],
+      "distribution": [
+        23,
+        37,
+        28,
+        11
+      ],
+      "dontKnowPct": 2,
+      "verifiedBy": "human",
+      "verifiedAt": "2026-08-22",
+      "uncertainty": "『No answer』2% 记入 dontKnowPct，按任务算例①的做法直接使用『所有受访者中』的原始比例，未重新归一化。dominantShare=legal(23+37)=60，恰好等于门槛 60%（若剔除2% no-answer 重新归一化则升至约62%）；extremeMin=min(23,11)=11。属临界入库，建议用户留意。原文趋势表『Jan 20-26, 2026: 23 / 37 / 28 / 11 / 2』逐字可见。",
+      "bridgingText": "In a January 2026 Pew Research Center survey of 8,512 U.S. adults, views on whether abortion should be legal were distributed as follows:"
+    },
+    {
+      "id": "poll_climate_carbon_001",
+      "topicId": "us-climate",
+      "subtopicId": "us-climate-carbon-emissions",
+      "level": "subtopic",
+      "questionWording": "How much do you support or oppose the following policies? Regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
+      "source": "Yale Program on Climate Change Communication / George Mason University (Climate Change in the American Mind: Politics & Policy, Spring 2026)",
+      "sourceUrl": "https://climatecommunication.yale.edu/app/uploads/2026/06/climate-change-american-mind-politics-policy-spring-2026.pdf",
+      "fieldDates": "2026-04-17 – 2026-04-26",
+      "surveyYear": 2026,
+      "sampleSize": 930,
+      "population": "U.S. registered voters",
       "geographicScope": "US",
       "scaleLabels": [
         "Strongly support",
@@ -215,11 +326,15 @@
       ],
       "distribution": [
         32,
-        36,
-        14,
-        18
+        45,
+        13,
+        9
       ],
-      "bridgingText": "Amid polarized headlines on climate policy, a Fall 2023 Yale Program on Climate Change Communication survey shows where Americans actually stand on climate action:"
+      "dontKnowPct": 1,
+      "verifiedBy": "human",
+      "verifiedAt": "2026-08-22",
+      "uncertainty": "样本为登记选民（registered voters, 未加权基数 n=930；整份调查含 1,060 名成年人）。分档数据取自报告 PDF 的 Appendix I 数据表（约第59页 item 3.1）；报告网页正文只给 NET=77%（verbatim: 'Regulating carbon dioxide (the primary greenhouse gas) as a pollutant: 77% of registered voters'）。『No response』1% 记入 dontKnowPct。dominantShare=support(32+45)=77，extremeMin=min(32,9)=9。",
+      "bridgingText": "A Spring 2026 survey by the Yale Program on Climate Change Communication asked registered voters how much they support or oppose regulating carbon dioxide, the primary greenhouse gas, as a pollutant:"
     }
   ],
   "reports": [
@@ -440,7 +555,7 @@
       "publishedAt": "2h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/BI3TX7QLYMI6DDYI6MJ5WGVRHA&w=1440",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
+      "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
       "engagementScore": 0.85
     },
@@ -453,7 +568,7 @@
       "publishedAt": "4h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/SXYZX7WFTOPBIZGAEYV44ETMTA_size-normalized.JPG&w=1800&h=1800",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
+      "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
       "engagementScore": 0.8
     },
@@ -466,7 +581,7 @@
       "publishedAt": "6h",
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2261037765.jpg?c=16x9&q=w_800,c_fill",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
+      "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
       "engagementScore": 0.5
     },
@@ -479,7 +594,7 @@
       "publishedAt": "8h",
       "imageUrl": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iMvcUDmdpH48/v0/-1x-1.webp",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
+      "pollingDataId": null,
       "counterStereotypical": true,
       "engagementScore": 0.58
     },
@@ -492,7 +607,7 @@
       "publishedAt": "10h",
       "imageUrl": "https://www.eia.gov/todayinenergy/images/2026.02.20/main.svg",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
+      "pollingDataId": null,
       "counterStereotypical": true,
       "engagementScore": 0.6
     },
@@ -505,7 +620,7 @@
       "publishedAt": "12h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/WVYSWUC5NJHYFHXT6YOIQSLFJI_size-normalized.jpg&w=1800&h=1800",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
+      "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
       "engagementScore": 0.75
     },
@@ -531,7 +646,7 @@
       "publishedAt": "16h",
       "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/rockcms/2025-07/250721-extreme-heat-se-1019a-3c778e.jpg",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
+      "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.52
     },

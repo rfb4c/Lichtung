@@ -1,0 +1,132 @@
+{
+  "excluded": [
+    {
+      "id": "poll_gun_assault_weapons_001",
+      "topicId": "us-gun-control",
+      "subtopicId": "us-gun-control-assault-weapons",
+      "level": "subtopic",
+      "questionWording": "Do you favor, oppose, or neither favor nor oppose each of the following policies? A nationwide ban on the sale of AR-15 rifles and similar semiautomatic weapons",
+      "source": "AP-NORC Center for Public Affairs Research",
+      "sourceUrl": "https://apnorc.org/wp-content/uploads/2023/08/August-2023-Topline_AGE.pdf",
+      "fieldDates": "2023-08-10 – 2023-08-14",
+      "surveyYear": 2023,
+      "sampleSize": 1165,
+      "population": "U.S. adults",
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Strongly favor",
+        "Somewhat favor",
+        "Neither favor nor oppose",
+        "Somewhat oppose",
+        "Strongly oppose"
+      ],
+      "distribution": [
+        44,
+        13,
+        16,
+        9,
+        17
+      ],
+      "dontKnowPct": 1,
+      "verifiedBy": "human",
+      "verifiedAt": "2026-08-22",
+      "exclusionReason": "dominantShare=favor(44+13)=57%（需≥60）。中间档『Neither』(16)不计入。虽 extremeMin=min(44,17)=17<25 满足，但占优一侧不够厚，且强反对高达17%，是有硬核对立阵营的议题。正是判据设计时对攻击性武器禁令的预期结果，如实记入 excluded。原文NET『Strongly/Somewhat favor NET 58』（含四舍五入），分档 44/13/16/9/17 逐字可见。"
+    },
+    {
+      "id": "poll_climate_international_agreements_001",
+      "topicId": "us-climate",
+      "subtopicId": "us-climate-international-agreements",
+      "source": "Yale Program on Climate Change Communication",
+      "surveyYear": 2023,
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Strongly support",
+        "Somewhat support",
+        "Somewhat oppose",
+        "Strongly oppose"
+      ],
+      "distribution": [
+        32,
+        36,
+        14,
+        18
+      ],
+      "bridgingText": "Amid polarized headlines on climate policy, a Fall 2023 Yale Program on Climate Change Communication survey shows where Americans actually stand on climate action:",
+      "exclusionReason": "无法核实。预算内无法读到该四档分布所在的一手数据表页；其 NET 支持 68% 与 Yale 近年公开的 Paris 参与支持（Fall 2024=73%、Fall 2025=77%，均已逐字核实）不一致；分布形态 strongly oppose 18 > somewhat oppose 14 也少见。判据本身是通过的（dominantShare 68、extremeMin 18），排除理由是**不可追溯**而非不呈共识——数据完整性红线要求渲染出去的每个数字都能被读者点开核对。"
+    }
+  ],
+  "notFound": [
+    {
+      "subtopicId": "us-gun-control-concealed-carry",
+      "searched": [
+        "Pew Research Center",
+        "AP-NORC",
+        "Marquette Law School Poll",
+        "Gallup"
+      ],
+      "note": "只找到二分题：Pew『allowing people to carry concealed guns without a permit』19% favor/81% oppose，以及『carry concealed guns in more places』约46% favor——均为2档，不满足4–7档要求；未找到带 strongly/somewhat 分档的隐蔽携带许可 topline。"
+    },
+    {
+      "subtopicId": "us-abortion-medication",
+      "searched": [
+        "Pew Research Center",
+        "Fox News",
+        "KFF"
+      ],
+      "note": "Pew 2026-01 toplines 的 ABRTN_MED 题只有 Legal 55 / Illegal 26 / Not sure 18 三项，实质表态仅2档（Legal/Illegal），不满足4档最低要求。"
+    },
+    {
+      "subtopicId": "us-abortion-federal-ban",
+      "searched": [
+        "Pew Research Center",
+        "PRRI",
+        "Gallup",
+        "Marquette Law School Poll"
+      ],
+      "note": "预算内未找到针对『联邦层面禁令』的4–7档总体分布题；相关题多为二分或党派交叉分析。"
+    },
+    {
+      "subtopicId": "us-climate-ev-transition",
+      "searched": [
+        "Pew Research Center",
+        "Gallup"
+      ],
+      "note": "Pew 2025-06 只有二分题『phasing out the production of new gasoline cars and trucks by 2035』34% favor/65% oppose，不满足4档；且多数为反对，非正向共识。"
+    },
+    {
+      "subtopicId": "us-climate-international-agreements",
+      "searched": [
+        "Yale Program on Climate Change Communication",
+        "Pew Research Center"
+      ],
+      "note": "NET 共识明确（Yale CCAM Politics & Policy, Fall 2025, fielded Nov 6–14 2025, n=990 registered voters, verbatim: 'Large majorities of registered voters support U.S. participation in the Paris Climate Agreement (77%)'；Fall 2024 verbatim: 'A large majority of registered voters (73%) support U.S. participation in the Paris Climate Agreement'；另有 May 2025 YPCCC release 报 79%），但精确的 strongly/somewhat 四档分布在预算内未能从一手数据表页面读到。库中既有记录 poll_climate_international_agreements_001（Yale 2023, 32/36/14/18）无法对照原文核实，且其 NET 支持(68%)与近年 73–77% 的公开数字不一致，见 Recommendations 回填说明。"
+    },
+    {
+      "subtopicId": "us-immigration-enforcement",
+      "searched": [
+        "Pew Research Center",
+        "Marquette Law School Poll",
+        "AP-NORC"
+      ],
+      "note": "只找到二分/三分题（Marquette 2026-01 deport 56/44；Pew 2025-06 national deportation effort 31%），且议题本身两极分化，无干净的4–7档正向共识分布。"
+    },
+    {
+      "subtopicId": "us-immigration-legal-pathway",
+      "searched": [
+        "Pew Research Center",
+        "Quinnipiac",
+        "Marquette Law School Poll"
+      ],
+      "note": "Pew 2025-06 NET 65% 认同『应有途径合法留下（若满足条件）』，但其4档全国分布 topline 在预算内未能从一手页面读到；不凭二手转述入库。"
+    },
+    {
+      "subtopicId": "us-immigration-border",
+      "searched": [
+        "Marquette Law School Poll",
+        "AP-NORC",
+        "Pew Research Center"
+      ],
+      "note": "只找到二分题（Marquette 2025-02『declare emergency on southern border』59/41），两极分化，无4–7档分布。"
+    }
+  ]
+}
