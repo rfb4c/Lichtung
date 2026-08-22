@@ -1,0 +1,57 @@
+# 报道配图溯源表
+
+> **用途**：记录每篇报道的配图来自哪个出版方，以及它与报道标注来源是否一致。
+> 本表由 `scripts/gen-image-provenance.mjs` 生成，数据源 `src/data/app-data.json`，改数据后重跑即可。
+> 报道集初次建立 2026-03-07，最后修订 2026-08-15。
+
+## 关于版权的事实陈述
+
+- **本仓库不存放任何第三方图片副本，只存 URL。** 图片由浏览器在渲染时直接向出版方 CDN 请求，
+  本项目不构成对这些图片的复制或再分发。
+- 配图为第三方新闻机构的编辑图片，在本原型中仅用于呈现新闻卡片界面，不作独立的图片展示用途。
+- 报道正文（标题与摘要）为研究者基于真实新闻事件改写，非逐字转载。
+
+## 状态说明
+
+| 标记 | 含义 | 处置 |
+|---|---|---|
+| ✅ | 与标注来源一致 | 无需处理 |
+| ⚠️ | 来自另一家出版方 | 需处置：改标注来源以匹配实际出处，或更换素材 |
+| ❌ | 来自搜索引擎缩略图缓存 | **必须更换**：既非出版方图源，链接也不稳定 |
+
+**配图：✅ 15 · ⚠️ 11 · ❌ 2（共 28 条）**
+
+**原文链接与标注来源不一致：2 条**
+
+## 明细
+
+| 报道 ID | 标注来源 | 配图实际出版方 | 配图 | 原文链接 | 链接 |
+|---|---|---|---|---|---|
+| `rp_gun_001` | CBS Austin | NBC 5 Dallas-Fort Worth | ⚠️ 实为 NBC 5 Dallas-Fort Worth | ✅ | [原文](https://cbsaustin.com/news/local/multiple-people-injured-in-mass-shooting-on-6th-st-austin-police-investigating) · [图片](https://media.nbcdfw.com/2026/03/AP26060561690822.jpg?quality=85&strip=all) |
+| `rp_gun_002` | Maryland Matters | FOX Baltimore | ⚠️ 实为 FOX Baltimore | ✅ | [原文](https://marylandmatters.org/2026/01/21/appeals-court-upholds-most-of-maryland-ban-on-weapons-in-schools-parks-other-public-places/) · [图片](https://foxbaltimore.com/resources/media2/16x9/6000/986/0x313/90/9ede23ec-c9c5-4bc5-8658-fe6ed97ad0ac-GettyImages2211996655.jpg) |
+| `rp_gun_003` | CNN | NBC News | ⚠️ 实为 NBC News | ✅ | [原文](https://www.cnn.com/2026/01/03/us/california-ban-openly-carrying-gun-unconstitutional-hnk) · [图片](https://media-cldnry.s-nbcnews.com/image/upload/t_fit-560w,f_auto,q_auto:best/rockcms/2026-01/250102-open-carry-aa-640-182ab3.png) |
+| `rp_gun_004` | CNN | Mother Jones | ⚠️ 实为 Mother Jones | ✅ | [原文](https://www.cnn.com/2026/02/01/politics/gun-politics-trump-second-amendment) · [图片](https://www.motherjones.com/wp-content/uploads/trump-rifle2000.jpg?w=990) |
+| `rp_gun_005` | Washington Post | 不可考（第三方 Wix 站点图床） | ⚠️ 实为 不可考（第三方 Wix 站点图床） | ✅ | [原文](https://www.washingtonpost.com/politics/2026/03/02/supreme-court-marijuana-gun-hemani/) · [图片](https://static.wixstatic.com/media/0eb7a4_62b29f11d642449099bb2659ac5774ca~mv2.png/v1/fill/w_1000,h_563,al_c,q_90,usm_0.66_1.00_0.01/0eb7a4_62b29f11d642449099bb2659ac5774ca~mv2.png) |
+| `rp_gun_006` | Washington Post | 不可考（Google 图片缩略图缓存） | ❌ 搜索引擎缓存 | ✅ | [原文](https://www.washingtonpost.com/national-security/2026/01/19/trump-justice-department-gun-regulations-atf/) · [图片](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtAaHVJBeAZ-X9O7blOVBGiHlxvmlXpMpIrg&s) |
+| `rp_gun_007` | CNN | CNN | ✅ | ✅ | [原文](https://www.cnn.com/2026/02/01/us/gun-rights-politics-alex-pretti-killing-cec) · [图片](https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2257847778.jpg?c=16x9&q=w_800,c_fill) |
+| `rp_gun_008` | CNN | CNN | ✅ | ✅ | [原文](https://www.cnn.com/2026/01/27/politics/gun-alex-pretti-ice-nra) · [图片](https://media.cnn.com/api/v1/images/stellar/prod/ap26027626289799.jpg?c=16x9&q=w_800,c_fill) |
+| `rp_abortion_001` | Washington Post | The Guardian | ⚠️ 实为 The Guardian | ✅ | [原文](https://www.washingtonpost.com/nation/2026/01/06/wyoming-court-abortion-pill-ban/) · [图片](https://i.guim.co.uk/img/media/3544713542f43a3803afa036936efc54785046dc/0_0_4749_3166/master/4749.jpg?width=465&dpr=1&s=none&crop=none) |
+| `rp_abortion_002` | CNN | CNN | ✅ | ✅ | [原文](https://edition.cnn.com/2026/02/18/health/abortion-clinic-closures-guttmacher) · [图片](https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1237884449.jpg?c=original) |
+| `rp_abortion_003` | CNN | CNN | ✅ | ✅ | [原文](https://www.cnn.com/2026/01/28/politics/abortion-ban-veterans-affairs-roe-wade) · [图片](https://media.cnn.com/api/v1/images/stellar/prod/2025-02-20t173249z-1567173878-rc2gycaqrf5j-rtrmadp-3-usa-trump-workers.JPG?c=16x9&q=w_800,c_fill) |
+| `rp_abortion_004` | Washington Post | The Guardian | ⚠️ 实为 The Guardian | ⚠️ 实为 State Court Report | [原文](https://statecourtreport.org/our-work/analysis-opinion/2026-abortion-related-ballot-measures) · [图片](https://i.guim.co.uk/img/media/99c7607862dd92362e006ac75b19ac0119568e40/0_0_6000_4000/master/6000.jpg?width=465&dpr=1&s=none&crop=none) |
+| `rp_abortion_005` | Washington Post | Pew Research Center | ⚠️ 实为 Pew Research Center | ✅ | [原文](https://www.washingtonpost.com/ripple/2026/02/25/abortion-laws-show-that-public-policy-doesnt-always-line-up-with-public-opinion/) · [图片](https://www.pewresearch.org/wp-content/uploads/sites/20/2026/03/PP_2026.3.12_abortion_0-01.png?w=640) |
+| `rp_abortion_006` | CNN | CNN | ✅ | ✅ | [原文](https://www.cnn.com/2026/01/17/politics/abortion-shield-laws-louisiana-california-texas) · [图片](https://media.cnn.com/api/v1/images/stellar/prod/c-ap23103847076018.jpg?c=original&q=w_860,c_fill) |
+| `rp_abortion_007` | NPR | NPR | ✅ | ✅ | [原文](https://www.npr.org/2026/01/23/nx-s1-5683204/abortion-trump-mexico-city-policy) · [图片](https://npr.brightspotcdn.com/dims3/default/strip/false/crop/2572x1716+0+0/resize/1100/quality/50/format/png/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F5a%2F5e%2F77c5292f48f1bb7aca17bdd22469%2Fmexico-city-madagascar.png) |
+| `rp_abortion_008` | Ballotpedia | State Court Report | ⚠️ 实为 State Court Report | ✅ | [原文](https://ballotpedia.org/Missouri_Amendment_3,_Prohibit_Abortion_and_Gender_Transition_Procedures_for_Minors_Amendment_(2026)) · [图片](https://statecourtreport.org/sites/default/files/2023-11/2023_09_SCR_Abortion_Rights%20%282%29.png) |
+| `rp_climate_001` | Washington Post | Washington Post | ✅ | ✅ | [原文](https://www.washingtonpost.com/climate-environment/2026/02/12/endangerment-finding-repeal/) · [图片](https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/BI3TX7QLYMI6DDYI6MJ5WGVRHA&w=1440) |
+| `rp_climate_002` | Washington Post | Washington Post | ✅ | ✅ | [原文](https://www.washingtonpost.com/climate-environment/2026/01/12/epa-public-health-pollution-costs/) · [图片](https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/SXYZX7WFTOPBIZGAEYV44ETMTA_size-normalized.JPG&w=1800&h=1800) |
+| `rp_climate_003` | CNN | CNN | ✅ | ⚠️ 实为 Justia | [原文](https://supreme.justia.com/cases/federal/us/549/497/) · [图片](https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2261037765.jpg?c=16x9&q=w_800,c_fill) |
+| `rp_climate_004` | Bloomberg | Bloomberg | ✅ | ✅ | [原文](https://www.bloomberg.com/opinion/articles/2026-02-25/climate-change-net-zero-is-dead-long-live-renewable-energy) · [图片](https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iMvcUDmdpH48/v0/-1x-1.webp) |
+| `rp_climate_005` | EIA | EIA | ✅ | ✅ | [原文](https://www.eia.gov/todayinenergy/detail.php?id=67205) · [图片](https://www.eia.gov/todayinenergy/images/2026.02.20/main.svg) |
+| `rp_climate_006` | Washington Post | Washington Post | ✅ | ✅ | [原文](https://www.washingtonpost.com/climate-environment/2026/01/05/epa-rollbacks-strategy-courts/) · [图片](https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/WVYSWUC5NJHYFHXT6YOIQSLFJI_size-normalized.jpg&w=1800&h=1800) |
+| `rp_climate_007` | Washington Post | 不可考（Bing 图片缩略图缓存） | ❌ 搜索引擎缓存 | ✅ | [原文](https://www.washingtonpost.com/opinions/2026/02/18/epa-emissions-reversal-energy-steven-koonin/) · [图片](https://tse4.mm.bing.net/th/id/OIP.8ohl1DvIBnds0Aup2GHB_wHaE8?rs=1&pid=ImgDetMain&o=7&rm=3) |
+| `rp_climate_008` | NBC News | The Guardian | ⚠️ 实为 The Guardian | ✅ | [原文](https://www.nbcnews.com/weather/heat/deadliest-extreme-weather-event-not-think-rcna219702) · [图片](https://i.guim.co.uk/img/media/358ee9c0b3517f0b5f1a887c5291d0e896e08bea/0_77_1200_720/master/1200.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=6568abbaa0ee544c76a13e8096489b2e) |
+| `rp_gun_010` | NBC News | NBC News | ✅ | ✅ | [原文](https://www.nbcnews.com/politics/congress/quiet-bipartisan-effort-gun-background-checks-may-be-verge-deal-n1268630) · [图片](https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2021_21/3477890/210526-background-checks-mb-1637.jpg) |
+| `rp_abortion_010` | ProPublica | ProPublica | ✅ | ✅ | [原文](https://www.propublica.org/article/republicans-face-backlash-after-challenging-abortion-bans) · [图片](https://www.propublica.org/wp-content/uploads/2026/06/20260603-abortion-reforms-punished-murphy-campaign.jpg?w=1149) |
+| `rp_climate_010` | Grist | Grist | ✅ | ✅ | [原文](https://grist.org/energy/americas-largest-coal-miners-union-supports-clean-energy-with-conditions/) · [图片](https://grist.org/wp-content/uploads/2021/04/UMWA-coal-miner-workers-energy-e1618871598667.jpg?quality=75&strip=all) |
+| `rp_immigration_001` | CNN | World Press Photo | ⚠️ 实为 World Press Photo | ✅ | [原文](https://www.cnn.com/2025/09/23/politics/us-citizen-children-separated-parents-deported-ice-invs) · [图片](https://www.worldpressphoto.org/getmedia/5eb76235-1b1e-43c0-9427-e2007edd868d/WPP-2026Contest-POY-CarolGuzy.jpg?maxsidesize=1920&resizemode=force) |
