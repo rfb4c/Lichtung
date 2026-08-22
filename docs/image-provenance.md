@@ -2,7 +2,7 @@
 
 > **用途**：记录每篇报道的配图来自哪个出版方，以及它与报道标注来源是否一致。
 > 本表由 `scripts/gen-image-provenance.mjs` 生成，数据源 `src/data/app-data.json`，改数据后重跑即可。
-> 报道集初次建立 2026-03-07，最后修订 2026-08-15。
+> 报道集初次建立 2026-03-07，最后修订 2026-08-22。
 
 ## 关于版权的事实陈述
 
@@ -19,7 +19,7 @@
 | ⚠️ | 来自另一家出版方 | 需处置：改标注来源以匹配实际出处，或更换素材 |
 | ❌ | 来自搜索引擎缩略图缓存 | **必须更换**：既非出版方图源，链接也不稳定 |
 
-**配图：✅ 21 · ⚠️ 5 · ❌ 2（共 28 条）**
+**配图：✅ 22 · ⚠️ 4 · ❌ 2（共 28 条）**
 
 **原文链接与标注来源不一致：2 条**
 
@@ -35,7 +35,7 @@
 | `rp_gun_006` | Washington Post | 不可考（Google 图片缩略图缓存） | ❌ 搜索引擎缓存 | ✅ | [原文](https://www.washingtonpost.com/national-security/2026/01/19/trump-justice-department-gun-regulations-atf/) · [图片](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtAaHVJBeAZ-X9O7blOVBGiHlxvmlXpMpIrg&s) |
 | `rp_gun_007` | CNN | CNN | ✅ | ✅ | [原文](https://www.cnn.com/2026/02/01/us/gun-rights-politics-alex-pretti-killing-cec) · [图片](https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2257847778.jpg?c=16x9&q=w_800,c_fill) |
 | `rp_gun_008` | CNN | CNN | ✅ | ✅ | [原文](https://www.cnn.com/2026/01/27/politics/gun-alex-pretti-ice-nra) · [图片](https://media.cnn.com/api/v1/images/stellar/prod/ap26027626289799.jpg?c=16x9&q=w_800,c_fill) |
-| `rp_abortion_001` | Washington Post | The Guardian | ⚠️ 实为 The Guardian | ✅ | [原文](https://www.washingtonpost.com/nation/2026/01/06/wyoming-court-abortion-pill-ban/) · [图片](https://i.guim.co.uk/img/media/3544713542f43a3803afa036936efc54785046dc/0_0_4749_3166/master/4749.jpg?width=465&dpr=1&s=none&crop=none) |
+| `rp_abortion_001` | Washington Post | Washington Post | ✅ | ✅ | [原文](https://www.washingtonpost.com/nation/2026/01/06/wyoming-court-abortion-pill-ban/) · [图片](https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/4RM2BRMEWMG5QMCSNDTBSWZK7Y.jpg&w=1440) |
 | `rp_abortion_002` | CNN | CNN | ✅ | ✅ | [原文](https://edition.cnn.com/2026/02/18/health/abortion-clinic-closures-guttmacher) · [图片](https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1237884449.jpg?c=original) |
 | `rp_abortion_003` | CNN | CNN | ✅ | ✅ | [原文](https://www.cnn.com/2026/01/28/politics/abortion-ban-veterans-affairs-roe-wade) · [图片](https://media.cnn.com/api/v1/images/stellar/prod/2025-02-20t173249z-1567173878-rc2gycaqrf5j-rtrmadp-3-usa-trump-workers.JPG?c=16x9&q=w_800,c_fill) |
 | `rp_abortion_004` | Washington Post | The Guardian | ⚠️ 实为 The Guardian | ⚠️ 实为 State Court Report | [原文](https://statecourtreport.org/our-work/analysis-opinion/2026-abortion-related-ballot-measures) · [图片](https://i.guim.co.uk/img/media/99c7607862dd92362e006ac75b19ac0119568e40/0_0_6000_4000/master/6000.jpg?width=465&dpr=1&s=none&crop=none) |
