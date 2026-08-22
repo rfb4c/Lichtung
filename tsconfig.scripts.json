@@ -1,0 +1,19 @@
+{
+  "//": "标注管线（scripts/annotate）的类型检查配置。主 tsconfig 的 include 只有 src，因此 npm run build 不会碰这些脚本；这里单独给它们一套 Node 侧的编译选项。",
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "types": ["node"],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": ["scripts/annotate"]
+}
