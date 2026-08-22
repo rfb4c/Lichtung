@@ -17,16 +17,59 @@ export interface Topic {
 }
 
 // Polling Data (民调数据) - replaces Distribution
+/**
+ * 民调数据。
+ *
+ * 入库判据（scripts/check-polling-consensus.mjs 逐条校验）：
+ *   把档位按方向合并成两侧（档位数为奇数时，中间档是中立档，不计入任一侧）
+ *   dominantShare = 占优一侧的百分比，extremeMin = min(最极端两档)
+ *   入库条件：dominantShare ≥ 60% 且 extremeMin < 25%
+ * 库里只放共识型民调，所以检索层不必再判「这组数据是否呈共识」。
+ *
+ * 溯源字段（questionWording / sourceUrl / fieldDates / sampleSize / population /
+ * verifiedBy / verifiedAt）目前是可选的：现存两条是审计之前录入的，尚未补齐。
+ * **新增条目必须带齐**，check 脚本会把缺失的条目列出来。
+ */
 export interface PollingData {
   id: string;
   topicId: string;         // Links to Topic.id or Subtopic.id
   subtopicId?: string;     // Optional: if this polling data is for a specific subtopic
+
+  /**
+   * 逐字照抄的英文原题，不要转述。
+   * 两个用途：报道→民调检索的核心匹配对象；学术可追溯的关键——读者要能确认
+   * 图表上的数字回答的是哪一个问题。
+   */
+  questionWording?: string;
+
   source: string;          // e.g., "Pew Research Center"
+  /** 指向能看到这组数字的**具体页面**，不是机构首页 */
+  sourceUrl?: string;
+
   surveyYear: number;      // e.g., 2024
+  /** 调查执行期，比 surveyYear 精确，e.g., "2024-04-08 – 2024-04-14" */
+  fieldDates?: string;
+  sampleSize?: number;     // e.g., 8709
+  population?: string;     // e.g., "U.S. adults"
   geographicScope: string; // e.g., "US"
-  scaleLabels: string[];   // 4-7 levels, e.g., ["Illegal in all cases", "Legal in most cases", ...]
-  distribution: number[];  // Percentages, same length as scaleLabels
+
+  /** 决定它参与哪一级检索：子议题精确命题优先，不成立时回退议题广义命题 */
+  level?: 'topic' | 'subtopic';
+
+  scaleLabels: string[];   // 4-7 levels, ordered by direction (one pole → the other)
+  distribution: number[];  // Percentages, same length as scaleLabels, sums to 100
+  /**
+   * DK / 无意见档的原始比例。该档不进 distribution——它先被剔除，
+   * 其余档位对有效回答重新归一化。填了这个值，图表下方会注明
+   * "among respondents expressing an opinion"。
+   */
+  dontKnowPct?: number;
+
   bridgingText: string;    // Intro text for the chart
+
+  /** 数据完整性红线的落实证据：数字只能来自人工核实 */
+  verifiedBy?: 'human';
+  verifiedAt?: string;     // ISO date, e.g., "2026-08-23"
 }
 
 // Report (报道) - updated for Path B + Path A

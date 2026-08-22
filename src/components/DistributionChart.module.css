@@ -13,6 +13,26 @@
   margin: 0 0 16px 0;
 }
 
+/* 原始题干。左侧竖线 + 引号是为了让它一眼看上去是「照抄的原话」，
+   而不是本站为图表写的说明文字。 */
+.questionWording {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: -4px 0 16px 0;
+  padding-left: 12px;
+  border-left: 2px solid var(--color-border);
+  quotes: '“' '”';
+}
+
+.questionWording::before {
+  content: open-quote;
+}
+
+.questionWording::after {
+  content: close-quote;
+}
+
 .barsWrapper {
   display: flex;
   flex-direction: column;
@@ -70,6 +90,23 @@
   color: var(--color-text-secondary);
   margin: 0;
   font-style: italic;
+}
+
+/* 归一化说明与来源行会并排出现，需要一点间距 */
+.sourceNote + .sourceNote {
+  margin-top: 6px;
+}
+
+/* 来源可点开核实。沿用说明文字的颜色，下划线负责表明它是链接——
+   这一行不该抢图表的视觉重心。 */
+.sourceLink {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.sourceLink:hover {
+  color: var(--color-primary);
 }
 
 @media (max-width: 767px) {
