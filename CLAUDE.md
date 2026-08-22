@@ -52,7 +52,6 @@
 │   ├── lib/                 # 工具函数
 │   │   ├── supabase.ts             # Supabase 客户端
 │   │   ├── mappers.ts              # 数据映射
-│   │   └── matchers.ts             # 主题匹配算法
 │   ├── types/               # TypeScript 类型定义
 │   │   └── index.ts                # 核心类型
 │   └── data/                # 静态数据
@@ -77,7 +76,7 @@ interface Topic {
   id: string;
   name: string;          // 如 "Gun Control"
   description: string;
-  keywords: string[];    // 用于匹配报道的关键词
+  tagKeywords: string[]; // 议题覆盖范围的描述词，供检索管线使用
 }
 
 // 民调数据（4-7 档可变）
