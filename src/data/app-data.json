@@ -210,39 +210,6 @@
       "uncertainty": "sourceUrl 指向 Pew 2026-03 堕胎 topline —— 该 PDF 的趋势表逐行列出「Apr 8-14, 2024: 25 / 38 / 28 / 11 / 2」，是能看到这组数字的页面。原始报告为 2024-05-13 Pew 发布。分布未重新归一化，No answer 未计入 dontKnowPct（原表未单列）。"
     },
     {
-      "id": "poll_gun_background_checks_001",
-      "topicId": "us-gun-control",
-      "subtopicId": "us-gun-control-background-checks",
-      "level": "subtopic",
-      "questionWording": "Do you favor, oppose, or neither favor nor oppose each of the following policies? A federal law requiring background checks on all potential gun buyers, including private sales and gun shows",
-      "source": "AP-NORC Center for Public Affairs Research",
-      "sourceUrl": "https://apnorc.org/wp-content/uploads/2023/08/August-2023-Topline_AGE.pdf",
-      "fieldDates": "2023-08-10 – 2023-08-14",
-      "surveyYear": 2023,
-      "sampleSize": 1165,
-      "population": "U.S. adults",
-      "geographicScope": "US",
-      "scaleLabels": [
-        "Strongly favor",
-        "Somewhat favor",
-        "Neither favor nor oppose",
-        "Somewhat oppose",
-        "Strongly oppose"
-      ],
-      "distribution": [
-        64,
-        15,
-        11,
-        3,
-        6
-      ],
-      "dontKnowPct": 1,
-      "verifiedBy": "human",
-      "verifiedAt": "2026-08-22",
-      "uncertainty": "5 档，含中立档『Neither favor nor oppose』(11)，按判据为奇数档中立单列不计入任何一侧。dominantShare=favor 合计 79%，extremeMin=min(64,6)=6。DK(*)与SKP/REF(1)合计约1%记入dontKnowPct，未重新归一化（分布合计99，在±1容差内）。原文NET『Strongly/Somewhat favor NET 79』逐字见topline。",
-      "bridgingText": "In an August 2023 AP-NORC survey, U.S. adults were asked about a federal law requiring background checks on all potential gun buyers, including private sales and gun shows. Their responses:"
-    },
-    {
       "id": "poll_gun_general_strictness_001",
       "topicId": "us-gun-control",
       "level": "topic",
@@ -271,7 +238,7 @@
       "dontKnowPct": 1,
       "verifiedBy": "human",
       "verifiedAt": "2026-08-22",
-      "uncertainty": "议题级广义题。中间档『Left as they are』(23) 是维持现状的实质立场，判据把它当作奇数档的中立档单列。方向合并后：更严格(41+23)=64 vs 更宽松(6+6)=12，dominantShare=64，extremeMin=min(41,6)=6，入库。注意：此结果与任务预设（广义枪支题通常55/45被排除）不同，原因是本题提供了『维持现状』中间档，见 Recommendations 第3点讨论。",
+      "uncertainty": "议题级广义题。录入时按旧判据核验：方向合并后更严格(41+23)=64 vs 更宽松(6+6)=12，dominantShare=64，extremeMin=min(41,6)=6，入库。此结果与任务预设（广义枪支题通常55/45被排除）不同，原因是本题提供了『维持现状』中间档，见 Recommendations 第3点讨论。按现行判据（中间>两端，中立档『Left as they are』计入中间）复核：中间(23+23+6)=52% > 两端(41+6)=47%，仍入库。",
       "bridgingText": "An August 2023 AP-NORC survey asked U.S. adults whether gun laws in the United States should be made more strict, left as they are, or made less strict:"
     },
     {
@@ -302,7 +269,7 @@
       "dontKnowPct": 2,
       "verifiedBy": "human",
       "verifiedAt": "2026-08-22",
-      "uncertainty": "『No answer』2% 记入 dontKnowPct，按任务算例①的做法直接使用『所有受访者中』的原始比例，未重新归一化。dominantShare=legal(23+37)=60，恰好等于门槛 60%（若剔除2% no-answer 重新归一化则升至约62%）；extremeMin=min(23,11)=11。属临界入库，建议用户留意。原文趋势表『Jan 20-26, 2026: 23 / 37 / 28 / 11 / 2』逐字可见。",
+      "uncertainty": "『No answer』2% 记入 dontKnowPct，按任务算例①的做法直接使用『所有受访者中』的原始比例，未重新归一化。录入时按旧判据核验：dominantShare=legal(23+37)=60，恰好等于门槛 60%（若剔除2% no-answer 重新归一化则升至约62%）；extremeMin=min(23,11)=11，属临界入库。原文趋势表『Jan 20-26, 2026: 23 / 37 / 28 / 11 / 2』逐字可见。按现行判据（中间>两端）复核：中间(37+28)=65% > 两端(23+11)=34%，不再是临界情形，稳定入库。",
       "bridgingText": "In a January 2026 Pew Research Center survey of 8,512 U.S. adults, views on whether abortion should be legal were distributed as follows:"
     },
     {
@@ -333,7 +300,7 @@
       "dontKnowPct": 1,
       "verifiedBy": "human",
       "verifiedAt": "2026-08-22",
-      "uncertainty": "样本为登记选民（registered voters, 未加权基数 n=930；整份调查含 1,060 名成年人）。分档数据取自报告 PDF 的 Appendix I 数据表（约第59页 item 3.1）；报告网页正文只给 NET=77%（verbatim: 'Regulating carbon dioxide (the primary greenhouse gas) as a pollutant: 77% of registered voters'）。『No response』1% 记入 dontKnowPct。dominantShare=support(32+45)=77，extremeMin=min(32,9)=9。",
+      "uncertainty": "样本为登记选民（registered voters, 未加权基数 n=930；整份调查含 1,060 名成年人）。分档数据取自报告 PDF 的 Appendix I 数据表（约第59页 item 3.1）；报告网页正文只给 NET=77%（verbatim: 'Regulating carbon dioxide (the primary greenhouse gas) as a pollutant: 77% of registered voters'）。『No response』1% 记入 dontKnowPct。录入时按旧判据核验：dominantShare=support(32+45)=77，extremeMin=min(32,9)=9。按现行判据（中间>两端）复核：中间(45+13)=58% > 两端(32+9)=41%，仍入库。",
       "bridgingText": "A Spring 2026 survey by the Yale Program on Climate Change Communication asked registered voters how much they support or oppose regulating carbon dioxide, the primary greenhouse gas, as a pollutant:"
     }
   ],
@@ -349,7 +316,8 @@
       "topicId": "us-gun-control",
       "pollingDataId": null,
       "counterStereotypical": false,
-      "engagementScore": 0.9
+      "engagementScore": 0.9,
+      "csScore": 0
     },
     {
       "id": "rp_gun_002",
@@ -362,7 +330,8 @@
       "topicId": "us-gun-control",
       "pollingDataId": null,
       "counterStereotypical": false,
-      "engagementScore": 0.55
+      "engagementScore": 0.55,
+      "csScore": 0
     },
     {
       "id": "rp_gun_003",
@@ -375,7 +344,8 @@
       "topicId": "us-gun-control",
       "pollingDataId": null,
       "counterStereotypical": false,
-      "engagementScore": 0.65
+      "engagementScore": 0.65,
+      "csScore": 0
     },
     {
       "id": "rp_gun_004",
@@ -388,7 +358,8 @@
       "topicId": "us-gun-control",
       "pollingDataId": null,
       "counterStereotypical": true,
-      "engagementScore": 0.45
+      "engagementScore": 0.45,
+      "csScore": 0.25
     },
     {
       "id": "rp_gun_005",
@@ -397,11 +368,12 @@
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/politics/2026/03/02/supreme-court-marijuana-gun-hemani/",
       "publishedAt": "10h",
-      "imageUrl": "https://static.wixstatic.com/media/0eb7a4_62b29f11d642449099bb2659ac5774ca~mv2.png/v1/fill/w_1000,h_563,al_c,q_90,usm_0.66_1.00_0.01/0eb7a4_62b29f11d642449099bb2659ac5774ca~mv2.png",
+      "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/AVY3S2K6LDSCSJIBE6E4QQANEU_size-normalized.jpg&w=1440&impolicy=high_res",
       "topicId": "us-gun-control",
       "pollingDataId": null,
       "counterStereotypical": false,
-      "engagementScore": 0.5
+      "engagementScore": 0.5,
+      "csScore": 0
     },
     {
       "id": "rp_gun_006",
@@ -410,11 +382,12 @@
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/national-security/2026/01/19/trump-justice-department-gun-regulations-atf/",
       "publishedAt": "12h",
-      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtAaHVJBeAZ-X9O7blOVBGiHlxvmlXpMpIrg&s",
+      "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://cloudfront-us-east-1.images.arcpublishing.com/wapo/NJ2W7T2MBPYHQKK2QOLOZX4SMA.JPG&w=1440&impolicy=high_res",
       "topicId": "us-gun-control",
       "pollingDataId": null,
       "counterStereotypical": false,
-      "engagementScore": 0.8
+      "engagementScore": 0.8,
+      "csScore": 0
     },
     {
       "id": "rp_gun_007",
@@ -427,7 +400,8 @@
       "topicId": "us-gun-control",
       "pollingDataId": null,
       "counterStereotypical": true,
-      "engagementScore": 0.55
+      "engagementScore": 0.55,
+      "csScore": 1
     },
     {
       "id": "rp_gun_008",
@@ -440,7 +414,8 @@
       "topicId": "us-gun-control",
       "pollingDataId": null,
       "counterStereotypical": false,
-      "engagementScore": 0.6
+      "engagementScore": 0.6,
+      "csScore": 0.8
     },
     {
       "id": "rp_abortion_001",
@@ -453,7 +428,8 @@
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
       "counterStereotypical": false,
-      "engagementScore": 0.6
+      "engagementScore": 0.6,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_002",
@@ -466,7 +442,8 @@
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
       "counterStereotypical": true,
-      "engagementScore": 0.55
+      "engagementScore": 0.55,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_003",
@@ -479,20 +456,22 @@
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
       "counterStereotypical": false,
-      "engagementScore": 0.85
+      "engagementScore": 0.85,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_004",
-      "title": "Abortion rights poised to drive 2026 midterm turnout",
+      "title": "2026 Abortion-Related Ballot Measures",
       "summary": "Abortion-related ballot measures are heading to voters in Missouri, Idaho, Virginia, Oregon, Montana and Nebraska this November. Both abortion advocates and opponents say the 2026 midterm elections could significantly reshape the legal landscape for reproductive rights nationwide.",
-      "source": "Washington Post",
+      "source": "State Court Report",
       "url": "https://statecourtreport.org/our-work/analysis-opinion/2026-abortion-related-ballot-measures",
       "publishedAt": "7h",
-      "imageUrl": "https://i.guim.co.uk/img/media/99c7607862dd92362e006ac75b19ac0119568e40/0_0_6000_4000/master/6000.jpg?width=465&dpr=1&s=none&crop=none",
+      "imageUrl": "https://statecourtreport.org/sites/default/files/styles/3_1_1120x373/public/2023-11/2023_09_SCR_Abortion_Rights%20%282%29.webp?h=043d26d4&itok=gqsBYXyP",
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
       "counterStereotypical": false,
-      "engagementScore": 0.52
+      "engagementScore": 0.52,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_005",
@@ -501,11 +480,12 @@
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/ripple/2026/02/25/abortion-laws-show-that-public-policy-doesnt-always-line-up-with-public-opinion/",
       "publishedAt": "9h",
-      "imageUrl": "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/03/PP_2026.3.12_abortion_0-01.png?w=640",
+      "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://cloudfront-us-east-1.images.arcpublishing.com/wapo/DTJFYG5FY2XDOLXUZH4ND55FC4.JPG&w=1440&impolicy=high_res",
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
       "counterStereotypical": true,
-      "engagementScore": 0.5
+      "engagementScore": 0.5,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_006",
@@ -518,7 +498,8 @@
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
       "counterStereotypical": false,
-      "engagementScore": 0.75
+      "engagementScore": 0.75,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_007",
@@ -531,7 +512,8 @@
       "topicId": "us-abortion",
       "pollingDataId": null,
       "counterStereotypical": false,
-      "engagementScore": 0.67
+      "engagementScore": 0.67,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_008",
@@ -544,7 +526,8 @@
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
       "counterStereotypical": false,
-      "engagementScore": 0.55
+      "engagementScore": 0.55,
+      "csScore": 0
     },
     {
       "id": "rp_climate_001",
@@ -557,7 +540,8 @@
       "topicId": "us-climate",
       "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
-      "engagementScore": 0.85
+      "engagementScore": 0.85,
+      "csScore": 0
     },
     {
       "id": "rp_climate_002",
@@ -570,7 +554,8 @@
       "topicId": "us-climate",
       "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
-      "engagementScore": 0.8
+      "engagementScore": 0.8,
+      "csScore": 0
     },
     {
       "id": "rp_climate_003",
@@ -583,7 +568,8 @@
       "topicId": "us-climate",
       "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
-      "engagementScore": 0.5
+      "engagementScore": 0.5,
+      "csScore": 0
     },
     {
       "id": "rp_climate_004",
@@ -596,7 +582,8 @@
       "topicId": "us-climate",
       "pollingDataId": null,
       "counterStereotypical": true,
-      "engagementScore": 0.58
+      "engagementScore": 0.58,
+      "csScore": 0.175
     },
     {
       "id": "rp_climate_005",
@@ -609,7 +596,8 @@
       "topicId": "us-climate",
       "pollingDataId": null,
       "counterStereotypical": true,
-      "engagementScore": 0.6
+      "engagementScore": 0.6,
+      "csScore": 0
     },
     {
       "id": "rp_climate_006",
@@ -622,7 +610,8 @@
       "topicId": "us-climate",
       "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
-      "engagementScore": 0.75
+      "engagementScore": 0.75,
+      "csScore": 0
     },
     {
       "id": "rp_climate_007",
@@ -631,11 +620,12 @@
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/opinions/2026/02/18/epa-emissions-reversal-energy-steven-koonin/",
       "publishedAt": "14h",
-      "imageUrl": "https://tse4.mm.bing.net/th/id/OIP.8ohl1DvIBnds0Aup2GHB_wHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/YTJHJLAUP54SVBABQND4RE3XVM_size-normalized.jpg&w=1440&impolicy=high_res",
       "topicId": "us-climate",
       "pollingDataId": null,
       "counterStereotypical": false,
-      "engagementScore": 0.6
+      "engagementScore": 0.6,
+      "csScore": 0
     },
     {
       "id": "rp_climate_008",
@@ -648,7 +638,8 @@
       "topicId": "us-climate",
       "pollingDataId": null,
       "counterStereotypical": false,
-      "engagementScore": 0.52
+      "engagementScore": 0.52,
+      "csScore": 0
     },
     {
       "id": "rp_gun_010",
@@ -661,7 +652,8 @@
       "topicId": "us-gun-control",
       "pollingDataId": null,
       "counterStereotypical": true,
-      "engagementScore": 0.65
+      "engagementScore": 0.65,
+      "csScore": 0.625
     },
     {
       "id": "rp_abortion_010",
@@ -674,7 +666,8 @@
       "topicId": "us-abortion",
       "pollingDataId": null,
       "counterStereotypical": true,
-      "engagementScore": 0.63
+      "engagementScore": 0.63,
+      "csScore": 0.8
     },
     {
       "id": "rp_climate_010",
@@ -687,7 +680,8 @@
       "topicId": "us-climate",
       "pollingDataId": null,
       "counterStereotypical": true,
-      "engagementScore": 0.61
+      "engagementScore": 0.61,
+      "csScore": 0
     },
     {
       "id": "rp_immigration_001",
@@ -700,7 +694,8 @@
       "topicId": "us-immigration",
       "pollingDataId": null,
       "counterStereotypical": false,
-      "engagementScore": 0.82
+      "engagementScore": 0.82,
+      "csScore": 0.175
     }
   ],
   "mockUsers": [

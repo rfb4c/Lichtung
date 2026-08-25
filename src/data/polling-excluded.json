@@ -1,6 +1,40 @@
 {
   "excluded": [
     {
+      "id": "poll_gun_background_checks_001",
+      "topicId": "us-gun-control",
+      "subtopicId": "us-gun-control-background-checks",
+      "level": "subtopic",
+      "questionWording": "Do you favor, oppose, or neither favor nor oppose each of the following policies? A federal law requiring background checks on all potential gun buyers, including private sales and gun shows",
+      "source": "AP-NORC Center for Public Affairs Research",
+      "sourceUrl": "https://apnorc.org/wp-content/uploads/2023/08/August-2023-Topline_AGE.pdf",
+      "fieldDates": "2023-08-10 – 2023-08-14",
+      "surveyYear": 2023,
+      "sampleSize": 1165,
+      "population": "U.S. adults",
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Strongly favor",
+        "Somewhat favor",
+        "Neither favor nor oppose",
+        "Somewhat oppose",
+        "Strongly oppose"
+      ],
+      "distribution": [
+        64,
+        15,
+        11,
+        3,
+        6
+      ],
+      "dontKnowPct": 1,
+      "verifiedBy": "human",
+      "verifiedAt": "2026-08-22",
+      "uncertainty": "5 档，含中立档『Neither favor nor oppose』(11)。DK(*)与SKP/REF(1)合计约1%记入dontKnowPct，未重新归一化（分布合计99，在±1容差内）。原文NET『Strongly/Somewhat favor NET 79』逐字见topline。",
+      "bridgingText": "In an August 2023 AP-NORC survey, U.S. adults were asked about a federal law requiring background checks on all potential gun buyers, including private sales and gun shows. Their responses:",
+      "exclusionReason": "两端(64+6)=70% > 中间(15+11+3)=29%（需中间>两端）。中立档『Neither favor nor oppose』(11)计入中间。79% 是真实的支持率——64% 为『强烈支持』——但两端合计已达70%，是一边倒的共识，不是温和多数：多数人持的是强烈立场，不是温和立场。判据凸显的是后者，这条不满足。原文NET『Strongly/Somewhat favor NET 79』、分档 64/15/11/3/6 逐字见topline。"
+    },
+    {
       "id": "poll_gun_assault_weapons_001",
       "topicId": "us-gun-control",
       "subtopicId": "us-gun-control-assault-weapons",
@@ -30,14 +64,20 @@
       "dontKnowPct": 1,
       "verifiedBy": "human",
       "verifiedAt": "2026-08-22",
-      "exclusionReason": "dominantShare=favor(44+13)=57%（需≥60）。中间档『Neither』(16)不计入。虽 extremeMin=min(44,17)=17<25 满足，但占优一侧不够厚，且强反对高达17%，是有硬核对立阵营的议题。正是判据设计时对攻击性武器禁令的预期结果，如实记入 excluded。原文NET『Strongly/Somewhat favor NET 58』（含四舍五入），分档 44/13/16/9/17 逐字可见。"
+      "exclusionReason": "两端(44+17)=61% > 中间(13+16+9)=38%（需中间>两端）。中立档『Neither』(16)计入中间。强反对高达17%，是有硬核对立阵营的议题，极端立场并不罕见——正是判据设计时对攻击性武器禁令的预期结果，如实记入 excluded。原文NET『Strongly/Somewhat favor NET 58』（含四舍五入），分档 44/13/16/9/17 逐字可见。"
     },
     {
       "id": "poll_climate_international_agreements_001",
       "topicId": "us-climate",
       "subtopicId": "us-climate-international-agreements",
-      "source": "Yale Program on Climate Change Communication",
-      "surveyYear": 2023,
+      "level": "subtopic",
+      "questionWording": "In 2015, the United States signed an international agreement in Paris with 196 other countries to limit the pollution that causes global warming. Do you strongly support, somewhat support, somewhat oppose, or strongly oppose the U.S.'s participation in the Paris Agreement?",
+      "source": "Yale Program on Climate Change Communication / George Mason University (Climate Change in the American Mind: Politics & Policy, Fall 2025)",
+      "sourceUrl": "https://climatecommunication.yale.edu/app/uploads/2025/12/climate-change-american-mind-politics-policy-fall-2025.pdf",
+      "fieldDates": "2025-11-06 – 2025-11-14",
+      "surveyYear": 2025,
+      "sampleSize": 990,
+      "population": "U.S. registered voters",
       "geographicScope": "US",
       "scaleLabels": [
         "Strongly support",
@@ -46,13 +86,17 @@
         "Strongly oppose"
       ],
       "distribution": [
-        32,
-        36,
-        14,
-        18
+        46,
+        31,
+        11,
+        12
       ],
-      "bridgingText": "Amid polarized headlines on climate policy, a Fall 2023 Yale Program on Climate Change Communication survey shows where Americans actually stand on climate action:",
-      "exclusionReason": "无法核实。预算内无法读到该四档分布所在的一手数据表页；其 NET 支持 68% 与 Yale 近年公开的 Paris 参与支持（Fall 2024=73%、Fall 2025=77%，均已逐字核实）不一致；分布形态 strongly oppose 18 > somewhat oppose 14 也少见。判据本身是通过的（dominantShare 68、extremeMin 18），排除理由是**不可追溯**而非不呈共识——数据完整性红线要求渲染出去的每个数字都能被读者点开核对。"
+      "dontKnowPct": 1,
+      "verifiedBy": "human",
+      "verifiedAt": "2026-08-23",
+      "uncertainty": "题干与四档拆分（Appendix I item 5.1）位于 Fall 2025 报告 PDF 第58页，表格标题即题干原文，逐字核对无误。Unweighted base 990，与正文引用的『registered voters, Fall 2025』一致。『No response』1% 记入 dontKnowPct，未重新归一化（四档合计恰为100，无需容差）。交叉验证：NET 支持 = Strongly(46)+Somewhat(31) = 77，与 Section 5.1 正文『Large majorities of registered voters support U.S. participation in the Paris Climate Agreement (77%)』逐字一致。",
+      "bridgingText": "A Fall 2025 survey by the Yale Program on Climate Change Communication asked registered voters how much they support or oppose the U.S.'s participation in the Paris Climate Agreement:",
+      "exclusionReason": "两端(46+12)=58% > 中间(31+11)=42%（需中间>两端），不满足入库判据。46% 为『强烈支持』，两端合计已过半——与背景审查那条是同一种情况：净支持率高（77%），是一边倒的共识，不是温和多数。取代此前『无法核实』的旧记录（Yale 2023 版本，32/36/14/18）：这次数据已完整溯源到具体页码，题干逐字核对，NET 与正文引用交叉验证一致。排除理由由『不可追溯』变为『数据可信但不满足现行判据』。"
     }
   ],
   "notFound": [
@@ -92,14 +136,6 @@
         "Gallup"
       ],
       "note": "Pew 2025-06 只有二分题『phasing out the production of new gasoline cars and trucks by 2035』34% favor/65% oppose，不满足4档；且多数为反对，非正向共识。"
-    },
-    {
-      "subtopicId": "us-climate-international-agreements",
-      "searched": [
-        "Yale Program on Climate Change Communication",
-        "Pew Research Center"
-      ],
-      "note": "NET 共识明确（Yale CCAM Politics & Policy, Fall 2025, fielded Nov 6–14 2025, n=990 registered voters, verbatim: 'Large majorities of registered voters support U.S. participation in the Paris Climate Agreement (77%)'；Fall 2024 verbatim: 'A large majority of registered voters (73%) support U.S. participation in the Paris Climate Agreement'；另有 May 2025 YPCCC release 报 79%），但精确的 strongly/somewhat 四档分布在预算内未能从一手数据表页面读到。库中既有记录 poll_climate_international_agreements_001（Yale 2023, 32/36/14/18）无法对照原文核实，且其 NET 支持(68%)与近年 73–77% 的公开数字不一致，见 Recommendations 回填说明。"
     },
     {
       "subtopicId": "us-immigration-enforcement",
