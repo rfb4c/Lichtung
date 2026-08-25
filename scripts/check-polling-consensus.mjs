@@ -2,16 +2,16 @@
 /**
  * 逐条校验 src/data/app-data.json 里的民调：结构、入库判据、溯源字段。
  *
- * 入库判据放在**入库层**而不是检索层——库里只放共识型民调，报道→民调的检索
- * 就不必再判「这组数据是否呈共识」。判据是量化的，所以能被脚本检查，而不是
+ * 入库判据放在**入库层**而不是检索层——库里只放温和多数型民调，报道→民调的检索
+ * 就不必再判「这组数据是否呈温和多数」。判据是量化的，所以能被脚本检查，而不是
  * 靠录入时的印象：
  *
- *   把档位按方向合并成两侧（档位数为奇数时，中间档是中立档，不计入任一侧）
+ *   两端 = 分布最外侧两档之和；中间 = 其余所有档之和（含中立档，如果存在）
  *   ↓
- *   dominantShare = 占优一侧的百分比
- *   extremeMin    = min(最极端两档)
- *   ↓
- *   入库条件：dominantShare ≥ 60%  且  extremeMin < 25%
+ *   入库条件：中间 > 两端
+ *
+ * 讲的故事是「极端立场的人其实很少」，不是「公众站在同一边」——后者会放行像
+ * 79% 强烈支持、两端合计 70% 的「一边倒」分布，那不是温和多数。
  *
  * 判据不是为了迁就现有数据定的——它必须能被现有数据通过，这个脚本就是那次回测
  * 的可重跑版本。被排除的民调存 src/data/polling-excluded.json（存在则一并校验），
@@ -29,8 +29,6 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const APP_DATA = resolve(ROOT, 'src/data/app-data.json');
 const EXCLUDED = resolve(ROOT, 'src/data/polling-excluded.json');
 
-const MIN_DOMINANT_SHARE = 60;
-const MAX_EXTREME_MIN = 25;
 
 /** 新增条目必须带齐的溯源字段。现存两条是审计之前录入的，只警告不判错。 */
 const PROVENANCE_FIELDS = [
@@ -43,20 +41,18 @@ const PROVENANCE_FIELDS = [
 ];
 
 /**
- * 按方向把档位合并成两侧。scaleLabels 必须按方向有序（一极 → 另一极），
- * 否则这里算出来的东西没有意义——这是录入规格里的硬性规则。
+ * 两端 = 最外侧两档；中间 = 其余所有档。scaleLabels 必须按方向有序
+ * （一极 → 另一极），否则「最外侧」没有意义——这是录入规格里的硬性规则。
  */
-function consensusProfile(distribution) {
+function moderationProfile(distribution) {
   const n = distribution.length;
-  const half = Math.floor(n / 2);
-  const sideA = distribution.slice(0, half).reduce((a, b) => a + b, 0);
-  // 档位数为奇数时跳过中间的中立档
-  const sideB = distribution.slice(n - half).reduce((a, b) => a + b, 0);
+  const extremesShare = distribution[0] + distribution[n - 1];
+  const moderateShare = distribution.slice(1, n - 1).reduce((a, b) => a + b, 0);
 
   return {
-    dominantShare: Math.max(sideA, sideB),
-    extremeMin: Math.min(distribution[0], distribution[n - 1]),
-    neutral: n % 2 === 1 ? distribution[half] : null,
+    moderateShare,
+    extremesShare,
+    neutral: n % 2 === 1 ? distribution[Math.floor(n / 2)] : null,
   };
 }
 
@@ -134,18 +130,14 @@ function report(poll, { requireConsensus }) {
   const usable =
     distribution.length > 0 &&
     distribution.every((v) => typeof v === 'number' && Number.isFinite(v));
-  const profile = usable ? consensusProfile(distribution) : null;
+  const profile = usable ? moderationProfile(distribution) : null;
 
-  const admissible =
-    profile !== null &&
-    profile.dominantShare >= MIN_DOMINANT_SHARE &&
-    profile.extremeMin < MAX_EXTREME_MIN;
+  const admissible = profile !== null && profile.moderateShare > profile.extremesShare;
 
   if (profile !== null) {
     if (requireConsensus && !admissible) {
       problems.push(
-        `不满足入库判据：dominantShare ${profile.dominantShare}%（需 ≥${MIN_DOMINANT_SHARE}）、` +
-          `extremeMin ${profile.extremeMin}%（需 <${MAX_EXTREME_MIN}）`,
+        `不满足入库判据：中间档合计 ${profile.moderateShare}%，两端合计 ${profile.extremesShare}%（需中间 > 两端）`,
       );
     }
     if (!requireConsensus && admissible && !poll.exclusionReason) {
@@ -175,8 +167,8 @@ function printSection(title, polls, options) {
     } else {
       const neutral = r.profile.neutral === null ? '' : `  中立档 ${r.profile.neutral}%`;
       console.log(
-        `      dominantShare ${String(r.profile.dominantShare).padStart(3)}%   ` +
-          `extremeMin ${String(r.profile.extremeMin).padStart(3)}%${neutral}`,
+        `      中间档合计 ${String(r.profile.moderateShare).padStart(3)}%   ` +
+          `两端合计 ${String(r.profile.extremesShare).padStart(3)}%${neutral}`,
       );
     }
 
@@ -200,9 +192,7 @@ function main() {
   // 检索过但确实没有可用数据的子议题。不参与判据校验，但要计入「共考察」的口径
   const notFound = quarantine.notFound ?? [];
 
-  console.log(
-    `入库判据：dominantShare ≥ ${MIN_DOMINANT_SHARE}%  且  extremeMin < ${MAX_EXTREME_MIN}%`,
-  );
+  console.log('入库判据：中间档合计 > 两端合计（两端 = 分布最外侧两档）');
 
   const a = printSection('入库', admitted, { requireConsensus: true });
   const b = printSection('排除留档', excluded, { requireConsensus: false });

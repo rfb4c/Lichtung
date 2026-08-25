@@ -1,6 +1,6 @@
 # Lichtung（林间空地）
 
-> 感知极化校准研究 Demo - 通过共识可视化和交叉身份标签，修正用户对公众态度的感知偏差
+> 感知极化校准研究 Demo - 通过温和多数可视化和交叉身份标签，修正用户对公众态度的感知偏差
 
 [![Version](https://img.shields.io/badge/version-0.4.5-green.svg)](https://github.com/rfb4c/Lichtung)
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://react.dev/)
@@ -24,7 +24,7 @@
 
 - **Path A (反刻板范例注入)**: 在 Feed 排序中提升反刻板印象内容的可见性，改变用户接触到的样本结构
 
-- **Path B (共识可视化)**: 在评论区前置真实民调数据的分布图表，呈现"沉默的大多数"，针对"多数错觉"（pluralistic ignorance）
+- **Path B (温和多数可视化)**: 在评论区前置真实民调数据的分布图表，呈现"温和的大多数"，打破"所有人都站在两个极端"的误判
 
 - **Path C (交叉身份)**: 展示评论者的非政治身份标签（如职业、兴趣），软化政治对立群体之间的边界
 
@@ -96,7 +96,7 @@ npm run build
 │   └── data/                # 静态数据（主题、民调、报道）
 ├── docs/                    # 完整文档库
 │   ├── 00-Overview/         # 产品与技术设计
-│   ├── 01-Path-B-共识可视化/ # Path B 设计规范
+│   ├── 01-Path-B-温和多数可视化/ # Path B 设计规范
 │   ├── 02-Path-C-交叉身份/   # Path C 设计规范
 │   └── 03-News-Agent/       # 新闻采集 Agent
 ├── ROADMAP.md               # 开发路线图
@@ -144,7 +144,7 @@ npm run build
 3. 查看 [ROADMAP.md](ROADMAP.md) 了解当前开发进度
 
 ### 功能开发
-- **实现 Path B**: [Path B 设计规范](docs/01-Path-B-共识可视化/设计规范.md) + [实施计划](docs/01-Path-B-共识可视化/实施计划.md)
+- **实现 Path B**: [Path B 设计规范](docs/01-Path-B-温和多数可视化/设计规范.md) + [实施计划](docs/01-Path-B-温和多数可视化/实施计划.md)
 - **实现 Path C**: [Path C 设计规范](docs/02-Path-C-交叉身份/设计规范.md)
 - **搭建 News Agent**: [Agent 设计规范](docs/03-News-Agent/设计规范.md)
 

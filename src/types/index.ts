@@ -1,4 +1,4 @@
-// ========== Path B: Consensus Visualization Types ==========
+// ========== Path B: Moderate Majority Visualization Types ==========
 
 // Subtopic (子议题) - granular topics under a main Topic
 export interface Subtopic {
@@ -21,10 +21,10 @@ export interface Topic {
  * 民调数据。
  *
  * 入库判据（scripts/check-polling-consensus.mjs 逐条校验）：
- *   把档位按方向合并成两侧（档位数为奇数时，中间档是中立档，不计入任一侧）
- *   dominantShare = 占优一侧的百分比，extremeMin = min(最极端两档)
- *   入库条件：dominantShare ≥ 60% 且 extremeMin < 25%
- * 库里只放共识型民调，所以检索层不必再判「这组数据是否呈共识」。
+ *   两端 = 分布最外侧两档之和，中间 = 其余所有档之和（含中立档，如果存在）
+ *   入库条件：中间 > 两端
+ * 讲的故事是「极端立场的人其实很少」，不是「公众站在同一边」。
+ * 库里只放温和多数型民调，所以检索层不必再判「这组数据是否呈温和多数」。
  *
  * 溯源字段（questionWording / sourceUrl / fieldDates / sampleSize / population /
  * verifiedBy / verifiedAt）目前是可选的：现存两条是审计之前录入的，尚未补齐。
