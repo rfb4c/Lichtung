@@ -50,7 +50,7 @@ export function requireKey(name: string): string {
   if (!value) {
     throw new Error(
       `缺少环境变量 ${name}。请在仓库根目录的 .env 里补一行 ${name}=...\n` +
-        `（配置步骤见 docs/private/教程-配置标注管线的-API-密钥.md）`,
+        `（配置步骤见 scripts/annotate/README.md）`,
     );
   }
   return value;

@@ -29,7 +29,7 @@
 | heterogeneity | 25/28 | 3 | 22 | 3 |
 | violation | 28/28 | 5 | 23 | 0 |
 
-分歧按 `csScore.ts` 写死的确定性规则取 0.5，不做人工裁决（见设计与交接文档 §2.2）。
+分歧按 `csScore.ts` 写死的确定性规则取 0.5，不做人工裁决（见 `docs/04-Path-A-反刻板印象/设计规范.md` § 5.2）。
 
 ## 3. csScore 分布
 
@@ -68,7 +68,7 @@
 | 内容 | 位置 | 是否入 git |
 |---|---|---|
 | 首次实跑的完整判定（含双 judge 引句、`merged` 裁决结果） | `src/data/annotations.json` | 是（随本轮提交） |
-| 复现校验重跑的完整判定（用于核对 §4 的 168 项逐条来源） | `docs/private/evidence/annotate-verify-rerun-2026-08-25.json` | 否（`docs/private/` 已忽略，仅本地留存） |
+| 复现校验重跑的完整判定（用于核对 §4 的 168 项逐条来源） | 重跑 `npm run annotate:verify` 可复现，本地留存 | 否（未入库） |
 | 裁决产出、写回结果 | `src/data/app-data.json` 的 `report.csScore` 字段 | 是（随本轮提交） |
 
 `annotate:verify` 按设计只把重跑结果写到系统临时目录（避免覆盖已提交的基线），
