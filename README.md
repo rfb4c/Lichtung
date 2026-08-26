@@ -2,7 +2,7 @@
 
 > 感知极化校准研究 Demo - 通过温和多数可视化和交叉身份标签，修正用户对公众态度的感知偏差
 
-[![Version](https://img.shields.io/badge/version-0.4.5-green.svg)](https://github.com/rfb4c/Lichtung)
+[![Version](https://img.shields.io/badge/version-0.4.6-green.svg)](https://github.com/rfb4c/Lichtung)
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue.svg)](https://www.typescriptlang.org/)
 

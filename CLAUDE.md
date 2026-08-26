@@ -11,7 +11,7 @@
 **项目名称**: Lichtung (林间空地)
 **项目类型**: 研究原型 - 感知极化干预系统
 **技术栈**: React + TypeScript + Vite + Supabase
-**当前版本**: v0.4.5 (三条路径均已实装；Path A 双评审标注管线代码完成待实跑；民调溯源字段与校验就绪)
+**当前版本**: v0.4.6 (三条路径均已实装；Path A 标注管线已实跑产出 csScore；Path B 匹配管线代码完成待实跑)
 **主分支**: `main` | 开发分支: `develop`
 
 ---
@@ -62,6 +62,7 @@
 │       └── annotations.json        # 管线产出的可审计层（实跑后才存在）
 ├── scripts/
 │   ├── annotate/            # Path A 双评审标注管线（见该目录 README）
+│   ├── match-polling/       # Path B 报道→民调 双评审匹配管线（见该目录 README）
 │   └── check-polling-consensus.mjs # 民调入库判据与溯源字段校验
 ├── docs/                    # 完整文档库
 │   ├── 00-Overview/                # 产品、技术设计
@@ -118,12 +119,12 @@ interface Report {
   id: string;
   topicId?: string;
   subtopicId?: string;
-  pollingDataId?: string | null; // 显式挂载；null = 不显示图表
+  pollingDataId?: string | null; // 显式挂载；null = 不显示图表。由 scripts/match-polling 产出
   title: string;
   summary: string;
   source: string;
   url?: string;
-  publishedAt?: string;
+  publishedAt?: string;          // Feed 上的相对展示标签（"2h"、"1d"），不是时间戳
   imageUrl?: string;
   // Path A 排序字段
   csScore?: number;              // 0–1，标注管线产出；排序的实际依据
@@ -237,8 +238,8 @@ interface Report {
 
 ---
 
-**最后同步**: 2026-08-22
-**当前任务**: `feature/annotation-pipeline` — 双评审标注管线代码完成，只差两把密钥实跑
-**下一步候选**: 实跑管线让 `csScore` 落地（`scripts/annotate/README.md`）；民调库扩展——
-字段、图表、入库判据校验（`scripts/check-polling-consensus.mjs`）均已就绪，等人工核实的数据；
-配图剩余 6 条
+**最后同步**: 2026-08-27
+**当前任务**: `feature/annotation-pipeline` — Path B 报道→民调匹配管线代码完成，
+待配密钥实跑（`scripts/match-polling/README.md`）
+**下一步候选**: 实跑匹配管线让 `pollingDataId` 落地；民调库扩展等人工核实的新数据；
+论文与视频（9 月内动手）

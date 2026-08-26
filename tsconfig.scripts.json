@@ -1,5 +1,5 @@
 {
-  "//": "标注管线（scripts/annotate）的类型检查配置。主 tsconfig 的 include 只有 src，因此 npm run build 不会碰这些脚本；这里单独给它们一套 Node 侧的编译选项。",
+  "//": "离线管线（scripts/annotate 标注、scripts/match-polling 匹配）的类型检查配置。主 tsconfig 的 include 只有 src，因此 npm run build 不会碰这些脚本；这里单独给它们一套 Node 侧的编译选项。",
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2022"],
@@ -15,5 +15,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["scripts/annotate"]
+  "include": ["scripts/annotate", "scripts/match-polling"]
 }

@@ -1,7 +1,7 @@
 {
   "name": "lichtung",
   "private": true,
-  "version": "0.4.5",
+  "version": "0.4.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +13,10 @@
     "annotate:mock": "tsx scripts/annotate/01-annotate-path-a.ts --judges mock",
     "annotate:merge": "tsx scripts/annotate/03-merge.ts",
     "annotate:verify": "tsx scripts/annotate/99-verify.ts",
-    "annotate:models": "tsx scripts/annotate/00-list-openai-models.ts"
+    "annotate:models": "tsx scripts/annotate/00-list-openai-models.ts",
+    "match": "tsx scripts/match-polling/01-match-polling.ts",
+    "match:mock": "tsx scripts/match-polling/01-match-polling.ts --judges mock",
+    "match:merge": "tsx scripts/match-polling/03-merge.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.94.0",
