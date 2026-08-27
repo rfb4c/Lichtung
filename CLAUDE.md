@@ -11,7 +11,7 @@
 **项目名称**: Lichtung (林间空地)
 **项目类型**: 研究原型 - 感知极化干预系统
 **技术栈**: React + TypeScript + Vite + Supabase
-**当前版本**: v0.4.6 (三条路径均已实装；Path A 标注管线已实跑产出 csScore；Path B 匹配管线代码完成待实跑)
+**当前版本**: v0.4.6 (三条路径均已实装；两条离线管线均已实跑；Path B 裁决结果待人工核对后写回)
 **主分支**: `main` | 开发分支: `develop`
 
 ---
@@ -59,7 +59,8 @@
 │   │   └── feedSorter.ts           # Path A 连续位移 + 间隔调整
 │   └── data/                # 静态数据
 │       ├── app-data.json           # 人工事实源：主题、民调、报道、用户、评论
-│       └── annotations.json        # 管线产出的可审计层（实跑后才存在）
+│       ├── annotations.json        # Path A 管线产出的可审计层
+│       └── poll-matches.json       # Path B 管线产出的可审计层
 ├── scripts/
 │   ├── annotate/            # Path A 双评审标注管线（见该目录 README）
 │   ├── match-polling/       # Path B 报道→民调 双评审匹配管线（见该目录 README）
@@ -239,7 +240,7 @@ interface Report {
 ---
 
 **最后同步**: 2026-08-27
-**当前任务**: `feature/annotation-pipeline` — Path B 报道→民调匹配管线代码完成，
-待配密钥实跑（`scripts/match-polling/README.md`）
-**下一步候选**: 实跑匹配管线让 `pollingDataId` 落地；民调库扩展等人工核实的新数据；
+**当前任务**: `feature/annotation-pipeline` — Path B 匹配管线已实跑，裁决产出 8/28；
+待人工核对差异后决定是否 `npm run match:merge -- --apply`
+**下一步候选**: 核对裁决差异并决定写回；民调库扩展等人工核实的新数据；
 论文与视频（9 月内动手）
