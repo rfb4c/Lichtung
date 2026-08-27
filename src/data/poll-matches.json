@@ -1,19 +1,19 @@
 {
   "meta": {
-    "promptSha256": "af755726135bd510505754d02fe029449cb5fd6cec52995effebd6f9a234aad9",
+    "promptSha256": "1b45c95c32492c1ca6b140707fe0fc9fa75eff47fc6cc218973fcd80b5adb87a",
     "schemaSha256": "7067c1794afec168bb82c6350655d802b4d41f51d0868637e58f250d12c84afb",
     "runs": [
       {
         "slot": "A",
         "provider": "anthropic",
         "model": "claude-opus-5",
-        "ranAt": "2026-08-27T22:15:26.722Z"
+        "ranAt": "2026-08-27T23:19:55.015Z"
       },
       {
         "slot": "B",
         "provider": "openai",
         "model": "gpt-5.5-2026-04-23",
-        "ranAt": "2026-08-27T22:15:26.723Z"
+        "ranAt": "2026-08-27T23:19:55.016Z"
       }
     ]
   },
@@ -28,93 +28,104 @@
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate poll_gun_general_strictness_001 asks whether gun laws should be more or less strict; the report is about a specific mass shooting and terrorism investigation, not a policy position on gun-law strictness."
+        "rejection": "No candidate polling questions are on file for this issue, so none can ask about the Austin mass shooting or terrorism investigation."
       },
       "A": {
         "reportId": "rp_gun_001",
-        "coreClaim": "A mass shooting outside an Austin beer garden killed three and injured 14, and the FBI is investigating it as possible terrorism.",
+        "coreClaim": "A mass shooting outside an Austin bar killed three and injured 14, and the FBI is investigating it as possible terrorism.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate is poll_gun_general_strictness_001, but the report is an incident account of a shooting and a terrorism investigation into the gunman's motive; it makes no claim about whether gun laws should be made more or less strict."
+        "rejection": "No candidate polling questions were provided for this issue, so there is nothing to match; the report describes a specific mass shooting and terrorism investigation rather than any polled policy proposition."
       }
     },
     "rp_gun_002": {
       "B": {
         "reportId": "rp_gun_002",
-        "coreClaim": "A federal appeals court upheld Maryland restrictions banning guns in sensitive public places.",
+        "coreClaim": "A federal appeals court upheld Maryland's restrictions banning guns in sensitive public places.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate is poll_gun_general_strictness_001, but the report is about whether Maryland's sensitive-place gun bans are constitutional, not whether U.S. gun laws should generally be made more or less strict."
+        "rejection": "No candidate polling questions are on file for this issue; the report is about a court upholding Maryland's ban on guns in sensitive public places."
       },
       "A": {
         "reportId": "rp_gun_002",
-        "coreClaim": "A federal appeals court upheld Maryland's law banning guns in sensitive public places, holding that states may impose such firearm restrictions consistent with the Second Amendment.",
-        "alignedPollId": "poll_gun_general_strictness_001",
+        "coreClaim": "A federal appeals court upheld Maryland's ban on carrying firearms in sensitive public places such as schools, hospitals, parks and government buildings.",
+        "alignedPollId": null,
         "evidence": {
-          "reportSpan": "Federal appeals court upholds Maryland gun control restrictions",
-          "pollConcept": "Should gun laws in the United States be made more strict, left as they are, or made less strict?",
-          "alignment": "The ruling decides whether a restrictive gun law stands, which is the same proposition the poll puts to the public — whether firearms should be more or less restricted by law — analogous to a court upholding a law that tightens regulation."
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
         },
-        "rejection": ""
+        "rejection": "No candidate polling questions were provided for this issue, so there is nothing asking about restricting firearms in sensitive public places."
       }
     },
     "rp_gun_003": {
-      "B": {
+      "A": {
         "reportId": "rp_gun_003",
-        "coreClaim": "A federal appeals court ruled California's open-carry ban unconstitutional under the Second Amendment.",
+        "coreClaim": "California's ban on openly carrying firearms is unconstitutional under the Second Amendment and must be struck down.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate is poll_gun_general_strictness_001, but the report is about the constitutionality of California's open-carry ban, not whether U.S. gun laws generally should be made more or less strict."
+        "rejection": "No candidate polling questions exist for this issue, so there is nothing asking about whether open carry of firearms should be permitted or banned."
       },
-      "A": {
+      "B": {
         "reportId": "rp_gun_003",
-        "coreClaim": "California's ban on openly carrying firearms is unconstitutional and must be struck down, loosening gun restrictions for 95% of the state's population.",
-        "alignedPollId": "poll_gun_general_strictness_001",
+        "coreClaim": "A federal appeals court ruled California's ban on openly carrying firearms in most counties unconstitutional.",
+        "alignedPollId": null,
         "evidence": {
-          "reportSpan": "The 9th Circuit Court of Appeals struck down California's ban on openly carrying firearms in most counties, ruling 2-1 that it violates the Second Amendment.",
-          "pollConcept": "made less strict",
-          "alignment": "A court invalidating a state firearm-carry restriction is the proposition of gun laws being made less strict, decided judicially rather than polled."
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
         },
-        "rejection": ""
+        "rejection": "There are no candidate polling questions on file; the report is about whether California may ban open carry, so no listed poll asks that proposition."
       }
     },
     "rp_gun_004": {
-      "B": {
-        "reportId": "rp_gun_004",
-        "coreClaim": "Trump's shifting comments after the Minneapolis shooting left both sides confused about the White House's gun policy.",
-        "alignedPollId": null,
-        "evidence": {
-          "reportSpan": "",
-          "pollConcept": "",
-          "alignment": ""
-        },
-        "rejection": "Closest candidate poll_gun_general_strictness_001 asks whether U.S. gun laws should be more or less strict; the report is about Trump's inconsistent stance on a shooting and gun policy, not a position on legal strictness."
-      },
       "A": {
         "reportId": "rp_gun_004",
-        "coreClaim": "Trump's contradictory statements about the Minneapolis shooting, followed by a reversal after NRA backlash, have left both sides confused about the White House's gun policy.",
+        "coreClaim": "Trump's shifting statements about an armed protester in the Minneapolis shooting have left both gun-rights advocates and gun-control advocates unclear about White House gun policy.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "The closest candidate asks whether U.S. gun laws should be made more or less strict. The report is about the President's inconsistent messaging and political fallout over a specific shooting, not about whether gun laws should be tightened or loosened."
+        "rejection": "No candidate polling questions exist for this issue. The report concerns the political incoherence of the administration's gun stance after a shooting, not any specific contested gun-policy proposition on file."
+      },
+      "B": {
+        "reportId": "rp_gun_004",
+        "coreClaim": "Trump's shifting response to the Minneapolis shooting left both sides confused about the White House's gun policy.",
+        "alignedPollId": null,
+        "evidence": {
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
+        },
+        "rejection": "No candidate polling questions are on file; the report is about Trump's inconsistent stance on a specific gun-policy controversy after the Minneapolis shooting."
       }
     },
     "rp_gun_005": {
+      "A": {
+        "reportId": "rp_gun_005",
+        "coreClaim": "Federal law's ban on gun ownership by marijuana users may be unconstitutional under recent Second Amendment standards, as the Supreme Court now weighs.",
+        "alignedPollId": null,
+        "evidence": {
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
+        },
+        "rejection": "No candidate polling questions are on file for this issue, so there is nothing asking about whether marijuana users may be barred from owning firearms."
+      },
       "B": {
         "reportId": "rp_gun_005",
         "coreClaim": "The Supreme Court is considering whether federal law may bar marijuana users from owning guns.",
@@ -124,127 +135,92 @@
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate poll_gun_general_strictness_001 asks whether U.S. gun laws should generally be more or less strict; the report is about a specific firearm ban for marijuana users."
-      },
-      "A": {
-        "reportId": "rp_gun_005",
-        "coreClaim": "The Supreme Court is deciding whether federal law may bar marijuana users from owning guns consistent with the Second Amendment.",
-        "alignedPollId": null,
-        "evidence": {
-          "reportSpan": "",
-          "pollConcept": "",
-          "alignment": ""
-        },
-        "rejection": "Closest candidate is poll_gun_general_strictness_001 on whether gun laws overall should be stricter. The report is about a specific prohibited-person category (marijuana users) and its Second Amendment validity, which that broad strictness question does not ask about."
+        "rejection": "There are no candidate polling questions on file, so none asks whether marijuana users can be prohibited from owning guns."
       }
     },
     "rp_gun_006": {
       "A": {
         "reportId": "rp_gun_006",
-        "coreClaim": "The Trump administration's Justice Department is considering rolling back federal firearms regulations, including rules on ghost guns and pistol braces, making gun rules less strict.",
-        "alignedPollId": "poll_gun_general_strictness_001",
+        "coreClaim": "The Justice Department is weighing rolling back ATF firearms regulations, including rules on ghost guns and pistol braces.",
+        "alignedPollId": null,
         "evidence": {
-          "reportSpan": "Justice Department is considering rolling back ATF regulations on firearms, including rules on ghost guns and pistol braces",
-          "pollConcept": "made less strict",
-          "alignment": "Rescinding existing federal firearms rules is precisely the proposition of making gun laws less strict rather than keeping or tightening them, so the report enacts the poll's contested choice."
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
         },
-        "rejection": ""
+        "rejection": "No candidate polling questions are on file for this issue, so there is nothing asking about rolling back ATF rules on ghost guns or pistol braces."
       },
       "B": {
         "reportId": "rp_gun_006",
-        "coreClaim": "The Justice Department is considering rolling back federal firearms regulations, including ghost gun and pistol brace rules.",
-        "alignedPollId": "poll_gun_general_strictness_001",
+        "coreClaim": "The Justice Department is considering rolling back ATF firearms regulations, including rules on ghost guns and pistol braces.",
+        "alignedPollId": null,
         "evidence": {
-          "reportSpan": "considering rolling back ATF regulations on firearms",
-          "pollConcept": "made less strict",
-          "alignment": "Rolling back ATF firearm regulations is a proposal to make gun laws less strict, which is the direction of policy the poll asks about."
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
         },
-        "rejection": ""
+        "rejection": "No candidate polling questions are on file for this issue, so there is no precise proposition to match against the report's rollback of ATF firearms regulations."
       }
     },
     "rp_gun_007": {
       "B": {
         "reportId": "rp_gun_007",
-        "coreClaim": "Left-leaning gun advocacy groups are seeing a surge in firearms training demand and membership inquiries after a Minneapolis shooting.",
+        "coreClaim": "Left-leaning gun advocacy groups are seeing surging membership and firearms training demand after a Minneapolis shooting.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate is poll_gun_general_strictness_001, but the report is about gun ownership/training interest among progressives, not whether U.S. gun laws should be more or less strict."
+        "rejection": "No candidate polling questions are on file; the report is about increased membership inquiries and firearms training demand among liberal gun groups."
       },
       "A": {
         "reportId": "rp_gun_007",
-        "coreClaim": "Left-leaning gun advocacy groups are seeing a surge in membership and firearms-training demand after federal agents fatally shot a protester in Minneapolis.",
+        "coreClaim": "Left-leaning gun advocacy groups are seeing a surge in membership and training demand from progressives after a protester was fatally shot by federal agents in Minneapolis.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest is poll_gun_general_strictness_001 on whether gun laws should be stricter; the report is about progressives' rising interest in gun ownership and training, not about any preferred level of gun regulation."
+        "rejection": "No candidate polling questions were provided for this issue, so there is nothing to match; the report concerns progressives' rising interest in firearms training and gun-group membership."
       }
     },
     "rp_gun_008": {
       "A": {
         "reportId": "rp_gun_008",
-        "coreClaim": "Gun rights groups and the NRA say the Trump administration's claim that a Minneapolis protester had no right to possess a firearm contradicts established Second Amendment principles.",
+        "coreClaim": "Gun rights groups say the Trump administration's assertion that a Minneapolis protester had no right to possess a firearm contradicts established Second Amendment principles.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "The only candidate asks whether gun laws should be more or less strict. This report is about an intra-conservative dispute over the administration's Second Amendment rhetoric in a specific case, not about whether gun laws should be tightened or loosened."
+        "rejection": "No candidate polling questions were offered for this issue, so there is nothing asking about whether an armed protester retains Second Amendment rights or about the administration's gun-rights rhetoric."
       },
       "B": {
         "reportId": "rp_gun_008",
-        "coreClaim": "Gun rights groups say the Trump administration wrongly claimed a Minneapolis protester had no right to possess a firearm.",
+        "coreClaim": "Gun rights groups say the Trump administration's position that a Minneapolis protester had no right to possess a firearm contradicts gun rights principles.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate poll_gun_general_strictness_001 asks whether U.S. gun laws should be more or less strict; the report is about whether one protester had a Second Amendment right to possess a firearm."
-      }
-    },
-    "rp_abortion_001": {
-      "A": {
-        "reportId": "rp_abortion_001",
-        "coreClaim": "Wyoming's Supreme Court struck down the state's near-total abortion ban and its ban on abortion pills as violating the state constitution, keeping abortion legal in the state.",
-        "alignedPollId": "poll_abortion_legality_001",
-        "evidence": {
-          "reportSpan": "Wyoming's Supreme Court struck down the state's near-total abortion ban and first-in-nation prohibition on abortion pills",
-          "pollConcept": "Do you think abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
-          "alignment": "Voiding a near-total ban decides whether abortion is legal or illegal in the state, which is exactly the proposition the poll measures public opinion on."
-        },
-        "rejection": ""
-      },
-      "B": {
-        "reportId": "rp_abortion_001",
-        "coreClaim": "Wyoming's Supreme Court invalidated the state's near-total abortion ban and abortion pill ban as unconstitutional.",
-        "alignedPollId": "poll_abortion_legality_001",
-        "evidence": {
-          "reportSpan": "struck down the state's near-total abortion ban",
-          "pollConcept": "abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
-          "alignment": "Striking down a near-total abortion ban directly decides whether abortion may be legal rather than illegal in the state."
-        },
-        "rejection": ""
+        "rejection": "No candidate polling questions are on file, so no precise poll proposition is available to align with the report's claim about firearm possession rights for a protester."
       }
     },
     "rp_abortion_002": {
       "A": {
         "reportId": "rp_abortion_002",
-        "coreClaim": "The number of US abortion clinics has fallen to 753, with closures occurring even in states where abortion remains legal, tightening access nationwide.",
+        "coreClaim": "The number of US abortion clinics fell to 753 by the end of 2025, with closures occurring even in states where abortion remains legal, straining access.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate is poll_abortion_legality_001, which asks whether abortion should be legal or illegal. The report is about the shrinking physical supply of abortion clinics and practical access even where abortion is already legal, a proposition about provider availability rather than legal status."
+        "rejection": "Closest candidate is poll_abortion_legality_001, which asks whether abortion should be legal or illegal. The report is about the declining number of operating clinics and practical access, not about whether abortion ought to be legal."
       },
       "B": {
         "reportId": "rp_abortion_002",
@@ -255,117 +231,130 @@
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate is poll_abortion_legality_001, which asks whether abortion should be legal or illegal; the report is about clinic closures and practical access, not the legal status of abortion."
+        "rejection": "Closest candidate is poll_abortion_legality_001; it asks whether abortion should be legal or illegal, while the report is about clinic closures and resulting access strain even where abortion is legal."
       }
     },
-    "rp_abortion_004": {
+    "rp_abortion_001": {
       "A": {
-        "reportId": "rp_abortion_004",
-        "coreClaim": "Voters in Missouri, Idaho, Virginia, Oregon, Montana and Nebraska will decide abortion-related ballot measures this November that could reshape whether abortion is legal across the country.",
-        "alignedPollId": "poll_abortion_legality_002",
+        "reportId": "rp_abortion_001",
+        "coreClaim": "Wyoming's near-total abortion ban and its ban on abortion pills are unconstitutional, so abortion remains legal in the state.",
+        "alignedPollId": "poll_abortion_legality_001",
         "evidence": {
-          "reportSpan": "Abortion-related ballot measures are heading to voters in Missouri, Idaho, Virginia, Oregon, Montana and Nebraska this November",
+          "reportSpan": "Wyoming's Supreme Court struck down the state's near-total abortion ban",
           "pollConcept": "Do you think abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
-          "alignment": "The ballot measures put directly to voters the question of whether abortion should be legal in their states, which is the same proposition the poll asks respondents to answer."
+          "alignment": "Striking down a near-total ban decides precisely the proposition the poll asks about — whether abortion is legal or illegal in most or all cases — as applied in Wyoming."
         },
         "rejection": ""
       },
       "B": {
-        "reportId": "rp_abortion_004",
-        "coreClaim": "Abortion-related ballot measures are heading to voters in several states in November 2026.",
-        "alignedPollId": null,
+        "reportId": "rp_abortion_001",
+        "coreClaim": "Wyoming's Supreme Court struck down the state's near-total abortion ban as violating the state constitution.",
+        "alignedPollId": "poll_abortion_legality_001",
         "evidence": {
-          "reportSpan": "",
-          "pollConcept": "",
-          "alignment": ""
+          "reportSpan": "struck down the state's near-total abortion ban",
+          "pollConcept": "abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
+          "alignment": "A court striking down a near-total abortion ban directly determines whether abortion may be legal rather than illegal in most or all cases."
         },
-        "rejection": "Closest candidate is poll_abortion_legality_001, but the report is about abortion-related ballot measures going before voters, not asking whether abortion should be legal in all, most, few, or no cases."
+        "rejection": ""
       }
     },
     "rp_abortion_003": {
       "B": {
         "reportId": "rp_abortion_003",
-        "coreClaim": "The Department of Veterans Affairs imposed a near-total ban on providing abortion care to women veterans.",
+        "coreClaim": "The VA imposed a near-total ban on abortion care for women veterans, including in rape, incest, and health-risk cases.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate poll_abortion_legality_001 asks whether abortion should be legal generally; the report is about a VA policy eliminating abortion care within veterans’ health services, not general abortion legality."
+        "rejection": "Closest candidate: poll_abortion_legality_001. It asks whether abortion should be legal or illegal generally; the report is about a VA policy eliminating abortion care for veterans."
       },
       "A": {
         "reportId": "rp_abortion_003",
-        "coreClaim": "The Department of Veterans Affairs has banned abortion care for veterans in nearly all circumstances, including rape, incest, and threats to the pregnant person's health.",
+        "coreClaim": "The VA has banned abortion care for veterans in nearly all circumstances, including rape, incest, and threats to the pregnant person's health.",
         "alignedPollId": "poll_abortion_legality_001",
         "evidence": {
-          "reportSpan": "near-total abortion ban, eliminating abortion care even in cases of rape, incest, or to save the pregnant person's health",
-          "pollConcept": "Illegal in all cases",
-          "alignment": "The policy enacts the strictest position on the abortion-legality spectrum the poll measures — abortion barred even in the rape, incest, and health cases that separate \"illegal in most cases\" from \"illegal in all cases\" — so the report is that proposition put into effect for veterans."
+          "reportSpan": "imposed a near-total abortion ban, eliminating abortion care even in cases of rape, incest, or to save the pregnant person's health",
+          "pollConcept": "Do you think abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
+          "alignment": "A government policy forbidding abortion in essentially every circumstance, including the standard rape/incest/health exceptions, is the concrete enactment of the 'illegal in all cases' position the poll measures."
         },
         "rejection": ""
       }
     },
-    "rp_abortion_005": {
-      "A": {
-        "reportId": "rp_abortion_005",
-        "coreClaim": "State abortion laws are more extreme than public opinion, which mostly favors abortion being legal with some restrictions.",
-        "alignedPollId": "poll_abortion_legality_001",
-        "evidence": {
-          "reportSpan": "While most Americans favor abortion access with some restrictions, state policies often reflect more extreme positions, either total bans or unrestricted access.",
-          "pollConcept": "Do you think abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
-          "alignment": "The report's central claim is a claim about where Americans stand on abortion's legality along the all/most/none gradient, which is precisely the proposition the poll's four-point legality scale measures."
-        },
-        "rejection": ""
-      },
+    "rp_abortion_004": {
       "B": {
-        "reportId": "rp_abortion_005",
-        "coreClaim": "Many state abortion laws do not align with public opinion, which generally favors abortion access with some restrictions.",
+        "reportId": "rp_abortion_004",
+        "coreClaim": "Abortion-related ballot measures will go before voters in several states in November 2026.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate is poll_abortion_legality_001, which asks whether abortion should be legal or illegal in varying cases; the report is about whether state abortion laws align with public opinion, not simply the legality preference itself."
+        "rejection": "Closest is poll_abortion_legality_001, but the report is about ballot measures going to voters and their potential legal impact, not whether abortion should be legal in all, most, few, or no cases."
+      },
+      "A": {
+        "reportId": "rp_abortion_004",
+        "coreClaim": "Voters in six states will decide abortion-related ballot measures this November that could significantly reshape the legality of abortion nationwide.",
+        "alignedPollId": "poll_abortion_legality_001",
+        "evidence": {
+          "reportSpan": "Abortion-related ballot measures are heading to voters in Missouri, Idaho, Virginia, Oregon, Montana and Nebraska this November",
+          "pollConcept": "Do you think abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
+          "alignment": "The ballot measures put directly to voters the question of whether abortion should be legal in their states, which is the same proposition the poll asks the public to answer."
+        },
+        "rejection": ""
       }
     },
     "rp_abortion_006": {
       "A": {
         "reportId": "rp_abortion_006",
-        "coreClaim": "The anti-abortion movement is mounting new legal challenges to blue-state 'shield laws' protecting abortion providers, potentially forcing a Supreme Court fight over interstate abortion enforcement.",
+        "coreClaim": "Anti-abortion groups are mounting legal challenges to blue-state shield laws protecting abortion providers, potentially forcing a Supreme Court fight over interstate abortion access and enforcement.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "The closest candidates (poll_abortion_legality_001/002) ask whether abortion should be legal in all/most cases; the report is about interstate legal conflict over state shield laws shielding providers from out-of-state prosecution, which the polls do not ask about."
+        "rejection": "Closest candidate is poll_abortion_legality_001, which asks whether abortion should be legal in general; the report is about cross-state enforcement of shield laws protecting providers who serve out-of-state patients, a distinct jurisdictional proposition the poll does not ask about."
       },
       "B": {
         "reportId": "rp_abortion_006",
-        "coreClaim": "The anti-abortion movement is escalating legal challenges to blue-state shield laws protecting abortion providers and patients.",
+        "coreClaim": "Anti-abortion activists are challenging blue-state shield laws protecting abortion providers and patients from out-of-state enforcement.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate is poll_abortion_legality_001, but it asks whether abortion should be legal in all, most, few, or no cases; the report is about challenges to shield laws and interstate enforcement."
+        "rejection": "Closest candidate is poll_abortion_legality_001, but the report is about challenges to shield laws and interstate enforcement, not whether abortion should be legal or illegal in all or most cases."
+      }
+    },
+    "rp_abortion_005": {
+      "A": {
+        "reportId": "rp_abortion_005",
+        "coreClaim": "Most Americans favor abortion being legal with some restrictions, yet many state laws impose either total bans or unrestricted access, diverging from that public opinion.",
+        "alignedPollId": "poll_abortion_legality_001",
+        "evidence": {
+          "reportSpan": "While most Americans favor abortion access with some restrictions, state policies often reflect more extreme positions, either total bans or unrestricted access.",
+          "pollConcept": "Do you think abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
+          "alignment": "The report's claim about where the public stands — legal but with some restrictions rather than at either extreme — is precisely the legal-in-all/most versus illegal-in-most/all distribution this question measures."
+        },
+        "rejection": ""
+      },
+      "B": {
+        "reportId": "rp_abortion_005",
+        "coreClaim": "Most Americans favor abortion access with some restrictions, while many state abortion laws take more extreme positions.",
+        "alignedPollId": "poll_abortion_legality_001",
+        "evidence": {
+          "reportSpan": "most Americans favor abortion access with some restrictions",
+          "pollConcept": "Legal in most cases",
+          "alignment": "Favoring abortion access with some restrictions is the same position as saying abortion should be legal in most cases."
+        },
+        "rejection": ""
       }
     },
     "rp_abortion_007": {
-      "B": {
-        "reportId": "rp_abortion_007",
-        "coreClaim": "Trump expanded the Mexico City Policy to cut foreign aid to organizations abroad that discuss or provide abortion services.",
-        "alignedPollId": null,
-        "evidence": {
-          "reportSpan": "",
-          "pollConcept": "",
-          "alignment": ""
-        },
-        "rejection": "Closest candidate poll_abortion_legality_001 asks whether abortion should be legal or illegal; the report is about foreign aid eligibility for groups that discuss or provide abortion abroad, not abortion legality."
-      },
       "A": {
         "reportId": "rp_abortion_007",
         "coreClaim": "Trump expanded the Mexico City Policy to cut off roughly $30 billion in non-military foreign aid to organizations that discuss or provide abortion services, and to groups with DEI initiatives.",
@@ -375,29 +364,40 @@
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidates (poll_abortion_legality_001/002) ask whether abortion should be legal. The report is about conditioning U.S. foreign aid funding on whether overseas groups discuss or provide abortion (and on DEI policies), a funding-restriction proposition the polls do not ask about."
+        "rejection": "Closest is poll_abortion_legality_001, which asks whether abortion should be legal in the U.S. The report is about federal funding conditions on foreign aid recipients that discuss or provide abortion abroad — a funding/speech restriction question, not domestic legality."
+      },
+      "B": {
+        "reportId": "rp_abortion_007",
+        "coreClaim": "Trump expanded a foreign aid ban on organizations abroad that discuss or provide abortion services.",
+        "alignedPollId": null,
+        "evidence": {
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
+        },
+        "rejection": "Closest: poll_abortion_legality_001. The report is about restricting U.S. foreign aid to groups discussing or providing abortion abroad, not whether abortion should be legal or illegal."
       }
     },
     "rp_abortion_008": {
       "A": {
         "reportId": "rp_abortion_008",
-        "coreClaim": "Missouri voters will decide a 2026 constitutional amendment that would repeal the state's abortion rights and ban abortion except in narrow cases.",
+        "coreClaim": "Missouri voters will decide a 2026 amendment that would repeal the state's constitutional right to abortion and make abortion illegal except in narrow cases.",
         "alignedPollId": "poll_abortion_legality_001",
         "evidence": {
-          "reportSpan": "The measure allows abortion only for medical emergencies, fetal anomalies, or rape/incest before 12 weeks",
-          "pollConcept": "Illegal in most cases",
-          "alignment": "The ballot measure puts to voters precisely the question of whether abortion should be legal or illegal in most cases, which is the proposition the poll measures."
+          "reportSpan": "Missouri's Amendment 3 would overturn the 2024 voter-approved constitutional right to reproductive freedom and reinstate abortion restrictions. The measure allows abortion only for medical emergencies, fetal anomalies, or rape/incest before 12 weeks",
+          "pollConcept": "Do you think abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
+          "alignment": "The ballot measure puts to voters exactly the proposition the poll measures—whether abortion should be legal or illegal in most cases—by banning it except for narrow enumerated exceptions."
         },
         "rejection": ""
       },
       "B": {
         "reportId": "rp_abortion_008",
-        "coreClaim": "Missouri voters will decide whether to overturn a constitutional abortion right and reinstate broad abortion restrictions.",
+        "coreClaim": "Missouri voters will decide whether to reinstate a near-ban on abortion with limited exceptions.",
         "alignedPollId": "poll_abortion_legality_001",
         "evidence": {
-          "reportSpan": "reinstate abortion restrictions",
+          "reportSpan": "reinstate abortion restrictions. The measure allows abortion only for medical emergencies, fetal anomalies, or rape/incest before 12 weeks",
           "pollConcept": "abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
-          "alignment": "A measure to reinstate broad abortion restrictions is a decision about whether abortion should be legal or illegal in most cases."
+          "alignment": "A measure allowing abortion only in narrow exceptions directly decides how legal or illegal abortion should be, which is the poll's proposition."
         },
         "rejection": ""
       }
@@ -405,23 +405,23 @@
     "rp_climate_001": {
       "A": {
         "reportId": "rp_climate_001",
-        "coreClaim": "The EPA has repealed the 2009 endangerment finding, removing the legal basis for federal regulation of greenhouse gases as pollutants from power plants, vehicles, and oil and gas operations.",
+        "coreClaim": "The EPA has repealed the 2009 endangerment finding, ending the federal government's legal authority to regulate greenhouse gases as pollutants under the Clean Air Act.",
         "alignedPollId": "poll_climate_carbon_001",
         "evidence": {
-          "reportSpan": "EPA finalized repeal of its 2009 'endangerment finding' that greenhouse gases endanger public health. This eliminates the legal foundation for federal climate regulations",
+          "reportSpan": "the EPA finalized repeal of its 2009 'endangerment finding' that greenhouse gases endanger public health. This eliminates the legal foundation for federal climate regulations",
           "pollConcept": "Regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
-          "alignment": "The endangerment finding is the legal determination that authorizes federal regulation of greenhouse gases as pollutants, so repealing it is precisely a decision against the policy the poll asks respondents to support or oppose."
+          "alignment": "The endangerment finding is precisely the legal determination that authorizes treating greenhouse gases as pollutants subject to federal regulation, so repealing it decides the very proposition the poll asks about."
         },
         "rejection": ""
       },
       "B": {
         "reportId": "rp_climate_001",
-        "coreClaim": "The Trump EPA repealed the greenhouse gas endangerment finding, eliminating the legal foundation for federal climate regulations.",
+        "coreClaim": "The EPA repealed the greenhouse gas endangerment finding, eliminating the legal basis for federal climate regulation.",
         "alignedPollId": "poll_climate_carbon_001",
         "evidence": {
-          "reportSpan": "eliminates the legal foundation for federal climate regulations",
+          "reportSpan": "This eliminates the legal foundation for federal climate regulations on power plants, vehicles, and the oil and gas industry",
           "pollConcept": "Regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
-          "alignment": "Eliminating the legal basis for greenhouse-gas rules is the policy reverse of regulating carbon dioxide as a pollutant."
+          "alignment": "The report describes ending the legal basis for federal greenhouse-gas regulation, which is the same policy proposition as regulating carbon dioxide as a pollutant."
         },
         "rejection": ""
       }
@@ -429,60 +429,36 @@
     "rp_climate_002": {
       "B": {
         "reportId": "rp_climate_002",
-        "coreClaim": "The EPA will no longer factor economic costs of public health impacts into pollution regulations.",
+        "coreClaim": "The EPA will stop factoring economic costs of public health impacts into pollution regulations.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate poll_climate_carbon_001 asks whether to regulate carbon dioxide as a pollutant; the report is about how EPA weighs public-health costs when making pollution regulations."
+        "rejection": "Closest candidate poll_climate_carbon_001 asks whether to regulate carbon dioxide as a pollutant; the report is about excluding public-health cost calculations from pollution rulemaking."
       },
       "A": {
         "reportId": "rp_climate_002",
-        "coreClaim": "The EPA should not factor the economic costs of public health impacts into pollution rulemaking, reducing regulatory burdens on industry.",
+        "coreClaim": "The EPA will stop counting the economic costs of public health harms when writing pollution regulations, easing regulatory burdens on industry.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest is poll_climate_carbon_001, which asks whether carbon dioxide should be regulated as a pollutant. The report is about how EPA weighs public-health cost-benefit analysis in pollution rules generally, not about whether CO2 should be regulated."
-      }
-    },
-    "rp_climate_004": {
-      "A": {
-        "reportId": "rp_climate_004",
-        "coreClaim": "Net zero emissions targets have ceased to be a global diplomatic priority, with countries instead pursuing industrial policy centered on energy security and clean-technology competitiveness.",
-        "alignedPollId": null,
-        "evidence": {
-          "reportSpan": "",
-          "pollConcept": "",
-          "alignment": ""
-        },
-        "rejection": "The only candidate asks whether the public supports regulating carbon dioxide as a pollutant. The report is about the collapse of net-zero emissions targets as a diplomatic priority and a shift toward clean-energy industrial policy, not about domestic CO2 regulation."
-      },
-      "B": {
-        "reportId": "rp_climate_004",
-        "coreClaim": "Net zero has faded as a global diplomatic priority while countries pivot toward clean-energy industrial policy.",
-        "alignedPollId": null,
-        "evidence": {
-          "reportSpan": "",
-          "pollConcept": "",
-          "alignment": ""
-        },
-        "rejection": "Closest candidate poll_climate_carbon_001 asks whether to regulate carbon dioxide as a pollutant; the report is about the decline of net-zero diplomacy and a pivot to clean-energy industrial policy."
+        "rejection": "Closest candidate is poll_climate_carbon_001, which asks whether carbon dioxide should be regulated as a pollutant. The report is about the cost-benefit methodology EPA uses (whether health-cost co-benefits count) in pollution rulemaking generally, not about CO2's regulatory status."
       }
     },
     "rp_climate_003": {
       "A": {
         "reportId": "rp_climate_003",
-        "coreClaim": "The Supreme Court's 2007 Massachusetts v. EPA ruling established that greenhouse gases are pollutants the EPA has authority to regulate, which Trump's 2026 repeal of the endangerment finding directly contradicts.",
+        "coreClaim": "The Supreme Court's Massachusetts v. EPA ruling establishes that greenhouse gases are pollutants the EPA has authority to regulate, which Trump's repeal of the endangerment finding contradicts.",
         "alignedPollId": "poll_climate_carbon_001",
         "evidence": {
           "reportSpan": "the Supreme Court ruled that greenhouse gases are air pollutants under the Clean Air Act and the EPA has authority to regulate them",
           "pollConcept": "Regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
-          "alignment": "Both concern the single proposition that greenhouse gases such as carbon dioxide should be treated and regulated as pollutants by the federal government, which the report says the ruling authorized and the repeal undoes."
+          "alignment": "Both concern the identical proposition that greenhouse gases should be treated as pollutants subject to federal regulation, with the report describing the legal authority to do so and the poll measuring public support for it."
         },
         "rejection": ""
       },
@@ -493,95 +469,108 @@
         "evidence": {
           "reportSpan": "greenhouse gases are air pollutants under the Clean Air Act and the EPA has authority to regulate them",
           "pollConcept": "Regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
-          "alignment": "The report's span asserts EPA authority to treat greenhouse gases as pollutants, which is the same proposition as regulating carbon dioxide as a pollutant."
+          "alignment": "Both state the proposition that greenhouse gases, specifically carbon dioxide, can be treated as pollutants subject to regulation."
         },
         "rejection": ""
+      }
+    },
+    "rp_climate_004": {
+      "A": {
+        "reportId": "rp_climate_004",
+        "coreClaim": "Net zero emissions targets have faded as a global diplomatic priority, with countries shifting instead to industrial policy on energy security and clean technology competitiveness.",
+        "alignedPollId": null,
+        "evidence": {
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
+        },
+        "rejection": "Closest is poll_climate_carbon_001 on regulating carbon dioxide as a pollutant. The report is about the global diplomatic decline of net-zero emissions targets in favor of industrial/energy-security policy, not about whether CO2 should be regulated as a pollutant."
+      },
+      "B": {
+        "reportId": "rp_climate_004",
+        "coreClaim": "Net zero has effectively died as a global diplomatic priority as countries pivot to clean-energy industrial policy over emissions targets.",
+        "alignedPollId": null,
+        "evidence": {
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
+        },
+        "rejection": "Closest candidate poll_climate_carbon_001 asks whether to regulate carbon dioxide as a pollutant; the report is about a global shift from net-zero diplomacy to clean-energy industrial policy."
       }
     },
     "rp_climate_005": {
       "B": {
         "reportId": "rp_climate_005",
-        "coreClaim": "The U.S. is projected to add a record 86 GW of renewable energy capacity in 2026, with renewables surpassing natural gas capacity.",
+        "coreClaim": "The U.S. is projected to add a record 86 GW of renewable energy capacity in 2026, surpassing natural gas capacity.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate poll_climate_carbon_001 asks whether to regulate carbon dioxide as a pollutant; the report is about projected renewable energy capacity additions, not carbon regulation policy."
+        "rejection": "Closest candidate poll_climate_carbon_001 asks whether to regulate carbon dioxide as a pollutant; the report is about projected renewable energy capacity additions, not CO2 regulation."
       },
       "A": {
         "reportId": "rp_climate_005",
-        "coreClaim": "U.S. developers plan to add a record 86 GW of utility-scale capacity in 2026, mostly solar, batteries and wind, pushing renewable capacity past natural gas for the first time.",
+        "coreClaim": "U.S. developers plan to add a record 86 GW of new utility-scale capacity in 2026, with solar, batteries, and wind dominating and renewables surpassing natural gas capacity for the first time.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate, poll_climate_carbon_001, asks whether carbon dioxide should be regulated as a pollutant; the report is a forecast of how much generating capacity developers will actually build, not a claim about any climate policy being adopted."
+        "rejection": "The closest candidate, poll_climate_carbon_001, asks whether carbon dioxide should be regulated as a pollutant. The report is a factual forecast of how much generating capacity developers will build, not a claim about any climate or energy policy."
       }
     },
     "rp_climate_007": {
       "A": {
         "reportId": "rp_climate_007",
-        "coreClaim": "The EPA's reversal of federal climate emissions regulation is proper, because sweeping federal mandates on greenhouse gases are not justified by climate science and should be left to elected officials.",
+        "coreClaim": "The EPA's reversal of its climate regulations is proper because unelected agency officials should not impose sweeping greenhouse gas mandates absent clear direction from elected lawmakers.",
         "alignedPollId": "poll_climate_carbon_001",
         "evidence": {
-          "reportSpan": "argues the EPA's reversal on climate regulations restores proper constitutional order",
+          "reportSpan": "the EPA's reversal on climate regulations restores proper constitutional order",
           "pollConcept": "Regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
-          "alignment": "The EPA reversal at issue is the withdrawal of federal authority to regulate greenhouse gas emissions, so endorsing it is the position of opposing regulation of carbon dioxide as a pollutant that the poll measures."
+          "alignment": "The EPA rules being reversed are precisely the federal regulation of greenhouse gas emissions as pollutants, so endorsing the reversal is taking the 'oppose' side of the poll's proposition."
         },
         "rejection": ""
       },
       "B": {
         "reportId": "rp_climate_007",
-        "coreClaim": "The EPA's reversal of climate emissions regulations is responsible because sweeping federal mandates by unelected bureaucrats are unjustified.",
+        "coreClaim": "The EPA was right to reverse climate emissions regulations and leave such policy decisions to elected officials.",
         "alignedPollId": "poll_climate_carbon_001",
         "evidence": {
           "reportSpan": "EPA's reversal on climate regulations restores proper constitutional order",
           "pollConcept": "Regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
-          "alignment": "The report endorses reversing EPA climate-emissions regulation, which is the same proposition as whether carbon dioxide should be regulated as a pollutant."
+          "alignment": "Endorsing the EPA’s reversal of climate emissions regulations is a position against the federal policy of regulating carbon dioxide as a pollutant."
         },
         "rejection": ""
       }
     },
     "rp_climate_006": {
-      "A": {
-        "reportId": "rp_climate_006",
-        "coreClaim": "The Trump EPA is applying lessons from its failed first-term rollbacks to build legally durable deregulation, including repealing the greenhouse gas endangerment finding and weakening power plant emissions standards.",
-        "alignedPollId": "poll_climate_carbon_001",
-        "evidence": {
-          "reportSpan": "The strategy includes repealing the endangerment finding, weakening power plant emissions standards",
-          "pollConcept": "Regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
-          "alignment": "The endangerment finding is the legal basis for EPA treating carbon dioxide as a pollutant, so repealing it and gutting power plant carbon standards is action on the very proposition the poll asks about — whether CO2 should be regulated as a pollutant."
-        },
-        "rejection": ""
-      },
       "B": {
         "reportId": "rp_climate_006",
-        "coreClaim": "The Trump EPA is pursuing legally defensible environmental deregulation, including repealing climate and water protections.",
-        "alignedPollId": "poll_climate_carbon_001",
-        "evidence": {
-          "reportSpan": "repealing the endangerment finding, weakening power plant emissions standards",
-          "pollConcept": "Regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
-          "alignment": "Repealing the endangerment finding and weakening emissions standards are EPA actions to reduce or undo regulation of greenhouse-gas pollution, the same proposition as regulating carbon dioxide as a pollutant."
-        },
-        "rejection": ""
-      }
-    },
-    "rp_climate_008": {
-      "A": {
-        "reportId": "rp_climate_008",
-        "coreClaim": "Heat-related deaths in the United States rose 53% between the 2000s and 2010s as extreme heat intensifies.",
+        "coreClaim": "The Trump EPA is applying lessons from past failures to pursue legally defensible environmental deregulation.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest is poll_climate_carbon_001 on regulating carbon dioxide as a pollutant. The report documents observed mortality trends from extreme heat, not whether any climate policy such as CO2 regulation should be adopted."
+        "rejection": "Closest is poll_climate_carbon_001, but it asks whether to regulate carbon dioxide as a pollutant; the report is about EPA's broader deregulatory strategy and multiple rollbacks, not that specific policy proposition."
       },
+      "A": {
+        "reportId": "rp_climate_006",
+        "coreClaim": "The Trump EPA is crafting legally durable rollbacks of climate rules, including repealing the endangerment finding that underpins federal regulation of greenhouse gases.",
+        "alignedPollId": "poll_climate_carbon_001",
+        "evidence": {
+          "reportSpan": "The strategy includes repealing the endangerment finding, weakening power plant emissions standards",
+          "pollConcept": "Regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
+          "alignment": "The endangerment finding is the legal determination that makes greenhouse gases pollutants subject to federal regulation, so repealing it is precisely the decision to stop regulating carbon dioxide as a pollutant that the poll asks about."
+        },
+        "rejection": ""
+      }
+    },
+    "rp_climate_008": {
       "B": {
         "reportId": "rp_climate_008",
         "coreClaim": "Heat-related deaths in the United States have risen sharply as climate change intensifies extreme heat.",
@@ -592,102 +581,113 @@
           "alignment": ""
         },
         "rejection": "Closest candidate poll_climate_carbon_001 asks whether to regulate carbon dioxide as a pollutant; the report is about rising heat-related deaths, not support for that policy."
+      },
+      "A": {
+        "reportId": "rp_climate_008",
+        "coreClaim": "Heat-related deaths in the United States rose 53% between the 2000s and 2010s as climate change intensified extreme heat.",
+        "alignedPollId": null,
+        "evidence": {
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
+        },
+        "rejection": "The only candidate, poll_climate_carbon_001, asks whether carbon dioxide should be regulated as a pollutant. The report is an empirical account of rising heat-mortality statistics and takes no position on any climate policy."
       }
     },
     "rp_gun_010": {
       "A": {
         "reportId": "rp_gun_010",
-        "coreClaim": "Senators Cornyn and Murphy are negotiating a bipartisan bill to expand federal gun background check requirements, which may have a path to enactment.",
-        "alignedPollId": "poll_gun_general_strictness_001",
+        "coreClaim": "A bipartisan Senate effort led by Cornyn and Murphy could produce a deal expanding gun background check requirements.",
+        "alignedPollId": null,
         "evidence": {
-          "reportSpan": "quietly negotiating a bipartisan expansion of gun background check rules",
-          "pollConcept": "Should gun laws in the United States be made more strict",
-          "alignment": "Expanding background check requirements is legislation that tightens gun laws, so the negotiation is over the same proposition the poll asks about — whether U.S. gun laws should be made more strict."
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
         },
-        "rejection": ""
+        "rejection": "No candidate polling questions were provided for this issue, so there is nothing asking about expanded background checks for gun purchases."
       },
       "B": {
         "reportId": "rp_gun_010",
-        "coreClaim": "Cornyn and Murphy are negotiating a bipartisan expansion of gun background check rules that may lead to a deal.",
-        "alignedPollId": "poll_gun_general_strictness_001",
+        "coreClaim": "Cornyn and Murphy are negotiating a bipartisan expansion of gun background check rules.",
+        "alignedPollId": null,
         "evidence": {
-          "reportSpan": "bipartisan expansion of gun background check rules",
-          "pollConcept": "gun laws in the United States be made more strict",
-          "alignment": "Expanding gun background check rules is a proposal to make U.S. gun laws more strict, which is the proposition the poll asks about."
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
         },
-        "rejection": ""
+        "rejection": "There are no candidate polling questions on file; the report is about negotiations over expanding gun background check rules."
       }
     },
     "rp_abortion_010": {
-      "A": {
-        "reportId": "rp_abortion_010",
-        "coreClaim": "Republican state legislators who tried to add exceptions to their states' abortion bans lost anti-abortion groups' backing and drew primary challenges.",
-        "alignedPollId": null,
-        "evidence": {
-          "reportSpan": "",
-          "pollConcept": "",
-          "alignment": ""
-        },
-        "rejection": "Closest is poll_abortion_legality_001, which asks whether abortion should be legal or illegal. The report is about the intra-party political backlash and primary challenges faced by legislators who proposed ban exceptions — a claim about political consequences, not about abortion's legality."
-      },
       "B": {
         "reportId": "rp_abortion_010",
-        "coreClaim": "Republican state legislators who sought exceptions to abortion bans faced backlash and primary challenges from anti-abortion groups.",
+        "coreClaim": "Republican state legislators who sought abortion-ban exceptions faced backlash and primary challenges from anti-abortion groups.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate is poll_abortion_legality_001, but the report is about backlash against Republican lawmakers seeking exceptions to abortion bans, not whether abortion should generally be legal or illegal in all or most cases."
+        "rejection": "Closest candidate is poll_abortion_legality_001; the report is about political backlash against lawmakers seeking exceptions to abortion bans, not whether abortion should be legal or illegal in general."
+      },
+      "A": {
+        "reportId": "rp_abortion_010",
+        "coreClaim": "Republican state legislators who pushed to add exceptions to abortion bans lost anti-abortion group support and drew primary challenges for breaking with party orthodoxy.",
+        "alignedPollId": null,
+        "evidence": {
+          "reportSpan": "",
+          "pollConcept": "",
+          "alignment": ""
+        },
+        "rejection": "Closest is poll_abortion_legality_001, which asks whether abortion should be legal or illegal in all/most cases. The report is about intraparty political retaliation — anti-abortion groups withdrawing support and mounting primary challenges against dissenting Republicans — not about whether abortion should be legal."
       }
     },
     "rp_climate_010": {
       "A": {
         "reportId": "rp_climate_010",
-        "coreClaim": "The United Mine Workers of America supports a transition to clean energy if federal investment guarantees well-paying jobs and retraining for displaced coal workers.",
+        "coreClaim": "The United Mine Workers of America endorses a transition to clean energy so long as federal investment guarantees well-paying jobs and retraining for displaced coal workers.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "The closest candidate, poll_climate_carbon_001, asks whether carbon dioxide should be regulated as a pollutant; the report is about a labor union endorsing a clean energy transition conditioned on federal jobs and retraining support for coal workers, which no candidate asks about."
+        "rejection": "The only candidate, poll_climate_carbon_001, asks whether carbon dioxide should be regulated as a pollutant. The report is about a labor union conditionally backing a clean energy transition tied to job guarantees and worker retraining, which the candidate does not ask about."
       },
       "B": {
         "reportId": "rp_climate_010",
-        "coreClaim": "The United Mine Workers supports a clean energy transition if federal investment provides good jobs and retraining for coal communities.",
+        "coreClaim": "The United Mine Workers of America supports a clean energy transition if federal investment ensures good jobs and retraining for coal communities.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "Closest candidate poll_climate_carbon_001 asks whether to regulate carbon dioxide as a pollutant; the report is about a coal miners' union conditionally supporting a clean energy transition with job protections."
+        "rejection": "Closest candidate poll_climate_carbon_001 asks whether to regulate carbon dioxide as a pollutant; the report is about a coal miners' union backing clean energy transition with job and retraining guarantees."
       }
     },
     "rp_immigration_001": {
       "B": {
         "reportId": "rp_immigration_001",
-        "coreClaim": "ICE enforcement actions have left over 100 U.S.-citizen children without their primary caregivers.",
+        "coreClaim": "ICE enforcement actions have left more than 100 U.S.-citizen children without their primary caregivers.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "No candidate polling questions are available for this issue, so no poll asks about children left without caregivers after ICE enforcement actions."
+        "rejection": "No candidate polling questions are on file for this issue, so there is no precise proposition to align with the report's claim about ICE raids leaving U.S.-citizen children without caregivers."
       },
       "A": {
         "reportId": "rp_immigration_001",
-        "coreClaim": "ICE's expanded arrest quotas are separating more than 100 U.S.-citizen children from their long-resident, non-criminal immigrant parents.",
+        "coreClaim": "ICE's expanded enforcement under a 3,000-daily-arrest quota has stranded more than 100 U.S.-citizen children by detaining their long-resident, non-criminal parents.",
         "alignedPollId": null,
         "evidence": {
           "reportSpan": "",
           "pollConcept": "",
           "alignment": ""
         },
-        "rejection": "No candidate polling questions were provided for this issue, so there is nothing asking about ICE enforcement intensity or the separation of U.S.-citizen children from detained parents."
+        "rejection": "No candidate polling questions were provided for this issue, so there is nothing asking about ICE enforcement intensity or its effects on U.S.-citizen children of detained parents."
       }
     }
   },
@@ -695,41 +695,47 @@
     "rp_gun_001": {
       "reportId": "rp_gun_001",
       "agreement": "agree_null",
-      "pollingDataId": null,
-      "groupKey": null,
+      "resolution": "topic_fallback",
+      "pollingDataId": "poll_gun_general_strictness_001",
+      "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
       "previous": null
     },
     "rp_gun_002": {
       "reportId": "rp_gun_002",
-      "agreement": "disagree",
-      "pollingDataId": null,
-      "groupKey": null,
+      "agreement": "agree_null",
+      "resolution": "topic_fallback",
+      "pollingDataId": "poll_gun_general_strictness_001",
+      "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
       "previous": null
     },
     "rp_gun_003": {
       "reportId": "rp_gun_003",
-      "agreement": "disagree",
-      "pollingDataId": null,
-      "groupKey": null,
+      "agreement": "agree_null",
+      "resolution": "topic_fallback",
+      "pollingDataId": "poll_gun_general_strictness_001",
+      "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
       "previous": null
     },
     "rp_gun_004": {
       "reportId": "rp_gun_004",
       "agreement": "agree_null",
-      "pollingDataId": null,
-      "groupKey": null,
+      "resolution": "topic_fallback",
+      "pollingDataId": "poll_gun_general_strictness_001",
+      "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
       "previous": null
     },
     "rp_gun_005": {
       "reportId": "rp_gun_005",
       "agreement": "agree_null",
-      "pollingDataId": null,
-      "groupKey": null,
+      "resolution": "topic_fallback",
+      "pollingDataId": "poll_gun_general_strictness_001",
+      "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
       "previous": null
     },
     "rp_gun_006": {
       "reportId": "rp_gun_006",
-      "agreement": "agree_mount",
+      "agreement": "agree_null",
+      "resolution": "topic_fallback",
       "pollingDataId": "poll_gun_general_strictness_001",
       "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
       "previous": null
@@ -737,20 +743,23 @@
     "rp_gun_007": {
       "reportId": "rp_gun_007",
       "agreement": "agree_null",
-      "pollingDataId": null,
-      "groupKey": null,
+      "resolution": "topic_fallback",
+      "pollingDataId": "poll_gun_general_strictness_001",
+      "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
       "previous": null
     },
     "rp_gun_008": {
       "reportId": "rp_gun_008",
       "agreement": "agree_null",
-      "pollingDataId": null,
-      "groupKey": null,
+      "resolution": "topic_fallback",
+      "pollingDataId": "poll_gun_general_strictness_001",
+      "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
       "previous": null
     },
     "rp_abortion_001": {
       "reportId": "rp_abortion_001",
       "agreement": "agree_mount",
+      "resolution": "subtopic",
       "pollingDataId": "poll_abortion_legality_002",
       "groupKey": "us-abortion-legality::do you think abortion should be… legal in all cases / legal in most cases / illegal in most cases / illegal in all cases",
       "previous": "poll_abortion_legality_001"
@@ -758,6 +767,7 @@
     "rp_abortion_002": {
       "reportId": "rp_abortion_002",
       "agreement": "agree_null",
+      "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
       "previous": "poll_abortion_legality_001"
@@ -765,6 +775,7 @@
     "rp_abortion_003": {
       "reportId": "rp_abortion_003",
       "agreement": "disagree",
+      "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
       "previous": "poll_abortion_legality_001"
@@ -772,20 +783,23 @@
     "rp_abortion_004": {
       "reportId": "rp_abortion_004",
       "agreement": "disagree",
+      "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
       "previous": "poll_abortion_legality_001"
     },
     "rp_abortion_005": {
       "reportId": "rp_abortion_005",
-      "agreement": "disagree",
-      "pollingDataId": null,
-      "groupKey": null,
+      "agreement": "agree_mount",
+      "resolution": "subtopic",
+      "pollingDataId": "poll_abortion_legality_002",
+      "groupKey": "us-abortion-legality::do you think abortion should be… legal in all cases / legal in most cases / illegal in most cases / illegal in all cases",
       "previous": "poll_abortion_legality_001"
     },
     "rp_abortion_006": {
       "reportId": "rp_abortion_006",
       "agreement": "agree_null",
+      "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
       "previous": "poll_abortion_legality_001"
@@ -793,6 +807,7 @@
     "rp_abortion_007": {
       "reportId": "rp_abortion_007",
       "agreement": "agree_null",
+      "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
       "previous": null
@@ -800,6 +815,7 @@
     "rp_abortion_008": {
       "reportId": "rp_abortion_008",
       "agreement": "agree_mount",
+      "resolution": "subtopic",
       "pollingDataId": "poll_abortion_legality_002",
       "groupKey": "us-abortion-legality::do you think abortion should be… legal in all cases / legal in most cases / illegal in most cases / illegal in all cases",
       "previous": "poll_abortion_legality_001"
@@ -807,6 +823,7 @@
     "rp_climate_001": {
       "reportId": "rp_climate_001",
       "agreement": "agree_mount",
+      "resolution": "subtopic",
       "pollingDataId": "poll_climate_carbon_001",
       "groupKey": "us-climate-carbon-emissions::how much do you support or oppose the following policies? regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
       "previous": "poll_climate_carbon_001"
@@ -814,6 +831,7 @@
     "rp_climate_002": {
       "reportId": "rp_climate_002",
       "agreement": "agree_null",
+      "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
       "previous": "poll_climate_carbon_001"
@@ -821,6 +839,7 @@
     "rp_climate_003": {
       "reportId": "rp_climate_003",
       "agreement": "agree_mount",
+      "resolution": "subtopic",
       "pollingDataId": "poll_climate_carbon_001",
       "groupKey": "us-climate-carbon-emissions::how much do you support or oppose the following policies? regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
       "previous": "poll_climate_carbon_001"
@@ -828,6 +847,7 @@
     "rp_climate_004": {
       "reportId": "rp_climate_004",
       "agreement": "agree_null",
+      "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
       "previous": null
@@ -835,20 +855,23 @@
     "rp_climate_005": {
       "reportId": "rp_climate_005",
       "agreement": "agree_null",
+      "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
       "previous": null
     },
     "rp_climate_006": {
       "reportId": "rp_climate_006",
-      "agreement": "agree_mount",
-      "pollingDataId": "poll_climate_carbon_001",
-      "groupKey": "us-climate-carbon-emissions::how much do you support or oppose the following policies? regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
+      "agreement": "disagree",
+      "resolution": "none",
+      "pollingDataId": null,
+      "groupKey": null,
       "previous": "poll_climate_carbon_001"
     },
     "rp_climate_007": {
       "reportId": "rp_climate_007",
       "agreement": "agree_mount",
+      "resolution": "subtopic",
       "pollingDataId": "poll_climate_carbon_001",
       "groupKey": "us-climate-carbon-emissions::how much do you support or oppose the following policies? regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
       "previous": null
@@ -856,13 +879,15 @@
     "rp_climate_008": {
       "reportId": "rp_climate_008",
       "agreement": "agree_null",
+      "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
       "previous": null
     },
     "rp_gun_010": {
       "reportId": "rp_gun_010",
-      "agreement": "agree_mount",
+      "agreement": "agree_null",
+      "resolution": "topic_fallback",
       "pollingDataId": "poll_gun_general_strictness_001",
       "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
       "previous": null
@@ -870,6 +895,7 @@
     "rp_abortion_010": {
       "reportId": "rp_abortion_010",
       "agreement": "agree_null",
+      "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
       "previous": null
@@ -877,6 +903,7 @@
     "rp_climate_010": {
       "reportId": "rp_climate_010",
       "agreement": "agree_null",
+      "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
       "previous": null
@@ -884,6 +911,7 @@
     "rp_immigration_001": {
       "reportId": "rp_immigration_001",
       "agreement": "agree_null",
+      "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
       "previous": null
