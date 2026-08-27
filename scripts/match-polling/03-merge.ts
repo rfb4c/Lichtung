@@ -1,16 +1,23 @@
 /**
  * 03 · 裁决 → 写回。
  *
- * 裁决规则（事前写定，不做人工干预）：
+ * 裁决规则（事前写定，不做人工干预）。两层，精确优先：
  *
- *   两个 judge 都判 null                    → 不挂
- *   两个 judge 落在同一个**问题组**          → 挂该组里按日期选出的那条
- *   其余一切情况（含一方 null、分属不同组）   → 不挂
+ *   精确层  两个 judge 落在同一个**问题组**       → 挂该组里按日期选出的那条
+ *   ↓ 其余一切情况（都判 null、一方 null、分属不同组）
+ *   兜底层  报道所属议题有 topic 级民调           → 挂它（查表，不经模型）
+ *   ↓ 该议题没有 topic 级民调
+ *           不挂
  *
- * 「分歧即不挂」是这条管线唯一的裁决规则，跟 Path A「分歧取 0.5」是同一种克制：
- * 两个独立 judge 对命题是否对齐都谈不拢，本身就说明对齐关系不清晰，此时挂上去
- * 的风险高于不挂的代价。不挂只是不显示图表；挂错会把一份回答别的问题的分布
- * 摆在读者面前，那与 Path B 想做的事正好相反。
+ * 「精确的能中就用精确的，中不了就用广义的兜底」——两层各自的判据是不同的东西：
+ * 精确层问「报道的核心命题是不是这条民调问的那件事」，要模型判、要证据；
+ * 兜底层问「报道属不属于这个议题」，这个答案已经写在 report.topicId 里，
+ * 查表即可，不需要也不应该再过一遍模型。
+ *
+ * **「分歧即不挂」已不再是本管线的规则。** 精确层谈不拢仍然拒绝挂上那条精确
+ * 民调——两个独立 judge 对命题是否对齐都谈不拢，本身就说明对齐关系不清晰，
+ * 把一份回答别的问题的分布摆在读者面前，与 Path B 想做的事正好相反。但拒绝的
+ * 结果是掉到兜底层，而不是什么都不显示。这一层的克制仍在，只是不再一路到底。
  *
  * 年份不参与一致性判定。同一道题的不同年份版本在命题上无法区分，让两个 judge
  * 在年份上达成一致既不可能也不必要——归组见 pollGroupKey()，组内选条见
@@ -30,12 +37,16 @@ import {
   pollGroupKey,
   readAppData,
   readMatches,
+  readPrompt,
+  readSchema,
+  sha256,
+  topicFallbackFor,
   writeMatches,
   writePollingIds,
 } from './lib/io';
-import type { MatchFile, MatchVerdict, MergedMatch } from './lib/types';
+import type { MatchAgreement, MatchFile, MatchVerdict, MergedMatch } from './lib/types';
 
-/** 裁决单篇。两份 verdict 必须都在——半份判定不许进裁决。 */
+/** 裁决单篇：先走精确层，不成立再走兜底层。两份 verdict 必须都在——半份判定不许进裁决。 */
 /** 判定引用了民调库里查不到的 id。见 groupOf 的说明。 */
 interface UnresolvedRef {
   reportId: string;
@@ -48,6 +59,7 @@ function mergeOne(
   a: MatchVerdict,
   b: MatchVerdict,
   pollsById: Map<string, PollingData>,
+  fallback: PollingData | null,
   unresolved: UnresolvedRef[],
 ): MergedMatch {
   const previous = report.pollingDataId ?? null;
@@ -71,28 +83,47 @@ function mergeOne(
   const ga = groupOf(a.alignedPollId, 'A');
   const gb = groupOf(b.alignedPollId, 'B');
 
-  if (ga === null && gb === null) {
-    return { reportId: report.id, agreement: 'agree_null', pollingDataId: null, groupKey: null, previous };
-  }
+  // agreement 只描述精确层上两个 judge 谈没谈拢，与最终挂到哪一层无关。
+  // 两者分开记，是为了让论文的一致率只在模型真正做过判断的那一层上算。
+  const agreement: MatchAgreement =
+    ga !== null && ga === gb ? 'agree_mount' : ga === null && gb === null ? 'agree_null' : 'disagree';
 
-  if (ga !== null && ga === gb) {
+  // ① 精确层：两个 judge 落在同一个问题组
+  if (agreement === 'agree_mount') {
     const group = [...pollsById.values()].filter((p) => pollGroupKey(p) === ga);
     const chosen = pickPollInGroup(group);
     return {
       reportId: report.id,
-      agreement: 'agree_mount',
+      agreement,
+      resolution: 'subtopic',
       pollingDataId: chosen.id,
       groupKey: ga,
       previous,
     };
   }
 
-  return { reportId: report.id, agreement: 'disagree', pollingDataId: null, groupKey: null, previous };
+  // ② 兜底层：精确层没结论，但报道属于一个有议题级民调的议题
+  if (fallback) {
+    return {
+      reportId: report.id,
+      agreement,
+      resolution: 'topic_fallback',
+      pollingDataId: fallback.id,
+      groupKey: pollGroupKey(fallback),
+      previous,
+    };
+  }
+
+  // ③ 两层都不成立
+  return { reportId: report.id, agreement, resolution: 'none', pollingDataId: null, groupKey: null, previous };
 }
 
 export interface MergeSummary {
   merged: Record<string, MergedMatch>;
+  /** 精确层上两个 judge 的一致性——只统计模型判断，论文的一致率取这一组 */
   counts: Record<'agree_mount' | 'agree_null' | 'disagree', number>;
+  /** 挂载分别由哪一层定下来的。与 counts 是两件事，不可互相换算 */
+  resolutions: Record<'subtopic' | 'topic_fallback' | 'none', number>;
   /** 裁决结果与 app-data.json 现状不同的条目 */
   changes: MergedMatch[];
 }
@@ -102,10 +133,20 @@ export function mergeAll(file: MatchFile, appData: AppData): MergeSummary {
     (appData.pollingData as PollingData[]).map((p) => [p.id, p]),
   );
 
+  // 兜底查表按议题缓存：同议题的报道答案必然相同，而 topicFallbackFor 在
+  // 议题有多条 topic 级民调时会抛错，缓存让这个错只报一次而不是每篇一次。
+  const fallbackCache = new Map<string, PollingData | null>();
+  const fallbackFor = (report: Report): PollingData | null => {
+    const key = report.topicId ?? '';
+    if (!fallbackCache.has(key)) fallbackCache.set(key, topicFallbackFor(appData, report));
+    return fallbackCache.get(key) ?? null;
+  };
+
   const missing: string[] = [];
   const unresolved: UnresolvedRef[] = [];
   const merged: Record<string, MergedMatch> = {};
   const counts = { agree_mount: 0, agree_null: 0, disagree: 0 };
+  const resolutions = { subtopic: 0, topic_fallback: 0, none: 0 };
 
   for (const report of appData.reports) {
     const pair = file.verdicts[report.id];
@@ -113,9 +154,10 @@ export function mergeAll(file: MatchFile, appData: AppData): MergeSummary {
       missing.push(report.id);
       continue;
     }
-    const result = mergeOne(report, pair.A, pair.B, pollsById, unresolved);
+    const result = mergeOne(report, pair.A, pair.B, pollsById, fallbackFor(report), unresolved);
     merged[report.id] = result;
     counts[result.agreement] += 1;
+    resolutions[result.resolution] += 1;
   }
 
   if (missing.length > 0) {
@@ -138,21 +180,57 @@ export function mergeAll(file: MatchFile, appData: AppData): MergeSummary {
   }
 
   const changes = Object.values(merged).filter((m) => m.pollingDataId !== m.previous);
-  return { merged, counts, changes };
+  return { merged, counts, resolutions, changes };
+}
+
+/**
+ * 判据漂移闸。
+ *
+ * 01 与 03 是刻意解耦的——改裁决规则不必重新花钱跑模型。但那说的是**裁决规则**，
+ * 也就是这个文件；判据文件改了是另一回事：此时 poll-matches.json 里的判定来自
+ * 一份已经不存在的判据，而 merge 会照常算出一组数、照常写回，产出上完全看不出
+ * 它对应的是哪一版判据。论文引用的一致率就此挂到错误的判据上。
+ *
+ * 只比判据与 schema 的哈希，不比模型 ID——换模型的判断留给 --resume 那道闸。
+ */
+function assertRubricCurrent(file: MatchFile): void {
+  const drifted = [
+    file.meta.promptSha256 !== sha256(readPrompt()) ? 'prompts/path-b-match.md' : null,
+    file.meta.schemaSha256 !== sha256(JSON.stringify(readSchema()))
+      ? 'schemas/poll-match.json'
+      : null,
+  ].filter(Boolean);
+
+  if (drifted.length === 0) return;
+
+  throw new Error(
+    `${drifted.join(' 与 ')} 已改动，但 ${PATHS.matches} 里的判定是改动前跑出来的。\n` +
+      '裁决规则改了不必重跑模型，判据改了必须重跑——现在这份判定对应的是一份\n' +
+      '已经不存在的判据，算出来的一致率会被挂到新判据名下。\n' +
+      '要么恢复判据文件，要么跑 npm run match 用当前判据重出一份判定。',
+  );
 }
 
 // ── 呈现 ─────────────────────────────────────────────────────────────────
 
 function reportSummary(summary: MergeSummary, appData: AppData): void {
-  const { counts, changes, merged } = summary;
+  const { counts, resolutions, changes, merged } = summary;
   const total = counts.agree_mount + counts.agree_null + counts.disagree;
   const pct = (n: number): string => `${((n / total) * 100).toFixed(1)}%`;
 
-  console.log('\n裁决结果');
-  console.log(`  一致·挂载   ${counts.agree_mount}/${total}  ${pct(counts.agree_mount)}`);
-  console.log(`  一致·不挂   ${counts.agree_null}/${total}  ${pct(counts.agree_null)}`);
-  console.log(`  分歧·不挂   ${counts.disagree}/${total}  ${pct(counts.disagree)}`);
-  console.log(`  两个 judge 一致率 ${pct(counts.agree_mount + counts.agree_null)}`);
+  // 两组数分开报，因为它们回答的是两个不同问题：模型在精确层上谈拢了吗、
+  // 最终这条挂载是从哪一层来的。合成一张表会让人把兜底当成模型的判断。
+  console.log('\n精确层 · 两个 judge 的一致性（模型判断，论文一致率取这一组）');
+  console.log(`  一致·同一命题   ${counts.agree_mount}/${total}  ${pct(counts.agree_mount)}`);
+  console.log(`  一致·都无对齐   ${counts.agree_null}/${total}  ${pct(counts.agree_null)}`);
+  console.log(`  分歧            ${counts.disagree}/${total}  ${pct(counts.disagree)}`);
+  console.log(`  一致率 ${pct(counts.agree_mount + counts.agree_null)}`);
+
+  console.log('\n挂载来源 · 每条挂载由哪一层定下（兜底层不经过模型）');
+  console.log(`  精确层 subtopic  ${resolutions.subtopic}/${total}  ${pct(resolutions.subtopic)}`);
+  console.log(`  兜底层 topic     ${resolutions.topic_fallback}/${total}  ${pct(resolutions.topic_fallback)}`);
+  console.log(`  不挂             ${resolutions.none}/${total}  ${pct(resolutions.none)}`);
+  console.log('  ↑「不挂」全部是所属议题没有 topic 级民调，不是模型判定不挂');
 
   console.log('\n按议题的挂载覆盖（覆盖率是结果，不是指标）');
   const byTopic = new Map<string, { n: number; mounted: number }>();
@@ -181,7 +259,10 @@ function reportSummary(summary: MergeSummary, appData: AppData): void {
     if (rows.length === 0) return;
     console.log(`\n  ${label}（${rows.length}）`);
     for (const r of rows) {
-      console.log(`    ${r.reportId.padEnd(18)} ${r.previous ?? '不挂'} → ${r.pollingDataId ?? '不挂'}  [${r.agreement}]`);
+      console.log(
+        `    ${r.reportId.padEnd(18)} ${r.previous ?? '不挂'} → ${r.pollingDataId ?? '不挂'}` +
+          `  [${r.agreement} · ${r.resolution}]`,
+      );
     }
   };
   show('新增挂载', added);
@@ -200,6 +281,7 @@ function reportSummary(summary: MergeSummary, appData: AppData): void {
 
 export function runMerge(apply: boolean): MergeSummary {
   const file = readMatches();
+  assertRubricCurrent(file);
   const appData = readAppData();
   const summary = mergeAll(file, appData);
 
