@@ -48,6 +48,7 @@ npm run match                   # 全量 28 篇 × 2 judge = 56 次调用
 npm run match:merge             # 裁决 + 打印与现状的差异，不写 app-data.json
 npm run match:merge -- --apply  # 核对差异后再写回
 npm run match -- --resume       # 中途失败后只补跑缺的条目
+npm run match:verify            # 复现校验（mock 基线免费；实跑基线需 --confirm-spend）
 ```
 
 需要两把密钥，写进仓库根目录的 `.env`（已在 `.gitignore`）：

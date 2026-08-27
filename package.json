@@ -16,7 +16,8 @@
     "annotate:models": "tsx scripts/annotate/00-list-openai-models.ts",
     "match": "tsx scripts/match-polling/01-match-polling.ts",
     "match:mock": "tsx scripts/match-polling/01-match-polling.ts --judges mock",
-    "match:merge": "tsx scripts/match-polling/03-merge.ts"
+    "match:merge": "tsx scripts/match-polling/03-merge.ts",
+    "match:verify": "tsx scripts/match-polling/99-verify.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.94.0",
