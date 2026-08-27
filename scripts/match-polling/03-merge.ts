@@ -36,24 +36,40 @@ import {
 import type { MatchFile, MatchVerdict, MergedMatch } from './lib/types';
 
 /** 裁决单篇。两份 verdict 必须都在——半份判定不许进裁决。 */
+/** 判定引用了民调库里查不到的 id。见 groupOf 的说明。 */
+interface UnresolvedRef {
+  reportId: string;
+  slot: 'A' | 'B';
+  id: string;
+}
+
 function mergeOne(
   report: Report,
   a: MatchVerdict,
   b: MatchVerdict,
   pollsById: Map<string, PollingData>,
+  unresolved: UnresolvedRef[],
 ): MergedMatch {
   const previous = report.pollingDataId ?? null;
 
-  const groupOf = (id: string | null): string | null => {
+  const groupOf = (id: string | null, slot: 'A' | 'B'): string | null => {
     if (id === null) return null;
     const poll = pollsById.get(id);
-    // 01 的闸已经挡过「不在候选里」，这里再兜一次：判定引用了库里没有的 id
-    // 时当作不成立，绝不写一个查不到的引用进渲染层。
-    return poll ? pollGroupKey(poll) : null;
+    if (poll) return pollGroupKey(poll);
+
+    // 走到这里只有一种可能：跑判定与跑裁决之间民调库变了。01 的闸已经挡过
+    // 「id 不在候选里」，而候选正是从民调库生成的——但 01 与 03 是刻意解耦的
+    // （判据改了不必重新花钱跑模型），中间隔着任意长的时间。
+    //
+    // 不能静默当作「不挂」：那会把「两个 judge 都指向同一条已消失的民调」
+    // 记成「两个 judge 都认为无可挂」，agreement 就此错标，而这个字段会汇总成
+    // 论文里的一致率。宁可让 mergeAll 报错停下。
+    unresolved.push({ reportId: report.id, slot, id });
+    return null;
   };
 
-  const ga = groupOf(a.alignedPollId);
-  const gb = groupOf(b.alignedPollId);
+  const ga = groupOf(a.alignedPollId, 'A');
+  const gb = groupOf(b.alignedPollId, 'B');
 
   if (ga === null && gb === null) {
     return { reportId: report.id, agreement: 'agree_null', pollingDataId: null, groupKey: null, previous };
@@ -87,6 +103,7 @@ export function mergeAll(file: MatchFile, appData: AppData): MergeSummary {
   );
 
   const missing: string[] = [];
+  const unresolved: UnresolvedRef[] = [];
   const merged: Record<string, MergedMatch> = {};
   const counts = { agree_mount: 0, agree_null: 0, disagree: 0 };
 
@@ -96,7 +113,7 @@ export function mergeAll(file: MatchFile, appData: AppData): MergeSummary {
       missing.push(report.id);
       continue;
     }
-    const result = mergeOne(report, pair.A, pair.B, pollsById);
+    const result = mergeOne(report, pair.A, pair.B, pollsById, unresolved);
     merged[report.id] = result;
     counts[result.agreement] += 1;
   }
@@ -106,6 +123,17 @@ export function mergeAll(file: MatchFile, appData: AppData): MergeSummary {
       `${missing.length} 篇报道缺少完整的两份判定，不能裁决：\n` +
         missing.map((id) => `  ・${id}`).join('\n') +
         '\n先跑 npm run match -- --resume 把缺的补上。',
+    );
+  }
+
+  if (unresolved.length > 0) {
+    throw new Error(
+      `${unresolved.length} 条判定引用了民调库里查不到的 id，不能裁决：\n` +
+        unresolved
+          .map((u) => `  ・${u.reportId} / Judge ${u.slot} → ${u.id}`)
+          .join('\n') +
+        '\n跑判定与跑裁决之间民调库变了。静默当作「不挂」会把一致率记错，所以这里停下。\n' +
+        '要么把这些民调恢复回 app-data.json，要么删掉 poll-matches.json 用当前的库重跑判定。',
     );
   }
 
