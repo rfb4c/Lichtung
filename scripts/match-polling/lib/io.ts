@@ -135,6 +135,19 @@ export function topicFallbackFor(appData: AppData, report: Report): PollingData 
   );
   if (topicPolls.length === 0) return null;
 
+  // 分组靠题干，题干为空的条目会与其他空题干条目并成一组，让下面那道歧义闸
+  // 失效——两条问不同问题的民调会被当成同题不同年，静默挑走一条。
+  // 兜底层没有模型也没有人看着，这里不拦就没有第二道防线了。
+  const untitled = topicPolls.filter((p) => !(p.questionWording ?? '').trim());
+  if (untitled.length > 0) {
+    throw new Error(
+      `议题 ${report.topicId} 有 ${untitled.length} 条 topic 级民调没有 questionWording：` +
+        `\n${untitled.map((p) => `  ・${p.id}`).join('\n')}\n` +
+        '兜底层按题干分组来判断「是不是同一道题的不同年份」，题干为空会让不同的题\n' +
+        '并成一组、被当成同题静默挑走一条。补上逐字题干再跑。',
+    );
+  }
+
   const groups = new Map<string, PollingData[]>();
   for (const poll of topicPolls) {
     const key = pollGroupKey(poll);
