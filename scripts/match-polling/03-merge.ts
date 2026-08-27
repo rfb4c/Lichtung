@@ -33,6 +33,7 @@ import { pathToFileURL } from 'node:url';
 import type { AppData, PollingData, Report } from '../../src/types';
 import {
   PATHS,
+  candidatesFor,
   pickPollInGroup,
   pollGroupKey,
   readAppData,
@@ -120,9 +121,19 @@ function mergeOne(
 
 export interface MergeSummary {
   merged: Record<string, MergedMatch>;
-  /** 精确层上两个 judge 的一致性——只统计模型判断，论文的一致率取这一组 */
+  /**
+   * 精确层上两个 judge 的一致性，**只统计候选非空的报道**。
+   *
+   * 候选为空的报道两边必然都判 null——那不是两个 judge 想到一处去了，是没有
+   * 东西可想。把它算进一致率会让数字凭空变好看，且样本越是缺民调、数字越高。
+   * 论文的一致率与 κ 取这一组，分母是 judged。
+   */
   counts: Record<'agree_mount' | 'agree_null' | 'disagree', number>;
-  /** 挂载分别由哪一层定下来的。与 counts 是两件事，不可互相换算 */
+  /** counts 的分母：候选非空、模型真正做过选择的报道数 */
+  judged: number;
+  /** 候选为空、模型无从可判的报道数。不进 counts，但要如实报出来 */
+  forcedNull: number;
+  /** 挂载分别由哪一层定下来的，分母是全部报道。与 counts 是两件事，不可互相换算 */
   resolutions: Record<'subtopic' | 'topic_fallback' | 'none', number>;
   /** 裁决结果与 app-data.json 现状不同的条目 */
   changes: MergedMatch[];
@@ -147,6 +158,8 @@ export function mergeAll(file: MatchFile, appData: AppData): MergeSummary {
   const merged: Record<string, MergedMatch> = {};
   const counts = { agree_mount: 0, agree_null: 0, disagree: 0 };
   const resolutions = { subtopic: 0, topic_fallback: 0, none: 0 };
+  let judged = 0;
+  let forcedNull = 0;
 
   for (const report of appData.reports) {
     const pair = file.verdicts[report.id];
@@ -156,8 +169,15 @@ export function mergeAll(file: MatchFile, appData: AppData): MergeSummary {
     }
     const result = mergeOne(report, pair.A, pair.B, pollsById, fallbackFor(report), unresolved);
     merged[report.id] = result;
-    counts[result.agreement] += 1;
     resolutions[result.resolution] += 1;
+
+    // 候选为空时模型无从可判，它的 agreement 不承载信息，不进一致率的分母。
+    // 判定照样跑、照样落盘——「问了，两边都说没有可挂的」本身是要留痕的证据。
+    if (candidatesFor(appData, report).length === 0) forcedNull += 1;
+    else {
+      judged += 1;
+      counts[result.agreement] += 1;
+    }
   }
 
   if (missing.length > 0) {
@@ -180,7 +200,7 @@ export function mergeAll(file: MatchFile, appData: AppData): MergeSummary {
   }
 
   const changes = Object.values(merged).filter((m) => m.pollingDataId !== m.previous);
-  return { merged, counts, resolutions, changes };
+  return { merged, counts, judged, forcedNull, resolutions, changes };
 }
 
 /**
@@ -214,23 +234,26 @@ function assertRubricCurrent(file: MatchFile): void {
 // ── 呈现 ─────────────────────────────────────────────────────────────────
 
 function reportSummary(summary: MergeSummary, appData: AppData): void {
-  const { counts, resolutions, changes, merged } = summary;
-  const total = counts.agree_mount + counts.agree_null + counts.disagree;
-  const pct = (n: number): string => `${((n / total) * 100).toFixed(1)}%`;
+  const { counts, judged, forcedNull, resolutions, changes, merged } = summary;
+  const total = judged + forcedNull;
+  const pct = (n: number, d: number): string => `${d === 0 ? 0 : ((n / d) * 100).toFixed(1)}%`;
 
   // 两组数分开报，因为它们回答的是两个不同问题：模型在精确层上谈拢了吗、
   // 最终这条挂载是从哪一层来的。合成一张表会让人把兜底当成模型的判断。
-  console.log('\n精确层 · 两个 judge 的一致性（模型判断，论文一致率取这一组）');
-  console.log(`  一致·同一命题   ${counts.agree_mount}/${total}  ${pct(counts.agree_mount)}`);
-  console.log(`  一致·都无对齐   ${counts.agree_null}/${total}  ${pct(counts.agree_null)}`);
-  console.log(`  分歧            ${counts.disagree}/${total}  ${pct(counts.disagree)}`);
-  console.log(`  一致率 ${pct(counts.agree_mount + counts.agree_null)}`);
+  console.log('\n精确层 · 两个 judge 的一致性（论文的一致率与 κ 取这一组）');
+  console.log(`  分母：候选非空、模型真正做过选择的报道  ${judged}/${total}`);
+  console.log(`  一致·同一命题   ${counts.agree_mount}/${judged}  ${pct(counts.agree_mount, judged)}`);
+  console.log(`  一致·都无对齐   ${counts.agree_null}/${judged}  ${pct(counts.agree_null, judged)}`);
+  console.log(`  分歧            ${counts.disagree}/${judged}  ${pct(counts.disagree, judged)}`);
+  console.log(`  一致率 ${pct(counts.agree_mount + counts.agree_null, judged)}`);
+  console.log(`\n  另有 ${forcedNull}/${total} 篇候选为空，两个 judge 只能都判 null——`);
+  console.log('  那不是一致，是没有东西可判，已排除在上面的分母之外。');
 
   console.log('\n挂载来源 · 每条挂载由哪一层定下（兜底层不经过模型）');
-  console.log(`  精确层 subtopic  ${resolutions.subtopic}/${total}  ${pct(resolutions.subtopic)}`);
-  console.log(`  兜底层 topic     ${resolutions.topic_fallback}/${total}  ${pct(resolutions.topic_fallback)}`);
-  console.log(`  不挂             ${resolutions.none}/${total}  ${pct(resolutions.none)}`);
-  console.log('  ↑「不挂」全部是所属议题没有 topic 级民调，不是模型判定不挂');
+  console.log(`  精确层 subtopic  ${resolutions.subtopic}/${total}  ${pct(resolutions.subtopic, total)}`);
+  console.log(`  兜底层 topic     ${resolutions.topic_fallback}/${total}  ${pct(resolutions.topic_fallback, total)}`);
+  console.log(`  不挂             ${resolutions.none}/${total}  ${pct(resolutions.none, total)}`);
+  console.log('  ↑「不挂」全部是所属议题没有 topic 级民调可兜底，不是模型判定不挂');
 
   console.log('\n按议题的挂载覆盖（覆盖率是结果，不是指标）');
   const byTopic = new Map<string, { n: number; mounted: number }>();
