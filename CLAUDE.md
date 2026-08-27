@@ -240,13 +240,14 @@ interface Report {
 ---
 
 **最后同步**: 2026-08-28
-**当前任务**: `feature/annotation-pipeline` — Path B 匹配管线已按「读法①」改装成两层：
-精确层（subtopic）由两个 judge 判命题对齐，兜底层（topic）按 `report.topicId` 查表挂载，
-不经模型。判据、候选组装、裁决层、README 均已改并通过 mock 端到端验证
-**下一步（必须做）**: 判据变了，`poll-matches.json` 里的判定作废——
-`match:merge` 的新判据漂移闸已经拦住它。要跑 `npm run match` 用新判据重出一份判定，
-再 `match:merge` 核对差异后 `--apply` 写回
-**仍待拍板**: 6 条摘除采纳不采纳，记在 `docs/private/设计与交接-民调匹配管线.md` § 5。
-注意其中 3 条原先是被「分歧即不挂」判掉的，该规则已废除，重跑后这几条的处置会变
+**当前任务**: `feature/annotation-pipeline` — Path B 匹配管线已改为两层（读法①）并实跑：
+精确层（subtopic）两个 judge 判命题对齐，兜底层（topic）按 `report.topicId` 查表，不经模型。
+56 次调用零失败；精确层 κ=0.667 [0.322, 1.000]（分母 18，已排除 10 篇无候选的报道）
+**下一步（两件）**:
+　① 复现校验未跑 —— `npm run match:verify -- --confirm-spend`，再 56 次调用。
+　　 跑出来之前论文不能声称任何重跑稳定性数字
+　② 19 条差异（新增 10、改挂 3、摘除 6）待人工核对后 `match:merge -- --apply` 写回；
+　　 app-data.json 仍是人工的 11/28
+**证据**: `docs/private/evidence/match-run-2026-08-28/`（含 08-paper-facts.md 与复算脚本）
 **下一步候选**: 民调库扩展（需某议题同时有两级民调，两层才都跑得到）；
 论文与视频（9 月内动手）
