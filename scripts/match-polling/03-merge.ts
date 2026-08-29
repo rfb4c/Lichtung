@@ -47,7 +47,6 @@ import {
 } from './lib/io';
 import type { MatchAgreement, MatchFile, MatchVerdict, MergedMatch } from './lib/types';
 
-/** 裁决单篇：先走精确层，不成立再走兜底层。两份 verdict 必须都在——半份判定不许进裁决。 */
 /** 判定引用了民调库里查不到的 id。见 groupOf 的说明。 */
 interface UnresolvedRef {
   reportId: string;
@@ -55,6 +54,7 @@ interface UnresolvedRef {
   id: string;
 }
 
+/** 裁决单篇：先走精确层，不成立再走兜底层。两份 verdict 必须都在——半份判定不许进裁决。 */
 function mergeOne(
   report: Report,
   a: MatchVerdict,
@@ -93,6 +93,19 @@ function mergeOne(
   if (agreement === 'agree_mount') {
     const group = [...pollsById.values()].filter((p) => pollGroupKey(p) === ga);
     const chosen = pickPollInGroup(group);
+
+    // resolution 会汇总进论文的分层计数，所以不能靠「模型只看得到 subtopic 级」
+    // 这个上游约定来推断。那个约定由 01 的候选组装与候选外 id 闸保证，而 01 与
+    // 03 是刻意解耦的，中间隔着任意长的时间。这里实测一次，对不上就停下——
+    // 记一个说不通的 'subtopic' 比报错更难查。
+    if ((chosen.level ?? 'subtopic') !== 'subtopic') {
+      throw new Error(
+        `${report.id}：两个 judge 一致挂到 ${chosen.id}，但它是 ${chosen.level} 级民调。\n` +
+          '精确层只应看到 subtopic 级候选——议题级由兜底层查表挂载，不经过模型。\n' +
+          '这份判定多半是用旧版候选组装跑出来的，重跑 npm run match 再裁决。',
+      );
+    }
+
     return {
       reportId: report.id,
       agreement,

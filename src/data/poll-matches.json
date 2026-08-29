@@ -698,7 +698,7 @@
       "resolution": "topic_fallback",
       "pollingDataId": "poll_gun_general_strictness_001",
       "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
-      "previous": null
+      "previous": "poll_gun_general_strictness_001"
     },
     "rp_gun_002": {
       "reportId": "rp_gun_002",
@@ -706,7 +706,7 @@
       "resolution": "topic_fallback",
       "pollingDataId": "poll_gun_general_strictness_001",
       "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
-      "previous": null
+      "previous": "poll_gun_general_strictness_001"
     },
     "rp_gun_003": {
       "reportId": "rp_gun_003",
@@ -714,7 +714,7 @@
       "resolution": "topic_fallback",
       "pollingDataId": "poll_gun_general_strictness_001",
       "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
-      "previous": null
+      "previous": "poll_gun_general_strictness_001"
     },
     "rp_gun_004": {
       "reportId": "rp_gun_004",
@@ -722,7 +722,7 @@
       "resolution": "topic_fallback",
       "pollingDataId": "poll_gun_general_strictness_001",
       "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
-      "previous": null
+      "previous": "poll_gun_general_strictness_001"
     },
     "rp_gun_005": {
       "reportId": "rp_gun_005",
@@ -730,7 +730,7 @@
       "resolution": "topic_fallback",
       "pollingDataId": "poll_gun_general_strictness_001",
       "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
-      "previous": null
+      "previous": "poll_gun_general_strictness_001"
     },
     "rp_gun_006": {
       "reportId": "rp_gun_006",
@@ -738,7 +738,7 @@
       "resolution": "topic_fallback",
       "pollingDataId": "poll_gun_general_strictness_001",
       "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
-      "previous": null
+      "previous": "poll_gun_general_strictness_001"
     },
     "rp_gun_007": {
       "reportId": "rp_gun_007",
@@ -746,7 +746,7 @@
       "resolution": "topic_fallback",
       "pollingDataId": "poll_gun_general_strictness_001",
       "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
-      "previous": null
+      "previous": "poll_gun_general_strictness_001"
     },
     "rp_gun_008": {
       "reportId": "rp_gun_008",
@@ -754,7 +754,7 @@
       "resolution": "topic_fallback",
       "pollingDataId": "poll_gun_general_strictness_001",
       "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
-      "previous": null
+      "previous": "poll_gun_general_strictness_001"
     },
     "rp_abortion_001": {
       "reportId": "rp_abortion_001",
@@ -762,7 +762,7 @@
       "resolution": "subtopic",
       "pollingDataId": "poll_abortion_legality_002",
       "groupKey": "us-abortion-legality::do you think abortion should be… legal in all cases / legal in most cases / illegal in most cases / illegal in all cases",
-      "previous": "poll_abortion_legality_001"
+      "previous": "poll_abortion_legality_002"
     },
     "rp_abortion_002": {
       "reportId": "rp_abortion_002",
@@ -770,7 +770,7 @@
       "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
-      "previous": "poll_abortion_legality_001"
+      "previous": null
     },
     "rp_abortion_003": {
       "reportId": "rp_abortion_003",
@@ -778,7 +778,7 @@
       "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
-      "previous": "poll_abortion_legality_001"
+      "previous": null
     },
     "rp_abortion_004": {
       "reportId": "rp_abortion_004",
@@ -786,7 +786,7 @@
       "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
-      "previous": "poll_abortion_legality_001"
+      "previous": null
     },
     "rp_abortion_005": {
       "reportId": "rp_abortion_005",
@@ -794,7 +794,7 @@
       "resolution": "subtopic",
       "pollingDataId": "poll_abortion_legality_002",
       "groupKey": "us-abortion-legality::do you think abortion should be… legal in all cases / legal in most cases / illegal in most cases / illegal in all cases",
-      "previous": "poll_abortion_legality_001"
+      "previous": "poll_abortion_legality_002"
     },
     "rp_abortion_006": {
       "reportId": "rp_abortion_006",
@@ -802,7 +802,7 @@
       "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
-      "previous": "poll_abortion_legality_001"
+      "previous": null
     },
     "rp_abortion_007": {
       "reportId": "rp_abortion_007",
@@ -818,7 +818,7 @@
       "resolution": "subtopic",
       "pollingDataId": "poll_abortion_legality_002",
       "groupKey": "us-abortion-legality::do you think abortion should be… legal in all cases / legal in most cases / illegal in most cases / illegal in all cases",
-      "previous": "poll_abortion_legality_001"
+      "previous": "poll_abortion_legality_002"
     },
     "rp_climate_001": {
       "reportId": "rp_climate_001",
@@ -834,7 +834,7 @@
       "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
-      "previous": "poll_climate_carbon_001"
+      "previous": null
     },
     "rp_climate_003": {
       "reportId": "rp_climate_003",
@@ -866,7 +866,7 @@
       "resolution": "none",
       "pollingDataId": null,
       "groupKey": null,
-      "previous": "poll_climate_carbon_001"
+      "previous": null
     },
     "rp_climate_007": {
       "reportId": "rp_climate_007",
@@ -874,7 +874,7 @@
       "resolution": "subtopic",
       "pollingDataId": "poll_climate_carbon_001",
       "groupKey": "us-climate-carbon-emissions::how much do you support or oppose the following policies? regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
-      "previous": null
+      "previous": "poll_climate_carbon_001"
     },
     "rp_climate_008": {
       "reportId": "rp_climate_008",
@@ -890,7 +890,7 @@
       "resolution": "topic_fallback",
       "pollingDataId": "poll_gun_general_strictness_001",
       "groupKey": "us-gun-control::should gun laws in the united states be made more strict, left as they are, or made less strict?",
-      "previous": null
+      "previous": "poll_gun_general_strictness_001"
     },
     "rp_abortion_010": {
       "reportId": "rp_abortion_010",
