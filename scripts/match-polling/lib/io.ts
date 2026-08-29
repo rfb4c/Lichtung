@@ -89,22 +89,86 @@ export function readAppData(): AppData {
   return JSON.parse(readFileSync(PATHS.appData, 'utf8')) as AppData;
 }
 
-/** 按议题取候选。顺序固定：subtopic 在前，同级按 id——两个 judge 必须看到同一份。 */
+/**
+ * 喂给模型的候选：**只有 subtopic 级**，即议题内部的精确命题。
+ *
+ * topic 级不进候选。议题级挂载的判据是「这篇报道属于这个议题吗」，而这个问题
+ * 的答案已经写在 report.topicId 里——把已知事实交给模型重判一遍，只会引入
+ * 它判错的可能，换不来任何信息。那一步在裁决层确定性地做，见 topicFallbackFor()。
+ *
+ * level 缺失时按 subtopic 计：民调条目的 level 是后加的可选字段，缺省语义
+ * 是「议题内部的某条具体命题」，与 PollingData 的字段注释一致。
+ *
+ * 顺序按 id 固定——两个 judge 必须看到逐字节相同的一份。
+ */
 export function candidatesFor(appData: AppData, report: Report): PollCandidate[] {
   return (appData.pollingData as PollingData[])
-    .filter((p) => p.topicId === report.topicId)
-    .sort((a, b) => {
-      const rank = (p: PollingData): number => (p.level === 'subtopic' ? 0 : 1);
-      return rank(a) - rank(b) || a.id.localeCompare(b.id);
-    })
+    .filter((p) => p.topicId === report.topicId && (p.level ?? 'subtopic') === 'subtopic')
+    .sort((a, b) => a.id.localeCompare(b.id))
     .map((p) => ({
       id: p.id,
-      level: p.level ?? 'subtopic',
       questionWording: p.questionWording ?? '',
       scaleLabels: p.scaleLabels,
       source: p.source,
       surveyYear: p.surveyYear,
     }));
+}
+
+/**
+ * 兜底层：报道属于这个议题 → 挂该议题的 topic 级民调。
+ *
+ * 这是两层匹配的第二层，与第一层的分工是：
+ *
+ *   精确层  报道的核心命题是不是这条民调问的那件事  → 模型判，要证据
+ *   兜底层  报道属不属于这个议题                    → 查 report.topicId，不经模型
+ *
+ * 一个议题若有**多条命题不同**的 topic 级民调，「属于这个议题」就只能定位到
+ * 议题、定位不到命题，兜底无法确定挂哪一条。此时抛错而不是随便挑一条：随便挑
+ * 等于把一个未定义的选择静默固化成产物，而从产物上完全看不出来。
+ * 同一道题的不同年份版本不算多条命题，按问题组收拢后组内选最新的那条。
+ */
+export function topicFallbackFor(appData: AppData, report: Report): PollingData | null {
+  if (!report.topicId) return null;
+
+  const topicPolls = (appData.pollingData as PollingData[]).filter(
+    (p) => p.topicId === report.topicId && p.level === 'topic',
+  );
+  if (topicPolls.length === 0) return null;
+
+  // 分组靠题干，题干为空的条目会与其他空题干条目并成一组，让下面那道歧义闸
+  // 失效——两条问不同问题的民调会被当成同题不同年，静默挑走一条。
+  // 兜底层没有模型也没有人看着，这里不拦就没有第二道防线了。
+  const untitled = topicPolls.filter((p) => !(p.questionWording ?? '').trim());
+  if (untitled.length > 0) {
+    throw new Error(
+      `议题 ${report.topicId} 有 ${untitled.length} 条 topic 级民调没有 questionWording：` +
+        `\n${untitled.map((p) => `  ・${p.id}`).join('\n')}\n` +
+        '兜底层按题干分组来判断「是不是同一道题的不同年份」，题干为空会让不同的题\n' +
+        '并成一组、被当成同题静默挑走一条。补上逐字题干再跑。',
+    );
+  }
+
+  const groups = new Map<string, PollingData[]>();
+  for (const poll of topicPolls) {
+    const key = pollGroupKey(poll);
+    const bucket = groups.get(key);
+    if (bucket) bucket.push(poll);
+    else groups.set(key, [poll]);
+  }
+
+  if (groups.size > 1) {
+    const listed = [...groups.values()]
+      .map((g) => `  ・${g[0].id}  ${g[0].questionWording ?? '(无题干)'}`)
+      .join('\n');
+    throw new Error(
+      `议题 ${report.topicId} 有 ${groups.size} 条命题不同的 topic 级民调，` +
+        `兜底层定不下来挂哪条：\n${listed}\n` +
+        '「报道属于这个议题」只能定位到议题，定位不到命题。\n' +
+        '要么把多余的降为 subtopic 级交给模型判，要么该议题只保留一条 topic 级。',
+    );
+  }
+
+  return pickPollInGroup([...groups.values()][0]);
 }
 
 /**

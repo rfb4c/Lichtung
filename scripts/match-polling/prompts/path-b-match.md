@@ -1,8 +1,8 @@
 # Matching rubric — does this report answer this polling question?
 
-You are one of two independent judges. You will be shown one news report and every
-polling question currently held for that report's issue. Decide which one of those
-questions, if any, the report's core claim actually answers.
+You are one of two independent judges. You will be shown one news report and the
+precise polling questions currently held for that report's issue. Decide which one of
+those questions, if any, the report's core claim actually answers.
 
 Your two outputs are a decision and its evidence. The decision alone is not usable:
 a bare id cannot be distinguished from "same issue, so I picked one."
@@ -54,32 +54,35 @@ issue" is the most frequent way a wrong match gets made, because it feels close.
 
 ## The candidates
 
-Each candidate carries a `level`:
+Every candidate is a **precise proposition inside the issue** — one specific contested
+claim. None of them is an issue-wide "in general" question, and none should be read as
+one.
 
-- `subtopic` — a precise proposition within the issue. Prefer these.
-- `topic` — a broad proposition covering the whole issue.
-
-Work in that order. First ask whether the report's core claim answers any `subtopic`
-question. Only if none does, ask whether it answers a `topic` question. A `topic`
-question is a real option, not a consolation prize — but it is still a proposition,
-and a report that does not answer it does not match it either.
+That shapes what can count as a match. Because every candidate is precise, "this report
+is about the same issue" is never sufficient, no matter how central the report is to
+that issue. The report's core claim has to be the particular proposition the candidate
+names.
 
 When more than one candidate is aligned because they ask the *same question in
 different years*, pick either one. The pipeline resolves the year itself; you are
 only deciding which question the report answers.
+
+An issue may hold no candidates at all. Return `null`.
 
 ## Choosing null
 
 `null` is a correct answer and often the correct answer. Return it when no candidate
 asks about the thing this report is actually about.
 
-Do not stretch to fill a slot. A report matched to a proposition it does not address
-is worse than a report left unmatched: the unmatched report simply shows no chart,
-while the mismatched one shows the reader a distribution that answers a question they
-were not asking. Coverage is an outcome here, never a target.
+Do not stretch to fill a slot. `null` does not mean the reader is left with nothing:
+what an unmatched report gets is settled later by a deterministic stage of the
+pipeline, not by a model, and not by you. So the choice in front of you is not "some
+chart versus no chart." It is "the precise question this report answers versus a
+precise question it does not," and the second is strictly worse. Coverage is an
+outcome here, never a target.
 
-Expect to return `null` frequently. An issue whose only poll asks a broad question may
-have no report that answers it, and that is a finding, not a failure.
+Expect to return `null` frequently. An issue whose questions all concern propositions
+no report happens to address is a finding, not a failure.
 
 ## Evidence
 

@@ -314,7 +314,7 @@
       "publishedAt": "2h",
       "imageUrl": "https://cbsaustin.com/resources/media2/16x9/6048/1320/0x44/90/a6fa45fa-99dd-47e0-b131-43418bc6ac5e-AP26060561690822.jpg",
       "topicId": "us-gun-control",
-      "pollingDataId": null,
+      "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": false,
       "engagementScore": 0.9,
       "csScore": 0
@@ -328,7 +328,7 @@
       "publishedAt": "4h",
       "imageUrl": "https://foxbaltimore.com/resources/media2/16x9/6000/986/0x313/90/9ede23ec-c9c5-4bc5-8658-fe6ed97ad0ac-GettyImages2211996655.jpg",
       "topicId": "us-gun-control",
-      "pollingDataId": null,
+      "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": false,
       "engagementScore": 0.55,
       "csScore": 0
@@ -342,7 +342,7 @@
       "publishedAt": "6h",
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/usatsi-13933218.jpg?c=16x9&q=w_800,c_fill",
       "topicId": "us-gun-control",
-      "pollingDataId": null,
+      "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": false,
       "engagementScore": 0.65,
       "csScore": 0
@@ -356,7 +356,7 @@
       "publishedAt": "8h",
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/ap22148014227135a.JPG?c=16x9&q=w_800,c_fill",
       "topicId": "us-gun-control",
-      "pollingDataId": null,
+      "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": true,
       "engagementScore": 0.45,
       "csScore": 0.25
@@ -370,7 +370,7 @@
       "publishedAt": "10h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/AVY3S2K6LDSCSJIBE6E4QQANEU_size-normalized.jpg&w=1440&impolicy=high_res",
       "topicId": "us-gun-control",
-      "pollingDataId": null,
+      "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": false,
       "engagementScore": 0.5,
       "csScore": 0
@@ -384,7 +384,7 @@
       "publishedAt": "12h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://cloudfront-us-east-1.images.arcpublishing.com/wapo/NJ2W7T2MBPYHQKK2QOLOZX4SMA.JPG&w=1440&impolicy=high_res",
       "topicId": "us-gun-control",
-      "pollingDataId": null,
+      "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": false,
       "engagementScore": 0.8,
       "csScore": 0
@@ -398,7 +398,7 @@
       "publishedAt": "1d",
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2257847778.jpg?c=16x9&q=w_800,c_fill",
       "topicId": "us-gun-control",
-      "pollingDataId": null,
+      "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": true,
       "engagementScore": 0.55,
       "csScore": 1
@@ -412,7 +412,7 @@
       "publishedAt": "1d",
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/ap26027626289799.jpg?c=16x9&q=w_800,c_fill",
       "topicId": "us-gun-control",
-      "pollingDataId": null,
+      "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": false,
       "engagementScore": 0.6,
       "csScore": 0.8
@@ -426,7 +426,7 @@
       "publishedAt": "1h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/4RM2BRMEWMG5QMCSNDTBSWZK7Y.jpg&w=1440",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001",
+      "pollingDataId": "poll_abortion_legality_002",
       "counterStereotypical": false,
       "engagementScore": 0.6,
       "csScore": 0
@@ -440,7 +440,7 @@
       "publishedAt": "3h",
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1237884449.jpg?c=original",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001",
+      "pollingDataId": null,
       "counterStereotypical": true,
       "engagementScore": 0.55,
       "csScore": 0
@@ -454,7 +454,7 @@
       "publishedAt": "5h",
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/2025-02-20t173249z-1567173878-rc2gycaqrf5j-rtrmadp-3-usa-trump-workers.JPG?c=16x9&q=w_800,c_fill",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001",
+      "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.85,
       "csScore": 0
@@ -468,7 +468,7 @@
       "publishedAt": "7h",
       "imageUrl": "https://statecourtreport.org/sites/default/files/styles/3_1_1120x373/public/2023-11/2023_09_SCR_Abortion_Rights%20%282%29.webp?h=043d26d4&itok=gqsBYXyP",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001",
+      "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.52,
       "csScore": 0
@@ -482,7 +482,7 @@
       "publishedAt": "9h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://cloudfront-us-east-1.images.arcpublishing.com/wapo/DTJFYG5FY2XDOLXUZH4ND55FC4.JPG&w=1440&impolicy=high_res",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001",
+      "pollingDataId": "poll_abortion_legality_002",
       "counterStereotypical": true,
       "engagementScore": 0.5,
       "csScore": 0
@@ -496,7 +496,7 @@
       "publishedAt": "11h",
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/c-ap23103847076018.jpg?c=original&q=w_860,c_fill",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001",
+      "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.75,
       "csScore": 0
@@ -524,7 +524,7 @@
       "publishedAt": "15h",
       "imageUrl": "https://ballotpedia.s3.amazonaws.com/images/a/a8/Elections_to_watch.png",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_001",
+      "pollingDataId": "poll_abortion_legality_002",
       "counterStereotypical": false,
       "engagementScore": 0.55,
       "csScore": 0
@@ -552,7 +552,7 @@
       "publishedAt": "4h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/SXYZX7WFTOPBIZGAEYV44ETMTA_size-normalized.JPG&w=1800&h=1800",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_carbon_001",
+      "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.8,
       "csScore": 0
@@ -608,7 +608,7 @@
       "publishedAt": "12h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/WVYSWUC5NJHYFHXT6YOIQSLFJI_size-normalized.jpg&w=1800&h=1800",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_carbon_001",
+      "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.75,
       "csScore": 0
@@ -622,7 +622,7 @@
       "publishedAt": "14h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/YTJHJLAUP54SVBABQND4RE3XVM_size-normalized.jpg&w=1440&impolicy=high_res",
       "topicId": "us-climate",
-      "pollingDataId": null,
+      "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
       "engagementScore": 0.6,
       "csScore": 0
@@ -650,7 +650,7 @@
       "publishedAt": "18h",
       "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2021_21/3477890/210526-background-checks-mb-1637.jpg",
       "topicId": "us-gun-control",
-      "pollingDataId": null,
+      "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": true,
       "engagementScore": 0.65,
       "csScore": 0.625
