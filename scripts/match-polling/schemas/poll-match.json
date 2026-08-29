@@ -1,28 +1,33 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "PollingMatch",
-  "description": "One judge's decision about which polling question, if any, a report's core claim actually answers. reportId is attached by the pipeline rather than echoed by the model, so a model can never mislabel which report it judged. Nullability uses anyOf rather than a type array, and every property is listed in required, so that the same file is accepted verbatim by both providers' structured-output validators.",
+  "description": "One judge's decision about which polling question, if any, a report's core claim actually answers. reportId is attached by the pipeline rather than echoed by the model, so a model can never mislabel which report it judged. The outcome field separates \"no candidate asks about this\" from \"the surviving text does not say enough to tell\": the reports differ in how much archived publisher text exists, and collapsing the two would let missing text pass for a judgment. Nullability uses anyOf rather than a type array, and every property is listed in required, so that the same file is accepted verbatim by both providers' structured-output validators.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["coreClaim", "alignedPollId", "evidence", "rejection"],
+  "required": ["outcome", "coreClaim", "alignedPollId", "evidence", "rejection"],
   "properties": {
+    "outcome": {
+      "type": "string",
+      "enum": ["aligned", "no_alignment", "insufficient_evidence"],
+      "description": "\"aligned\": one candidate asks about the same proposition as the report's core claim. \"no_alignment\": you could tell what the report claims, and no candidate asks about it. \"insufficient_evidence\": the text you were given does not let you establish what the report's core claim is, so you cannot compare it with anything. Abstaining is not a failure and is never a substitute for \"no_alignment\"."
+    },
     "coreClaim": {
       "type": "string",
-      "description": "The report's central claim, written as one declarative English sentence. State what the report asserts is or should be the case, not what the report is 'about'. Under 200 characters."
+      "description": "The report's central claim, written as one declarative English sentence. State what the report asserts is or should be the case, not what the report is 'about'. Under 200 characters. Empty string when outcome is \"insufficient_evidence\"."
     },
     "alignedPollId": {
-      "description": "The id of the candidate poll whose question the core claim answers, or null when no candidate asks about the thing this report is actually about. Must be copied verbatim from the candidate list; never invent an id.",
+      "description": "The id of the candidate poll whose question the core claim answers. Must be copied verbatim from the candidate list; never invent an id. Null unless outcome is \"aligned\".",
       "anyOf": [{ "type": "string" }, { "type": "null" }]
     },
     "evidence": {
       "type": "object",
-      "description": "Why the alignment holds. All three fields are empty strings when alignedPollId is null.",
+      "description": "Why the alignment holds. All three fields are empty strings unless outcome is \"aligned\".",
       "additionalProperties": false,
       "required": ["reportSpan", "pollConcept", "alignment"],
       "properties": {
         "reportSpan": {
           "type": "string",
-          "description": "Verbatim span from the headline or summary carrying the core claim, under 200 characters."
+          "description": "Verbatim span from the text you were given carrying the core claim, under 200 characters."
         },
         "pollConcept": {
           "type": "string",
@@ -36,7 +41,7 @@
     },
     "rejection": {
       "type": "string",
-      "description": "Required when alignedPollId is null: name the closest candidate and say what the report is about that the candidate does not ask about. Empty string when alignedPollId is non-null. Under 300 characters."
+      "description": "Required when outcome is \"no_alignment\": name the closest candidate and say what the report is about that the candidate does not ask about. Required when outcome is \"insufficient_evidence\": say what the available text stops short of telling you. Empty string when outcome is \"aligned\". Under 300 characters."
     }
   }
 }
