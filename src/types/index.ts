@@ -88,7 +88,19 @@ export interface Report {
   subtopicId?: string;     // Optional: links to Subtopic.id (preferred, more granular)
   pollingDataId?: string | null; // Explicit polling data assignment; null = no chart
   title: string;
-  summary: string;
+  summary: string;         // 卡片正文；来源见 summaryProvenance
+  /**
+   * summary 这段文字是谁写的。
+   *
+   *   'og:description' 出版方自己写的社交预览摘要，取自带时间戳的存档快照
+   *   'lede'           出版方的正文首段，og 缺失时的回退
+   *   'authored'       本项目撰写的摘要 —— 存档上没有任何出版方文本可用
+   *
+   * 记在数据层而不是只写进文档：卡片上挂着真实署名，这段文字出自出版方还是
+   * 出自我们，是读者与审稿人都有权当场查到的事，不该要翻一遍采集记录才知道。
+   * 溯源到具体快照见 src/data/source-texts.json 的同 id 条目。
+   */
+  summaryProvenance?: 'og:description' | 'lede' | 'authored';
   source: string;          // Media source name (e.g., "CNN", "NPR")
   url?: string;
   publishedAt?: string;

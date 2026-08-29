@@ -15,5 +15,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["scripts/annotate", "scripts/match-polling"]
+  "include": ["scripts/annotate", "scripts/match-polling", "scripts/backfill-source-summaries.ts"]
 }
