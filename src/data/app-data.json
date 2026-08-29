@@ -198,14 +198,92 @@
         28,
         8
       ],
-      "bridgingText": "According to an April 2024 Pew Research Center survey, the general public's stance on the legality of abortion across all circumstances is:"
+      "bridgingText": "According to an April 2024 Pew Research Center survey, the general public's stance on the legality of abortion across all circumstances is:",
+      "questionWording": "Do you think abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
+      "sourceUrl": "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/03/PP_3.12.2026_abortion_topline.pdf",
+      "fieldDates": "2024-04-08 – 2024-04-14",
+      "sampleSize": 8709,
+      "population": "U.S. adults",
+      "level": "subtopic",
+      "verifiedBy": "human",
+      "verifiedAt": "2026-08-22",
+      "uncertainty": "sourceUrl 指向 Pew 2026-03 堕胎 topline —— 该 PDF 的趋势表逐行列出「Apr 8-14, 2024: 25 / 38 / 28 / 11 / 2」，是能看到这组数字的页面。原始报告为 2024-05-13 Pew 发布。分布未重新归一化，No answer 未计入 dontKnowPct（原表未单列）。"
     },
     {
-      "id": "poll_climate_international_agreements_001",
-      "topicId": "us-climate",
-      "subtopicId": "us-climate-international-agreements",
-      "source": "Yale Program on Climate Change Communication",
+      "id": "poll_gun_general_strictness_001",
+      "topicId": "us-gun-control",
+      "level": "topic",
+      "questionWording": "Should gun laws in the United States be made more strict, left as they are, or made less strict?",
+      "source": "AP-NORC Center for Public Affairs Research",
+      "sourceUrl": "https://apnorc.org/wp-content/uploads/2023/08/August-2023-Topline_AGE.pdf",
+      "fieldDates": "2023-08-10 – 2023-08-14",
       "surveyYear": 2023,
+      "sampleSize": 1165,
+      "population": "U.S. adults",
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Much more strict",
+        "Somewhat more strict",
+        "Left as they are",
+        "Somewhat less strict",
+        "Much less strict"
+      ],
+      "distribution": [
+        41,
+        23,
+        23,
+        6,
+        6
+      ],
+      "dontKnowPct": 1,
+      "verifiedBy": "human",
+      "verifiedAt": "2026-08-22",
+      "uncertainty": "议题级广义题。录入时按旧判据核验：方向合并后更严格(41+23)=64 vs 更宽松(6+6)=12，dominantShare=64，extremeMin=min(41,6)=6，入库。此结果与任务预设（广义枪支题通常55/45被排除）不同，原因是本题提供了『维持现状』中间档，见 Recommendations 第3点讨论。按现行判据（中间>两端，中立档『Left as they are』计入中间）复核：中间(23+23+6)=52% > 两端(41+6)=47%，仍入库。",
+      "bridgingText": "An August 2023 AP-NORC survey asked U.S. adults whether gun laws in the United States should be made more strict, left as they are, or made less strict:"
+    },
+    {
+      "id": "poll_abortion_legality_002",
+      "topicId": "us-abortion",
+      "subtopicId": "us-abortion-legality",
+      "level": "subtopic",
+      "questionWording": "Do you think abortion should be… Legal in all cases / Legal in most cases / Illegal in most cases / Illegal in all cases",
+      "source": "Pew Research Center",
+      "sourceUrl": "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/03/PP_3.12.2026_abortion_topline.pdf",
+      "fieldDates": "2026-01-20 – 2026-01-26",
+      "surveyYear": 2026,
+      "sampleSize": 8512,
+      "population": "U.S. adults",
+      "geographicScope": "US",
+      "scaleLabels": [
+        "Legal in all cases",
+        "Legal in most cases",
+        "Illegal in most cases",
+        "Illegal in all cases"
+      ],
+      "distribution": [
+        23,
+        37,
+        28,
+        11
+      ],
+      "dontKnowPct": 2,
+      "verifiedBy": "human",
+      "verifiedAt": "2026-08-22",
+      "uncertainty": "『No answer』2% 记入 dontKnowPct，按任务算例①的做法直接使用『所有受访者中』的原始比例，未重新归一化。录入时按旧判据核验：dominantShare=legal(23+37)=60，恰好等于门槛 60%（若剔除2% no-answer 重新归一化则升至约62%）；extremeMin=min(23,11)=11，属临界入库。原文趋势表『Jan 20-26, 2026: 23 / 37 / 28 / 11 / 2』逐字可见。按现行判据（中间>两端）复核：中间(37+28)=65% > 两端(23+11)=34%，不再是临界情形，稳定入库。",
+      "bridgingText": "In a January 2026 Pew Research Center survey of 8,512 U.S. adults, views on whether abortion should be legal were distributed as follows:"
+    },
+    {
+      "id": "poll_climate_carbon_001",
+      "topicId": "us-climate",
+      "subtopicId": "us-climate-carbon-emissions",
+      "level": "subtopic",
+      "questionWording": "How much do you support or oppose the following policies? Regulate carbon dioxide (the primary greenhouse gas) as a pollutant",
+      "source": "Yale Program on Climate Change Communication / George Mason University (Climate Change in the American Mind: Politics & Policy, Spring 2026)",
+      "sourceUrl": "https://climatecommunication.yale.edu/app/uploads/2026/06/climate-change-american-mind-politics-policy-spring-2026.pdf",
+      "fieldDates": "2026-04-17 – 2026-04-26",
+      "surveyYear": 2026,
+      "sampleSize": 930,
+      "population": "U.S. registered voters",
       "geographicScope": "US",
       "scaleLabels": [
         "Strongly support",
@@ -215,11 +293,15 @@
       ],
       "distribution": [
         32,
-        36,
-        14,
-        18
+        45,
+        13,
+        9
       ],
-      "bridgingText": "Amid polarized headlines on climate policy, a Fall 2023 Yale Program on Climate Change Communication survey shows where Americans actually stand on climate action:"
+      "dontKnowPct": 1,
+      "verifiedBy": "human",
+      "verifiedAt": "2026-08-22",
+      "uncertainty": "样本为登记选民（registered voters, 未加权基数 n=930；整份调查含 1,060 名成年人）。分档数据取自报告 PDF 的 Appendix I 数据表（约第59页 item 3.1）；报告网页正文只给 NET=77%（verbatim: 'Regulating carbon dioxide (the primary greenhouse gas) as a pollutant: 77% of registered voters'）。『No response』1% 记入 dontKnowPct。录入时按旧判据核验：dominantShare=support(32+45)=77，extremeMin=min(32,9)=9。按现行判据（中间>两端）复核：中间(45+13)=58% > 两端(32+9)=41%，仍入库。",
+      "bridgingText": "A Spring 2026 survey by the Yale Program on Climate Change Communication asked registered voters how much they support or oppose regulating carbon dioxide, the primary greenhouse gas, as a pollutant:"
     }
   ],
   "reports": [
@@ -230,13 +312,12 @@
       "source": "CBS Austin",
       "url": "https://cbsaustin.com/news/local/multiple-people-injured-in-mass-shooting-on-6th-st-austin-police-investigating",
       "publishedAt": "2h",
-      "imageUrl": "https://media.nbcdfw.com/2026/03/AP26060561690822.jpg?quality=85&strip=all",
+      "imageUrl": "https://cbsaustin.com/resources/media2/16x9/6048/1320/0x44/90/a6fa45fa-99dd-47e0-b131-43418bc6ac5e-AP26060561690822.jpg",
       "topicId": "us-gun-control",
       "pollingDataId": null,
-      "hostilityScore": 0.85,
       "counterStereotypical": false,
-      "contentType": "hostile",
-      "engagementScore": 0.9
+      "engagementScore": 0.9,
+      "csScore": 0
     },
     {
       "id": "rp_gun_002",
@@ -248,10 +329,9 @@
       "imageUrl": "https://foxbaltimore.com/resources/media2/16x9/6000/986/0x313/90/9ede23ec-c9c5-4bc5-8658-fe6ed97ad0ac-GettyImages2211996655.jpg",
       "topicId": "us-gun-control",
       "pollingDataId": null,
-      "hostilityScore": 0.25,
       "counterStereotypical": false,
-      "contentType": "neutral",
-      "engagementScore": 0.55
+      "engagementScore": 0.55,
+      "csScore": 0
     },
     {
       "id": "rp_gun_003",
@@ -260,13 +340,12 @@
       "source": "CNN",
       "url": "https://www.cnn.com/2026/01/03/us/california-ban-openly-carrying-gun-unconstitutional-hnk",
       "publishedAt": "6h",
-      "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-560w,f_auto,q_auto:best/rockcms/2026-01/250102-open-carry-aa-640-182ab3.png",
+      "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/usatsi-13933218.jpg?c=16x9&q=w_800,c_fill",
       "topicId": "us-gun-control",
       "pollingDataId": null,
-      "hostilityScore": 0.3,
       "counterStereotypical": false,
-      "contentType": "neutral",
-      "engagementScore": 0.65
+      "engagementScore": 0.65,
+      "csScore": 0
     },
     {
       "id": "rp_gun_004",
@@ -275,13 +354,12 @@
       "source": "CNN",
       "url": "https://www.cnn.com/2026/02/01/politics/gun-politics-trump-second-amendment",
       "publishedAt": "8h",
-      "imageUrl": "https://www.motherjones.com/wp-content/uploads/trump-rifle2000.jpg?w=990",
+      "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/ap22148014227135a.JPG?c=16x9&q=w_800,c_fill",
       "topicId": "us-gun-control",
       "pollingDataId": null,
-      "hostilityScore": 0.2,
       "counterStereotypical": true,
-      "contentType": "counter-stereotypical",
-      "engagementScore": 0.45
+      "engagementScore": 0.45,
+      "csScore": 0.25
     },
     {
       "id": "rp_gun_005",
@@ -290,13 +368,12 @@
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/politics/2026/03/02/supreme-court-marijuana-gun-hemani/",
       "publishedAt": "10h",
-      "imageUrl": "https://static.wixstatic.com/media/0eb7a4_62b29f11d642449099bb2659ac5774ca~mv2.png/v1/fill/w_1000,h_563,al_c,q_90,usm_0.66_1.00_0.01/0eb7a4_62b29f11d642449099bb2659ac5774ca~mv2.png",
+      "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/AVY3S2K6LDSCSJIBE6E4QQANEU_size-normalized.jpg&w=1440&impolicy=high_res",
       "topicId": "us-gun-control",
       "pollingDataId": null,
-      "hostilityScore": 0.2,
       "counterStereotypical": false,
-      "contentType": "neutral",
-      "engagementScore": 0.5
+      "engagementScore": 0.5,
+      "csScore": 0
     },
     {
       "id": "rp_gun_006",
@@ -305,13 +382,12 @@
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/national-security/2026/01/19/trump-justice-department-gun-regulations-atf/",
       "publishedAt": "12h",
-      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtAaHVJBeAZ-X9O7blOVBGiHlxvmlXpMpIrg&s",
+      "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://cloudfront-us-east-1.images.arcpublishing.com/wapo/NJ2W7T2MBPYHQKK2QOLOZX4SMA.JPG&w=1440&impolicy=high_res",
       "topicId": "us-gun-control",
       "pollingDataId": null,
-      "hostilityScore": 0.75,
       "counterStereotypical": false,
-      "contentType": "hostile",
-      "engagementScore": 0.8
+      "engagementScore": 0.8,
+      "csScore": 0
     },
     {
       "id": "rp_gun_007",
@@ -323,10 +399,9 @@
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2257847778.jpg?c=16x9&q=w_800,c_fill",
       "topicId": "us-gun-control",
       "pollingDataId": null,
-      "hostilityScore": 0.1,
       "counterStereotypical": true,
-      "contentType": "counter-stereotypical",
-      "engagementScore": 0.55
+      "engagementScore": 0.55,
+      "csScore": 1
     },
     {
       "id": "rp_gun_008",
@@ -338,10 +413,9 @@
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/ap26027626289799.jpg?c=16x9&q=w_800,c_fill",
       "topicId": "us-gun-control",
       "pollingDataId": null,
-      "hostilityScore": 0.3,
       "counterStereotypical": false,
-      "contentType": "neutral",
-      "engagementScore": 0.6
+      "engagementScore": 0.6,
+      "csScore": 0.8
     },
     {
       "id": "rp_abortion_001",
@@ -350,13 +424,12 @@
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/nation/2026/01/06/wyoming-court-abortion-pill-ban/",
       "publishedAt": "1h",
-      "imageUrl": "https://i.guim.co.uk/img/media/3544713542f43a3803afa036936efc54785046dc/0_0_4749_3166/master/4749.jpg?width=465&dpr=1&s=none&crop=none",
+      "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/4RM2BRMEWMG5QMCSNDTBSWZK7Y.jpg&w=1440",
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
-      "hostilityScore": 0.3,
       "counterStereotypical": false,
-      "contentType": "neutral",
-      "engagementScore": 0.6
+      "engagementScore": 0.6,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_002",
@@ -368,10 +441,9 @@
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1237884449.jpg?c=original",
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
-      "hostilityScore": 0.3,
       "counterStereotypical": true,
-      "contentType": "counter-stereotypical",
-      "engagementScore": 0.55
+      "engagementScore": 0.55,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_003",
@@ -383,25 +455,23 @@
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/2025-02-20t173249z-1567173878-rc2gycaqrf5j-rtrmadp-3-usa-trump-workers.JPG?c=16x9&q=w_800,c_fill",
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
-      "hostilityScore": 0.8,
       "counterStereotypical": false,
-      "contentType": "hostile",
-      "engagementScore": 0.85
+      "engagementScore": 0.85,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_004",
-      "title": "Abortion rights poised to drive 2026 midterm turnout",
+      "title": "2026 Abortion-Related Ballot Measures",
       "summary": "Abortion-related ballot measures are heading to voters in Missouri, Idaho, Virginia, Oregon, Montana and Nebraska this November. Both abortion advocates and opponents say the 2026 midterm elections could significantly reshape the legal landscape for reproductive rights nationwide.",
-      "source": "Washington Post",
+      "source": "State Court Report",
       "url": "https://statecourtreport.org/our-work/analysis-opinion/2026-abortion-related-ballot-measures",
       "publishedAt": "7h",
-      "imageUrl": "https://i.guim.co.uk/img/media/99c7607862dd92362e006ac75b19ac0119568e40/0_0_6000_4000/master/6000.jpg?width=465&dpr=1&s=none&crop=none",
+      "imageUrl": "https://statecourtreport.org/sites/default/files/styles/3_1_1120x373/public/2023-11/2023_09_SCR_Abortion_Rights%20%282%29.webp?h=043d26d4&itok=gqsBYXyP",
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
-      "hostilityScore": 0.35,
       "counterStereotypical": false,
-      "contentType": "neutral",
-      "engagementScore": 0.52
+      "engagementScore": 0.52,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_005",
@@ -410,13 +480,12 @@
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/ripple/2026/02/25/abortion-laws-show-that-public-policy-doesnt-always-line-up-with-public-opinion/",
       "publishedAt": "9h",
-      "imageUrl": "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/03/PP_2026.3.12_abortion_0-01.png?w=640",
+      "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://cloudfront-us-east-1.images.arcpublishing.com/wapo/DTJFYG5FY2XDOLXUZH4ND55FC4.JPG&w=1440&impolicy=high_res",
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
-      "hostilityScore": 0.1,
       "counterStereotypical": true,
-      "contentType": "counter-stereotypical",
-      "engagementScore": 0.5
+      "engagementScore": 0.5,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_006",
@@ -428,10 +497,9 @@
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/c-ap23103847076018.jpg?c=original&q=w_860,c_fill",
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
-      "hostilityScore": 0.7,
       "counterStereotypical": false,
-      "contentType": "hostile",
-      "engagementScore": 0.75
+      "engagementScore": 0.75,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_007",
@@ -443,10 +511,9 @@
       "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/2572x1716+0+0/resize/1100/quality/50/format/png/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F5a%2F5e%2F77c5292f48f1bb7aca17bdd22469%2Fmexico-city-madagascar.png",
       "topicId": "us-abortion",
       "pollingDataId": null,
-      "hostilityScore": 0.6,
       "counterStereotypical": false,
-      "contentType": "hostile",
-      "engagementScore": 0.67
+      "engagementScore": 0.67,
+      "csScore": 0
     },
     {
       "id": "rp_abortion_008",
@@ -455,13 +522,12 @@
       "source": "Ballotpedia",
       "url": "https://ballotpedia.org/Missouri_Amendment_3,_Prohibit_Abortion_and_Gender_Transition_Procedures_for_Minors_Amendment_(2026)",
       "publishedAt": "15h",
-      "imageUrl": "https://statecourtreport.org/sites/default/files/2023-11/2023_09_SCR_Abortion_Rights%20%282%29.png",
+      "imageUrl": "https://ballotpedia.s3.amazonaws.com/images/a/a8/Elections_to_watch.png",
       "topicId": "us-abortion",
       "pollingDataId": "poll_abortion_legality_001",
-      "hostilityScore": 0.35,
       "counterStereotypical": false,
-      "contentType": "neutral",
-      "engagementScore": 0.55
+      "engagementScore": 0.55,
+      "csScore": 0
     },
     {
       "id": "rp_climate_001",
@@ -472,11 +538,10 @@
       "publishedAt": "2h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/BI3TX7QLYMI6DDYI6MJ5WGVRHA&w=1440",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
-      "hostilityScore": 0.8,
+      "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
-      "contentType": "hostile",
-      "engagementScore": 0.85
+      "engagementScore": 0.85,
+      "csScore": 0
     },
     {
       "id": "rp_climate_002",
@@ -487,11 +552,10 @@
       "publishedAt": "4h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/SXYZX7WFTOPBIZGAEYV44ETMTA_size-normalized.JPG&w=1800&h=1800",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
-      "hostilityScore": 0.75,
+      "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
-      "contentType": "hostile",
-      "engagementScore": 0.8
+      "engagementScore": 0.8,
+      "csScore": 0
     },
     {
       "id": "rp_climate_003",
@@ -502,11 +566,10 @@
       "publishedAt": "6h",
       "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2261037765.jpg?c=16x9&q=w_800,c_fill",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
-      "hostilityScore": 0.3,
+      "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
-      "contentType": "neutral",
-      "engagementScore": 0.5
+      "engagementScore": 0.5,
+      "csScore": 0
     },
     {
       "id": "rp_climate_004",
@@ -517,11 +580,10 @@
       "publishedAt": "8h",
       "imageUrl": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iMvcUDmdpH48/v0/-1x-1.webp",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
-      "hostilityScore": 0.1,
+      "pollingDataId": null,
       "counterStereotypical": true,
-      "contentType": "counter-stereotypical",
-      "engagementScore": 0.58
+      "engagementScore": 0.58,
+      "csScore": 0.175
     },
     {
       "id": "rp_climate_005",
@@ -532,11 +594,10 @@
       "publishedAt": "10h",
       "imageUrl": "https://www.eia.gov/todayinenergy/images/2026.02.20/main.svg",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
-      "hostilityScore": 0.05,
+      "pollingDataId": null,
       "counterStereotypical": true,
-      "contentType": "counter-stereotypical",
-      "engagementScore": 0.6
+      "engagementScore": 0.6,
+      "csScore": 0
     },
     {
       "id": "rp_climate_006",
@@ -547,11 +608,10 @@
       "publishedAt": "12h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/WVYSWUC5NJHYFHXT6YOIQSLFJI_size-normalized.jpg&w=1800&h=1800",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
-      "hostilityScore": 0.7,
+      "pollingDataId": "poll_climate_carbon_001",
       "counterStereotypical": false,
-      "contentType": "hostile",
-      "engagementScore": 0.75
+      "engagementScore": 0.75,
+      "csScore": 0
     },
     {
       "id": "rp_climate_007",
@@ -560,13 +620,12 @@
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/opinions/2026/02/18/epa-emissions-reversal-energy-steven-koonin/",
       "publishedAt": "14h",
-      "imageUrl": "https://tse4.mm.bing.net/th/id/OIP.8ohl1DvIBnds0Aup2GHB_wHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/YTJHJLAUP54SVBABQND4RE3XVM_size-normalized.jpg&w=1440&impolicy=high_res",
       "topicId": "us-climate",
       "pollingDataId": null,
-      "hostilityScore": 0.65,
       "counterStereotypical": false,
-      "contentType": "hostile",
-      "engagementScore": 0.6
+      "engagementScore": 0.6,
+      "csScore": 0
     },
     {
       "id": "rp_climate_008",
@@ -575,13 +634,12 @@
       "source": "NBC News",
       "url": "https://www.nbcnews.com/weather/heat/deadliest-extreme-weather-event-not-think-rcna219702",
       "publishedAt": "16h",
-      "imageUrl": "https://i.guim.co.uk/img/media/358ee9c0b3517f0b5f1a887c5291d0e896e08bea/0_77_1200_720/master/1200.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=6568abbaa0ee544c76a13e8096489b2e",
+      "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/rockcms/2025-07/250721-extreme-heat-se-1019a-3c778e.jpg",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_international_agreements_001",
-      "hostilityScore": 0.35,
+      "pollingDataId": null,
       "counterStereotypical": false,
-      "contentType": "neutral",
-      "engagementScore": 0.52
+      "engagementScore": 0.52,
+      "csScore": 0
     },
     {
       "id": "rp_gun_010",
@@ -593,10 +651,9 @@
       "imageUrl": "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2021_21/3477890/210526-background-checks-mb-1637.jpg",
       "topicId": "us-gun-control",
       "pollingDataId": null,
-      "hostilityScore": 0.05,
       "counterStereotypical": true,
-      "contentType": "counter-stereotypical",
-      "engagementScore": 0.65
+      "engagementScore": 0.65,
+      "csScore": 0.625
     },
     {
       "id": "rp_abortion_010",
@@ -608,10 +665,9 @@
       "imageUrl": "https://www.propublica.org/wp-content/uploads/2026/06/20260603-abortion-reforms-punished-murphy-campaign.jpg?w=1149",
       "topicId": "us-abortion",
       "pollingDataId": null,
-      "hostilityScore": 0.05,
       "counterStereotypical": true,
-      "contentType": "counter-stereotypical",
-      "engagementScore": 0.63
+      "engagementScore": 0.63,
+      "csScore": 0.8
     },
     {
       "id": "rp_climate_010",
@@ -623,10 +679,9 @@
       "imageUrl": "https://grist.org/wp-content/uploads/2021/04/UMWA-coal-miner-workers-energy-e1618871598667.jpg?quality=75&strip=all",
       "topicId": "us-climate",
       "pollingDataId": null,
-      "hostilityScore": 0.05,
       "counterStereotypical": true,
-      "contentType": "counter-stereotypical",
-      "engagementScore": 0.61
+      "engagementScore": 0.61,
+      "csScore": 0
     },
     {
       "id": "rp_immigration_001",
@@ -635,13 +690,12 @@
       "source": "CNN",
       "url": "https://www.cnn.com/2025/09/23/politics/us-citizen-children-separated-parents-deported-ice-invs",
       "publishedAt": "6h",
-      "imageUrl": "https://www.worldpressphoto.org/getmedia/5eb76235-1b1e-43c0-9427-e2007edd868d/WPP-2026Contest-POY-CarolGuzy.jpg?maxsidesize=1920&resizemode=force",
+      "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/20250715-dvb-a7a-0806-mp4-00-01-39-16-still002.jpg?c=16x9&q=w_800,c_fill",
       "topicId": "us-immigration",
       "pollingDataId": null,
-      "hostilityScore": 0.75,
       "counterStereotypical": false,
-      "contentType": "hostile",
-      "engagementScore": 0.82
+      "engagementScore": 0.82,
+      "csScore": 0.175
     }
   ],
   "mockUsers": [

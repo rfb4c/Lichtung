@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { isSupabaseConfigured } from '../lib/config';
-import { mapComment, mapPollingData, type CommentRow, type PollingDataRow } from '../lib/mappers';
+import { mapComment, type CommentRow } from '../lib/mappers';
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 import type { Comment, PollingData, MockUser, MockComment } from '../types';
@@ -13,8 +13,8 @@ import appData from '../data/app-data.json';
 
 interface CommentSectionProps {
   reportId: string;
-  topicId?: string;
-  subtopicId?: string;
+  /** 由 FeedItem 经 pollingResolver 解析后传入，保证按钮与评论区顶部图表始终一致 */
+  pollingData: PollingData | null;
   onCommentCountChange: (reportId: string, delta: number) => void;
   onUserClick?: (userId: string) => void;
 }
@@ -51,40 +51,11 @@ function buildMockComments(reportId: string): Comment[] {
     });
 }
 
-export default function CommentSection({ reportId, topicId, subtopicId, onCommentCountChange, onUserClick }: CommentSectionProps) {
+export default function CommentSection({ reportId, pollingData, onCommentCountChange, onUserClick }: CommentSectionProps) {
   const { user } = useAuth();
   const { showToast } = useToast();
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
-  const [pollingData, setPollingData] = useState<PollingData | null>(null);
-
-  // Load polling data: Supabase when configured, else static JSON fallback
-  useEffect(() => {
-    if (!topicId) return;
-
-    if (!isSupabaseConfigured) {
-      const poll = subtopicId
-        ? (appData.pollingData as PollingData[]).find((p) => p.subtopicId === subtopicId)
-        : (appData.pollingData as PollingData[]).find((p) => p.topicId === topicId);
-      setPollingData(poll ?? null);
-      return;
-    }
-
-    async function fetchPollingData() {
-      const { data, error } = await supabase
-        .from('polling_data')
-        .select('*')
-        .eq('topic_id', topicId)
-        .limit(1);
-      if (!error && data && data.length > 0) {
-        setPollingData(mapPollingData(data[0] as PollingDataRow));
-      } else {
-        setPollingData(null);
-      }
-    }
-
-    fetchPollingData();
-  }, [topicId, subtopicId]);
 
   useEffect(() => {
     if (!isSupabaseConfigured) {

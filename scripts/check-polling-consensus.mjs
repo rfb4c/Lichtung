@@ -1,0 +1,236 @@
+#!/usr/bin/env node
+/**
+ * 逐条校验 src/data/app-data.json 里的民调：结构、入库判据、溯源字段。
+ *
+ * 入库判据放在**入库层**而不是检索层——库里只放温和多数型民调，报道→民调的检索
+ * 就不必再判「这组数据是否呈温和多数」。判据是量化的，所以能被脚本检查，而不是
+ * 靠录入时的印象：
+ *
+ *   两端 = 分布最外侧两档之和；中间 = 其余所有档之和（含中立档，如果存在）
+ *   ↓
+ *   入库条件：中间 > 两端
+ *
+ * 讲的故事是「极端立场的人其实很少」，不是「公众站在同一边」——后者会放行像
+ * 79% 强烈支持、两端合计 70% 的「一边倒」分布，那不是温和多数。
+ *
+ * 判据不是为了迁就现有数据定的——它必须能被现有数据通过，这个脚本就是那次回测
+ * 的可重跑版本。被排除的民调存 src/data/polling-excluded.json（存在则一并校验），
+ * 论文里报「共考察 N 条 / 入库 M 条 / 排除 K 条」，把 cherry-picking 质疑变成
+ * 可审查的设计声明。
+ *
+ * 用法：node scripts/check-polling-consensus.mjs
+ */
+
+import { readFileSync, existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
+
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const APP_DATA = resolve(ROOT, 'src/data/app-data.json');
+const EXCLUDED = resolve(ROOT, 'src/data/polling-excluded.json');
+
+
+/** 新增条目必须带齐的溯源字段。现存两条是审计之前录入的，只警告不判错。 */
+const PROVENANCE_FIELDS = [
+  'questionWording',
+  'sourceUrl',
+  'fieldDates',
+  'level',
+  'verifiedBy',
+  'verifiedAt',
+];
+
+/**
+ * 两端 = 最外侧两档；中间 = 其余所有档。scaleLabels 必须按方向有序
+ * （一极 → 另一极），否则「最外侧」没有意义——这是录入规格里的硬性规则。
+ */
+function moderationProfile(distribution) {
+  const n = distribution.length;
+  const extremesShare = distribution[0] + distribution[n - 1];
+  const moderateShare = distribution.slice(1, n - 1).reduce((a, b) => a + b, 0);
+
+  return {
+    moderateShare,
+    extremesShare,
+    neutral: n % 2 === 1 ? distribution[Math.floor(n / 2)] : null,
+  };
+}
+
+/**
+ * 结构与字段类型。
+ *
+ * 类型检查看着琐碎，但民调是**人工逐条录入**的：`"58"` 写成字符串、
+ * `sampleSize` 打成 `"5,140"`、`sourceUrl` 少了协议头——这些 TypeScript 都拦不住
+ * （JSON 导入处是 `as PollingData[]` 断言），只会在页面上渲染成一串怪东西。
+ * 录入当下发现，比截图时发现便宜得多。
+ */
+function checkStructure(poll, requiresBridging) {
+  const problems = [];
+  const { scaleLabels = [], distribution = [] } = poll;
+
+  if (scaleLabels.length !== distribution.length) {
+    problems.push(
+      `scaleLabels(${scaleLabels.length}) 与 distribution(${distribution.length}) 不等长`,
+    );
+  }
+  if (scaleLabels.length < 4 || scaleLabels.length > 7) {
+    problems.push(`档位数 ${scaleLabels.length}，超出 4–7 的设计范围`);
+  }
+  if (scaleLabels.some((label) => typeof label !== 'string' || label.trim() === '')) {
+    problems.push('scaleLabels 含空值或非字符串');
+  }
+
+  const badNumbers = distribution.filter((v) => typeof v !== 'number' || !Number.isFinite(v));
+  if (badNumbers.length > 0) {
+    problems.push(`distribution 含非数值：${JSON.stringify(badNumbers)}（百分比不要加引号）`);
+  } else {
+    const sum = distribution.reduce((a, b) => a + b, 0);
+    if (Math.abs(sum - 100) > 1) {
+      problems.push(`distribution 合计 ${sum}%，超出 100±1 的四舍五入容差`);
+    }
+  }
+
+  for (const field of ['sampleSize', 'dontKnowPct']) {
+    if (poll[field] !== undefined && typeof poll[field] !== 'number') {
+      problems.push(`${field} 应为数值，实为 ${JSON.stringify(poll[field])}`);
+    }
+  }
+
+  if (poll.sourceUrl !== undefined && !/^https?:\/\/.+/.test(poll.sourceUrl)) {
+    problems.push(`sourceUrl 不是可用链接：${JSON.stringify(poll.sourceUrl)}`);
+  }
+  if (poll.verifiedAt !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(poll.verifiedAt)) {
+    problems.push(`verifiedAt 应为 YYYY-MM-DD，实为 ${JSON.stringify(poll.verifiedAt)}`);
+  }
+  if (poll.level !== undefined && !['topic', 'subtopic'].includes(poll.level)) {
+    problems.push(`level 只能是 topic 或 subtopic，实为 ${JSON.stringify(poll.level)}`);
+  }
+  if (poll.questionWording !== undefined && poll.questionWording.trim() === '') {
+    problems.push('questionWording 为空——它是检索的核心匹配对象，不能留空占位');
+  }
+
+  // bridgingText 在类型里是必填，但 JSON 导入处是 `as PollingData[]` 断言，
+  // tsc 漏得掉。它直接渲染在图表上方，缺了会留一段空白。
+  if (requiresBridging && (typeof poll.bridgingText !== 'string' || poll.bridgingText.trim() === '')) {
+    problems.push('缺 bridgingText——它渲染在图表上方，是必填');
+  }
+  if (poll.subtopicId === '') {
+    problems.push('subtopicId 是空字符串；议题级条目应直接省略该字段');
+  }
+
+  return problems;
+}
+
+function report(poll, { requireConsensus }) {
+  const problems = checkStructure(poll, requireConsensus);
+  const distribution = poll.distribution ?? [];
+
+  // 分布本身不合法时，判据算出来的是垃圾（`"58" + 30` 会得到 5830）。
+  // 结构问题已经报了，不要再叠一层看不懂的数字。
+  const usable =
+    distribution.length > 0 &&
+    distribution.every((v) => typeof v === 'number' && Number.isFinite(v));
+  const profile = usable ? moderationProfile(distribution) : null;
+
+  const admissible = profile !== null && profile.moderateShare > profile.extremesShare;
+
+  if (profile !== null) {
+    if (requireConsensus && !admissible) {
+      problems.push(
+        `不满足入库判据：中间档合计 ${profile.moderateShare}%，两端合计 ${profile.extremesShare}%（需中间 > 两端）`,
+      );
+    }
+    if (!requireConsensus && admissible && !poll.exclusionReason) {
+      problems.push('满足入库判据却被排除，且没写 exclusionReason');
+    }
+  }
+
+  const missing = PROVENANCE_FIELDS.filter((f) => poll[f] === undefined);
+
+  return { problems, missing, profile, admissible };
+}
+
+function printSection(title, polls, options) {
+  console.log(`\n${title}（${polls.length} 条）`);
+  if (polls.length === 0) return { failed: 0, incomplete: 0 };
+
+  let failed = 0;
+  let incomplete = 0;
+
+  for (const poll of polls) {
+    const r = report(poll, options);
+    const mark = r.problems.length === 0 ? '✓' : '✗';
+
+    console.log(`  ${mark} ${poll.id}`);
+    if (r.profile === null) {
+      console.log('      分布不合法，判据无法计算');
+    } else {
+      const neutral = r.profile.neutral === null ? '' : `  中立档 ${r.profile.neutral}%`;
+      console.log(
+        `      中间档合计 ${String(r.profile.moderateShare).padStart(3)}%   ` +
+          `两端合计 ${String(r.profile.extremesShare).padStart(3)}%${neutral}`,
+      );
+    }
+
+    for (const problem of r.problems) console.log(`      ✗ ${problem}`);
+    if (r.problems.length > 0) failed += 1;
+
+    if (r.missing.length > 0) {
+      console.log(`      ⚠ 缺溯源字段：${r.missing.join(', ')}`);
+      incomplete += 1;
+    }
+  }
+
+  return { failed, incomplete };
+}
+
+function main() {
+  const appData = JSON.parse(readFileSync(APP_DATA, 'utf8'));
+  const admitted = appData.pollingData ?? [];
+  const quarantine = existsSync(EXCLUDED) ? JSON.parse(readFileSync(EXCLUDED, 'utf8')) : {};
+  const excluded = quarantine.excluded ?? [];
+  // 检索过但确实没有可用数据的子议题。不参与判据校验，但要计入「共考察」的口径
+  const notFound = quarantine.notFound ?? [];
+
+  console.log('入库判据：中间档合计 > 两端合计（两端 = 分布最外侧两档）');
+
+  const a = printSection('入库', admitted, { requireConsensus: true });
+  const b = printSection('排除留档', excluded, { requireConsensus: false });
+
+  const considered = admitted.length + excluded.length;
+  console.log(
+    `\n共考察 ${considered} 条：入库 ${admitted.length} 条，排除 ${excluded.length} 条` +
+      (notFound.length > 0 ? `；另有 ${notFound.length} 个子议题检索后无可用数据。` : '。'),
+  );
+
+  if (notFound.length > 0) {
+    console.log('\n无可用数据的子议题（检索已留档，是「系统地找过」的证据）：');
+    for (const entry of notFound) {
+      console.log(`  ・${entry.subtopicId}　查过：${(entry.searched ?? []).join('、')}`);
+    }
+  }
+
+  if (!existsSync(EXCLUDED)) {
+    console.log(
+      '还没有 src/data/polling-excluded.json。论文要报「考察 N / 入库 M / 排除 K」，\n' +
+        '被排除的民调同样要完整留档，否则这个数字讲不出来。',
+    );
+  }
+
+  const incomplete = a.incomplete + b.incomplete;
+  if (incomplete > 0) {
+    console.log(
+      `\n${incomplete} 条缺溯源字段。现存条目是审计之前录入的，新增条目必须带齐——\n` +
+        'questionWording 是检索的核心匹配对象，sourceUrl 要指向能看到这组数字的具体页面。',
+    );
+  }
+
+  const failed = a.failed + b.failed;
+  if (failed > 0) {
+    console.error(`\n${failed} 条不合格。`);
+    process.exit(1);
+  }
+  console.log('\n全部通过结构与判据检查。');
+}
+
+main();

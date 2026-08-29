@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CounterStereotypicalAttributes",
+  "description": "One judge's assessment of one report against the Path A rubric. reportId is attached by the pipeline rather than echoed by the model, so a model can never mislabel which report it judged. The two binary attributes are written out in full rather than shared through $defs, and nullability uses anyOf rather than a type array, so that the same file is accepted verbatim by both providers' structured-output validators.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["typicality", "heterogeneity", "violation", "prototype"],
+  "properties": {
+    "typicality": {
+      "type": "object",
+      "description": "Whether the actor is presented as an ordinary member of their group.",
+      "additionalProperties": false,
+      "required": ["present", "evidence"],
+      "properties": {
+        "present": { "type": "boolean" },
+        "evidence": {
+          "type": "string",
+          "description": "Verbatim span from the headline or summary, under 200 characters. Empty string when the report contains nothing bearing on this judgment."
+        }
+      }
+    },
+    "heterogeneity": {
+      "type": "object",
+      "description": "Whether the report explicitly signals that this is not a single individual.",
+      "additionalProperties": false,
+      "required": ["present", "evidence"],
+      "properties": {
+        "present": { "type": "boolean" },
+        "evidence": {
+          "type": "string",
+          "description": "Verbatim span from the headline or summary, under 200 characters. Empty string when the report contains nothing bearing on this judgment."
+        }
+      }
+    },
+    "violation": {
+      "type": "object",
+      "description": "How far the depicted position departs from the partisan stereotype.",
+      "additionalProperties": false,
+      "required": ["level", "evidence"],
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["none", "moderate", "extreme"],
+          "description": "Only \"moderate\" counts toward the score; the relationship is an inverted U."
+        },
+        "evidence": {
+          "type": "string",
+          "description": "Verbatim span from the headline or summary, under 200 characters. Empty string when the report contains nothing bearing on this judgment."
+        }
+      }
+    },
+    "prototype": {
+      "description": "Descriptive content type. Does not affect the attribute judgments.",
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": ["cross_party", "intra_dissent", "individuating"]
+        },
+        { "type": "null" }
+      ]
+    }
+  }
+}

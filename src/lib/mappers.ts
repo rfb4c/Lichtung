@@ -1,4 +1,4 @@
-import type { Topic, PollingData, Report, UserProfile, Comment, IdentityTag } from '../types';
+import type { Topic, Report, UserProfile, Comment, IdentityTag } from '../types';
 
 // Supabase row types (snake_case)
 
@@ -9,16 +9,9 @@ export interface TopicRow {
   tag_keywords: string[];
 }
 
-export interface PollingDataRow {
-  id: string;
-  topic_id: string;
-  source: string;
-  survey_year: number;
-  geographic_scope: string;
-  scale_labels: string[];
-  distribution: number[];
-  bridging_text: string;
-}
+// 民调没有 Row 类型/mapper：app-data.json 是唯一事实源，Supabase 里的
+// polling_data 由 scripts/generate-supabase-sync.cjs 从该文件生成，
+// 前端一律经 lib/pollingResolver 读本地库，不反向从数据库取。
 
 export interface ReportRow {
   id: string;
@@ -65,18 +58,6 @@ export function mapTopic(row: TopicRow): Topic {
   };
 }
 
-export function mapPollingData(row: PollingDataRow): PollingData {
-  return {
-    id: row.id,
-    topicId: row.topic_id,
-    source: row.source,
-    surveyYear: row.survey_year,
-    geographicScope: row.geographic_scope,
-    scaleLabels: row.scale_labels,
-    distribution: row.distribution,
-    bridgingText: row.bridging_text,
-  };
-}
 
 export function mapReport(row: ReportRow): Report {
   return {

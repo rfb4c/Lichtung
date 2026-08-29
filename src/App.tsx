@@ -10,8 +10,8 @@ import ToastContainer from './components/ToastContainer';
 import { supabase } from './lib/supabase';
 import { Report, Topic, AppData } from './types';
 import { TopicRow, ReportRow, mapTopic, mapReport } from './lib/mappers';
-import { matchAllReports } from './lib/matchers';
 import { sortAlgorithm, sortCalibrated, type FeedMode } from './lib/feedSorter';
+import { staticCommentCounts } from './lib/commentCounts';
 import staticData from './data/app-data.json';
 import { isSupabaseConfigured } from './lib/config';
 
@@ -19,17 +19,18 @@ export type PageView = 'feed' | 'profile' | 'user-profile';
 
 function App() {
   const fallback = staticData as AppData;
-  // Apply topic matching to static reports on initial load
-  const matchedReports = matchAllReports(fallback.reports as Report[], fallback.topics);
+  const fallbackReports = fallback.reports as Report[];
 
   const [currentPage, setCurrentPage] = useState<PageView>('feed');
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [focusedReportId, setFocusedReportId] = useState<string | null>(null);
   const [topicFilter, setTopicFilter] = useState<string>('');
   const [topics, setTopics] = useState<Topic[]>(isSupabaseConfigured ? [] : fallback.topics);
-  const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : matchedReports);
+  const [reports, setReports] = useState<Report[]>(isSupabaseConfigured ? [] : fallbackReports);
   const [feedMode, setFeedMode] = useState<FeedMode>('algorithm');
-  const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
+  // 以静态计数为基线：数据库里没有评论的报道，评论区会回落到 mockComments，
+  // 计数必须跟着回落，否则用户发一条评论后徽标会从 3 掉到 1。
+  const [commentCounts, setCommentCounts] = useState<Record<string, number>>(staticCommentCounts);
   const [loading, setLoading] = useState(isSupabaseConfigured);
 
   useEffect(() => {
@@ -47,9 +48,8 @@ function App() {
           topicsError: topicsRes.error?.message,
           reportsError: reportsRes.error?.message
         });
-        const matchedReports = matchAllReports(fallback.reports as Report[], fallback.topics);
         setTopics(fallback.topics);
-        setReports(matchedReports);
+        setReports(fallbackReports);
         setLoading(false);
         return;
       }
@@ -57,18 +57,13 @@ function App() {
       const fetchedTopics = (topicsRes.data as TopicRow[]).map(mapTopic);
       const fetchedReports = (reportsRes.data as ReportRow[]).map(mapReport);
 
-      // Apply automatic topic matching algorithm
-      // Match reports to topics/subtopics based on keyword matching
-      const matchedReports = matchAllReports(fetchedReports, fetchedTopics);
-
       // Fallback to static JSON when tables are empty
       if (fetchedTopics.length === 0 && fetchedReports.length === 0) {
-        const staticMatched = matchAllReports(fallback.reports as Report[], fallback.topics);
         setTopics(fallback.topics);
-        setReports(staticMatched);
+        setReports(fallbackReports);
       } else {
         setTopics(fetchedTopics);
-        setReports(matchedReports);
+        setReports(fetchedReports);
       }
       setLoading(false);
 
@@ -81,7 +76,7 @@ function App() {
         for (const row of countData) {
           counts[row.report_id] = (counts[row.report_id] || 0) + 1;
         }
-        setCommentCounts(counts);
+        setCommentCounts({ ...staticCommentCounts, ...counts });
       }
     }
 

@@ -11,7 +11,7 @@
 **项目名称**: Lichtung (林间空地)
 **项目类型**: 研究原型 - 感知极化干预系统
 **技术栈**: React + TypeScript + Vite + Supabase
-**当前版本**: v0.4.3 (三条路径均已实装；demo 录制版改动已回流)
+**当前版本**: v0.4.6 (三条路径均已实装；两条离线管线均已实跑；Path B 裁决结果待人工核对后写回)
 **主分支**: `main` | 开发分支: `develop`
 
 ---
@@ -27,7 +27,7 @@
 **重要**: 这不是完整的信息平台产品，而是**概念验证原型**（proof-of-concept）。
 
 ### 干预路径
-1. **Path B (共识可视化)**: 在评论区前置真实民调数据，打破"多数错觉"
+1. **Path B (温和多数可视化)**: 在评论区前置真实民调数据，打破"所有人都站在两个极端"的误判
 2. **Path C (交叉身份)**: 展示评论者的非政治身份标签，软化群体边界
 
 ### 数据策略
@@ -52,16 +52,25 @@
 │   ├── lib/                 # 工具函数
 │   │   ├── supabase.ts             # Supabase 客户端
 │   │   ├── mappers.ts              # 数据映射
-│   │   └── matchers.ts             # 主题匹配算法
 │   ├── types/               # TypeScript 类型定义
 │   │   └── index.ts                # 核心类型
+│   ├── lib/
+│   │   ├── csScore.ts              # Path A 三属性加权公式的唯一实现
+│   │   └── feedSorter.ts           # Path A 连续位移 + 间隔调整
 │   └── data/                # 静态数据
-│       └── app-data.json           # 主题、民调、报道数据
+│       ├── app-data.json           # 人工事实源：主题、民调、报道、用户、评论
+│       ├── annotations.json        # Path A 管线产出的可审计层
+│       └── poll-matches.json       # Path B 管线产出的可审计层
+├── scripts/
+│   ├── annotate/            # Path A 双评审标注管线（见该目录 README）
+│   ├── match-polling/       # Path B 报道→民调 双评审匹配管线（见该目录 README）
+│   └── check-polling-consensus.mjs # 民调入库判据与溯源字段校验
 ├── docs/                    # 完整文档库
 │   ├── 00-Overview/                # 产品、技术设计
-│   ├── 01-Path-B-共识可视化/        # Path B 设计规范
+│   ├── 01-Path-B-温和多数可视化/    # Path B 设计规范
 │   ├── 02-Path-C-交叉身份/          # Path C 设计规范
-│   └── 03-News-Agent/              # 新闻采集 Agent
+│   ├── 03-News-Agent/              # 新闻采集 Agent
+│   └── 04-Path-A-反刻板印象/        # Path A 设计规范（§ 3.5 是三属性判据正本）
 ├── ROADMAP.md               # 开发路线图（人类可读）
 ├── CLAUDE.md                # 本文件（AI 可读）
 └── README.md                # 项目介绍
@@ -71,40 +80,57 @@
 
 ## 🔑 核心类型定义
 
+> **唯一权威是 [`src/types/index.ts`](src/types/index.ts)。** 下面是节选提要，
+> 与代码冲突时以代码为准。
+
 ```typescript
 // 主题（议题）
 interface Topic {
   id: string;
   name: string;          // 如 "Gun Control"
   description: string;
-  keywords: string[];    // 用于匹配报道的关键词
+  tagKeywords: string[]; // 议题覆盖范围的描述词，供检索管线使用
+  subtopics?: Subtopic[];
 }
 
-// 民调数据（4-7 档可变）
+// 民调数据（4-7 档可变；溯源字段目前可选，新增条目必须带齐）
 interface PollingData {
   id: string;
   topicId: string;
-  question: string;
-  source: string;        // 如 "Pew Research Center"
-  sourceUrl: string;
-  date: string;
-  levels: Array<{        // 4-7 个等级
-    label: string;       // 如 "Strongly Support"
-    percentage: number;  // 如 28
-  }>;
-  bridgingText: string;  // 桥接文本
+  subtopicId?: string;
+  questionWording?: string; // 逐字照抄的英文原题，也是报道→民调检索的匹配对象
+  source: string;           // 如 "Pew Research Center"
+  sourceUrl?: string;       // 指向能看到这组数字的具体页面
+  surveyYear: number;
+  fieldDates?: string;      // 调查执行期，比 surveyYear 精确
+  sampleSize?: number;
+  population?: string;
+  geographicScope: string;
+  level?: 'topic' | 'subtopic';  // 决定参与哪一级检索
+  scaleLabels: string[];    // 按方向有序（一极 → 另一极）
+  distribution: number[];   // 与 scaleLabels 等长，合计 100
+  dontKnowPct?: number;     // DK 档已从分布剔除并重新归一，原始比例记这里
+  bridgingText: string;
+  verifiedBy?: 'human';
+  verifiedAt?: string;
 }
 
 // 新闻报道
 interface Report {
-  id: number;
+  id: string;
+  topicId?: string;
+  subtopicId?: string;
+  pollingDataId?: string | null; // 显式挂载；null = 不显示图表。由 scripts/match-polling 产出
   title: string;
   summary: string;
-  url: string;
-  imageUrl: string;
   source: string;
-  publishedAt: string;
-  topicId?: string;      // 可选：关联的主题
+  url?: string;
+  publishedAt?: string;          // Feed 上的相对展示标签（"2h"、"1d"），不是时间戳
+  imageUrl?: string;
+  // Path A 排序字段
+  csScore?: number;              // 0–1，标注管线产出；排序的实际依据
+  counterStereotypical?: boolean;// 旧的二值标注，csScore 缺失时的回退来源
+  engagementScore?: number;      // 人工填写的模拟参数，不对应真实互动数据
 }
 ```
 
@@ -158,7 +184,7 @@ interface Report {
 - **桥接文本**: 显示在图表上方，字体 14px
 - **数据源**: 显示在图表下方，字体 12px，灰色
 
-**详细规范**: `docs/01-Path-B-共识可视化/设计规范.md`
+**详细规范**: `docs/01-Path-B-温和多数可视化/设计规范.md`
 
 ---
 
@@ -169,9 +195,9 @@ interface Report {
 | `ROADMAP.md` | 开发路线图 | 规划任务、查看进度 |
 | `docs/00-Overview/产品设计文档.md` | 产品设计 | 理解研究动机、核心假设 |
 | `docs/00-Overview/技术设计文档.md` | 技术架构 | 数据库 schema、API 设计 |
-| `docs/01-Path-B-共识可视化/设计规范.md` | Path B 规范 | 实现共识可视化功能 |
-| `docs/01-Path-B-共识可视化/实施计划.md` | Path B 详细步骤 | Phase 1-4 具体任务 |
-| `docs/01-Path-B-共识可视化/操作手册.md` | 数据采集流程 | 添加新主题、民调数据 |
+| `docs/01-Path-B-温和多数可视化/设计规范.md` | Path B 规范 | 实现温和多数可视化功能 |
+| `docs/01-Path-B-温和多数可视化/实施计划.md` | Path B 详细步骤 | Phase 1-4 具体任务 |
+| `docs/01-Path-B-温和多数可视化/操作手册.md` | 数据采集流程 | 添加新主题、民调数据 |
 
 ---
 
@@ -213,6 +239,12 @@ interface Report {
 
 ---
 
-**最后同步**: 2026-08-15
-**当前任务**: 无进行中任务
-**下一步候选**: Supabase 模式下 CommentSection 民调查询加静态 JSON 回落；民调补 sourceUrl 与原始题干
+**最后同步**: 2026-08-27
+**当前任务**: `feature/annotation-pipeline` — Path B 匹配管线已实跑（56 次调用零失败），
+裁决产出 8/28 但**未写回**，app-data.json 仍是人工的 11/28
+**下个 session 先处理**: 两个待用户拍板的问题，均记在
+`docs/private/设计与交接-民调匹配管线.md` § 0 与 § 5：
+　① topic 级匹配的语义——「属于这个大议题就挂」还是「回答了那条广义命题才挂」
+　② 6 条摘除采纳不采纳（其中 3 条是被「分歧即不挂」规则判掉的，可能误伤）
+**下一步候选**: 民调库扩展（需某议题同时有两级民调，两级回退才跑得起来）；
+论文与视频（9 月内动手）
