@@ -307,7 +307,7 @@
   "reports": [
     {
       "id": "rp_gun_001",
-      "title": "Austin bar shooting kills 3, injures 14 - FBI investigating terrorism",
+      "title": "4 dead, 13 injured in Sixth Street mass shooting; FBI investigating potential terrorism",
       "summary": "Three people are dead and 14 others were injured following a mass shooting at Buford's on West 6th Street early Sunday, officials said.",
       "source": "CBS Austin",
       "url": "https://cbsaustin.com/news/local/multiple-people-injured-in-mass-shooting-on-6th-st-austin-police-investigating",
@@ -318,11 +318,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.9,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_gun_002",
-      "title": "Federal appeals court upholds Maryland gun control restrictions",
+      "title": "Appeals court upholds most of Maryland ban on weapons in schools, parks, other public places",
       "summary": "A federal appeals court Tuesday upheld Maryland's law banning guns in a wide range of public settings, from school grounds and government buildings to parks, sports venues and areas within 1,000 feet of a public demonstration.",
       "source": "Maryland Matters",
       "url": "https://marylandmatters.org/2026/01/21/appeals-court-upholds-most-of-maryland-ban-on-weapons-in-schools-parks-other-public-places/",
@@ -333,11 +334,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.55,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_gun_003",
-      "title": "Federal court rules California's open carry ban unconstitutional",
+      "title": "California ban on openly carrying guns is unconstitutional, court rules",
       "summary": "A US appeals court ruled on Friday that California’s ban on openly carrying firearms in most parts of the state was unconstitutional.",
       "source": "CNN",
       "url": "https://www.cnn.com/2026/01/03/us/california-ban-openly-carrying-gun-unconstitutional-hnk",
@@ -348,11 +350,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.65,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_gun_004",
-      "title": "Trump's inconsistent stance scrambles America's gun debate",
+      "title": "A ‘bizarro world’: How Trump’s words have scrambled America’s gun politics",
       "summary": "In the wake of a horrific shooting that shocked the nation, President Donald Trump starkly broke with pro-gun groups in off-the-cuff remarks: “Take the guns first, go through due process second,” Trump said during a televised meeting with lawmakers.",
       "source": "CNN",
       "url": "https://www.cnn.com/2026/02/01/politics/gun-politics-trump-second-amendment",
@@ -363,7 +366,8 @@
       "counterStereotypical": true,
       "engagementScore": 0.45,
       "csScore": 0.25,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_gun_005",
@@ -378,7 +382,8 @@
       "counterStereotypical": false,
       "engagementScore": 0.5,
       "csScore": 0,
-      "summaryProvenance": "authored"
+      "summaryProvenance": "authored",
+      "titleProvenance": "authored"
     },
     {
       "id": "rp_gun_006",
@@ -393,11 +398,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.8,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_gun_007",
-      "title": "Liberal gun groups see membership surge after Minneapolis shooting",
+      "title": "Leftist and liberal gun groups are seeing an influx of new members",
       "summary": "Several niche, left-leaning gun advocacy groups said that since Alex Pretti was killed, they can hardly keep up with the surging demand for firearms training.",
       "source": "CNN",
       "url": "https://www.cnn.com/2026/02/01/us/gun-rights-politics-alex-pretti-killing-cec",
@@ -408,11 +414,12 @@
       "counterStereotypical": true,
       "engagementScore": 0.55,
       "csScore": 1,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_gun_008",
-      "title": "Gun rights groups question Trump's Second Amendment stance",
+      "title": "Gun-rights groups decried the administration’s rhetoric on Alex Pretti’s gun. Then Trump went even further.",
       "summary": "The Trump administration didn’t have a whole lot to work with after a federal officer shot and killed someone again this weekend in Minneapolis.",
       "source": "CNN",
       "url": "https://www.cnn.com/2026/01/27/politics/gun-alex-pretti-ice-nra",
@@ -423,11 +430,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.6,
       "csScore": 0.8,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_abortion_001",
-      "title": "Wyoming Supreme Court strikes down abortion pill ban",
+      "title": "Abortion pill ban is unconstitutional, Wyoming’s top court rules",
       "summary": "The court also struck down a broader prohibition on abortions, citing a state constitution provision that guarantees residents the right to make health care decisions.",
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/nation/2026/01/06/wyoming-court-abortion-pill-ban/",
@@ -438,11 +446,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.6,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_abortion_002",
-      "title": "Abortion clinics closing even in states with access",
+      "title": "Abortion clinics are closing, even in states that have become key access points",
       "summary": "Dozens of abortion clinics closed in the US after the Supreme Court Dobbs decision revoked the federal right to an abortion in June 2022 — mostly in states that enacted bans. But the churn has continued, leaving even states with some of the most protective abortion policies to do more with less.",
       "source": "CNN",
       "url": "https://edition.cnn.com/2026/02/18/health/abortion-clinic-closures-guttmacher",
@@ -453,11 +462,12 @@
       "counterStereotypical": true,
       "engagementScore": 0.55,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_abortion_003",
-      "title": "Veterans Affairs imposes near-total abortion ban",
+      "title": "Doctors, veterans fear near-total abortion ban at VA will put women’s health at risk",
       "summary": "The VA’s new rules prevent abortions even in the case of rape or incest. VA Sec Doug Collins is expected to be questioned about it when he testifies Wednesday.",
       "source": "CNN",
       "url": "https://www.cnn.com/2026/01/28/politics/abortion-ban-veterans-affairs-roe-wade",
@@ -468,7 +478,8 @@
       "counterStereotypical": false,
       "engagementScore": 0.85,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_abortion_004",
@@ -483,7 +494,8 @@
       "counterStereotypical": false,
       "engagementScore": 0.52,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_abortion_005",
@@ -498,11 +510,12 @@
       "counterStereotypical": true,
       "engagementScore": 0.5,
       "csScore": 0,
-      "summaryProvenance": "authored"
+      "summaryProvenance": "authored",
+      "titleProvenance": "authored"
     },
     {
       "id": "rp_abortion_006",
-      "title": "Anti-abortion movement escalates clashes over blue state 'shield' laws",
+      "title": "Anti-abortion movement seeks to escalate clashes over blue state ‘shield’ laws",
       "summary": "The anti-abortion movement is testing new strategies to force a legal confrontation over so-called shield laws in Democratic-led states that protect abortion providers in those states from prosecution.",
       "source": "CNN",
       "url": "https://www.cnn.com/2026/01/17/politics/abortion-shield-laws-louisiana-california-texas",
@@ -513,11 +526,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.75,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_abortion_007",
-      "title": "Trump expands ban on aid to groups discussing abortion abroad",
+      "title": "Trump expands policy banning aid to groups abroad that discuss or provide abortions",
       "summary": "In addition to adding to the list of groups that will lose funding for providing or discussing abortion, the policy now also calls for ending aid to groups that embrace DEI.",
       "source": "NPR",
       "url": "https://www.npr.org/2026/01/23/nx-s1-5683204/abortion-trump-mexico-city-policy",
@@ -528,11 +542,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.67,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_abortion_008",
-      "title": "Missouri voters to decide on abortion ban in November 2026",
+      "title": "Missouri Amendment 3, Prohibit Abortion and Gender Transition Procedures for Minors Amendment (2026)",
       "summary": "Missouri Amendment 3 , the Prohibit Abortion and Gender Transition Procedures for Minors Amendment , is on the ballot in Missouri as a legislatively referred constitutional amendment on November 3, 2026 . [1]",
       "source": "Ballotpedia",
       "url": "https://ballotpedia.org/Missouri_Amendment_3,_Prohibit_Abortion_and_Gender_Transition_Procedures_for_Minors_Amendment_(2026)",
@@ -543,11 +558,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.55,
       "csScore": 0,
-      "summaryProvenance": "lede"
+      "summaryProvenance": "lede",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_climate_001",
-      "title": "Trump EPA repeals greenhouse gas endangerment finding",
+      "title": "Trump repeals U.S. government’s power to regulate climate",
       "summary": "The Environmental Protection Agency finishes the repeal of the “endangerment finding,” a landmark legal opinion underpinning policies regulating climate change.",
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/climate-environment/2026/02/12/endangerment-finding-repeal/",
@@ -558,11 +574,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.85,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_climate_002",
-      "title": "EPA will no longer consider health costs in pollution regulations",
+      "title": "EPA says it will no longer consider health costs in pollution regulations",
       "summary": "The EPA weakened emissions standards for new power plants and said it would no longer consider the economic impacts of public health in rule making.",
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/climate-environment/2026/01/12/epa-public-health-pollution-costs/",
@@ -573,11 +590,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.8,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_climate_003",
-      "title": "19 years ago, Supreme Court told EPA it could regulate climate pollution",
+      "title": "Massachusetts v. EPA, 549 U.S. 497 (2007)",
       "summary": "Massachusetts v. EPA: The Clean Air Act allows the Environmental Protection Agency to regulate greenhouses gases because they qualify as air pollutants. Also, standing requires showing a concrete harm that can be traced to the defendant and remedied by the courts.",
       "source": "CNN",
       "url": "https://supreme.justia.com/cases/federal/us/549/497/",
@@ -588,11 +606,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.5,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_climate_004",
-      "title": "Climate policy shift: Net zero is dead, clean energy lives on",
+      "title": "Net Zero Is Dead. Long Live Renewable Energy",
       "summary": "In diplomacy, words matter. When the world’s richest nations got together in 2022 for their biennial energy meeting, their communique mentioned “net zero” 13 times; in 2024, the references went up to 15. After last week’s gathering? Just one occurrence — and that was to underline the lack of universal support. The word-count collapse is illustrative of the direction of global energy policy: Net zero is, effectively, dead.",
       "source": "Bloomberg",
       "url": "https://www.bloomberg.com/opinion/articles/2026-02-25/climate-change-net-zero-is-dead-long-live-renewable-energy",
@@ -603,11 +622,12 @@
       "counterStereotypical": true,
       "engagementScore": 0.58,
       "csScore": 0.175,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_climate_005",
-      "title": "US set to add record 86 GW of renewable energy capacity in 2026",
+      "title": "New U.S. electric generating capacity expected to reach a record high in 2026",
       "summary": "U.S. power plant developers and operators plan to add 86 gigawatts (GW) of new utility-scale electric generating capacity to the U.S. power grid in 2026 in our latest Preliminary Monthly Electric Generator Inventory report, a record if realized. Solar power makes up 51% of the planned 2026 capacity additions, followed by battery storage at 28% and wind at 14%.",
       "source": "EIA",
       "url": "https://www.eia.gov/todayinenergy/detail.php?id=67205",
@@ -618,11 +638,12 @@
       "counterStereotypical": true,
       "engagementScore": 0.6,
       "csScore": 0,
-      "summaryProvenance": "lede"
+      "summaryProvenance": "lede",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_climate_006",
-      "title": "EPA's shock and awe deregulatory strategy learns from past",
+      "title": "The EPA’s shock and awe deregulatory push learns from past mistakes",
       "summary": "The EPA aims to push its rules changes into court as fast as possible to cement the administration’s agenda with final judgments before Trump leaves office.",
       "source": "Washington Post",
       "url": "https://www.washingtonpost.com/climate-environment/2026/01/05/epa-rollbacks-strategy-courts/",
@@ -633,7 +654,8 @@
       "counterStereotypical": false,
       "engagementScore": 0.75,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_climate_007",
@@ -648,11 +670,12 @@
       "counterStereotypical": false,
       "engagementScore": 0.6,
       "csScore": 0,
-      "summaryProvenance": "authored"
+      "summaryProvenance": "authored",
+      "titleProvenance": "authored"
     },
     {
       "id": "rp_climate_008",
-      "title": "Heat-related deaths climb 53% as climate change intensifies",
+      "title": "The deadliest extreme weather event isn't what you think it is",
       "summary": "Nationally, extreme heat causes more deaths each year than any other weather event, including floods, hurricanes and tornadoes.",
       "source": "NBC News",
       "url": "https://www.nbcnews.com/weather/heat/deadliest-extreme-weather-event-not-think-rcna219702",
@@ -663,7 +686,8 @@
       "counterStereotypical": false,
       "engagementScore": 0.52,
       "csScore": 0,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_gun_010",
@@ -678,7 +702,8 @@
       "counterStereotypical": true,
       "engagementScore": 0.65,
       "csScore": 0.625,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_abortion_010",
@@ -693,11 +718,12 @@
       "counterStereotypical": true,
       "engagementScore": 0.63,
       "csScore": 0.8,
-      "summaryProvenance": "og:description"
+      "summaryProvenance": "og:description",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_climate_010",
-      "title": "America's largest coal miners' union supports clean energy",
+      "title": "America’s largest coal miners' union backs clean energy",
       "summary": "The death of coal in the United States has not been exaggerated. Employment has dropped by nearly half over the past decade as cleaner and cheaper alternatives pushed the once-dominant fuel to the wayside. And what’s more, President Joe Biden’s plans could speed up the trend.",
       "source": "Grist",
       "url": "https://grist.org/energy/americas-largest-coal-miners-union-supports-clean-energy-with-conditions/",
@@ -708,7 +734,8 @@
       "counterStereotypical": true,
       "engagementScore": 0.61,
       "csScore": 0,
-      "summaryProvenance": "lede"
+      "summaryProvenance": "lede",
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_immigration_001",
@@ -723,20 +750,22 @@
       "counterStereotypical": false,
       "engagementScore": 0.82,
       "csScore": 0.175,
-      "summaryProvenance": "authored"
+      "summaryProvenance": "authored",
+      "titleProvenance": "authored"
     },
     {
       "id": "rp_immigration_002",
       "topicId": "us-immigration",
       "pollingDataId": null,
-      "title": "ICE says it deported more than 500 people in the Houston area in one week",
+      "title": "ICE says it deported more than 500 people in Houston area",
       "summary": "The agency did not offer details about the types of crimes or immigration violations the majority of the people were accused of.",
       "summaryProvenance": "og:description",
       "source": "Texas Tribune",
       "url": "https://www.texastribune.org/2025/05/13/texas-houston-ice-deportations/",
       "publishedAt": "4d",
       "counterStereotypical": false,
-      "engagementScore": 0.47
+      "engagementScore": 0.47,
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_immigration_003",
@@ -749,7 +778,8 @@
       "url": "https://www.npr.org/2025/06/07/nx-s1-5426518/ice-conducts-sweeping-raids-in-l-a-clashes-with-protestors",
       "publishedAt": "3d",
       "counterStereotypical": false,
-      "engagementScore": 0.53
+      "engagementScore": 0.53,
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_immigration_004",
@@ -762,7 +792,8 @@
       "url": "https://www.cbsnews.com/news/ices-detainee-population-record-high-of-73000/",
       "publishedAt": "1d",
       "counterStereotypical": false,
-      "engagementScore": 0.57
+      "engagementScore": 0.57,
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_immigration_005",
@@ -775,7 +806,8 @@
       "url": "https://www.pbs.org/newshour/politics/foreigners-in-u-s-must-apply-for-green-cards-abroad-new-trump-administration-rule-says",
       "publishedAt": "21h",
       "counterStereotypical": false,
-      "engagementScore": 0.62
+      "engagementScore": 0.62,
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_immigration_006",
@@ -788,7 +820,8 @@
       "url": "https://www.npr.org/2026/04/25/nx-s1-5798943/justice-department-makes-it-easier-to-deport-those-with-daca-status",
       "publishedAt": "23h",
       "counterStereotypical": false,
-      "engagementScore": 0.68
+      "engagementScore": 0.68,
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_immigration_007",
@@ -801,7 +834,8 @@
       "url": "https://www.npr.org/2026/06/30/nx-s1-5839358/birthright-citizenship-decision-scotus-trump",
       "publishedAt": "17h",
       "counterStereotypical": false,
-      "engagementScore": 0.72
+      "engagementScore": 0.72,
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_immigration_008",
@@ -814,7 +848,8 @@
       "url": "https://www.texastribune.org/2025/07/02/texas-trump-asylum-federal-judge-order/",
       "publishedAt": "2d",
       "counterStereotypical": false,
-      "engagementScore": 0.78
+      "engagementScore": 0.78,
+      "titleProvenance": "og:title"
     },
     {
       "id": "rp_immigration_009",
@@ -827,7 +862,8 @@
       "url": "https://www.npr.org/2026/06/25/nx-s1-5838860/supreme-court-asylum-policy",
       "publishedAt": "19h",
       "counterStereotypical": false,
-      "engagementScore": 0.87
+      "engagementScore": 0.87,
+      "titleProvenance": "og:title"
     }
   ],
   "mockUsers": [
