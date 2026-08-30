@@ -333,7 +333,7 @@
       "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": false,
       "engagementScore": 0.55,
-      "csScore": 0,
+      "csScore": 0.2,
       "summaryProvenance": "og:description",
       "titleProvenance": "og:title"
     },
@@ -349,7 +349,7 @@
       "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": false,
       "engagementScore": 0.65,
-      "csScore": 0,
+      "csScore": 0.125,
       "summaryProvenance": "og:description",
       "titleProvenance": "og:title"
     },
@@ -365,7 +365,7 @@
       "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": true,
       "engagementScore": 0.45,
-      "csScore": 0.25,
+      "csScore": 0.8,
       "summaryProvenance": "og:description",
       "titleProvenance": "og:title"
     },
@@ -429,7 +429,7 @@
       "pollingDataId": "poll_gun_general_strictness_001",
       "counterStereotypical": false,
       "engagementScore": 0.6,
-      "csScore": 0.8,
+      "csScore": 0.6,
       "summaryProvenance": "og:description",
       "titleProvenance": "og:title"
     },
@@ -477,7 +477,7 @@
       "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.85,
-      "csScore": 0,
+      "csScore": 0.375,
       "summaryProvenance": "og:description",
       "titleProvenance": "og:title"
     },
@@ -493,7 +493,7 @@
       "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.52,
-      "csScore": 0,
+      "csScore": 0.375,
       "summaryProvenance": "og:description",
       "titleProvenance": "og:title"
     },
@@ -506,7 +506,7 @@
       "publishedAt": "9h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://cloudfront-us-east-1.images.arcpublishing.com/wapo/DTJFYG5FY2XDOLXUZH4ND55FC4.JPG&w=1440&impolicy=high_res",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_002",
+      "pollingDataId": null,
       "counterStereotypical": true,
       "engagementScore": 0.5,
       "csScore": 0,
@@ -525,7 +525,7 @@
       "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.75,
-      "csScore": 0,
+      "csScore": 0.75,
       "summaryProvenance": "og:description",
       "titleProvenance": "og:title"
     },
@@ -541,7 +541,7 @@
       "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.67,
-      "csScore": 0,
+      "csScore": 0.175,
       "summaryProvenance": "og:description",
       "titleProvenance": "og:title"
     },
@@ -554,10 +554,10 @@
       "publishedAt": "15h",
       "imageUrl": "https://ballotpedia.s3.amazonaws.com/images/a/a8/Elections_to_watch.png",
       "topicId": "us-abortion",
-      "pollingDataId": "poll_abortion_legality_002",
+      "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.55,
-      "csScore": 0,
+      "csScore": 0.75,
       "summaryProvenance": "lede",
       "titleProvenance": "og:title"
     },
@@ -621,7 +621,7 @@
       "pollingDataId": null,
       "counterStereotypical": true,
       "engagementScore": 0.58,
-      "csScore": 0.175,
+      "csScore": 0,
       "summaryProvenance": "og:description",
       "titleProvenance": "og:title"
     },
@@ -666,7 +666,7 @@
       "publishedAt": "14h",
       "imageUrl": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/YTJHJLAUP54SVBABQND4RE3XVM_size-normalized.jpg&w=1440&impolicy=high_res",
       "topicId": "us-climate",
-      "pollingDataId": "poll_climate_carbon_001",
+      "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.6,
       "csScore": 0,
@@ -717,7 +717,7 @@
       "pollingDataId": null,
       "counterStereotypical": true,
       "engagementScore": 0.63,
-      "csScore": 0.8,
+      "csScore": 1,
       "summaryProvenance": "og:description",
       "titleProvenance": "og:title"
     },
@@ -733,7 +733,7 @@
       "pollingDataId": null,
       "counterStereotypical": true,
       "engagementScore": 0.61,
-      "csScore": 0,
+      "csScore": 0.5,
       "summaryProvenance": "lede",
       "titleProvenance": "og:title"
     },
@@ -749,7 +749,7 @@
       "pollingDataId": null,
       "counterStereotypical": false,
       "engagementScore": 0.82,
-      "csScore": 0.175,
+      "csScore": 0.825,
       "summaryProvenance": "og:description",
       "titleProvenance": "og:title"
     },
@@ -766,7 +766,8 @@
       "imageUrl": "https://i0.wp.com/www.texastribune.org/wp-content/uploads/2025/05/040120ICE20Raid20Minor20EG20TT2037-1-scaled.jpg?fit=2560%2C1707&quality=100&ssl=1&w=1200&h=630",
       "counterStereotypical": false,
       "engagementScore": 0.47,
-      "titleProvenance": "og:title"
+      "titleProvenance": "og:title",
+      "csScore": 0
     },
     {
       "id": "rp_immigration_003",
@@ -781,7 +782,8 @@
       "imageUrl": "https://media.npr.org/include/images/facebook-default-wide-s1400-c85.jpg",
       "counterStereotypical": false,
       "engagementScore": 0.53,
-      "titleProvenance": "og:title"
+      "titleProvenance": "og:title",
+      "csScore": 0.2
     },
     {
       "id": "rp_immigration_004",
@@ -796,7 +798,8 @@
       "imageUrl": "https://assets1.cbsnewsstatic.com/hub/i/r/2026/01/16/7203659a-8e83-4eaf-a314-32b09df3c2fa/thumbnail/1200x630g2/c91beb0b21f9a829523f50822384f334/gettyimages-2241660050.jpg",
       "counterStereotypical": false,
       "engagementScore": 0.57,
-      "titleProvenance": "og:title"
+      "titleProvenance": "og:title",
+      "csScore": 0.375
     },
     {
       "id": "rp_immigration_005",
@@ -811,7 +814,8 @@
       "imageUrl": "https://d3i6fh83elv35t.cloudfront.net/static/2026/05/2018-07-18T191619Z_1506837021_RC1DA436B7F0_RTRMADP_3_USA-IMMIGRATION-NATURALIZATION-1024x683.jpg",
       "counterStereotypical": false,
       "engagementScore": 0.62,
-      "titleProvenance": "og:title"
+      "titleProvenance": "og:title",
+      "csScore": 0
     },
     {
       "id": "rp_immigration_006",
@@ -826,7 +830,8 @@
       "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4500x2531+0+234/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fed%2Fd5%2F5ef2db7749eba5efd5ac75d25777%2Fgettyimages-1137865525.jpg",
       "counterStereotypical": false,
       "engagementScore": 0.68,
-      "titleProvenance": "og:title"
+      "titleProvenance": "og:title",
+      "csScore": 0
     },
     {
       "id": "rp_immigration_007",
@@ -841,7 +846,8 @@
       "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/8317x4678+0+433/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F56%2Fd2%2F6c6ec3594b828e8a0c5078dd3576%2Fgettyimages-1260960662-1.jpg",
       "counterStereotypical": false,
       "engagementScore": 0.72,
-      "titleProvenance": "og:title"
+      "titleProvenance": "og:title",
+      "csScore": 0
     },
     {
       "id": "rp_immigration_008",
@@ -856,7 +862,8 @@
       "imageUrl": "https://i0.wp.com/www.texastribune.org/wp-content/uploads/2025/07/Eagle20Pass20Asylum20Seek20REUTERS-1-scaled.jpg?fit=2560%2C1707&quality=100&ssl=1&w=1200&h=630",
       "counterStereotypical": false,
       "engagementScore": 0.78,
-      "titleProvenance": "og:title"
+      "titleProvenance": "og:title",
+      "csScore": 0
     },
     {
       "id": "rp_immigration_009",
@@ -871,7 +878,8 @@
       "imageUrl": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/7847x4414+0+409/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Ff3%2Fe3%2F35bd706049059c4648268e50ad67%2Fgettyimages-2159564157.jpg",
       "counterStereotypical": false,
       "engagementScore": 0.87,
-      "titleProvenance": "og:title"
+      "titleProvenance": "og:title",
+      "csScore": 0
     }
   ],
   "mockUsers": [

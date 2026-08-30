@@ -1,121 +1,160 @@
 {
   "meta": {
-    "promptSha256": "ce43e001cee1e267c6c4642a79bf34b5878310f8d29ce9e6633c4533dd116aef",
-    "schemaSha256": "4e35b8d66a51a51be1def1a4ce6cc2c83dd132a75b25bdb209b3230f6a1e788b",
+    "promptSha256": "3c33b56f9b55babe91b7bfd78c211972fc5fc29a17f29fece7396d390e394092",
+    "schemaSha256": "db854dee3fcc3a96bab4e6d1eb5f369e7fac2b4aa5cdc1b092084880580705ac",
+    "sourceTextsSha256": "6acffc598baf99c91596b78e12f0291e764a004c655714cc77c6e345818981a1",
     "runs": [
       {
         "slot": "A",
         "provider": "anthropic",
         "model": "claude-sonnet-5",
-        "ranAt": "2026-08-25T10:54:03.573Z"
+        "ranAt": "2026-08-29T23:52:59.817Z"
       },
       {
         "slot": "B",
         "provider": "openai",
         "model": "gpt-5.5-2026-04-23",
-        "ranAt": "2026-08-25T10:54:03.574Z"
+        "ranAt": "2026-08-29T23:52:59.817Z"
       }
     ]
   },
+  "tiers": {
+    "rp_gun_001": "body",
+    "rp_gun_002": "body",
+    "rp_gun_003": "body",
+    "rp_gun_004": "body",
+    "rp_gun_005": "headline",
+    "rp_gun_006": "body",
+    "rp_gun_007": "body",
+    "rp_gun_008": "body",
+    "rp_abortion_001": "body",
+    "rp_abortion_002": "body",
+    "rp_abortion_003": "body",
+    "rp_abortion_004": "body",
+    "rp_abortion_005": "headline",
+    "rp_abortion_006": "body",
+    "rp_abortion_007": "body",
+    "rp_abortion_008": "body",
+    "rp_climate_001": "body",
+    "rp_climate_002": "body",
+    "rp_climate_003": "body",
+    "rp_climate_004": "body",
+    "rp_climate_005": "body",
+    "rp_climate_006": "body",
+    "rp_climate_007": "headline",
+    "rp_climate_008": "body",
+    "rp_gun_010": "body",
+    "rp_abortion_010": "body",
+    "rp_climate_010": "body",
+    "rp_immigration_001": "body",
+    "rp_immigration_002": "body",
+    "rp_immigration_003": "body",
+    "rp_immigration_004": "body",
+    "rp_immigration_005": "body",
+    "rp_immigration_006": "body",
+    "rp_immigration_007": "body",
+    "rp_immigration_008": "body",
+    "rp_immigration_009": "body"
+  },
   "verdicts": {
     "rp_gun_001": {
-      "A": {
-        "reportId": "rp_gun_001",
-        "typicality": {
-          "present": false,
-          "evidence": ""
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": ""
-        },
-        "violation": {
-          "level": "none",
-          "evidence": ""
-        },
-        "prototype": null
-      },
       "B": {
         "reportId": "rp_gun_001",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "insufficient_evidence",
+          "evidence": "Congressman Greg Casar said in a statement on social media"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Congressman Greg Casar said in a statement on social media"
         },
         "violation": {
-          "level": "none",
-          "evidence": ""
-        },
-        "prototype": null
-      }
-    },
-    "rp_gun_003": {
-      "A": {
-        "reportId": "rp_gun_003",
-        "typicality": {
-          "present": false,
-          "evidence": ""
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": ""
-        },
-        "violation": {
-          "level": "none",
-          "evidence": ""
+          "level": "insufficient_evidence",
+          "evidence": "We must end America's gun violence epidemic"
         },
         "prototype": null
       },
-      "B": {
-        "reportId": "rp_gun_003",
+      "A": {
+        "reportId": "rp_gun_001",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Rep. Chip Roy said on social media that he had learned \"very troubling facts\" about the suspect"
         },
         "heterogeneity": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "violation": {
           "level": "none",
-          "evidence": "The 9th Circuit Court of Appeals struck down California's ban"
+          "evidence": "\"We must end America's gun violence epidemic,\" Congressman Greg Casar said in a statement on social media."
         },
         "prototype": null
       }
     },
     "rp_gun_002": {
-      "A": {
-        "reportId": "rp_gun_002",
-        "typicality": {
-          "present": false,
-          "evidence": ""
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": ""
-        },
-        "violation": {
-          "level": "none",
-          "evidence": "Federal appeals court upheld Maryland's law banning guns in sensitive public places"
-        },
-        "prototype": null
-      },
       "B": {
         "reportId": "rp_gun_002",
         "typicality": {
-          "present": false,
+          "judgment": "yes",
+          "evidence": "Gov. Wes Moore (D) called the court’s ruling “a major win for public safety in Maryland.”"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "Gov. Wes Moore (D) called the court’s ruling “a major win for public safety in Maryland.”"
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "Gov. Wes Moore (D) called the court’s ruling “a major win for public safety in Maryland.”"
+        },
+        "prototype": null
+      },
+      "A": {
+        "reportId": "rp_gun_002",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "Gov. Wes Moore (D) called the court's ruling \"a major win for public safety in Maryland.\""
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "Gov. Wes Moore (D) called the court's ruling \"a major win for public safety in Maryland.\""
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "Gov. Wes Moore (D) called the court's ruling \"a major win for public safety in Maryland.\""
+        },
+        "prototype": null
+      }
+    },
+    "rp_gun_003": {
+      "B": {
+        "reportId": "rp_gun_003",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "Senior US Circuit Judge N. Randy Smith, who was appointed by Republican former President George W. Bush"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "Senior US Circuit Judge N. Randy Smith, who was appointed by Republican former President George W. Bush, dissented"
+        },
+        "violation": {
+          "level": "moderate",
+          "evidence": "dissented, saying his colleagues “got this case half right” as all of California’s restrictions complied with the Supreme Court’s ruling."
+        },
+        "prototype": null
+      },
+      "A": {
+        "reportId": "rp_gun_003",
+        "typicality": {
+          "judgment": "no",
           "evidence": ""
         },
         "heterogeneity": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "violation": {
           "level": "none",
-          "evidence": "A federal appeals court upheld Maryland's law banning guns in sensitive public places"
+          "evidence": "US Circuit Judge Lawrence VanDyke, who was appointed by Republican President Donald Trump, said the Democratic-led state\\u2019s law could not stand"
         },
         "prototype": null
       }
@@ -124,168 +163,168 @@
       "A": {
         "reportId": "rp_gun_005",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Supreme Court weighs marijuana users' gun rights"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Supreme Court weighs marijuana users' gun rights"
         },
         "violation": {
           "level": "none",
-          "evidence": ""
+          "evidence": "Supreme Court weighs marijuana users' gun rights"
         },
         "prototype": null
       },
       "B": {
         "reportId": "rp_gun_005",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Supreme Court weighs marijuana users' gun rights"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Supreme Court weighs marijuana users' gun rights"
         },
         "violation": {
           "level": "none",
-          "evidence": "The Supreme Court is hearing arguments"
+          "evidence": "Supreme Court weighs marijuana users' gun rights"
+        },
+        "prototype": null
+      }
+    },
+    "rp_gun_006": {
+      "A": {
+        "reportId": "rp_gun_006",
+        "typicality": {
+          "judgment": "insufficient_evidence",
+          "evidence": "The Justice Department is considering loosening a slate of gun regulations"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "three people familiar with the changes who spoke on the condition of anonymity"
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "loosening a slate of gun regulations as it seeks to bolster support from ardent Second Amendment advocates"
+        },
+        "prototype": null
+      },
+      "B": {
+        "reportId": "rp_gun_006",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "The Justice Department is considering loosening a slate of gun regulations"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "The Justice Department is considering loosening a slate of gun regulations"
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "The Justice Department is considering loosening a slate of gun regulations"
         },
         "prototype": null
       }
     },
     "rp_gun_004": {
-      "A": {
-        "reportId": "rp_gun_004",
-        "typicality": {
-          "present": false,
-          "evidence": "President Trump broke with pro-gun groups"
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": ""
-        },
-        "violation": {
-          "level": "moderate",
-          "evidence": "suggesting federal agents were justified in the Minneapolis shooting, saying the protester 'shouldn't have had a gun.'"
-        },
-        "prototype": "intra_dissent"
-      },
       "B": {
         "reportId": "rp_gun_004",
         "typicality": {
-          "present": false,
-          "evidence": "President Trump broke with pro-gun groups"
+          "judgment": "yes",
+          "evidence": "Democrats defended his right to carry a gun at a protest under Minnesota law."
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": "President Trump broke with pro-gun groups"
+          "judgment": "yes",
+          "evidence": "And many liberals saying, ‘You have a right to bring a gun to protest,’"
         },
         "violation": {
           "level": "moderate",
-          "evidence": "broke with pro-gun groups by suggesting federal agents were justified in the Minneapolis shooting"
+          "evidence": "Democrats defended his right to carry a gun at a protest under Minnesota law."
         },
-        "prototype": "individuating"
-      }
-    },
-    "rp_gun_006": {
-      "B": {
-        "reportId": "rp_gun_006",
-        "typicality": {
-          "present": false,
-          "evidence": "The Trump administration's Justice Department"
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": "Gun rights advocates welcome the move while gun safety groups warn"
-        },
-        "violation": {
-          "level": "none",
-          "evidence": "considering rolling back ATF regulations on firearms"
-        },
-        "prototype": null
+        "prototype": "cross_party"
       },
       "A": {
-        "reportId": "rp_gun_006",
+        "reportId": "rp_gun_004",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Trump, who has called himself “the best friend gun owners have ever had in the White House,”"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "yes",
+          "evidence": "top Trump officials, including FBI Director Kash Patel and Homeland Security Secretary Kristi Noem, who suggested in the immediate aftermath that Pretti was a threat"
         },
         "violation": {
-          "level": "none",
-          "evidence": "Justice Department weighs rollback of gun regulations"
+          "level": "moderate",
+          "evidence": "“You can’t have guns. You can’t walk in with guns. You just can’t,” Trump told reporters outside the White House"
         },
-        "prototype": null
+        "prototype": "cross_party"
       }
     },
     "rp_gun_007": {
-      "A": {
-        "reportId": "rp_gun_007",
-        "typicality": {
-          "present": true,
-          "evidence": "progressives reconsider gun ownership"
-        },
-        "heterogeneity": {
-          "present": true,
-          "evidence": "membership inquiries have tripled"
-        },
-        "violation": {
-          "level": "moderate",
-          "evidence": "progressives reconsider gun ownership"
-        },
-        "prototype": "intra_dissent"
-      },
       "B": {
         "reportId": "rp_gun_007",
         "typicality": {
-          "present": true,
-          "evidence": "progressives reconsider gun ownership"
+          "judgment": "yes",
+          "evidence": "even more once gun-shy liberals and leftists are considering getting armed"
         },
         "heterogeneity": {
-          "present": true,
-          "evidence": "membership inquiries have tripled"
+          "judgment": "yes",
+          "evidence": "they can hardly keep up with the surging demand for firearms training"
         },
         "violation": {
           "level": "moderate",
-          "evidence": "progressives reconsider gun ownership"
+          "evidence": "Americans tend to think of gun owners as leaning more Republican and male"
         },
-        "prototype": null
+        "prototype": "intra_dissent"
+      },
+      "A": {
+        "reportId": "rp_gun_007",
+        "typicality": {
+          "judgment": "yes",
+          "evidence": "Several niche, left-leaning gun advocacy groups said that since Alex Pretti was killed, they can hardly keep up with the surging demand for firearms training."
+        },
+        "heterogeneity": {
+          "judgment": "yes",
+          "evidence": "Registrations for permit-to-carry courses at Pink Pistols Twin Cities... are up from an average of five people per class to 25"
+        },
+        "violation": {
+          "level": "moderate",
+          "evidence": "It doesn’t seem to be the case anymore that buying guns and carrying guns in response to perceived threats is a solely conservative thing"
+        },
+        "prototype": "intra_dissent"
       }
     },
     "rp_gun_008": {
-      "A": {
-        "reportId": "rp_gun_008",
-        "typicality": {
-          "present": true,
-          "evidence": "The NRA and other gun rights organizations"
-        },
-        "heterogeneity": {
-          "present": true,
-          "evidence": "The NRA and other gun rights organizations are criticizing"
-        },
-        "violation": {
-          "level": "moderate",
-          "evidence": "criticizing the Trump administration's claims that a Minneapolis protester had no right to possess a firearm"
-        },
-        "prototype": "intra_dissent"
-      },
       "B": {
         "reportId": "rp_gun_008",
         "typicality": {
-          "present": false,
-          "evidence": "Trump administration's claims"
+          "judgment": "no",
+          "evidence": "But President Donald Trump has now pushed it right back to center stage."
         },
         "heterogeneity": {
-          "present": true,
-          "evidence": "The NRA and other gun rights organizations are criticizing"
+          "judgment": "yes",
+          "evidence": "So when a bunch of Trump administration officials raised this talking point, gun-rights groups pushed back ."
         },
         "violation": {
           "level": "moderate",
-          "evidence": "contradicts established gun rights principles"
+          "evidence": "“With that being said, you can’t have guns ,” Trump said. “You can’t walk in with guns. You just can’t.”"
+        },
+        "prototype": "intra_dissent"
+      },
+      "A": {
+        "reportId": "rp_gun_008",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "But President Donald Trump has now pushed it right back to center stage."
+        },
+        "heterogeneity": {
+          "judgment": "yes",
+          "evidence": "Dudley Brown, the president of the National Association for Gun Rights, told CNN that Trump’s comments were “clearly mistaken” and “wrong.”"
+        },
+        "violation": {
+          "level": "moderate",
+          "evidence": "“You can’t walk in with guns. You just can’t.”"
         },
         "prototype": "intra_dissent"
       }
@@ -294,32 +333,32 @@
       "A": {
         "reportId": "rp_abortion_001",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Wyoming passed an abortion ban that included narrow exceptions for incest, sexual assault and cases where the mother’s health is at risk."
         },
         "heterogeneity": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "violation": {
           "level": "none",
-          "evidence": ""
+          "evidence": "The court also struck down a broader prohibition on abortions, citing a state constitution provision that guarantees residents the right to make health care decisions."
         },
         "prototype": null
       },
       "B": {
         "reportId": "rp_abortion_001",
         "typicality": {
-          "present": false,
-          "evidence": "Wyoming's Supreme Court struck down the state's near-total abortion ban"
+          "judgment": "no",
+          "evidence": "Wyoming passed an abortion ban that included narrow exceptions for incest, sexual assault and cases where the mother’s health is at risk."
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": "The 4-1 decision protects residents' right to make their own healthcare decisions."
+          "judgment": "no",
+          "evidence": "Wyoming passed an abortion ban that included narrow exceptions for incest, sexual assault and cases where the mother’s health is at risk."
         },
         "violation": {
           "level": "none",
-          "evidence": "ruling they violate the state constitution's 2012 healthcare amendment"
+          "evidence": "The court also struck down a broader prohibition on abortions, citing a state constitution provision that guarantees residents the right to make health care decisions."
         },
         "prototype": null
       }
@@ -328,11 +367,11 @@
       "A": {
         "reportId": "rp_abortion_002",
         "typicality": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "heterogeneity": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "violation": {
@@ -344,118 +383,118 @@
       "B": {
         "reportId": "rp_abortion_002",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Additional moves by the Trump administration have further strained clinics"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Additional moves by the Trump administration have further strained clinics"
         },
         "violation": {
           "level": "none",
-          "evidence": ""
+          "evidence": "Additional moves by the Trump administration have further strained clinics, including a block on Medicaid reimbursement to large abortion providers."
         },
         "prototype": null
       }
     },
     "rp_abortion_003": {
-      "A": {
-        "reportId": "rp_abortion_003",
-        "typicality": {
-          "present": false,
-          "evidence": ""
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": ""
-        },
-        "violation": {
-          "level": "none",
-          "evidence": "The Trump administration's Department of Veterans Affairs quietly imposed a near-total abortion ban"
-        },
-        "prototype": null
-      },
       "B": {
         "reportId": "rp_abortion_003",
         "typicality": {
-          "present": false,
-          "evidence": "The Trump administration's Department of Veterans Affairs"
+          "judgment": "yes",
+          "evidence": "Republican Rep. Mike Bost of Illinois, the chairman of the House Veterans Affairs Committee"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": "The Trump administration's Department of Veterans Affairs"
+          "judgment": "yes",
+          "evidence": "condemnation from some Democrats in Congress – and praise from some Republicans"
         },
         "violation": {
           "level": "none",
-          "evidence": "near-total abortion ban"
+          "evidence": "praised the administration for returning to the pre-Biden policy to “protect the unborn.”"
+        },
+        "prototype": null
+      },
+      "A": {
+        "reportId": "rp_abortion_003",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "Republican Kansas Sen. Jerry Moran, chairman of the Senate Veterans Affairs Committee, praised the administration for returning to the pre-Biden policy"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "Sen. Patty Murray, a Democrat on the Senate Veterans Affairs Committee, said it\\u2019s \\u201coutrageous\\u201d"
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "Republican Rep. Mike Bost of Illinois... said it was \\u201cwrong that the Biden administration violated settled law in 2022 and began offering abortion services through the VA.\\u201d"
         },
         "prototype": null
       }
     },
     "rp_abortion_004": {
-      "A": {
-        "reportId": "rp_abortion_004",
-        "typicality": {
-          "present": false,
-          "evidence": ""
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": ""
-        },
-        "violation": {
-          "level": "none",
-          "evidence": ""
-        },
-        "prototype": null
-      },
       "B": {
         "reportId": "rp_abortion_004",
         "typicality": {
-          "present": false,
-          "evidence": "Both abortion advocates and opponents"
+          "judgment": "yes",
+          "evidence": "The state’s Republican attorney general has fought to preserve several abortion restrictions"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": "Both abortion advocates and opponents"
+          "judgment": "yes",
+          "evidence": "Republicans aligned with the anti-abortion movement are likely to control all three branches of government"
         },
         "violation": {
           "level": "none",
-          "evidence": "Abortion-related ballot measures are heading to voters"
+          "evidence": "The state’s Republican attorney general has fought to preserve several abortion restrictions"
+        },
+        "prototype": null
+      },
+      "A": {
+        "reportId": "rp_abortion_004",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "The state's Republican governor has also shown a willingness to veto reproductive rights measures"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": ""
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "The state's Republican governor has also shown a willingness to veto reproductive rights measures, including a recent bill that would have protected IVF"
         },
         "prototype": null
       }
     },
     "rp_abortion_005": {
-      "B": {
-        "reportId": "rp_abortion_005",
-        "typicality": {
-          "present": false,
-          "evidence": ""
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": "most Americans favor abortion access with some restrictions"
-        },
-        "violation": {
-          "level": "none",
-          "evidence": "state policies often reflect more extreme positions"
-        },
-        "prototype": null
-      },
       "A": {
         "reportId": "rp_abortion_005",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Abortion laws don't align with public opinion, analysis shows"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": "most Americans favor abortion access with some restrictions"
+          "judgment": "no",
+          "evidence": "Abortion laws don't align with public opinion, analysis shows"
         },
         "violation": {
           "level": "none",
-          "evidence": "state policies often reflect more extreme positions, either total bans or unrestricted access"
+          "evidence": "Abortion laws don't align with public opinion, analysis shows"
+        },
+        "prototype": null
+      },
+      "B": {
+        "reportId": "rp_abortion_005",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "Abortion laws don't align with public opinion, analysis shows"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "Abortion laws don't align with public opinion, analysis shows"
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "Abortion laws don't align with public opinion, analysis shows"
         },
         "prototype": null
       }
@@ -464,32 +503,32 @@
       "A": {
         "reportId": "rp_abortion_006",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "yes",
+          "evidence": "Louisiana Attorney General Liz Murrill told CNN"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "yes",
+          "evidence": "attorneys general of 17 anti-abortion states sending a letter to lawmakers"
         },
         "violation": {
           "level": "none",
-          "evidence": "Anti-abortion movement escalates clashes over blue state 'shield' laws"
+          "evidence": "The anti-abortion movement is testing new strategies to force a legal confrontation over so-called shield laws"
         },
         "prototype": null
       },
       "B": {
         "reportId": "rp_abortion_006",
         "typicality": {
-          "present": false,
-          "evidence": "Democratic-led states that protect abortion providers and patients"
+          "judgment": "yes",
+          "evidence": "Democratic-led states that protect abortion providers in those states from prosecution"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": "The anti-abortion movement is testing new legal strategies"
+          "judgment": "yes",
+          "evidence": "Both states, citing their respective shield laws, have refused to cooperate with extraditions."
         },
         "violation": {
           "level": "none",
-          "evidence": "Democratic-led states that protect abortion providers and patients"
+          "evidence": "Democratic-led states that protect abortion providers in those states from prosecution"
         },
         "prototype": null
       }
@@ -498,66 +537,32 @@
       "A": {
         "reportId": "rp_abortion_007",
         "typicality": {
-          "present": false,
-          "evidence": "President Trump expanded the Mexico City Policy"
+          "judgment": "no",
+          "evidence": "Vice President JD Vance announced a major expansion of the policy."
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Vice President JD Vance announced a major expansion of the policy."
         },
         "violation": {
           "level": "none",
-          "evidence": "cutting off upwards of $30 billion in non-military foreign assistance to organizations that discuss or provide abortion services"
+          "evidence": "We believe that every country in the world has the duty to protect life,\" said Vance. \"We're expanding this policy to protect life, to combat DEI and the radical gender ideologies that prey on our children.\""
         },
         "prototype": null
       },
       "B": {
         "reportId": "rp_abortion_007",
         "typicality": {
-          "present": false,
-          "evidence": "President Trump expanded the Mexico City Policy"
+          "judgment": "no",
+          "evidence": "Vice President JD Vance announced a major expansion of the policy."
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "yes",
+          "evidence": "Republican presidents have banned U.S. funds from going to groups that provide or promote abortion"
         },
         "violation": {
           "level": "none",
-          "evidence": "cutting off upwards of $30 billion in non-military foreign assistance to organizations that discuss or provide abortion services"
-        },
-        "prototype": null
-      }
-    },
-    "rp_abortion_008": {
-      "A": {
-        "reportId": "rp_abortion_008",
-        "typicality": {
-          "present": false,
-          "evidence": ""
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": ""
-        },
-        "violation": {
-          "level": "none",
-          "evidence": ""
-        },
-        "prototype": null
-      },
-      "B": {
-        "reportId": "rp_abortion_008",
-        "typicality": {
-          "present": false,
-          "evidence": ""
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": ""
-        },
-        "violation": {
-          "level": "none",
-          "evidence": "Missouri's Amendment 3 would overturn the 2024 voter-approved constitutional right to reproductive freedom"
+          "evidence": "Republican presidents have banned U.S. funds from going to groups that provide or promote abortion"
         },
         "prototype": null
       }
@@ -566,32 +571,66 @@
       "A": {
         "reportId": "rp_climate_001",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Trump repeals U.S. government’s power to regulate climate"
         },
         "heterogeneity": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "violation": {
           "level": "none",
-          "evidence": "Trump EPA repeals greenhouse gas endangerment finding"
+          "evidence": "the agency on Thursday rescinded the landmark legal opinion underpinning a wave of federal policies aimed at climate change"
         },
         "prototype": null
       },
       "B": {
         "reportId": "rp_climate_001",
         "typicality": {
-          "present": false,
-          "evidence": "Trump EPA"
+          "judgment": "insufficient_evidence",
+          "evidence": "Trump repeals U.S. government’s power to regulate climate"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "the agency on Thursday rescinded the landmark legal opinion"
+        },
+        "violation": {
+          "level": "insufficient_evidence",
+          "evidence": "the agency on Thursday rescinded the landmark legal opinion"
+        },
+        "prototype": null
+      }
+    },
+    "rp_abortion_008": {
+      "A": {
+        "reportId": "rp_abortion_008",
+        "typicality": {
+          "judgment": "yes",
+          "evidence": "State Sen. Brad Hudson (R-33), who supports HJR 73, said"
+        },
+        "heterogeneity": {
+          "judgment": "yes",
+          "evidence": "HJR 73 passed the House by a vote of 103-51 on April 17, 2025, and was agreed to in the Senate by a vote of 21-11 on May 14, 2025."
         },
         "violation": {
           "level": "none",
-          "evidence": "repeal of its 2009 'endangerment finding'"
+          "evidence": "They don’t feel like that they were given an option in Amendment 3 that accurately reflects who they are and where they are on the life issue."
+        },
+        "prototype": null
+      },
+      "B": {
+        "reportId": "rp_abortion_008",
+        "typicality": {
+          "judgment": "yes",
+          "evidence": "State Sen. Brad Hudson (R-33), who supports HJR 73"
+        },
+        "heterogeneity": {
+          "judgment": "yes",
+          "evidence": "Republicans held trifectas in 23 of the 27 states at the time of enactment."
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "State Sen. Brad Hudson (R-33), who supports HJR 73"
         },
         "prototype": null
       }
@@ -600,32 +639,32 @@
       "A": {
         "reportId": "rp_climate_002",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "The Environmental Protection Agency on Monday weakened air pollution standards"
         },
         "heterogeneity": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "violation": {
           "level": "none",
-          "evidence": "the administration says it removes regulatory burdens on industry"
+          "evidence": "The Environmental Protection Agency on Monday weakened air pollution standards for new power plants"
         },
         "prototype": null
       },
       "B": {
         "reportId": "rp_climate_002",
         "typicality": {
-          "present": false,
-          "evidence": "The Trump administration EPA"
+          "judgment": "no",
+          "evidence": "The Environmental Protection Agency on Monday weakened air pollution standards for new power plants"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": "the administration says it removes regulatory burdens on industry"
+          "judgment": "no",
+          "evidence": "The Environmental Protection Agency on Monday weakened air pollution standards for new power plants"
         },
         "violation": {
           "level": "none",
-          "evidence": "removes regulatory burdens on industry"
+          "evidence": "The EPA weakened emissions standards for new power plants"
         },
         "prototype": null
       }
@@ -634,32 +673,32 @@
       "A": {
         "reportId": "rp_climate_003",
         "typicality": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "heterogeneity": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "violation": {
           "level": "none",
-          "evidence": "Trump's 2026 repeal of the endangerment finding directly contradicts this landmark decision"
+          "evidence": ""
         },
         "prototype": null
       },
       "B": {
         "reportId": "rp_climate_003",
         "typicality": {
-          "present": false,
-          "evidence": "Trump's 2026 repeal of the endangerment finding directly contradicts this landmark decision"
+          "judgment": "no",
+          "evidence": "Environmental Protection Agency (EPA)"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "a group of private organizations petitioned the Environmental Protection Agency (EPA)"
         },
         "violation": {
           "level": "none",
-          "evidence": "Trump's 2026 repeal of the endangerment finding directly contradicts this landmark decision"
+          "evidence": "Because greenhouse gases fit well within the Act’s capacious definition of “air pollutant,” EPA has statutory authority"
         },
         "prototype": null
       }
@@ -668,12 +707,12 @@
       "A": {
         "reportId": "rp_climate_004",
         "typicality": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "heterogeneity": {
-          "present": true,
-          "evidence": "countries are pivoting to industrial policy focused on energy security, resilience, and clean technology competitiveness"
+          "judgment": "no",
+          "evidence": ""
         },
         "violation": {
           "level": "none",
@@ -684,16 +723,16 @@
       "B": {
         "reportId": "rp_climate_004",
         "typicality": {
-          "present": false,
-          "evidence": "countries are pivoting to industrial policy"
+          "judgment": "no",
+          "evidence": "the direction of global energy policy"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": "countries are pivoting to industrial policy"
+          "judgment": "no",
+          "evidence": "the direction of global energy policy"
         },
         "violation": {
           "level": "none",
-          "evidence": "Bloomberg analysis finds that 'net zero' has effectively died as a diplomatic priority globally."
+          "evidence": "Net zero is, effectively, dead."
         },
         "prototype": null
       }
@@ -702,11 +741,11 @@
       "A": {
         "reportId": "rp_climate_005",
         "typicality": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "heterogeneity": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "violation": {
@@ -718,50 +757,16 @@
       "B": {
         "reportId": "rp_climate_005",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "U.S. power plant developers and operators plan to add 86 gigawatts (GW) of new utility-scale electric generating capacity"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "U.S. power plant developers and operators plan to add 86 gigawatts (GW) of new utility-scale electric generating capacity"
         },
         "violation": {
           "level": "none",
-          "evidence": ""
-        },
-        "prototype": null
-      }
-    },
-    "rp_climate_006": {
-      "A": {
-        "reportId": "rp_climate_006",
-        "typicality": {
-          "present": false,
-          "evidence": ""
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": ""
-        },
-        "violation": {
-          "level": "none",
-          "evidence": "repealing the endangerment finding, weakening power plant emissions standards, and reducing Clean Water Act protections"
-        },
-        "prototype": null
-      },
-      "B": {
-        "reportId": "rp_climate_006",
-        "typicality": {
-          "present": false,
-          "evidence": "The Washington Post reports the Trump EPA"
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": "The strategy includes repealing the endangerment finding, weakening power plant emissions standards, and reducing Clean Water Act protections."
-        },
-        "violation": {
-          "level": "none",
-          "evidence": "legally defensible deregulation"
+          "evidence": "U.S. power plant developers and operators plan to add 86 gigawatts (GW) of new utility-scale electric generating capacity"
         },
         "prototype": null
       }
@@ -770,32 +775,66 @@
       "A": {
         "reportId": "rp_climate_007",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "insufficient_evidence",
+          "evidence": "EPA emissions reversal is a responsible move"
         },
         "heterogeneity": {
-          "present": false,
+          "judgment": "insufficient_evidence",
           "evidence": ""
         },
         "violation": {
-          "level": "none",
-          "evidence": "argues the EPA's reversal on climate regulations restores proper constitutional order by returning policy decisions to elected officials"
+          "level": "insufficient_evidence",
+          "evidence": "EPA emissions reversal is a responsible move"
         },
         "prototype": null
       },
       "B": {
         "reportId": "rp_climate_007",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "EPA emissions reversal is a responsible move"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "EPA emissions reversal is a responsible move"
         },
         "violation": {
           "level": "none",
-          "evidence": "EPA's reversal on climate regulations restores proper constitutional order"
+          "evidence": "EPA emissions reversal is a responsible move"
+        },
+        "prototype": null
+      }
+    },
+    "rp_climate_006": {
+      "B": {
+        "reportId": "rp_climate_006",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "Administrator Lee Zeldin spelled out his aim to strip away more than 30 environmental regulations"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "Administrator Lee Zeldin spelled out his aim"
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "strip away more than 30 environmental regulations in the name of boosting economic growth"
+        },
+        "prototype": null
+      },
+      "A": {
+        "reportId": "rp_climate_006",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "Administrator Lee Zeldin spelled out his aim to strip away more than 30 environmental regulations"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "Administrator Lee Zeldin spelled out his aim to strip away more than 30 environmental regulations"
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "largest deregulatory announcement in U.S. history"
         },
         "prototype": null
       }
@@ -804,11 +843,11 @@
       "A": {
         "reportId": "rp_climate_008",
         "typicality": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "heterogeneity": {
-          "present": false,
+          "judgment": "no",
           "evidence": ""
         },
         "violation": {
@@ -820,50 +859,50 @@
       "B": {
         "reportId": "rp_climate_008",
         "typicality": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Local officials launched several new initiatives aimed at keeping people cool and safe over the summer"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "Local officials launched several new initiatives aimed at keeping people cool and safe over the summer"
         },
         "violation": {
           "level": "none",
-          "evidence": ""
+          "evidence": "Nationally, extreme heat causes more deaths each year than any other weather event, including floods, hurricanes and tornadoes."
         },
         "prototype": null
       }
     },
     "rp_gun_010": {
-      "A": {
-        "reportId": "rp_gun_010",
-        "typicality": {
-          "present": false,
-          "evidence": "Republican Sen. John Cornyn and Democratic Sen. Chris Murphy"
-        },
-        "heterogeneity": {
-          "present": false,
-          "evidence": "a rare cross-party collaboration on one of America's most polarized policy issues"
-        },
-        "violation": {
-          "level": "moderate",
-          "evidence": "quietly negotiating a bipartisan expansion of gun background check rules"
-        },
-        "prototype": "cross_party"
-      },
       "B": {
         "reportId": "rp_gun_010",
         "typicality": {
-          "present": true,
-          "evidence": "Republican Sen. John Cornyn and Democratic Sen. Chris Murphy"
+          "judgment": "yes",
+          "evidence": "Sens. Chris Murphy, D-Conn., and John Cornyn, R-Texas"
         },
         "heterogeneity": {
-          "present": true,
-          "evidence": "a rare cross-party collaboration"
+          "judgment": "yes",
+          "evidence": "broad support from both parties"
         },
         "violation": {
           "level": "moderate",
-          "evidence": "bipartisan expansion of gun background check rules"
+          "evidence": "That by definition will make more people get background checks"
+        },
+        "prototype": "cross_party"
+      },
+      "A": {
+        "reportId": "rp_gun_010",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "Sens. Chris Murphy, D-Conn., and John Cornyn, R-Texas, have been quietly negotiating"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "two senators think they have a path to agreement"
+        },
+        "violation": {
+          "level": "moderate",
+          "evidence": "What we're trying to protect, or carve out, are the hobbyist and or casual transactions between friends and family members, but capture the people who literally are making a living"
         },
         "prototype": "cross_party"
       }
@@ -872,32 +911,32 @@
       "B": {
         "reportId": "rp_abortion_010",
         "typicality": {
-          "present": false,
-          "evidence": "breaking with party orthodoxy"
+          "judgment": "yes",
+          "evidence": "At least four Republican state lawmakers who challenged severe abortion restrictions"
         },
         "heterogeneity": {
-          "present": true,
-          "evidence": "At least four Republican state legislators"
+          "judgment": "yes",
+          "evidence": "At least four Republican state lawmakers who challenged severe abortion restrictions"
         },
         "violation": {
           "level": "moderate",
-          "evidence": "sought to add exceptions to abortion bans"
+          "evidence": "tried to expand the window of pregnancy in which women could access abortion"
         },
         "prototype": "intra_dissent"
       },
       "A": {
         "reportId": "rp_abortion_010",
         "typicality": {
-          "present": true,
-          "evidence": "Republican state legislators who sought to add exceptions to abortion bans"
+          "judgment": "yes",
+          "evidence": "the North Dakota state representative, a Republican, tried to expand the window of pregnancy in which women could access abortion"
         },
         "heterogeneity": {
-          "present": true,
-          "evidence": "At least four Republican state legislators"
+          "judgment": "yes",
+          "evidence": "At least four Republican state lawmakers who challenged severe abortion restrictions lost support from anti-abortion groups and key party allies and went on to lose primary elections"
         },
         "violation": {
           "level": "moderate",
-          "evidence": "sought to add exceptions to abortion bans"
+          "evidence": "Sens. Sandy Senn and Penry Gustafson spoke out against limitations on abortion access for victims of rape and incest."
         },
         "prototype": "intra_dissent"
       }
@@ -906,32 +945,32 @@
       "B": {
         "reportId": "rp_climate_010",
         "typicality": {
-          "present": false,
-          "evidence": "United Mine Workers of America, representing the country's largest cohort of coal miners"
+          "judgment": "no",
+          "evidence": "Senator Joe Manchin, the West Virginia Democrat who heads the Senate’s Energy and Natural Resources Committee and a well-known coal champion"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": "representing the country's largest cohort of coal miners"
+          "judgment": "no",
+          "evidence": "Senator Joe Manchin, the West Virginia Democrat who heads the Senate’s Energy and Natural Resources Committee and a well-known coal champion"
         },
         "violation": {
           "level": "none",
-          "evidence": "announced support for a clean energy transition"
+          "evidence": "said that one of his top priorities was ensuring coal miners won’t be forgotten as the country shifts to clean energy"
         },
         "prototype": null
       },
       "A": {
         "reportId": "rp_climate_010",
         "typicality": {
-          "present": false,
-          "evidence": "The United Mine Workers of America, representing the country's largest cohort of coal miners"
+          "judgment": "yes",
+          "evidence": "the United Mine Workers of America, the country’s largest union representing coal miners, announced on Monday that it supported a renewable energy future"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "yes",
+          "evidence": "some are skeptical the alternatives will pay as well. “It’s not fair to take somebody’s job away from them and push them into another career,” one miner told NBC News"
         },
         "violation": {
-          "level": "none",
-          "evidence": "announced support for a clean energy transition"
+          "level": "moderate",
+          "evidence": "announced on Monday that it supported a renewable energy future — provided that miners get “good-paying jobs” in return"
         },
         "prototype": null
       }
@@ -940,12 +979,284 @@
       "A": {
         "reportId": "rp_immigration_001",
         "typicality": {
-          "present": false,
+          "judgment": "yes",
+          "evidence": "In an interview with CNN, Chaney said that when he voted for Trump last year, he understood that immigration enforcement was a top priority for his administration."
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "In an interview with CNN, Chaney said that when he voted for Trump last year, he understood that immigration enforcement was a top priority for his administration."
+        },
+        "violation": {
+          "level": "moderate",
+          "evidence": "“This is not what I voted for,” he said, adding that he never supported the targeting of working-class people who had been doing everything right."
+        },
+        "prototype": "individuating"
+      },
+      "B": {
+        "reportId": "rp_immigration_001",
+        "typicality": {
+          "judgment": "yes",
+          "evidence": "when he voted for Trump last year, he understood that immigration enforcement was a top priority for his administration."
+        },
+        "heterogeneity": {
+          "judgment": "yes",
+          "evidence": "worked with Democratic and Republican lawmakers to help craft federal policies that protect the children of immigrants."
+        },
+        "violation": {
+          "level": "moderate",
+          "evidence": "“This is not what I voted for,” he said, adding that he never supported the targeting of working-class people who had been doing everything right."
+        },
+        "prototype": "individuating"
+      }
+    },
+    "rp_immigration_002": {
+      "A": {
+        "reportId": "rp_immigration_002",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "said Immigration and Customs Enforcement Houston Field Office Director Bret Bradford"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": ""
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "This initiative will save taxpayers millions of dollars each year by significantly reducing the time that aliens who have exhausted due process and been ordered removed from the U.S. need to be in ICE custody"
+        },
+        "prototype": null
+      },
+      "B": {
+        "reportId": "rp_immigration_002",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "under the Trump administration"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "Vanessa Cárdenas, executive director of America’s Voice, a national advocacy group"
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "dangerous criminal aliens will be held accountable, and public safety remains our top priority"
+        },
+        "prototype": null
+      }
+    },
+    "rp_immigration_003": {
+      "B": {
+        "reportId": "rp_immigration_003",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "LA Mayor Karen Bass and White House deputy chief of staff Stephen Miller"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "criticism from local politicians"
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "yesterday's raids in Los Angeles are clearly part of a sharp escalation in immigration detention efforts nationwide"
+        },
+        "prototype": null
+      },
+      "A": {
+        "reportId": "rp_immigration_003",
+        "typicality": {
+          "judgment": "yes",
+          "evidence": "LA Mayor Karen Bass and White House deputy chief of staff Stephen Miller"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "The mayor deplored the raids and said, we will not stand for this."
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "The mayor deplored the raids and said, we will not stand for this. I am deeply angered."
+        },
+        "prototype": null
+      }
+    },
+    "rp_immigration_004": {
+      "A": {
+        "reportId": "rp_immigration_004",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "Republican officials in places like Florida and Louisiana have offered state facilities, like the so-called \"Alligator Alcatraz\" detention center"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": ""
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "Republican officials in places like Florida and Louisiana have offered state facilities, like the so-called \"Alligator Alcatraz\" detention center in the Everglades, to hold those facing deportation."
+        },
+        "prototype": null
+      },
+      "B": {
+        "reportId": "rp_immigration_004",
+        "typicality": {
+          "judgment": "yes",
+          "evidence": "Republican officials in places like Florida and Louisiana have offered state facilities"
+        },
+        "heterogeneity": {
+          "judgment": "yes",
+          "evidence": "Republican officials in places like Florida and Louisiana have offered state facilities"
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "Republican officials in places like Florida and Louisiana have offered state facilities"
+        },
+        "prototype": null
+      }
+    },
+    "rp_immigration_005": {
+      "A": {
+        "reportId": "rp_immigration_005",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "the Trump administration announced Friday"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "the Trump administration announced Friday"
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "the latest step by the Trump administration making legal immigration more difficult"
+        },
+        "prototype": null
+      },
+      "B": {
+        "reportId": "rp_immigration_005",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "the Trump administration announced Friday"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "The announcement from U.S. Citizenship and Immigration Services is the latest step by the Trump administration"
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "making legal immigration more difficult for foreigners already in the U.S. and for those hoping to come here"
+        },
+        "prototype": null
+      }
+    },
+    "rp_immigration_006": {
+      "A": {
+        "reportId": "rp_immigration_006",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "Democratic Rep. Veronica Escobar of Texas, who has been outspoken about DACA issues on Capitol Hill"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": ""
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "A new precedent decision published Friday by the Board of Immigration Appeals (BIA) says being a DACA recipient is not enough reason to provide relief from deportation."
+        },
+        "prototype": null
+      },
+      "B": {
+        "reportId": "rp_immigration_006",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "The Trump administration is making it easier to deport immigrants protected by the Deferred Action for Childhood Arrivals program, or DACA."
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "Friday's order is the latest step by the Trump administration to strip away protections from DACA recipients."
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "The Trump administration is making it easier to deport immigrants protected by the Deferred Action for Childhood Arrivals program, or DACA."
+        },
+        "prototype": null
+      }
+    },
+    "rp_immigration_008": {
+      "A": {
+        "reportId": "rp_immigration_008",
+        "typicality": {
+          "judgment": "insufficient_evidence",
           "evidence": ""
         },
         "heterogeneity": {
-          "present": true,
-          "evidence": "More than 100 US citizen kids left stranded by ICE enforcement actions"
+          "judgment": "insufficient_evidence",
+          "evidence": ""
+        },
+        "violation": {
+          "level": "insufficient_evidence",
+          "evidence": ""
+        },
+        "prototype": null
+      },
+      "B": {
+        "reportId": "rp_immigration_008",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "President Donald Trump"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "Trump and his allies say the asylum system has been abused."
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "suspending asylum access at the southern border"
+        },
+        "prototype": null
+      }
+    },
+    "rp_immigration_007": {
+      "B": {
+        "reportId": "rp_immigration_007",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "President Trump"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "Trump has long maintained that the Constitution does not guarantee birthright citizenship."
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "Trump has long maintained that the Constitution does not guarantee birthright citizenship."
+        },
+        "prototype": null
+      },
+      "A": {
+        "reportId": "rp_immigration_007",
+        "typicality": {
+          "judgment": "no",
+          "evidence": "In a sharp rebuke to President Trump, the Supreme Court ruled Tuesday that the Constitution guarantees automatic birthright citizenship"
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": "Trump has long maintained that the Constitution does not guarantee birthright citizenship."
+        },
+        "violation": {
+          "level": "none",
+          "evidence": "Trump maintained that the provision was meant to apply only to former slaves, but \"wasn't meant for the entire world to occupy the United States.\""
+        },
+        "prototype": null
+      }
+    },
+    "rp_immigration_009": {
+      "A": {
+        "reportId": "rp_immigration_009",
+        "typicality": {
+          "judgment": "no",
+          "evidence": ""
+        },
+        "heterogeneity": {
+          "judgment": "no",
+          "evidence": ""
         },
         "violation": {
           "level": "none",
@@ -954,18 +1265,18 @@
         "prototype": null
       },
       "B": {
-        "reportId": "rp_immigration_001",
+        "reportId": "rp_immigration_009",
         "typicality": {
-          "present": false,
-          "evidence": "ICE expands workplace and home raids under the administration's quota of 3,000 daily arrests"
+          "judgment": "no",
+          "evidence": "The Trump administration, however, sought to revive the policy"
         },
         "heterogeneity": {
-          "present": false,
-          "evidence": ""
+          "judgment": "no",
+          "evidence": "By a 6-3 vote, the high court ruled"
         },
         "violation": {
           "level": "none",
-          "evidence": "ICE expands workplace and home raids under the administration's quota of 3,000 daily arrests"
+          "evidence": "federal law allows the government to stop asylum seekers from physically setting foot in the country"
         },
         "prototype": null
       }
@@ -980,39 +1291,39 @@
         "violation": 0
       },
       "agreement": {
-        "typicality": "agree",
+        "typicality": "disagree",
         "heterogeneity": "agree",
-        "violation": "agree"
-      },
-      "csScore": 0
-    },
-    "rp_gun_003": {
-      "reportId": "rp_gun_003",
-      "attributes": {
-        "typicality": 0,
-        "heterogeneity": 0,
-        "violation": 0
-      },
-      "agreement": {
-        "typicality": "agree",
-        "heterogeneity": "agree",
-        "violation": "agree"
+        "violation": "disagree"
       },
       "csScore": 0
     },
     "rp_gun_002": {
       "reportId": "rp_gun_002",
       "attributes": {
-        "typicality": 0,
+        "typicality": 0.5,
         "heterogeneity": 0,
         "violation": 0
       },
       "agreement": {
-        "typicality": "agree",
+        "typicality": "disagree",
         "heterogeneity": "agree",
         "violation": "agree"
       },
-      "csScore": 0
+      "csScore": 0.2
+    },
+    "rp_gun_003": {
+      "reportId": "rp_gun_003",
+      "attributes": {
+        "typicality": 0,
+        "heterogeneity": 0,
+        "violation": 0.5
+      },
+      "agreement": {
+        "typicality": "agree",
+        "heterogeneity": "agree",
+        "violation": "disagree"
+      },
+      "csScore": 0.125
     },
     "rp_gun_005": {
       "reportId": "rp_gun_005",
@@ -1028,20 +1339,6 @@
       },
       "csScore": 0
     },
-    "rp_gun_004": {
-      "reportId": "rp_gun_004",
-      "attributes": {
-        "typicality": 0,
-        "heterogeneity": 0,
-        "violation": 1
-      },
-      "agreement": {
-        "typicality": "agree",
-        "heterogeneity": "agree",
-        "violation": "agree"
-      },
-      "csScore": 0.25
-    },
     "rp_gun_006": {
       "reportId": "rp_gun_006",
       "attributes": {
@@ -1050,11 +1347,25 @@
         "violation": 0
       },
       "agreement": {
-        "typicality": "agree",
+        "typicality": "disagree",
         "heterogeneity": "agree",
         "violation": "agree"
       },
       "csScore": 0
+    },
+    "rp_gun_004": {
+      "reportId": "rp_gun_004",
+      "attributes": {
+        "typicality": 0.5,
+        "heterogeneity": 1,
+        "violation": 1
+      },
+      "agreement": {
+        "typicality": "disagree",
+        "heterogeneity": "agree",
+        "violation": "agree"
+      },
+      "csScore": 0.8
     },
     "rp_gun_007": {
       "reportId": "rp_gun_007",
@@ -1073,16 +1384,16 @@
     "rp_gun_008": {
       "reportId": "rp_gun_008",
       "attributes": {
-        "typicality": 0.5,
+        "typicality": 0,
         "heterogeneity": 1,
         "violation": 1
       },
       "agreement": {
-        "typicality": "disagree",
+        "typicality": "agree",
         "heterogeneity": "agree",
         "violation": "agree"
       },
-      "csScore": 0.8
+      "csScore": 0.6
     },
     "rp_abortion_001": {
       "reportId": "rp_abortion_001",
@@ -1115,30 +1426,30 @@
     "rp_abortion_003": {
       "reportId": "rp_abortion_003",
       "attributes": {
-        "typicality": 0,
-        "heterogeneity": 0,
+        "typicality": 0.5,
+        "heterogeneity": 0.5,
         "violation": 0
       },
       "agreement": {
-        "typicality": "agree",
-        "heterogeneity": "agree",
+        "typicality": "disagree",
+        "heterogeneity": "disagree",
         "violation": "agree"
       },
-      "csScore": 0
+      "csScore": 0.375
     },
     "rp_abortion_004": {
       "reportId": "rp_abortion_004",
       "attributes": {
-        "typicality": 0,
-        "heterogeneity": 0,
+        "typicality": 0.5,
+        "heterogeneity": 0.5,
         "violation": 0
       },
       "agreement": {
-        "typicality": "agree",
-        "heterogeneity": "agree",
+        "typicality": "disagree",
+        "heterogeneity": "disagree",
         "violation": "agree"
       },
-      "csScore": 0
+      "csScore": 0.375
     },
     "rp_abortion_005": {
       "reportId": "rp_abortion_005",
@@ -1157,8 +1468,8 @@
     "rp_abortion_006": {
       "reportId": "rp_abortion_006",
       "attributes": {
-        "typicality": 0,
-        "heterogeneity": 0,
+        "typicality": 1,
+        "heterogeneity": 1,
         "violation": 0
       },
       "agreement": {
@@ -1166,35 +1477,21 @@
         "heterogeneity": "agree",
         "violation": "agree"
       },
-      "csScore": 0
+      "csScore": 0.75
     },
     "rp_abortion_007": {
       "reportId": "rp_abortion_007",
       "attributes": {
         "typicality": 0,
-        "heterogeneity": 0,
+        "heterogeneity": 0.5,
         "violation": 0
       },
       "agreement": {
         "typicality": "agree",
-        "heterogeneity": "agree",
+        "heterogeneity": "disagree",
         "violation": "agree"
       },
-      "csScore": 0
-    },
-    "rp_abortion_008": {
-      "reportId": "rp_abortion_008",
-      "attributes": {
-        "typicality": 0,
-        "heterogeneity": 0,
-        "violation": 0
-      },
-      "agreement": {
-        "typicality": "agree",
-        "heterogeneity": "agree",
-        "violation": "agree"
-      },
-      "csScore": 0
+      "csScore": 0.175
     },
     "rp_climate_001": {
       "reportId": "rp_climate_001",
@@ -1204,11 +1501,25 @@
         "violation": 0
       },
       "agreement": {
+        "typicality": "disagree",
+        "heterogeneity": "agree",
+        "violation": "disagree"
+      },
+      "csScore": 0
+    },
+    "rp_abortion_008": {
+      "reportId": "rp_abortion_008",
+      "attributes": {
+        "typicality": 1,
+        "heterogeneity": 1,
+        "violation": 0
+      },
+      "agreement": {
         "typicality": "agree",
         "heterogeneity": "agree",
         "violation": "agree"
       },
-      "csScore": 0
+      "csScore": 0.75
     },
     "rp_climate_002": {
       "reportId": "rp_climate_002",
@@ -1242,15 +1553,15 @@
       "reportId": "rp_climate_004",
       "attributes": {
         "typicality": 0,
-        "heterogeneity": 0.5,
+        "heterogeneity": 0,
         "violation": 0
       },
       "agreement": {
         "typicality": "agree",
-        "heterogeneity": "disagree",
+        "heterogeneity": "agree",
         "violation": "agree"
       },
-      "csScore": 0.175
+      "csScore": 0
     },
     "rp_climate_005": {
       "reportId": "rp_climate_005",
@@ -1266,22 +1577,22 @@
       },
       "csScore": 0
     },
-    "rp_climate_006": {
-      "reportId": "rp_climate_006",
+    "rp_climate_007": {
+      "reportId": "rp_climate_007",
       "attributes": {
         "typicality": 0,
         "heterogeneity": 0,
         "violation": 0
       },
       "agreement": {
-        "typicality": "agree",
-        "heterogeneity": "agree",
-        "violation": "agree"
+        "typicality": "disagree",
+        "heterogeneity": "disagree",
+        "violation": "disagree"
       },
       "csScore": 0
     },
-    "rp_climate_007": {
-      "reportId": "rp_climate_007",
+    "rp_climate_006": {
+      "reportId": "rp_climate_006",
       "attributes": {
         "typicality": 0,
         "heterogeneity": 0,
@@ -1325,19 +1636,47 @@
     "rp_abortion_010": {
       "reportId": "rp_abortion_010",
       "attributes": {
-        "typicality": 0.5,
+        "typicality": 1,
         "heterogeneity": 1,
         "violation": 1
       },
       "agreement": {
-        "typicality": "disagree",
+        "typicality": "agree",
         "heterogeneity": "agree",
         "violation": "agree"
       },
-      "csScore": 0.8
+      "csScore": 1
     },
     "rp_climate_010": {
       "reportId": "rp_climate_010",
+      "attributes": {
+        "typicality": 0.5,
+        "heterogeneity": 0.5,
+        "violation": 0.5
+      },
+      "agreement": {
+        "typicality": "disagree",
+        "heterogeneity": "disagree",
+        "violation": "disagree"
+      },
+      "csScore": 0.5
+    },
+    "rp_immigration_001": {
+      "reportId": "rp_immigration_001",
+      "attributes": {
+        "typicality": 1,
+        "heterogeneity": 0.5,
+        "violation": 1
+      },
+      "agreement": {
+        "typicality": "agree",
+        "heterogeneity": "disagree",
+        "violation": "agree"
+      },
+      "csScore": 0.825
+    },
+    "rp_immigration_002": {
+      "reportId": "rp_immigration_002",
       "attributes": {
         "typicality": 0,
         "heterogeneity": 0,
@@ -1350,19 +1689,103 @@
       },
       "csScore": 0
     },
-    "rp_immigration_001": {
-      "reportId": "rp_immigration_001",
+    "rp_immigration_003": {
+      "reportId": "rp_immigration_003",
       "attributes": {
-        "typicality": 0,
+        "typicality": 0.5,
+        "heterogeneity": 0,
+        "violation": 0
+      },
+      "agreement": {
+        "typicality": "disagree",
+        "heterogeneity": "agree",
+        "violation": "agree"
+      },
+      "csScore": 0.2
+    },
+    "rp_immigration_004": {
+      "reportId": "rp_immigration_004",
+      "attributes": {
+        "typicality": 0.5,
         "heterogeneity": 0.5,
         "violation": 0
       },
       "agreement": {
-        "typicality": "agree",
+        "typicality": "disagree",
         "heterogeneity": "disagree",
         "violation": "agree"
       },
-      "csScore": 0.175
+      "csScore": 0.375
+    },
+    "rp_immigration_005": {
+      "reportId": "rp_immigration_005",
+      "attributes": {
+        "typicality": 0,
+        "heterogeneity": 0,
+        "violation": 0
+      },
+      "agreement": {
+        "typicality": "agree",
+        "heterogeneity": "agree",
+        "violation": "agree"
+      },
+      "csScore": 0
+    },
+    "rp_immigration_006": {
+      "reportId": "rp_immigration_006",
+      "attributes": {
+        "typicality": 0,
+        "heterogeneity": 0,
+        "violation": 0
+      },
+      "agreement": {
+        "typicality": "agree",
+        "heterogeneity": "agree",
+        "violation": "agree"
+      },
+      "csScore": 0
+    },
+    "rp_immigration_008": {
+      "reportId": "rp_immigration_008",
+      "attributes": {
+        "typicality": 0,
+        "heterogeneity": 0,
+        "violation": 0
+      },
+      "agreement": {
+        "typicality": "disagree",
+        "heterogeneity": "disagree",
+        "violation": "disagree"
+      },
+      "csScore": 0
+    },
+    "rp_immigration_007": {
+      "reportId": "rp_immigration_007",
+      "attributes": {
+        "typicality": 0,
+        "heterogeneity": 0,
+        "violation": 0
+      },
+      "agreement": {
+        "typicality": "agree",
+        "heterogeneity": "agree",
+        "violation": "agree"
+      },
+      "csScore": 0
+    },
+    "rp_immigration_009": {
+      "reportId": "rp_immigration_009",
+      "attributes": {
+        "typicality": 0,
+        "heterogeneity": 0,
+        "violation": 0
+      },
+      "agreement": {
+        "typicality": "agree",
+        "heterogeneity": "agree",
+        "violation": "agree"
+      },
+      "csScore": 0
     }
   }
 }
