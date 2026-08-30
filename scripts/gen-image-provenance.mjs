@@ -38,6 +38,14 @@ const PUBLISHER = {
   'marylandmatters.org': 'Maryland Matters',
   'cbsaustin.com': 'CBS Austin',
   'supreme.justia.com': 'Justia',
+  'justatic.com': 'Justia',
+  'www.texastribune.org': 'Texas Tribune',
+  'i0.wp.com': 'Texas Tribune', // Jetpack/WordPress 图片代理，本语料中仅代理 Texas Tribune 自有素材
+  'media.npr.org': 'NPR',
+  'www.cbsnews.com': 'CBS News',
+  'assets1.cbsnewsstatic.com': 'CBS News',
+  'www.pbs.org': 'PBS NewsHour',
+  'd3i6fh83elv35t.cloudfront.net': 'PBS NewsHour', // 从 pbs.org 页面的 og:image 抓取，CDN 供应商域名
   'static.wixstatic.com': '不可考（第三方 Wix 站点图床）',
   'encrypted-tbn0.gstatic.com': '不可考（Google 图片缩略图缓存）',
   'tse4.mm.bing.net': '不可考（Bing 图片缩略图缓存）',

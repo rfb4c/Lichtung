@@ -1,10 +1,10 @@
 /**
- * Judge A —— Anthropic / Claude Opus 5。
+ * Judge A —— Anthropic / Claude Sonnet 5。
  *
- * 与 Path A 的 Judge A（claude-sonnet-5）**刻意不同型号**，理由是任务性质变了：
- * 三属性标注是对单篇报道逐条打勾，这里要在一篇报道与多条候选题干之间做比较判断，
- * 且「相邻命题」是最容易出错的一类（见判据里的 tipped-wage 例子）。两条管线的
- * 型号都会原样写进各自产物的 meta，论文按管线分别声明即可，不必强行统一。
+ * 与 Path A 的 Judge A **同一型号**。此处原为 opus，那是最初「两个 Claude 当
+ * 双评审」方案的残留——那个方案后来改成了跨厂商双评审，型号却没跟着改回来，
+ * 仓库里也找不到任何为它辩护的记录。一条说不出理由的不对称，论文里要么得
+ * 编一个理由，要么得承认是历史遗留；改回来更省事，也顺带省掉一笔钱。
  *
  * 三个设计选择及其理由：
  *
@@ -34,11 +34,11 @@ import { renderMatchInput } from './render';
  * 固定模型 ID，不加日期后缀。这个字符串会原样写进 poll-matches.json 的 meta，
  * 是可复现性声明的一部分——换模型就必须重跑，不能混着用。
  */
-const MODEL = 'claude-opus-5';
+const MODEL = 'claude-sonnet-5';
 
 /**
  * effort 取 high：命题对齐是比较判断，判定质量比省 token 重要，
- * 而 n=28 的量级下档位之间的成本差不到一美元。
+ * 而 n=36 的量级下档位之间的成本差不到一美元。
  */
 const EFFORT = 'high';
 

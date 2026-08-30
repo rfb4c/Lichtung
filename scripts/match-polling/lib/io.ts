@@ -15,6 +15,12 @@ import { dirname, resolve } from 'node:path';
 
 import type { AppData, PollingData, Report } from '../../../src/types';
 import { loadEnv, sha256 } from '../../annotate/lib/io';
+import {
+  SOURCE_TEXTS_PATH,
+  readSourceTexts,
+  slotsOf,
+  tierOf,
+} from '../../annotate/lib/source-texts';
 import type { MatchFile, MatchInput, PollCandidate } from './types';
 
 export { loadEnv, sha256 };
@@ -27,6 +33,7 @@ export const PATHS = {
   matches: resolve(REPO_ROOT, 'src/data/poll-matches.json'),
   prompt: resolve(HERE, '../prompts/path-b-match.md'),
   schema: resolve(HERE, '../schemas/poll-match.json'),
+  sourceTexts: SOURCE_TEXTS_PATH,
 } as const;
 
 /** 取密钥；缺失时给出可执行的提示而不是抛一个裸 undefined。 */
@@ -172,17 +179,28 @@ export function topicFallbackFor(appData: AppData, report: Report): PollingData 
 }
 
 /**
- * 喂给 judge 的输入。
+ * 喂给 judge 的输入 = 标题 + 出版方原文的全部非空槽位 + 候选民调。
+ *
  * 刻意不传 pollingDataId ——既有的人工挂载会让重评退化成复读人工结论。
+ * 也不传 report.summary：卡片摘要现在就是 og:description，已经在 slots 里。
+ *
+ * 槽位与 Path A 走同一份读取层，两条管线因此读到逐字节相同的文本。这不是
+ * 顺手复用：两条管线的一致率会并排出现在同一篇论文里，输入若有差别，那两组
+ * 数字就不可比，而差别不会体现在任何产物上。
  */
 export function toMatchInputs(appData: AppData): MatchInput[] {
-  return appData.reports.map((r: Report) => ({
-    id: r.id,
-    title: r.title,
-    summary: r.summary,
-    source: r.source,
-    candidates: candidatesFor(appData, r),
-  }));
+  const texts = readSourceTexts(PATHS.sourceTexts);
+  return appData.reports.map((r: Report) => {
+    const slots = slotsOf(texts[r.id]);
+    return {
+      id: r.id,
+      title: r.title,
+      source: r.source,
+      slots,
+      tier: tierOf(slots),
+      candidates: candidatesFor(appData, r),
+    };
+  });
 }
 
 // ── 写回 ─────────────────────────────────────────────────────────────────
@@ -233,4 +251,9 @@ export function readPrompt(): string {
 
 export function readSchema(): Record<string, unknown> {
   return JSON.parse(readFileSync(PATHS.schema, 'utf8')) as Record<string, unknown>;
+}
+
+/** 出版方原文的原始字节，用于内容哈希。理由见标注管线的同名函数。 */
+export function readSourceTextsRaw(): string {
+  return readFileSync(PATHS.sourceTexts, 'utf8');
 }

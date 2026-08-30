@@ -21,6 +21,7 @@ import {
   readMatches,
   readPrompt,
   readSchema,
+  readSourceTextsRaw,
   sha256,
   toMatchInputs,
   writeMatches,
@@ -89,6 +90,12 @@ function assertResumable(
   if (previous.meta.schemaSha256 !== next.schemaSha256) {
     problems.push('schemas/poll-match.json 已改动');
   }
+  // 出版方原文是判定输入的主体。重跑一次采集、Wayback 换了快照，这个哈希就变了，
+  // 而从已有判定上完全看不出来——不拦住，续跑出来的文件会是一半读了旧文本、
+  // 一半读了新文本。
+  if (previous.meta.sourceTextsSha256 !== next.sourceTextsSha256) {
+    problems.push('src/data/source-texts.json 已改动');
+  }
   for (const run of next.runs) {
     const before = previous.meta.runs.find((r) => r.slot === run.slot);
     if (!before) continue;
@@ -116,6 +123,16 @@ function assertResumable(
  * resolvePollingData 会 warn 然后返回 null，图表静默消失。宁可当调用失败。
  */
 function assertOfferedId(verdict: MatchVerdict, input: MatchInput): void {
+  // outcome 与 alignedPollId 必须互相印证。schema 表达不了这条跨字段约束
+  // （strict 模式不接受 if/then），所以在这里实测一次：一个说「对齐了」却
+  // 没给 id、或说「弃权」却带着 id 的判定，落盘之后就是一条自相矛盾的记录，
+  // 而裁决层只读其中一个字段，另一个字段的矛盾会永远没人发现。
+  if ((verdict.outcome === 'aligned') !== (verdict.alignedPollId !== null)) {
+    throw new Error(
+      `判定自相矛盾：outcome=「${verdict.outcome}」而 alignedPollId=` +
+        `「${verdict.alignedPollId ?? 'null'}」。只有 aligned 才该带 id。`,
+    );
+  }
   if (verdict.alignedPollId === null) return;
   const offered = input.candidates.map((c) => c.id);
   if (!offered.includes(verdict.alignedPollId)) {
@@ -171,6 +188,7 @@ export async function runMatching(options: MatchOptions): Promise<MatchResult> {
   const meta: MatchFile['meta'] = {
     promptSha256: sha256(prompt),
     schemaSha256: sha256(JSON.stringify(schema)),
+    sourceTextsSha256: sha256(readSourceTextsRaw()),
     runs: judges.map((j) => ({
       slot: j.slot,
       provider: j.provider,
@@ -182,8 +200,16 @@ export async function runMatching(options: MatchOptions): Promise<MatchResult> {
   const previous = loadExisting(options.resume, options.outPath);
   if (previous) assertResumable(previous, meta, options.outPath);
 
-  // merged 一律清空：新判定进来，旧裁决就是过期的，必须重跑 03-merge
-  const file: MatchFile = { meta, verdicts: previous?.verdicts ?? {}, merged: {} };
+  // merged 一律清空：新判定进来，旧裁决就是过期的，必须重跑 03-merge。
+  // tiers 记的是每篇实际喂进去的输入层级，与 verdicts 同源，所以跟着 verdicts 走：
+  // --resume 时保留旧条目的层级，本轮跑到的条目覆盖写入。
+  const file: MatchFile = {
+    meta,
+    tiers: { ...(previous?.tiers ?? {}) },
+    verdicts: previous?.verdicts ?? {},
+    merged: {},
+  };
+  for (const input of inputs) file.tiers[input.id] = input.tier;
 
   const pending: Task[] = [];
   for (const input of inputs) {

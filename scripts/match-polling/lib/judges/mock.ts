@@ -32,14 +32,33 @@ export function createMockJudge(slot: JudgeSlot): Judge {
     async match(input: MatchInput): Promise<MatchVerdict> {
       const { candidates } = input;
 
-      // 约 40% 判 null，其余在候选里按哈希挑一条；B 再以约 20% 的概率改判。
+      // 约 40% 判无对齐，其余在候选里按哈希挑一条；B 再以约 20% 的概率改判。
       // 这样 agree_mount / agree_null / disagree 三条分支都会被实际走到。
       const pickNull = roll(`${input.id}:null`) < 102 || candidates.length === 0;
       const shift = slot === 'B' && roll(`${input.id}:shift`) < 51 ? 1 : 0;
 
+      // 弃权分支同样要能被走到，否则裁决层的 both_abstained 永远没有 mock 覆盖。
+      // 只有标题的报道两个 judge 都弃权；其余让 B 偶尔单方弃权，把「一方弃权
+      // 一方判定」那一支也顶出来。
+      const abstains =
+        input.tier === 'headline' ||
+        (slot === 'B' && roll(`${input.id}:abstain`) < 26);
+
+      if (abstains) {
+        return {
+          reportId: input.id,
+          outcome: 'insufficient_evidence',
+          coreClaim: '',
+          alignedPollId: null,
+          evidence: { reportSpan: '', pollConcept: '', alignment: '' },
+          rejection: 'mock judge: deterministic abstention branch, carries no meaning',
+        };
+      }
+
       if (pickNull) {
         return {
           reportId: input.id,
+          outcome: 'no_alignment',
           coreClaim: input.title.slice(0, 120),
           alignedPollId: null,
           evidence: { reportSpan: '', pollConcept: '', alignment: '' },
@@ -51,6 +70,7 @@ export function createMockJudge(slot: JudgeSlot): Judge {
       const poll = candidates[index];
       return {
         reportId: input.id,
+        outcome: 'aligned',
         coreClaim: input.title.slice(0, 120),
         alignedPollId: poll.id,
         evidence: {

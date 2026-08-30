@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 import type { AppData, Report } from '../../../src/types';
+import { SOURCE_TEXTS_PATH, readSourceTexts, slotsOf, tierOf } from './source-texts';
 import type { AnnotationFile, JudgeInput } from './types';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -24,6 +25,7 @@ export const PATHS = {
   annotations: resolve(REPO_ROOT, 'src/data/annotations.json'),
   prompt: resolve(HERE, '../prompts/path-a-cs.md'),
   schema: resolve(HERE, '../schemas/cs-attributes.json'),
+  sourceTexts: SOURCE_TEXTS_PATH,
   env: resolve(REPO_ROOT, '.env'),
 } as const;
 
@@ -63,16 +65,23 @@ export function readAppData(): AppData {
 }
 
 /**
- * 喂给 judge 的输入。只给 title / summary / source ——
+ * 喂给 judge 的输入 = 标题 + 出版方原文的全部非空槽位。
+ *
  * 刻意不传 counterStereotypical 与 engagementScore，避免既有人工标注污染判定。
+ * 也**不再传 report.summary**：卡片上的摘要现在就是 og:description（见
+ * scripts/backfill-source-summaries.ts），它已经在 slots 里，再传一遍等于把
+ * 同一段文字喂两次。summary 仍是撰写文本的那 4 条走 slots 全空的路径，
+ * judge 只看得到标题——这正是要如实报告的那一层，不该用撰写文本填平。
+ *
+ * app-data.json 里有、source-texts.json 里没有的报道会拿到全空槽位而不是报错：
+ * 缺快照是这批数据的既有事实（存档上没有就是没有），弃权机制专为此存在。
  */
 export function toJudgeInputs(appData: AppData): JudgeInput[] {
-  return appData.reports.map((r: Report) => ({
-    id: r.id,
-    title: r.title,
-    summary: r.summary,
-    source: r.source,
-  }));
+  const texts = readSourceTexts(PATHS.sourceTexts);
+  return appData.reports.map((r: Report) => {
+    const slots = slotsOf(texts[r.id]);
+    return { id: r.id, title: r.title, source: r.source, slots, tier: tierOf(slots) };
+  });
 }
 
 /**
@@ -127,6 +136,17 @@ export function readPrompt(): string {
 
 export function readSchema(): Record<string, unknown> {
   return JSON.parse(readFileSync(PATHS.schema, 'utf8')) as Record<string, unknown>;
+}
+
+/**
+ * 出版方原文的内容哈希。与 rubric / schema 的哈希同样进 meta。
+ *
+ * 判定输入现在有三个来源（判据、schema、原文槽位），任何一个变了而结果没
+ * 重跑，产物就对应着一份已经不存在的输入。原文那一份尤其容易被漏掉——
+ * 重跑一次采集脚本、Wayback 换了个快照，文件就变了，而从判定结果上看不出来。
+ */
+export function readSourceTextsRaw(): string {
+  return readFileSync(PATHS.sourceTexts, 'utf8');
 }
 
 /**

@@ -23,6 +23,17 @@
  * 在年份上达成一致既不可能也不必要——归组见 pollGroupKey()，组内选条见
  * pickPollInGroup()，两者都是确定性的，不经过模型。
  *
+ * ── 弃权怎么进这套规则（与 Path A 同一套，见 annotate/03-merge.ts）────────
+ *
+ * 「证据不足」是与「没有可挂的候选」并列的第三种结果。行为上两者相同——都掉到
+ * 兜底层——但在记录与统计上分开：
+ *
+ *   两个 judge 都弃权 → 'both_abstained'，剔除出 κ 的分母，单独报弃权率
+ *   一方弃权一方判定 → 'disagree'，进 κ 的分母
+ *
+ * 一方弃权算不一致，是因为「证据够不够」本身就是两个模型可以真实分歧的事情；
+ * 两个都弃权则没有「判定是否一致」可谈，算成一致会让缺文本冒充共识。
+ *
  * 用法
  *   npm run match:merge            只裁决并打印 diff，不写任何文件
  *   npm run match:merge -- --apply 确认无误后写回 app-data.json
@@ -40,6 +51,7 @@ import {
   readMatches,
   readPrompt,
   readSchema,
+  readSourceTextsRaw,
   sha256,
   topicFallbackFor,
   writeMatches,
@@ -81,13 +93,25 @@ function mergeOne(
     return null;
   };
 
-  const ga = groupOf(a.alignedPollId, 'A');
-  const gb = groupOf(b.alignedPollId, 'B');
+  // 弃权的一侧不带 group：它没有说「没有可挂的」，它说的是「读不到足以判断的」。
+  // 两者若都折成 null，一方弃权、一方判 no_alignment 就会被记成 agree_null。
+  const abstainedA = a.outcome === 'insufficient_evidence';
+  const abstainedB = b.outcome === 'insufficient_evidence';
+  const ga = abstainedA ? null : groupOf(a.alignedPollId, 'A');
+  const gb = abstainedB ? null : groupOf(b.alignedPollId, 'B');
 
   // agreement 只描述精确层上两个 judge 谈没谈拢，与最终挂到哪一层无关。
   // 两者分开记，是为了让论文的一致率只在模型真正做过判断的那一层上算。
   const agreement: MatchAgreement =
-    ga !== null && ga === gb ? 'agree_mount' : ga === null && gb === null ? 'agree_null' : 'disagree';
+    abstainedA && abstainedB
+      ? 'both_abstained'
+      : abstainedA || abstainedB
+        ? 'disagree'
+        : ga !== null && ga === gb
+          ? 'agree_mount'
+          : ga === null && gb === null
+            ? 'agree_null'
+            : 'disagree';
 
   // ① 精确层：两个 judge 落在同一个问题组
   if (agreement === 'agree_mount') {
@@ -141,8 +165,8 @@ export interface MergeSummary {
    * 东西可想。把它算进一致率会让数字凭空变好看，且样本越是缺民调、数字越高。
    * 论文的一致率与 κ 取这一组，分母是 judged。
    */
-  counts: Record<'agree_mount' | 'agree_null' | 'disagree', number>;
-  /** counts 的分母：候选非空、模型真正做过选择的报道数 */
+  counts: Record<'agree_mount' | 'agree_null' | 'disagree' | 'both_abstained', number>;
+  /** 候选非空、模型真正做过选择的报道数。κ 的分母还要再减去 both_abstained */
   judged: number;
   /** 候选为空、模型无从可判的报道数。不进 counts，但要如实报出来 */
   forcedNull: number;
@@ -169,7 +193,7 @@ export function mergeAll(file: MatchFile, appData: AppData): MergeSummary {
   const missing: string[] = [];
   const unresolved: UnresolvedRef[] = [];
   const merged: Record<string, MergedMatch> = {};
-  const counts = { agree_mount: 0, agree_null: 0, disagree: 0 };
+  const counts = { agree_mount: 0, agree_null: 0, disagree: 0, both_abstained: 0 };
   const resolutions = { subtopic: 0, topic_fallback: 0, none: 0 };
   let judged = 0;
   let forcedNull = 0;
@@ -232,6 +256,9 @@ function assertRubricCurrent(file: MatchFile): void {
     file.meta.schemaSha256 !== sha256(JSON.stringify(readSchema()))
       ? 'schemas/poll-match.json'
       : null,
+    file.meta.sourceTextsSha256 !== sha256(readSourceTextsRaw())
+      ? 'src/data/source-texts.json'
+      : null,
   ].filter(Boolean);
 
   if (drifted.length === 0) return;
@@ -253,12 +280,19 @@ function reportSummary(summary: MergeSummary, appData: AppData): void {
 
   // 两组数分开报，因为它们回答的是两个不同问题：模型在精确层上谈拢了吗、
   // 最终这条挂载是从哪一层来的。合成一张表会让人把兜底当成模型的判断。
+  // κ 的分母不是 judged，是 judged 再减去双方都弃权的那些。分母印在每一行里，
+  // 否则读者会默认它就是 judged，而「把两边都读不动的条目划掉」正是最看不出来的
+  // 那一类操作。
+  const kappaN = judged - counts.both_abstained;
   console.log('\n精确层 · 两个 judge 的一致性（论文的一致率与 κ 取这一组）');
-  console.log(`  分母：候选非空、模型真正做过选择的报道  ${judged}/${total}`);
-  console.log(`  一致·同一命题   ${counts.agree_mount}/${judged}  ${pct(counts.agree_mount, judged)}`);
-  console.log(`  一致·都无对齐   ${counts.agree_null}/${judged}  ${pct(counts.agree_null, judged)}`);
-  console.log(`  分歧            ${counts.disagree}/${judged}  ${pct(counts.disagree, judged)}`);
-  console.log(`  一致率 ${pct(counts.agree_mount + counts.agree_null, judged)}`);
+  console.log(`  候选非空、模型真正做过选择的报道  ${judged}/${total}`);
+  console.log(`  其中双方都弃权，剔除出分母        ${counts.both_abstained}`);
+  console.log(`  κ 的分母                          ${kappaN}`);
+  console.log(`  一致·同一命题   ${counts.agree_mount}/${kappaN}  ${pct(counts.agree_mount, kappaN)}`);
+  console.log(`  一致·都无对齐   ${counts.agree_null}/${kappaN}  ${pct(counts.agree_null, kappaN)}`);
+  console.log(`  分歧            ${counts.disagree}/${kappaN}  ${pct(counts.disagree, kappaN)}`);
+  console.log('  ↑ 分歧含「一方弃权一方判定」——那是真实分歧，不剔除');
+  console.log(`  一致率 ${pct(counts.agree_mount + counts.agree_null, kappaN)}`);
   console.log(`\n  另有 ${forcedNull}/${total} 篇候选为空，两个 judge 只能都判 null——`);
   console.log('  那不是一致，是没有东西可判，已排除在上面的分母之外。');
 

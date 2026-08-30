@@ -13,6 +13,8 @@
  * （见 03-merge.ts），任何人拿到 poll-matches.json 都能自己重算一遍。
  */
 
+import type { InputTier, SourceSlots } from '../../annotate/lib/source-texts';
+
 // ── ① Judge 层 ───────────────────────────────────────────────────────────
 
 /** 喂给 judge 的单条候选民调。刻意只给判定命题对齐所需的字段，不给分布数字。 */
@@ -35,8 +37,15 @@ export interface PollCandidate {
 export interface MatchInput {
   id: string;
   title: string;
-  summary: string;
   source: string;
+  /**
+   * 出版方撰写的文本，槽位模型：抓到什么给什么，空的留空。
+   * 与 Path A 共用同一份读取层（annotate/lib/source-texts），两条管线因此
+   * 必然读到同一批文本——各写一份取值逻辑，迟早会漂移成两种输入。
+   */
+  slots: SourceSlots;
+  /** 最深的非空槽位。随判定一并落盘，用于分层报告一致率与弃权率 */
+  tier: InputTier;
   /**
    * 该报道所属议题下的全部 **subtopic 级**民调——即议题内部的精确命题。
    *
@@ -63,14 +72,29 @@ export interface MatchEvidence {
   alignment: string;
 }
 
+/**
+ * 判定的三种结果。
+ *
+ *   'aligned'               找到命题对齐的候选
+ *   'no_alignment'          读过了，没有一条候选问的是这件事
+ *   'insufficient_evidence' 可得文本不足以判断核心命题是什么 —— **弃权**
+ *
+ * 后两者绝不能合并。「没有对齐的民调」是关于**民调库**的判断，「证据不足」
+ * 是关于**这篇报道可读到多少**的判断。语料里有报道只剩标题，把两者记成
+ * 同一件事，等于让缺数据冒充「模型认为不该挂」。
+ */
+export type MatchOutcome = 'aligned' | 'no_alignment' | 'insufficient_evidence';
+
 export interface MatchVerdict {
   reportId: string;
+  /** 判定结果。alignedPollId 非空当且仅当这里是 'aligned'，由 01 的闸保证 */
+  outcome: MatchOutcome;
   /** 报道的核心命题，一句陈述句。判定的中间产物，也是人工抽查的抓手。 */
   coreClaim: string;
-  /** 命题对齐的民调 id；不成立时 null——「不挂」是有意义的答案，不是缺口 */
+  /** 命题对齐的民调 id；其余两种结果下为 null */
   alignedPollId: string | null;
   evidence: MatchEvidence;
-  /** alignedPollId 为 null 时说明最接近的候选差在哪；成立时为空串 */
+  /** 未挂载时说明最接近的候选差在哪，或说明文本为何不足；挂上时为空串 */
   rejection: string;
 }
 
@@ -96,8 +120,17 @@ export type JudgeProvider = 'anthropic' | 'openai' | 'mock';
  *
  * ⚠️ `agree_null` 与 `disagree` **不再等于「不挂」**：精确层不成立的报道会掉到
  * 兜底层，该议题若有 topic 级民调就挂上。要看挂载结果请读 `resolution`。
+ *
+ * 弃权按与 Path A 相同的规则并入这套标记（见 03-merge.ts 的裁决说明）：
+ *   两个都弃权 → `both_abstained`，剔除出 κ 的分母，单独报弃权率
+ *   一方弃权   → `disagree`，进 κ 的分母
+ * 行为上三者都掉到兜底层，只在记录与统计上分开。
  */
-export type MatchAgreement = 'agree_mount' | 'agree_null' | 'disagree';
+export type MatchAgreement =
+  | 'agree_mount'
+  | 'agree_null'
+  | 'disagree'
+  | 'both_abstained';
 
 /**
  * 挂载是从哪一层来的。与 `agreement` 分开记，因为两者不再等价。
@@ -139,8 +172,12 @@ export interface MatchFile {
     /** 判据与 schema 的内容哈希。判据改了而结果没重跑，这里就会对不上。 */
     promptSha256: string;
     schemaSha256: string;
+    /** 出版方原文的内容哈希。判定输入变了而结果没重跑，这里也会对不上 */
+    sourceTextsSha256: string;
     runs: JudgeRunMeta[];
   };
+  /** 逐条的输入层级。分层报告一致率与弃权率的依据，跑完即固定 */
+  tiers: Record<string, InputTier>;
   verdicts: Record<string, Partial<Record<JudgeSlot, MatchVerdict>>>;
   merged: Record<string, MergedMatch>;
 }

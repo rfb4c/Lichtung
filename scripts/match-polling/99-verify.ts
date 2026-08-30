@@ -38,7 +38,7 @@ import {
   readSchema,
   sha256,
 } from './lib/io';
-import type { JudgeSlot, MatchFile } from './lib/types';
+import type { JudgeSlot, MatchFile, MatchVerdict } from './lib/types';
 
 interface Divergence {
   reportId: string;
@@ -79,8 +79,13 @@ export function diffRuns(
       }
 
       compared += 1;
-      const bid = b.alignedPollId ?? '不挂';
-      const aid = a.alignedPollId ?? '不挂';
+      // 弃权与「没有可挂的」必须显示成两个不同的值：折成同一个「不挂」，
+      // 一条从 no_alignment 变成 insufficient_evidence 的漂移就查不出来了，
+      // 而输入越薄的报道越容易正是在这两者之间摇摆。
+      const label = (v: MatchVerdict): string =>
+        v.outcome === 'insufficient_evidence' ? '弃权' : (v.alignedPollId ?? '不挂');
+      const bid = label(b);
+      const aid = label(a);
       if (bid === aid) continue;
 
       divergences.push({

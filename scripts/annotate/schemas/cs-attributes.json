@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CounterStereotypicalAttributes",
-  "description": "One judge's assessment of one report against the Path A rubric. reportId is attached by the pipeline rather than echoed by the model, so a model can never mislabel which report it judged. The two binary attributes are written out in full rather than shared through $defs, and nullability uses anyOf rather than a type array, so that the same file is accepted verbatim by both providers' structured-output validators.",
+  "description": "One judge's assessment of one report against the Path A rubric. reportId is attached by the pipeline rather than echoed by the model, so a model can never mislabel which report it judged. Each attribute carries a third outcome, \"insufficient_evidence\", which is recorded separately from a negative judgment: the reports differ in how much archived publisher text survives, and a judge that cannot see enough to decide must say so rather than guess. The two binary attributes are written out in full rather than shared through $defs, and nullability uses anyOf rather than a type array, so that the same file is accepted verbatim by both providers' structured-output validators.",
   "type": "object",
   "additionalProperties": false,
   "required": ["typicality", "heterogeneity", "violation", "prototype"],
@@ -10,12 +10,16 @@
       "type": "object",
       "description": "Whether the actor is presented as an ordinary member of their group.",
       "additionalProperties": false,
-      "required": ["present", "evidence"],
+      "required": ["judgment", "evidence"],
       "properties": {
-        "present": { "type": "boolean" },
+        "judgment": {
+          "type": "string",
+          "enum": ["yes", "no", "insufficient_evidence"],
+          "description": "\"yes\" or \"no\" is a decision about this report. \"insufficient_evidence\" means the text you were given does not let you decide either way; it is not a negative judgment and is never a failure."
+        },
         "evidence": {
           "type": "string",
-          "description": "Verbatim span from the headline or summary, under 200 characters. Empty string when the report contains nothing bearing on this judgment."
+          "description": "Verbatim span from the text you were given, under 200 characters. Empty string when the text contains nothing bearing on this judgment."
         }
       }
     },
@@ -23,12 +27,16 @@
       "type": "object",
       "description": "Whether the report explicitly signals that this is not a single individual.",
       "additionalProperties": false,
-      "required": ["present", "evidence"],
+      "required": ["judgment", "evidence"],
       "properties": {
-        "present": { "type": "boolean" },
+        "judgment": {
+          "type": "string",
+          "enum": ["yes", "no", "insufficient_evidence"],
+          "description": "\"yes\" or \"no\" is a decision about this report. \"insufficient_evidence\" means the text you were given does not let you decide either way; it is not a negative judgment and is never a failure."
+        },
         "evidence": {
           "type": "string",
-          "description": "Verbatim span from the headline or summary, under 200 characters. Empty string when the report contains nothing bearing on this judgment."
+          "description": "Verbatim span from the text you were given, under 200 characters. Empty string when the text contains nothing bearing on this judgment."
         }
       }
     },
@@ -40,12 +48,12 @@
       "properties": {
         "level": {
           "type": "string",
-          "enum": ["none", "moderate", "extreme"],
-          "description": "Only \"moderate\" counts toward the score; the relationship is an inverted U."
+          "enum": ["none", "moderate", "extreme", "insufficient_evidence"],
+          "description": "Only \"moderate\" counts toward the score; the relationship is an inverted U. \"none\" is a decision that the depicted position does not depart from the stereotype; \"insufficient_evidence\" means the text does not let you place the departure at all. Do not use \"none\" for the latter."
         },
         "evidence": {
           "type": "string",
-          "description": "Verbatim span from the headline or summary, under 200 characters. Empty string when the report contains nothing bearing on this judgment."
+          "description": "Verbatim span from the text you were given, under 200 characters. Empty string when the text contains nothing bearing on this judgment."
         }
       }
     },

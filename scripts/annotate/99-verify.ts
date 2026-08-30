@@ -20,14 +20,28 @@ import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import { runAnnotation } from './01-annotate-path-a';
-import { PATHS, readAnnotations, readPrompt, readSchema, sha256 } from './lib/io';
+import {
+  PATHS,
+  readAnnotations,
+  readPrompt,
+  readSchema,
+  readSourceTextsRaw,
+  sha256,
+} from './lib/io';
 import type { AnnotationFile, JudgeSlot, JudgeVerdict } from './lib/types';
 
-/** 参与比对的三个属性，取的是进入公式的那个二值量。 */
+/**
+ * 参与比对的三个属性。
+ *
+ * 取的是**三值结果**而不是折算后的二值量：折算会把「弃权」与「判不成立」
+ * 抹成同一个 false，重跑时一条从「不成立」变成「弃权」就查不出来了。
+ * 而那恰恰是这批数据最该盯住的一类漂移——输入越薄的报道越容易在两轮之间
+ * 在这两个结果之间摇摆。violation 保留四个原值，同理。
+ */
 const FACETS = {
-  typicality: (v: JudgeVerdict) => v.typicality.present,
-  heterogeneity: (v: JudgeVerdict) => v.heterogeneity.present,
-  violation: (v: JudgeVerdict) => v.violation.level === 'moderate',
+  typicality: (v: JudgeVerdict) => v.typicality.judgment,
+  heterogeneity: (v: JudgeVerdict) => v.heterogeneity.judgment,
+  violation: (v: JudgeVerdict) => v.violation.level,
 } as const;
 
 type Facet = keyof typeof FACETS;
@@ -36,8 +50,8 @@ interface Divergence {
   reportId: string;
   slot: JudgeSlot;
   facet: Facet;
-  before: boolean;
-  after: boolean;
+  before: string;
+  after: string;
 }
 
 export function diffRuns(
@@ -84,6 +98,9 @@ async function main(): Promise<void> {
     baseline.meta.promptSha256 !== sha256(readPrompt()) ? '判据 prompts/path-a-cs.md' : null,
     baseline.meta.schemaSha256 !== sha256(JSON.stringify(readSchema()))
       ? 'schemas/cs-attributes.json'
+      : null,
+    baseline.meta.sourceTextsSha256 !== sha256(readSourceTextsRaw())
+      ? 'src/data/source-texts.json'
       : null,
   ].filter(Boolean);
 

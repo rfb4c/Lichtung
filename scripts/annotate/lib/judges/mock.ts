@@ -12,12 +12,15 @@
 
 import { createHash } from 'node:crypto';
 
+import { INSUFFICIENT } from '../types';
 import type {
+  BinaryJudgment,
   Judge,
   JudgeInput,
   JudgeSlot,
   JudgeVerdict,
   Prototype,
+  ViolationJudgement,
   ViolationLevel,
 } from '../types';
 
@@ -48,22 +51,36 @@ export function createMockJudge(slot: JudgeSlot): Judge {
       const flips = (attribute: string): boolean =>
         slot === 'B' && roll(`${base}:${attribute}:flip`) < 51;
 
-      const typicality = (roll(`${base}:typicality`) < 128) !== flips('typicality');
-      const heterogeneity =
-        (roll(`${base}:heterogeneity`) < 110) !== flips('heterogeneity');
+      // 弃权分支要能被真的走到，否则裁决层的三条弃权规则永远没有 mock 覆盖。
+      // 只有标题的报道**两个 judge 都弃权**（真实模型面对同样的输入也该如此），
+      // 其余报道让 B 偶尔单方弃权，把「一方弃权一方判定」那一支也顶出来。
+      const abstains = (attribute: string): boolean =>
+        input.tier === 'headline' ||
+        (slot === 'B' && roll(`${base}:${attribute}:abstain`) < 26);
 
-      const violationRoll = roll(`${base}:violation`);
-      let level: ViolationLevel =
-        violationRoll < 90 ? 'none' : violationRoll < 180 ? 'moderate' : 'extreme';
-      if (flips('violation')) {
-        level = level === 'moderate' ? 'none' : 'moderate';
-      }
+      const decide = (attribute: string, threshold: number): BinaryJudgment => {
+        if (abstains(attribute)) return INSUFFICIENT;
+        return (roll(`${base}:${attribute}`) < threshold) !== flips(attribute) ? 'yes' : 'no';
+      };
+
+      const violation = ((): ViolationJudgement => {
+        if (abstains('violation')) {
+          return { level: INSUFFICIENT, evidence: excerpt(input) };
+        }
+        const violationRoll = roll(`${base}:violation`);
+        let level: ViolationLevel =
+          violationRoll < 90 ? 'none' : violationRoll < 180 ? 'moderate' : 'extreme';
+        if (flips('violation')) {
+          level = level === 'moderate' ? 'none' : 'moderate';
+        }
+        return { level, evidence: excerpt(input) };
+      })();
 
       return {
         reportId: input.id,
-        typicality: { present: typicality, evidence: excerpt(input) },
-        heterogeneity: { present: heterogeneity, evidence: excerpt(input) },
-        violation: { level, evidence: excerpt(input) },
+        typicality: { judgment: decide('typicality', 128), evidence: excerpt(input) },
+        heterogeneity: { judgment: decide('heterogeneity', 110), evidence: excerpt(input) },
+        violation,
         prototype: PROTOTYPES[roll(`${base}:prototype`) % PROTOTYPES.length],
       };
     },

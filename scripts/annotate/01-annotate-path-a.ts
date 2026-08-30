@@ -21,6 +21,7 @@ import {
   readAppData,
   readPrompt,
   readSchema,
+  readSourceTextsRaw,
   sha256,
   toJudgeInputs,
   writeAnnotations,
@@ -96,6 +97,12 @@ function assertResumable(
   if (previous.meta.schemaSha256 !== next.schemaSha256) {
     problems.push('schemas/cs-attributes.json 已改动');
   }
+  // 出版方原文是判定输入的主体。重跑一次采集、Wayback 换了快照，这个哈希
+  // 就变了，而从已有判定上完全看不出来——不拦住，续跑出来的文件会是
+  // 一半读了旧文本、一半读了新文本。
+  if (previous.meta.sourceTextsSha256 !== next.sourceTextsSha256) {
+    problems.push('src/data/source-texts.json 已改动');
+  }
   for (const run of next.runs) {
     const before = previous.meta.runs.find((r) => r.slot === run.slot);
     if (!before) continue;
@@ -160,6 +167,7 @@ export async function runAnnotation(options: AnnotateOptions): Promise<AnnotateR
   const meta: AnnotationFile['meta'] = {
     promptSha256: sha256(prompt),
     schemaSha256: sha256(JSON.stringify(schema)),
+    sourceTextsSha256: sha256(readSourceTextsRaw()),
     runs: judges.map((j) => ({
       slot: j.slot,
       provider: j.provider,
@@ -171,8 +179,16 @@ export async function runAnnotation(options: AnnotateOptions): Promise<AnnotateR
   const previous = loadExisting(options.resume, options.outPath);
   if (previous) assertResumable(previous, meta, options.outPath);
 
-  // merged 一律清空：新判定进来，旧裁决就是过期的，必须重跑 03-merge
-  const file: AnnotationFile = { meta, verdicts: previous?.verdicts ?? {}, merged: {} };
+  // merged 一律清空：新判定进来，旧裁决就是过期的，必须重跑 03-merge。
+  // tiers 记的是每篇实际喂进去的输入层级，与 verdicts 同源，所以跟着 verdicts 走：
+  // --resume 时保留旧条目的层级，本轮跑到的条目覆盖写入。
+  const file: AnnotationFile = {
+    meta,
+    tiers: { ...(previous?.tiers ?? {}) },
+    verdicts: previous?.verdicts ?? {},
+    merged: {},
+  };
+  for (const input of inputs) file.tiers[input.id] = input.tier;
 
   const pending: Task[] = [];
   for (const input of inputs) {
