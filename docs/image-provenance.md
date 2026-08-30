@@ -2,7 +2,7 @@
 
 > **用途**：记录每篇报道的配图来自哪个出版方，以及它与报道标注来源是否一致。
 > 本表由 `scripts/gen-image-provenance.mjs` 生成，数据源 `src/data/app-data.json`，改数据后重跑即可。
-> 报道集初次建立 2026-03-07，最后修订 2026-08-22。
+> 报道集初次建立 2026-03-07，最后修订 2026-08-30。
 
 ## 关于版权的事实陈述
 
@@ -19,9 +19,9 @@
 | ⚠️ | 来自另一家出版方 | 需处置：改标注来源以匹配实际出处，或更换素材 |
 | ❌ | 来自搜索引擎缩略图缓存 | **必须更换**：既非出版方图源，链接也不稳定 |
 
-**配图：✅ 27 · ⚠️ 1 · ❌ 0（共 28 条）**
+**配图：✅ 35 · ⚠️ 1 · ❌ 0（共 36 条）**
 
-**原文链接与标注来源不一致：1 条**
+**原文链接与标注来源不一致：0 条**
 
 ## 明细
 
@@ -45,7 +45,7 @@
 | `rp_abortion_008` | Ballotpedia | 未登记（ballotpedia.s3.amazonaws.com） | ✅ | ✅ | [原文](https://ballotpedia.org/Missouri_Amendment_3,_Prohibit_Abortion_and_Gender_Transition_Procedures_for_Minors_Amendment_(2026)) · [图片](https://ballotpedia.s3.amazonaws.com/images/a/a8/Elections_to_watch.png) |
 | `rp_climate_001` | Washington Post | Washington Post | ✅ | ✅ | [原文](https://www.washingtonpost.com/climate-environment/2026/02/12/endangerment-finding-repeal/) · [图片](https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/BI3TX7QLYMI6DDYI6MJ5WGVRHA&w=1440) |
 | `rp_climate_002` | Washington Post | Washington Post | ✅ | ✅ | [原文](https://www.washingtonpost.com/climate-environment/2026/01/12/epa-public-health-pollution-costs/) · [图片](https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/SXYZX7WFTOPBIZGAEYV44ETMTA_size-normalized.JPG&w=1800&h=1800) |
-| `rp_climate_003` | CNN | CNN | ✅ | ⚠️ 实为 Justia | [原文](https://supreme.justia.com/cases/federal/us/549/497/) · [图片](https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2261037765.jpg?c=16x9&q=w_800,c_fill) |
+| `rp_climate_003` | Justia | Justia | ✅ | ✅ | [原文](https://supreme.justia.com/cases/federal/us/549/497/) · [图片](https://justatic.com/v/20260728144057/shared/images/social-media/law.jpg) |
 | `rp_climate_004` | Bloomberg | Bloomberg | ✅ | ✅ | [原文](https://www.bloomberg.com/opinion/articles/2026-02-25/climate-change-net-zero-is-dead-long-live-renewable-energy) · [图片](https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iMvcUDmdpH48/v0/-1x-1.webp) |
 | `rp_climate_005` | EIA | EIA | ✅ | ✅ | [原文](https://www.eia.gov/todayinenergy/detail.php?id=67205) · [图片](https://www.eia.gov/todayinenergy/images/2026.02.20/main.svg) |
 | `rp_climate_006` | Washington Post | Washington Post | ✅ | ✅ | [原文](https://www.washingtonpost.com/climate-environment/2026/01/05/epa-rollbacks-strategy-courts/) · [图片](https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/WVYSWUC5NJHYFHXT6YOIQSLFJI_size-normalized.jpg&w=1800&h=1800) |
@@ -55,3 +55,11 @@
 | `rp_abortion_010` | ProPublica | ProPublica | ✅ | ✅ | [原文](https://www.propublica.org/article/republicans-face-backlash-after-challenging-abortion-bans) · [图片](https://www.propublica.org/wp-content/uploads/2026/06/20260603-abortion-reforms-punished-murphy-campaign.jpg?w=1149) |
 | `rp_climate_010` | Grist | Grist | ✅ | ✅ | [原文](https://grist.org/energy/americas-largest-coal-miners-union-supports-clean-energy-with-conditions/) · [图片](https://grist.org/wp-content/uploads/2021/04/UMWA-coal-miner-workers-energy-e1618871598667.jpg?quality=75&strip=all) |
 | `rp_immigration_001` | CNN | CNN | ✅ | ✅ | [原文](https://www.cnn.com/2025/09/23/politics/us-citizen-children-separated-parents-deported-ice-invs) · [图片](https://media.cnn.com/api/v1/images/stellar/prod/20250715-dvb-a7a-0806-mp4-00-01-39-16-still002.jpg?c=16x9&q=w_800,c_fill) |
+| `rp_immigration_002` | Texas Tribune | Texas Tribune | ✅ | ✅ | [原文](https://www.texastribune.org/2025/05/13/texas-houston-ice-deportations/) · [图片](https://i0.wp.com/www.texastribune.org/wp-content/uploads/2025/05/040120ICE20Raid20Minor20EG20TT2037-1-scaled.jpg?fit=2560%2C1707&quality=100&ssl=1&w=1200&h=630) |
+| `rp_immigration_003` | NPR | NPR | ✅ | ✅ | [原文](https://www.npr.org/2025/06/07/nx-s1-5426518/ice-conducts-sweeping-raids-in-l-a-clashes-with-protestors) · [图片](https://media.npr.org/include/images/facebook-default-wide-s1400-c85.jpg) |
+| `rp_immigration_004` | CBS News | CBS News | ✅ | ✅ | [原文](https://www.cbsnews.com/news/ices-detainee-population-record-high-of-73000/) · [图片](https://assets1.cbsnewsstatic.com/hub/i/r/2026/01/16/7203659a-8e83-4eaf-a314-32b09df3c2fa/thumbnail/1200x630g2/c91beb0b21f9a829523f50822384f334/gettyimages-2241660050.jpg) |
+| `rp_immigration_005` | PBS NewsHour | PBS NewsHour | ✅ | ✅ | [原文](https://www.pbs.org/newshour/politics/foreigners-in-u-s-must-apply-for-green-cards-abroad-new-trump-administration-rule-says) · [图片](https://d3i6fh83elv35t.cloudfront.net/static/2026/05/2018-07-18T191619Z_1506837021_RC1DA436B7F0_RTRMADP_3_USA-IMMIGRATION-NATURALIZATION-1024x683.jpg) |
+| `rp_immigration_006` | NPR | NPR | ✅ | ✅ | [原文](https://www.npr.org/2026/04/25/nx-s1-5798943/justice-department-makes-it-easier-to-deport-those-with-daca-status) · [图片](https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4500x2531+0+234/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fed%2Fd5%2F5ef2db7749eba5efd5ac75d25777%2Fgettyimages-1137865525.jpg) |
+| `rp_immigration_007` | NPR | NPR | ✅ | ✅ | [原文](https://www.npr.org/2026/06/30/nx-s1-5839358/birthright-citizenship-decision-scotus-trump) · [图片](https://npr.brightspotcdn.com/dims3/default/strip/false/crop/8317x4678+0+433/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F56%2Fd2%2F6c6ec3594b828e8a0c5078dd3576%2Fgettyimages-1260960662-1.jpg) |
+| `rp_immigration_008` | Texas Tribune | Texas Tribune | ✅ | ✅ | [原文](https://www.texastribune.org/2025/07/02/texas-trump-asylum-federal-judge-order/) · [图片](https://i0.wp.com/www.texastribune.org/wp-content/uploads/2025/07/Eagle20Pass20Asylum20Seek20REUTERS-1-scaled.jpg?fit=2560%2C1707&quality=100&ssl=1&w=1200&h=630) |
+| `rp_immigration_009` | NPR | NPR | ✅ | ✅ | [原文](https://www.npr.org/2026/06/25/nx-s1-5838860/supreme-court-asylum-policy) · [图片](https://npr.brightspotcdn.com/dims3/default/strip/false/crop/7847x4414+0+409/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Ff3%2Fe3%2F35bd706049059c4648268e50ad67%2Fgettyimages-2159564157.jpg) |
